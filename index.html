@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="te">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +8,10 @@
     <link rel="icon" href="https://omnnbc.in/m/iIEkQ5" type="image/png">
 
     <style>
-        body { margin: 0; font-family: Arial, sans-serif; background: #f9f9f9; color: #333; }
-        .site-header { width: 100%; background: #fff9c4; box-sizing: border-box; }
+        body { margin: 0; font-family: 'Segoe UI', Arial, sans-serif; background: #f9f9f9; color: #333; }
+        
+        /* Header Section */
+        .site-header { width: 100%; background: #fff9c4; border-bottom: 2px solid #d81b60; box-sizing: border-box; }
         .site-top-box { display: flex; align-items: center; justify-content: center; gap: 15px; padding: 15px; flex-wrap: wrap; }
         .site-logo { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid #d81b60; }
         .site-title-text h1 { margin: 0; line-height: 1.2; text-align: left; }
@@ -17,23 +19,27 @@
         .site-title-text .line1 { display: block; font-size: clamp(24px, 4.5vw, 36px); font-weight: bold; }
         .site-title-text .line2 { display: block; font-size: clamp(20px, 4vw, 30px); font-weight: bold; }
         .tagline-box { background-color: #007BFF; color: white; padding: 10px; text-align: center; }
-        .tagline-box p { margin: 0; font-size: clamp(16px, 2.5vw, 20px); }
+        .tagline-box p { margin: 0; font-size: 18px; }
 
-        /* Main Content Styles */
-        .content-container { max-width: 800px; margin: 40px auto; padding: 0 15px; min-height: 60vh; }
+        /* Search Bar */
+        .search-container { max-width: 600px; margin: 20px auto; padding: 0 15px; text-align: center; }
+        .search-input { width: 100%; padding: 12px 20px; border-radius: 50px; border: 1px solid #ccc; outline: none; font-size: 16px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+
+        /* Posts Section */
+        .content-container { max-width: 800px; margin: 20px auto; padding: 0 15px; min-height: 50vh; }
         .dashakam-title { text-align: center; color: #FF69B4; font-size: 32px; margin-bottom: 30px; font-weight: 800; text-transform: uppercase; }
-        .post-card { background: #FFF9E6; padding: 25px 20px; margin-bottom: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); border-left: 5px solid #FF69B4; }
+        .post-card { background: #FFF9E6; padding: 25px 20px; margin-bottom: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); border-left: 5px solid #FF69B4; transition: 0.3s; }
+        .post-card:hover { transform: translateY(-3px); }
         .post-title { margin-top: 0; font-size: 24px; margin-bottom: 10px; }
         .post-title a { color: #002366; text-decoration: none; font-weight: bold; }
         .post-excerpt { color: #555; font-size: 15px; line-height: 1.6; }
         .read-more { display: inline-block; margin-top: 10px; color: #FF69B4; font-weight: bold; text-decoration: none; }
 
-        /* Footer Styles from footer.php */
-        footer { background:#001a33; color:#fff; text-align:center; padding:40px 20px; margin-top:30px; }
-        .foot-form { max-width:400px; margin:0 auto; display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
-        .foot-input { flex:1; min-width:200px; padding:10px 15px; border-radius:25px; border:none; outline:none; font-size:14px; }
+        /* Footer Section */
+        footer { background:#001a33; color:#fff; text-align:center; padding:40px 20px; margin-top:50px; }
+        .foot-form { max-width:400px; margin:15px auto; display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+        .foot-input { flex:1; min-width:200px; padding:10px 15px; border-radius:25px; border:none; outline:none; }
         .btn-sub { padding:10px 20px; border:none; border-radius:25px; background:#ffcc00; color:#001a33; font-weight:bold; cursor:pointer; }
-        .btn-unsub { padding:10px 20px; border:none; border-radius:25px; background:#ff3366; color:#fff; font-weight:bold; cursor:pointer; }
     </style>
 </head>
 <body>
@@ -43,7 +49,7 @@
             <img src="https://omnnbc.in/m/iIEkQ5" alt="Logo" class="site-logo">
             <div class="site-title-text">
                 <h1>
-                    <a href="/">
+                    <a href="index.html">
                         <span class="line1">Namo Narayanaya</span>
                         <span class="line2">Bhakthi Channel</span>
                     </a>
@@ -55,78 +61,77 @@
         </div>
     </header>
 
+    <div class="search-container">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search Shlokas (e.g. Dashakam 1)..." onkeyup="filterPosts()">
+    </div>
+
     <div class="content-container">
-        <h2 class="dashakam-title">Latest Posts</h2>
+        <h2 class="dashakam-title">Latest Updates</h2>
         <div id="posts-container">
-            <p style="text-align:center;">Loading divine thoughts...</p>
+            <p style="text-align:center;">Loading content...</p>
         </div>
     </div>
 
     <footer>
-        <h3 style="font-size:20px; margin-bottom:10px;">Stay Connected with Dasabodha</h3>
-        <p style="font-size:14px; color:#cce0ff; margin-bottom:20px;">Receive and manage your email subscription easily.</p>
-
-        <form class="foot-form" id="subscribeForm">
+        <h3>Stay Connected</h3>
+        <form class="foot-form" onsubmit="event.preventDefault(); alert('Connected to omnnbc.in server');">
             <input type="email" class="foot-input" placeholder="Enter your email" required>
             <button type="submit" class="btn-sub">Subscribe</button>
         </form>
-
-        <form class="foot-form" id="unsubscribeForm" style="margin-top:15px;">
-            <input type="email" class="foot-input" placeholder="Enter email to unsubscribe" required>
-            <button type="submit" class="btn-unsub">Unsubscribe</button>
-        </form>
-
-        <p id="subscribeMessage" style="margin-top:12px; font-size:14px;"></p>
-
         <hr style="margin:25px auto; width:80%; border-color:#004080;">
-
-        <a href="/" style="display:inline-block; background:#ffcc00; color:#001a33; padding:8px 18px; border-radius:6px; text-decoration:none; font-weight:bold; margin-bottom:10px;">🏠 Home</a>
-
-        <p style="margin:8px 0 0 0;">&copy; <span id="year"></span> Namo Narayanaya Bhakthi Channel — All Rights Reserved.</p>
-        <p style="margin:5px 0 0 0; font-size:14px;">Powered by <a href="https://omnnbc.in" style="color:#ffcc00; text-decoration:none; font-weight:bold;">omnnbc.in</a></p>
+        <p>&copy; <span id="year"></span> Namo Narayanaya Bhakthi Channel</p>
+        <p style="font-size:14px;">Powered by <a href="https://omnnbc.in" style="color:#ffcc00; text-decoration:none;">omnnbc.in</a></p>
     </footer>
 
     <script>
-        // Set Year Automatically
         document.getElementById('year').textContent = new Date().getFullYear();
+        let allPosts = [];
 
-        // Fetch Posts Logic
-        async function loadPosts() {
+        async function initSite() {
             const container = document.getElementById('posts-container');
             try {
+                // Fetch from your data folder
                 const response = await fetch('./data/posts.json');
-                const posts = await response.json();
-                
-                const publicPosts = posts.filter(p => p.status === 'public')
-                                         .sort((a, b) => new Date(b.created) - new Date(a.created));
-
-                container.innerHTML = '';
-                publicPosts.forEach(post => {
-                    const excerpt = post.meta_description || post.content.replace(/<[^>]*>/g, '').substring(0, 150);
-                    container.innerHTML += `
-                        <div class="post-card">
-                            <h2 class="post-title"><a href="/${post.slug}">${post.title}</a></h2>
-                            <p class="post-excerpt">${excerpt}...</p>
-                            <a href="/${post.slug}" class="read-more">Read More →</a>
-                        </div>`;
-                });
+                allPosts = await response.json();
+                renderPosts(allPosts);
             } catch (e) {
-                container.innerHTML = '<p style="text-align:center;">Posts are being updated. Please check back soon.</p>';
+                container.innerHTML = '<p style="text-align:center; color:red;">Ensure data/posts.json exists in your repository.</p>';
             }
         }
 
-        // Form handling (Static Version)
-        const handleStaticForm = (id) => {
-            document.getElementById(id).addEventListener('submit', (e) => {
-                e.preventDefault();
-                document.getElementById('subscribeMessage').textContent = "Note: Subscriptions require a backend server. Please contact us at omnnbc.in.";
-                document.getElementById('subscribeMessage').style.color = "#ffcc00";
-            });
-        };
+        function renderPosts(postsToDisplay) {
+            const container = document.getElementById('posts-container');
+            container.innerHTML = '';
+            
+            const publicPosts = postsToDisplay.filter(p => p.status === 'public')
+                                              .sort((a, b) => new Date(b.created) - new Date(a.created));
 
-        handleStaticForm('subscribeForm');
-        handleStaticForm('unsubscribeForm');
-        window.onload = loadPosts;
+            if(publicPosts.length === 0) {
+                container.innerHTML = '<p style="text-align:center;">No results found.</p>';
+                return;
+            }
+
+            publicPosts.forEach(post => {
+                const excerpt = post.meta_description || post.content.replace(/<[^>]*>/g, '').substring(0, 150);
+                container.innerHTML += `
+                    <div class="post-card">
+                        <h2 class="post-title"><a href="post.html?id=${post.slug}">${post.title}</a></h2>
+                        <p class="post-excerpt">${excerpt}...</p>
+                        <a href="post.html?id=${post.slug}" class="read-more">Read More (చదవండి) →</a>
+                    </div>`;
+            });
+        }
+
+        function filterPosts() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = allPosts.filter(p => 
+                p.title.toLowerCase().includes(query) || 
+                p.content.toLowerCase().includes(query)
+            );
+            renderPosts(filtered);
+        }
+
+        window.onload = initSite;
     </script>
 </body>
 </html>
