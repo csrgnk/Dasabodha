@@ -3,52 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Namo Narayanaya Bhakthi Channel - Dasabodha</title>
     <meta name="description" content="Dasabodha Grantha Telugu Lyrics">
-    <link rel="canonical" href="https://csrgnk.github.io/Dasabodha/">
-
-    <meta property="og:title" content="Namo Narayanaya Bhakthi Channel">
-    <meta property="og:description" content="Dasabodha Grantha Telugu Lyrics">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://csrgnk.github.io/Dasabodha/">
-    <meta property="og:image" content="https://omnnbc.in/m/iIEkQ5">
     <link rel="icon" href="https://omnnbc.in/m/iIEkQ5" type="image/png">
 
-    <meta name="google-site-verification" content="vtmgwR4tvah1Q3r2Fn2gql5KhPowmP6q291jthbykjM" />
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7573720131021971" crossorigin="anonymous"></script>
-
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-505792160-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-505792160-1');
-    </script>
-
     <style>
-        body { margin: 0; font-family: Arial, sans-serif; background: #f9f9f9; }
-        
-        /* Header Style from your header.php */
+        body { margin: 0; font-family: Arial, sans-serif; background: #f9f9f9; color: #333; }
         .site-header { width: 100%; background: #fff9c4; box-sizing: border-box; }
         .site-top-box { display: flex; align-items: center; justify-content: center; gap: 15px; padding: 15px; flex-wrap: wrap; }
         .site-logo { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid #d81b60; }
         .site-title-text h1 { margin: 0; line-height: 1.2; text-align: left; }
-        .site-title-text h1 a { text-decoration: none; color: #d81b60; display: inline-block; }
+        .site-title-text h1 a { text-decoration: none; color: #d81b60; }
         .site-title-text .line1 { display: block; font-size: clamp(24px, 4.5vw, 36px); font-weight: bold; }
         .site-title-text .line2 { display: block; font-size: clamp(20px, 4vw, 30px); font-weight: bold; }
         .tagline-box { background-color: #007BFF; color: white; padding: 10px; text-align: center; }
         .tagline-box p { margin: 0; font-size: clamp(16px, 2.5vw, 20px); }
 
-        /* Posts Content Style */
-        .content-container { max-width: 800px; margin: 40px auto; padding: 0 15px; min-height: 100vh; }
+        /* Main Content Styles */
+        .content-container { max-width: 800px; margin: 40px auto; padding: 0 15px; min-height: 60vh; }
         .dashakam-title { text-align: center; color: #FF69B4; font-size: 32px; margin-bottom: 30px; font-weight: 800; text-transform: uppercase; }
         .post-card { background: #FFF9E6; padding: 25px 20px; margin-bottom: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); border-left: 5px solid #FF69B4; }
-        .post-title { margin-top: 0; font-size: 24px; margin-bottom: 10px; font-weight: bold; }
-        .post-title a { color: #002366; text-decoration: none; }
-        .post-excerpt { color: #555; font-size: 15px; line-height: 1.6; margin-bottom: 15px; }
-        .read-more { display: inline-block; font-size: 14px; color: #FF69B4; font-weight: bold; text-decoration: none; }
-        #loading { text-align: center; font-style: italic; color: #888; }
+        .post-title { margin-top: 0; font-size: 24px; margin-bottom: 10px; }
+        .post-title a { color: #002366; text-decoration: none; font-weight: bold; }
+        .post-excerpt { color: #555; font-size: 15px; line-height: 1.6; }
+        .read-more { display: inline-block; margin-top: 10px; color: #FF69B4; font-weight: bold; text-decoration: none; }
+
+        /* Footer Styles from footer.php */
+        footer { background:#001a33; color:#fff; text-align:center; padding:40px 20px; margin-top:30px; }
+        .foot-form { max-width:400px; margin:0 auto; display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+        .foot-input { flex:1; min-width:200px; padding:10px 15px; border-radius:25px; border:none; outline:none; font-size:14px; }
+        .btn-sub { padding:10px 20px; border:none; border-radius:25px; background:#ffcc00; color:#001a33; font-weight:bold; cursor:pointer; }
+        .btn-unsub { padding:10px 20px; border:none; border-radius:25px; background:#ff3366; color:#fff; font-weight:bold; cursor:pointer; }
     </style>
 </head>
 <body>
@@ -72,52 +57,76 @@
 
     <div class="content-container">
         <h2 class="dashakam-title">Latest Posts</h2>
-        
         <div id="posts-container">
-            <p id="loading">Fetching posts...</p>
+            <p style="text-align:center;">Loading divine thoughts...</p>
         </div>
     </div>
 
+    <footer>
+        <h3 style="font-size:20px; margin-bottom:10px;">Stay Connected with Dasabodha</h3>
+        <p style="font-size:14px; color:#cce0ff; margin-bottom:20px;">Receive and manage your email subscription easily.</p>
+
+        <form class="foot-form" id="subscribeForm">
+            <input type="email" class="foot-input" placeholder="Enter your email" required>
+            <button type="submit" class="btn-sub">Subscribe</button>
+        </form>
+
+        <form class="foot-form" id="unsubscribeForm" style="margin-top:15px;">
+            <input type="email" class="foot-input" placeholder="Enter email to unsubscribe" required>
+            <button type="submit" class="btn-unsub">Unsubscribe</button>
+        </form>
+
+        <p id="subscribeMessage" style="margin-top:12px; font-size:14px;"></p>
+
+        <hr style="margin:25px auto; width:80%; border-color:#004080;">
+
+        <a href="/" style="display:inline-block; background:#ffcc00; color:#001a33; padding:8px 18px; border-radius:6px; text-decoration:none; font-weight:bold; margin-bottom:10px;">🏠 Home</a>
+
+        <p style="margin:8px 0 0 0;">&copy; <span id="year"></span> Namo Narayanaya Bhakthi Channel — All Rights Reserved.</p>
+        <p style="margin:5px 0 0 0; font-size:14px;">Powered by <a href="https://omnnbc.in" style="color:#ffcc00; text-decoration:none; font-weight:bold;">omnnbc.in</a></p>
+    </footer>
+
     <script>
-        async function fetchPosts() {
+        // Set Year Automatically
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Fetch Posts Logic
+        async function loadPosts() {
             const container = document.getElementById('posts-container');
             try {
-                // Fetch the JSON from your repository
                 const response = await fetch('./data/posts.json');
-                if (!response.ok) throw new Error("JSON not found");
+                const posts = await response.json();
                 
-                let posts = await response.json();
+                const publicPosts = posts.filter(p => p.status === 'public')
+                                         .sort((a, b) => new Date(b.created) - new Date(a.created));
 
-                // Logic: Filter public and sort by date
-                posts = posts.filter(p => p.status === 'public');
-                posts.sort((a, b) => new Date(b.created) - new Date(a.created));
-
-                container.innerHTML = ''; // Clear loading
-
-                posts.forEach(post => {
-                    // Create summary
-                    const summary = post.meta_description || 
-                                   (post.content ? post.content.replace(/<[^>]*>/g, '').substring(0, 150) : "No description available");
-
-                    const card = `
+                container.innerHTML = '';
+                publicPosts.forEach(post => {
+                    const excerpt = post.meta_description || post.content.replace(/<[^>]*>/g, '').substring(0, 150);
+                    container.innerHTML += `
                         <div class="post-card">
-                            <h2 class="post-title">
-                                <a href="${post.slug}.html">${post.title}</a>
-                            </h2>
-                            <p class="post-excerpt">${summary}...</p>
-                            <a href="${post.slug}.html" class="read-more">Read More →</a>
-                        </div>
-                    `;
-                    container.innerHTML += card;
+                            <h2 class="post-title"><a href="/${post.slug}">${post.title}</a></h2>
+                            <p class="post-excerpt">${excerpt}...</p>
+                            <a href="/${post.slug}" class="read-more">Read More →</a>
+                        </div>`;
                 });
-
-            } catch (err) {
-                container.innerHTML = `<p style="text-align:center; color:red;">Error loading posts. Please check if data/posts.json exists.</p>`;
+            } catch (e) {
+                container.innerHTML = '<p style="text-align:center;">Posts are being updated. Please check back soon.</p>';
             }
         }
 
-        window.onload = fetchPosts;
-    </script>
+        // Form handling (Static Version)
+        const handleStaticForm = (id) => {
+            document.getElementById(id).addEventListener('submit', (e) => {
+                e.preventDefault();
+                document.getElementById('subscribeMessage').textContent = "Note: Subscriptions require a backend server. Please contact us at omnnbc.in.";
+                document.getElementById('subscribeMessage').style.color = "#ffcc00";
+            });
+        };
 
+        handleStaticForm('subscribeForm');
+        handleStaticForm('unsubscribeForm');
+        window.onload = loadPosts;
+    </script>
 </body>
 </html>
