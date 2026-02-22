@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Namo Narayanaya</title>
+    <script type="text/javascript">
+        // This script takes the "not found" path and redirects it to post.html
+        var pathSegments = window.location.pathname.split('/');
+        var slug = pathSegments[pathSegments.length - 1];
+        
+        // If there is a slug, redirect to post.html with that slug as an ID
+        if (slug && slug !== 'Dasabodha') {
+            window.location.href = '/Dasabodha/post.html?id=' + slug;
+        } else {
+            window.location.href = '/Dasabodha/index.html';
+        }
+    </script>
+</head>
+<body>
+    Redirecting to divine content...
+</body>
+</html>
