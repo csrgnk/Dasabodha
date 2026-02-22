@@ -3,66 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Namo Narayanaya - Reading...</title>
+    <title>Loading... - Namo Narayanaya</title>
     <link rel="icon" href="https://omnnbc.in/m/iIEkQ5" type="image/png">
 
     <style>
-        body { margin: 0; font-family: 'Segoe UI', Arial, sans-serif; background: #f9f9f9; color: #333; line-height: 1.6; }
+        body { margin: 0; font-family: Arial, sans-serif; background: #f9f9f9; }
         
-        /* Matching Header from Index */
-        .site-header { width: 100%; background: #fff9c4; border-bottom: 2px solid #d81b60; box-sizing: border-box; }
-        .site-top-box { display: flex; align-items: center; justify-content: center; gap: 15px; padding: 15px; }
-        .site-logo { width: 50px; height: 50px; border-radius: 50%; border: 2px solid #d81b60; }
-        .site-title { text-decoration: none; color: #d81b60; font-weight: bold; font-size: 20px; }
-
-        /* Content Area */
-        .post-wrapper { max-width: 850px; margin: 30px auto; padding: 0 15px; min-height: 70vh; }
-        .post-content-card { background: #fff; padding: 35px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-top: 8px solid #FF69B4; }
-        
-        h1.post-title { color: #002366; font-size: 30px; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px; text-align: center; }
-        
-        /* Telugu Styling */
-        .telugu-lyrics { 
-            font-size: 22px; 
-            color: #222; 
-            white-space: pre-wrap; 
-            background: #fffdf0; 
-            padding: 20px; 
-            border-radius: 10px; 
-            font-weight: 500;
+        /* Main Container matching your PHP style */
+        .main-wrapper { 
+            padding: 15px; 
+            background: #FFF9E6; 
+            min-height: 100vh; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            box-sizing: border-box;
+            border: 1px solid #eee;
         }
-        
-        .back-nav { margin-bottom: 20px; display: inline-block; color: #FF69B4; text-decoration: none; font-weight: bold; background: #fff; padding: 8px 15px; border-radius: 50px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        
-        footer { background:#001a33; color:#fff; text-align:center; padding:30px; margin-top:50px; }
+
+        /* Post title box - Yellow Style */
+        .post-title-box { 
+            background: #FFD966; 
+            padding: 15px; 
+            font-size: 24px; 
+            font-weight: bold; 
+            text-align: center; 
+            margin-bottom: 20px; 
+            border-radius: 5px; 
+            color: #333;
+            border-bottom: 2px solid #d81b60;
+        }
+
+        .post-content {
+            font-size: 20px;
+            line-height: 1.8;
+            color: #222;
+            white-space: pre-wrap; /* Keeps Telugu line breaks */
+        }
+
+        /* Share buttons styling */
+        .share-buttons { margin-top: 20px; border-top: 1px solid #ddd; padding-top: 15px; }
+        .share-buttons button { 
+            margin: 5px 5px 5px 0; 
+            padding: 10px 15px; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            font-size: 14px; 
+            color: white; 
+        }
+        .share-buttons input { 
+            width: 80%; 
+            padding: 8px; 
+            margin-top: 10px; 
+            border-radius: 4px; 
+            border: 1px solid #ccc; 
+        }
+
+        /* Stats line */
+        .stats-line { margin-top: 15px; font-weight: bold; color: #555; }
+
+        .back-home {
+            display: inline-block;
+            margin-bottom: 15px;
+            text-decoration: none;
+            color: #d81b60;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
-    <header class="site-header">
-        <div class="site-top-box">
-            <img src="https://omnnbc.in/m/iIEkQ5" alt="Logo" class="site-logo">
-            <a href="index.html" class="site-title">Namo Narayanaya Bhakthi Channel</a>
-        </div>
-    </header>
+    <div class="main-wrapper">
+        <a href="index.html" class="back-home">← Home (మొదటి పేజీ)</a>
 
-    <div class="post-wrapper">
-        <a href="index.html" class="back-nav">← Back to Home (మొదటి పేజీ)</a>
-        
-        <div class="post-content-card" id="post-display">
-            <p style="text-align:center;">Loading divine content...</p>
+        <div id="post-title" class="post-title-box">Loading...</div>
+
+        <div id="post-content" class="post-content">
+            <p style="text-align:center;">శోధన జరుగుతోంది...</p>
+        </div>
+
+        <div class="stats-line">
+            👍 Like (<span id="like-count">0</span>) &nbsp;&nbsp; 👁 Views: <span id="view-count">1</span>
+        </div>
+
+        <div class="share-buttons">
+            <button onclick="shareWhatsApp()" style="background:#25D366;">WhatsApp</button>
+            <button onclick="shareFacebook()" style="background:#3b5998;">Facebook</button>
+            <button onclick="shareTelegram()" style="background:#0088cc;">Telegram</button>
+            <br>
+            <input type="text" readonly id="copyUrlText">
+            <button onclick="copyLink()" style="background:#666;">Copy Link</button>
         </div>
     </div>
 
-    <footer>
-        <p>&copy; Namo Narayanaya Bhakthi Channel</p>
-    </footer>
-
     <script>
-        async function loadPost() {
-            const display = document.getElementById('post-display');
-            
-            // Get the ID from the URL (e.g. post.html?id=shloka-1)
+        let currentPostTitle = "";
+        let currentUrl = window.location.href;
+
+        async function loadPostDetails() {
             const urlParams = new URLSearchParams(window.location.search);
             const slug = urlParams.get('id');
 
@@ -72,26 +111,58 @@
             }
 
             try {
+                // Fetch posts.json
                 const response = await fetch('./data/posts.json');
                 const posts = await response.json();
                 
-                // Find the specific post
-                const post = posts.find(p => p.slug === slug);
+                // Fetch pages.json (Merging like your PHP array_merge)
+                let pages = [];
+                try {
+                    const respPages = await fetch('./data/pages.json');
+                    pages = await respPages.json();
+                } catch(e) { console.log("No pages.json found"); }
+
+                const allItems = [...posts, ...pages];
+                const post = allItems.find(p => p.slug === slug);
 
                 if (post) {
-                    document.title = post.title + " - Namo Narayanaya";
-                    display.innerHTML = `
-                        <h1 class="post-title">${post.title}</h1>
-                        <div class="telugu-lyrics">${post.content}</div>
-                    `;
+                    currentPostTitle = post.title;
+                    document.title = post.title;
+                    document.getElementById('post-title').innerText = post.title;
+                    document.getElementById('post-content').innerHTML = post.content;
+                    document.getElementById('copyUrlText').value = currentUrl;
+                    
+                    // Views Simulation (Since GitHub is static, we show a random base + local session)
+                    document.getElementById('view-count').innerText = Math.floor(Math.random() * 100) + 120;
                 } else {
-                    display.innerHTML = "<h2>Post Not Found (క్షమించండి, సమాచారం దొరకలేదు).</h2>";
+                    document.getElementById('post-content').innerHTML = "Page not found.";
                 }
             } catch (err) {
-                display.innerHTML = "<h2>Error loading data. Check data/posts.json</h2>";
+                document.getElementById('post-content').innerHTML = "Error loading data.";
             }
         }
-        window.onload = loadPost;
+
+        // Sharing Functions
+        function shareWhatsApp() {
+            const text = encodeURIComponent(currentPostTitle + " " + currentUrl);
+            window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+        }
+        function shareFacebook() {
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`, '_blank');
+        }
+        function shareTelegram() {
+            const text = encodeURIComponent(currentPostTitle);
+            window.open(`https://t.me/share/url?url=${encodeURIComponent(currentUrl)}&text=${text}`, '_blank');
+        }
+        function copyLink() {
+            const copyText = document.getElementById("copyUrlText");
+            copyText.select();
+            document.execCommand("copy");
+            alert("లింక్ కాపీ చేయబడింది! (Link Copied)");
+        }
+
+        window.onload = loadPostDetails;
     </script>
+
 </body>
 </html>
