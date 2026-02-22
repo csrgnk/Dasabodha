@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Content</title>
+
 <style>
 body{margin:0;font-family:Arial;background:#f9f9f9}
 .container{padding:30px 15px;max-width:800px;margin:auto}
@@ -32,25 +33,40 @@ fetch('footer.html')
 .then(d=>document.getElementById('footer').innerHTML=d);
 
 // Get slug
-const params=new URLSearchParams(window.location.search);
-const slug=params.get("slug");
+const params = new URLSearchParams(window.location.search);
+const slug = params.get("slug");
 
 if(!slug){
-document.getElementById("content-title").innerText="No Content Found";
+document.getElementById("content-title").innerText="Slug Missing";
 throw new Error("Slug missing");
 }
 
-// Load both posts & pages
+// Safe JSON loader
+function loadJSON(path){
+return fetch(path)
+.then(res=>{
+if(!res.ok) return [];
+return res.json();
+})
+.catch(()=>[]);
+}
+
 Promise.all([
-fetch('data/posts.json').then(res=>res.json()),
-fetch('data/pages.json').then(res=>res.json())
+loadJSON('data/posts.json'),
+loadJSON('data/pages.json')
 ])
 .then(([posts,pages])=>{
 
-let item = posts.find(p=>p.slug===slug && p.status==="public");
+// Ensure array format
+if(!Array.isArray(posts)) posts = [posts];
+if(!Array.isArray(pages)) pages = [pages];
 
+// Find in posts
+let item = posts.find(p=>p.slug===slug);
+
+// If not found in posts, check pages
 if(!item){
-item = pages.find(p=>p.slug===slug && p.status==="public");
+item = pages.find(p=>p.slug===slug);
 }
 
 if(!item){
@@ -58,9 +74,10 @@ document.getElementById("content-title").innerText="Content Not Found";
 return;
 }
 
-document.title=item.title;
-document.getElementById("content-title").innerText=item.title;
-document.getElementById("content-body").innerHTML=item.content;
+// Set page
+document.title = item.title || "Content";
+document.getElementById("content-title").innerText = item.title || "";
+document.getElementById("content-body").innerHTML = item.content || "";
 
 })
 .catch(err=>{
