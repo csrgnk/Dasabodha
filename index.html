@@ -1,95 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dasabodha</title>
+<style>
+body{margin:0;font-family:Arial;background:#f9f9f9}
+.container{padding:30px 15px}
+.post-box{
+background:#FFF9E6;
+padding:20px;
+margin-bottom:20px;
+border-radius:12px;
+box-shadow:0 4px 10px rgba(0,0,0,0.08);
+border-left:5px solid #FF69B4;
+}
+.post-box h2 a{color:#002366;text-decoration:none}
+.read-more{color:#FF69B4;font-weight:bold;text-decoration:none}
+.pagination{text-align:center;margin-top:40px}
+</style>
 </head>
 <body>
 
-<div style="background:#fff; padding:30px 15px; font-family: Arial, sans-serif; min-height:100vh;">
+<div id="header"></div>
 
-<div style="text-align:center; margin-bottom:40px; border-bottom:1px solid #eee; padding-bottom:20px;">
-<a href="index.html" style="display:inline-block; padding:10px 24px; background:#002366; color:#fff; font-size:16px; font-weight:bold; text-decoration:none; border-radius:50px;">
-📖 Dasabodha
-</a>
-
-<h1 id="page-title" style="color:#FF69B4; font-size:32px; margin-top:15px; font-weight:800; text-transform:uppercase;"></h1>
+<div class="container">
+<h1 id="page-title" style="text-align:center;color:#FF69B4;"></h1>
+<div id="posts-container"></div>
+<div id="pagination" class="pagination"></div>
 </div>
 
-<div id="posts-container" style="max-width:800px; margin:0 auto;"></div>
-
-<div id="pagination" style="text-align:center; margin-top:40px;"></div>
-
-</div>
+<div id="footer"></div>
 
 <script>
+// Load header & footer
+fetch('header.html').then(r=>r.text()).then(d=>document.getElementById('header').innerHTML=d);
+fetch('footer.html').then(r=>r.text()).then(d=>document.getElementById('footer').innerHTML=d);
 
-const postsPerPage = 10;
+// Posts logic
+const postsPerPage=10;
 
 fetch('data/posts.json')
-.then(response => response.json())
-.then(posts => {
+.then(res=>res.json())
+.then(posts=>{
 
-posts = posts.filter(post => post.status === "public");
+posts=posts.filter(p=>p.status==="public");
+posts.sort((a,b)=>new Date(b.created)-new Date(a.created));
 
-posts.sort((a, b) => new Date(b.created) - new Date(a.created));
+const params=new URLSearchParams(window.location.search);
+const currentPage=parseInt(params.get("page"))||1;
 
-const params = new URLSearchParams(window.location.search);
-const currentPage = parseInt(params.get("page")) || 1;
+const totalPages=Math.ceil(posts.length/postsPerPage);
+const start=(currentPage-1)*postsPerPage;
+const pagePosts=posts.slice(start,start+postsPerPage);
 
-const totalPages = Math.ceil(posts.length / postsPerPage);
-const start = (currentPage - 1) * postsPerPage;
-const pagePosts = posts.slice(start, start + postsPerPage);
+document.getElementById("page-title").innerText="Dashakam "+currentPage;
 
-document.getElementById("page-title").innerText =
-"Dashakam " + currentPage;
+const container=document.getElementById("posts-container");
 
-const container = document.getElementById("posts-container");
+pagePosts.forEach(post=>{
+let meta=post.meta_description?
+post.meta_description:
+post.content.replace(/<[^>]+>/g,"");
 
-pagePosts.forEach(post => {
+meta=meta.substring(0,160);
 
-let meta = post.meta_description
-? post.meta_description
-: post.content.replace(/<[^>]+>/g, "");
-
-meta = meta.substring(0,160);
-
-container.innerHTML += `
-<div style="background:#FFF9E6; padding:25px 20px; margin-bottom:25px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.08); border-left:5px solid #FF69B4;">
-<h2 style="margin-top:0; font-size:22px;">
-<a href="${post.slug}.html" style="color:#002366; text-decoration:none;">
-${post.title}
-</a>
-</h2>
-<p style="color:#555; font-size:15px; line-height:1.6;">
-${meta}...
-</p>
-<a href="${post.slug}.html" style="color:#FF69B4; font-weight:bold; text-decoration:none;">
-Read More →
-</a>
+container.innerHTML+=`
+<div class="post-box">
+<h2><a href="post.html?slug=${post.slug}">${post.title}</a></h2>
+<p>${meta}...</p>
+<a class="read-more" href="post.html?slug=${post.slug}">Read More →</a>
 </div>
 `;
-
 });
 
-let pagination = document.getElementById("pagination");
+let pagination=document.getElementById("pagination");
 
-if(currentPage > 1){
-pagination.innerHTML += `<a href="?page=${currentPage-1}" style="margin-right:15px;">« Prev</a>`;
+if(currentPage>1){
+pagination.innerHTML+=`<a href="?page=${currentPage-1}">« Prev</a> `;
 }
 
-pagination.innerHTML += `<strong>${currentPage}</strong>`;
+pagination.innerHTML+=`<strong>${currentPage}</strong>`;
 
-if(currentPage < totalPages){
-pagination.innerHTML += `<a href="?page=${currentPage+1}" style="margin-left:15px;">Next »</a>`;
+if(currentPage<totalPages){
+pagination.innerHTML+=` <a href="?page=${currentPage+1}">Next »</a>`;
 }
 
-})
-.catch(error => {
-console.error("Error loading posts:", error);
 });
-
 </script>
 
 </body>
