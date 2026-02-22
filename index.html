@@ -1,137 +1,96 @@
 <!DOCTYPE html>
-<html lang="te">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Namo Narayanaya Bhakthi Channel - Dasabodha</title>
-    <meta name="description" content="Dasabodha Grantha Telugu Lyrics">
-    <link rel="icon" href="https://omnnbc.in/m/iIEkQ5" type="image/png">
-
-    <style>
-        body { margin: 0; font-family: 'Segoe UI', Arial, sans-serif; background: #f9f9f9; color: #333; }
-        
-        /* Header Section */
-        .site-header { width: 100%; background: #fff9c4; border-bottom: 2px solid #d81b60; box-sizing: border-box; }
-        .site-top-box { display: flex; align-items: center; justify-content: center; gap: 15px; padding: 15px; flex-wrap: wrap; }
-        .site-logo { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid #d81b60; }
-        .site-title-text h1 { margin: 0; line-height: 1.2; text-align: left; }
-        .site-title-text h1 a { text-decoration: none; color: #d81b60; }
-        .site-title-text .line1 { display: block; font-size: clamp(24px, 4.5vw, 36px); font-weight: bold; }
-        .site-title-text .line2 { display: block; font-size: clamp(20px, 4vw, 30px); font-weight: bold; }
-        .tagline-box { background-color: #007BFF; color: white; padding: 10px; text-align: center; }
-        .tagline-box p { margin: 0; font-size: 18px; }
-
-        /* Search Bar */
-        .search-container { max-width: 600px; margin: 20px auto; padding: 0 15px; text-align: center; }
-        .search-input { width: 100%; padding: 12px 20px; border-radius: 50px; border: 1px solid #ccc; outline: none; font-size: 16px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-
-        /* Posts Section */
-        .content-container { max-width: 800px; margin: 20px auto; padding: 0 15px; min-height: 50vh; }
-        .dashakam-title { text-align: center; color: #FF69B4; font-size: 32px; margin-bottom: 30px; font-weight: 800; text-transform: uppercase; }
-        .post-card { background: #FFF9E6; padding: 25px 20px; margin-bottom: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); border-left: 5px solid #FF69B4; transition: 0.3s; }
-        .post-card:hover { transform: translateY(-3px); }
-        .post-title { margin-top: 0; font-size: 24px; margin-bottom: 10px; }
-        .post-title a { color: #002366; text-decoration: none; font-weight: bold; }
-        .post-excerpt { color: #555; font-size: 15px; line-height: 1.6; }
-        .read-more { display: inline-block; margin-top: 10px; color: #FF69B4; font-weight: bold; text-decoration: none; }
-
-        /* Footer Section */
-        footer { background:#001a33; color:#fff; text-align:center; padding:40px 20px; margin-top:50px; }
-        .foot-form { max-width:400px; margin:15px auto; display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
-        .foot-input { flex:1; min-width:200px; padding:10px 15px; border-radius:25px; border:none; outline:none; }
-        .btn-sub { padding:10px 20px; border:none; border-radius:25px; background:#ffcc00; color:#001a33; font-weight:bold; cursor:pointer; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dasabodha</title>
 </head>
 <body>
 
-    <header class="site-header">
-        <div class="site-top-box">
-            <img src="https://omnnbc.in/m/iIEkQ5" alt="Logo" class="site-logo">
-            <div class="site-title-text">
-                <h1>
-                    <a href="index.html">
-                        <span class="line1">Namo Narayanaya</span>
-                        <span class="line2">Bhakthi Channel</span>
-                    </a>
-                </h1>
-            </div>
-        </div>
-        <div class="tagline-box">
-            <p>Dasabodha Grantha Telugu Lyrics</p>
-        </div>
-    </header>
+<div style="background:#fff; padding:30px 15px; font-family: Arial, sans-serif; min-height:100vh;">
 
-    <div class="search-container">
-        <input type="text" id="searchInput" class="search-input" placeholder="Search Shlokas (e.g. Dashakam 1)..." onkeyup="filterPosts()">
-    </div>
+<div style="text-align:center; margin-bottom:40px; border-bottom:1px solid #eee; padding-bottom:20px;">
+<a href="index.html" style="display:inline-block; padding:10px 24px; background:#002366; color:#fff; font-size:16px; font-weight:bold; text-decoration:none; border-radius:50px;">
+📖 Dasabodha
+</a>
 
-    <div class="content-container">
-        <h2 class="dashakam-title">Latest Updates</h2>
-        <div id="posts-container">
-            <p style="text-align:center;">Loading content...</p>
-        </div>
-    </div>
+<h1 id="page-title" style="color:#FF69B4; font-size:32px; margin-top:15px; font-weight:800; text-transform:uppercase;"></h1>
+</div>
 
-    <footer>
-        <h3>Stay Connected</h3>
-        <form class="foot-form" onsubmit="event.preventDefault(); alert('Connected to omnnbc.in server');">
-            <input type="email" class="foot-input" placeholder="Enter your email" required>
-            <button type="submit" class="btn-sub">Subscribe</button>
-        </form>
-        <hr style="margin:25px auto; width:80%; border-color:#004080;">
-        <p>&copy; <span id="year"></span> Namo Narayanaya Bhakthi Channel</p>
-        <p style="font-size:14px;">Powered by <a href="https://omnnbc.in" style="color:#ffcc00; text-decoration:none;">omnnbc.in</a></p>
-    </footer>
+<div id="posts-container" style="max-width:800px; margin:0 auto;"></div>
 
-    <script>
-        document.getElementById('year').textContent = new Date().getFullYear();
-        let allPosts = [];
+<div id="pagination" style="text-align:center; margin-top:40px;"></div>
 
-        async function initSite() {
-            const container = document.getElementById('posts-container');
-            try {
-                // Fetch from your data folder
-                const response = await fetch('./data/posts.json');
-                allPosts = await response.json();
-                renderPosts(allPosts);
-            } catch (e) {
-                container.innerHTML = '<p style="text-align:center; color:red;">Ensure data/posts.json exists in your repository.</p>';
-            }
-        }
+</div>
 
-        function renderPosts(postsToDisplay) {
-            const container = document.getElementById('posts-container');
-            container.innerHTML = '';
-            
-            const publicPosts = postsToDisplay.filter(p => p.status === 'public')
-                                              .sort((a, b) => new Date(b.created) - new Date(a.created));
+<script>
 
-            if(publicPosts.length === 0) {
-                container.innerHTML = '<p style="text-align:center;">No results found.</p>';
-                return;
-            }
+const postsPerPage = 10;
 
-            publicPosts.forEach(post => {
-                const excerpt = post.meta_description || post.content.replace(/<[^>]*>/g, '').substring(0, 150);
-                container.innerHTML += `
-                    <div class="post-card">
-                        <h2 class="post-title"><a href="post.html?id=${post.slug}">${post.title}</a></h2>
-                        <p class="post-excerpt">${excerpt}...</p>
-                        <a href="post.html?id=${post.slug}" class="read-more">Read More (చదవండి) →</a>
-                    </div>`;
-            });
-        }
+fetch('data/posts.json')
+.then(response => response.json())
+.then(posts => {
 
-        function filterPosts() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = allPosts.filter(p => 
-                p.title.toLowerCase().includes(query) || 
-                p.content.toLowerCase().includes(query)
-            );
-            renderPosts(filtered);
-        }
+posts = posts.filter(post => post.status === "public");
 
-        window.onload = initSite;
-    </script>
+posts.sort((a, b) => new Date(b.created) - new Date(a.created));
+
+const params = new URLSearchParams(window.location.search);
+const currentPage = parseInt(params.get("page")) || 1;
+
+const totalPages = Math.ceil(posts.length / postsPerPage);
+const start = (currentPage - 1) * postsPerPage;
+const pagePosts = posts.slice(start, start + postsPerPage);
+
+document.getElementById("page-title").innerText =
+"Dashakam " + currentPage;
+
+const container = document.getElementById("posts-container");
+
+pagePosts.forEach(post => {
+
+let meta = post.meta_description
+? post.meta_description
+: post.content.replace(/<[^>]+>/g, "");
+
+meta = meta.substring(0,160);
+
+container.innerHTML += `
+<div style="background:#FFF9E6; padding:25px 20px; margin-bottom:25px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.08); border-left:5px solid #FF69B4;">
+<h2 style="margin-top:0; font-size:22px;">
+<a href="${post.slug}.html" style="color:#002366; text-decoration:none;">
+${post.title}
+</a>
+</h2>
+<p style="color:#555; font-size:15px; line-height:1.6;">
+${meta}...
+</p>
+<a href="${post.slug}.html" style="color:#FF69B4; font-weight:bold; text-decoration:none;">
+Read More →
+</a>
+</div>
+`;
+
+});
+
+let pagination = document.getElementById("pagination");
+
+if(currentPage > 1){
+pagination.innerHTML += `<a href="?page=${currentPage-1}" style="margin-right:15px;">« Prev</a>`;
+}
+
+pagination.innerHTML += `<strong>${currentPage}</strong>`;
+
+if(currentPage < totalPages){
+pagination.innerHTML += `<a href="?page=${currentPage+1}" style="margin-left:15px;">Next »</a>`;
+}
+
+})
+.catch(error => {
+console.error("Error loading posts:", error);
+});
+
+</script>
+
 </body>
 </html>
