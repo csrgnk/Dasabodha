@@ -1,145 +1,73 @@
 <!DOCTYPE html>
-<html lang="te">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Namo Narayanaya - Reading...</title>
-    <link rel="icon" href="https://omnnbc.in/m/iIEkQ5" type="image/png">
-
-    <style>
-        body { margin: 0; font-family: Arial, sans-serif; background: #f9f9f9; color: #333; }
-        
-        /* HEADER STYLES */
-        .site-header { width: 100%; background: #fff9c4; border-bottom: 2px solid #d81b60; box-sizing: border-box; }
-        .site-top-box { display: flex; align-items: center; justify-content: center; gap: 15px; padding: 15px; flex-wrap: wrap; }
-        .site-logo { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #d81b60; }
-        .site-title-text h1 { margin: 0; line-height: 1.2; text-align: left; }
-        .site-title-text h1 a { text-decoration: none; color: #d81b60; }
-        .site-title-text .line1 { display: block; font-size: 24px; font-weight: bold; }
-        .site-title-text .line2 { display: block; font-size: 20px; font-weight: bold; }
-        .tagline-box { background-color: #007BFF; color: white; padding: 10px; text-align: center; }
-        .tagline-box p { margin: 0; font-size: 16px; }
-
-        /* POST CONTENT CONTAINER */
-        .main-wrapper { 
-            padding: 20px; 
-            background: #FFF9E6; 
-            min-height: 100vh; 
-            max-width: 800px; 
-            margin: 20px auto; 
-            box-sizing: border-box;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-        }
-
-        .post-title-box { 
-            background: #FFD966; 
-            padding: 15px; 
-            font-size: 26px; 
-            font-weight: bold; 
-            text-align: center; 
-            margin-bottom: 20px; 
-            border-radius: 5px; 
-            color: #002366;
-            border-bottom: 3px solid #FF69B4;
-        }
-
-        .post-content {
-            font-size: 22px;
-            line-height: 1.8;
-            color: #222;
-            white-space: pre-wrap;
-            padding: 10px;
-        }
-
-        /* SHARING & STATS */
-        .stats-line { margin: 20px 0 10px 0; font-weight: bold; color: #555; border-top: 1px solid #ddd; padding-top: 15px; }
-        .share-buttons button { margin: 5px; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; color: white; font-weight: bold; }
-        .share-link-input { width: 100%; padding: 10px; margin-top: 10px; border-radius: 4px; border: 1px solid #ccc; box-sizing: border-box; }
-
-        /* FOOTER */
-        footer { background:#001a33; color:#fff; text-align:center; padding:40px 20px; margin-top:50px; }
-        .back-home-btn { display: inline-block; background:#ffcc00; color:#001a33; padding:10px 20px; border-radius:6px; text-decoration:none; font-weight:bold; margin-bottom:20px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Content</title>
+<style>
+body{margin:0;font-family:Arial;background:#f9f9f9}
+.container{padding:30px 15px;max-width:800px;margin:auto}
+.post-title{color:#002366}
+</style>
 </head>
 <body>
 
-    <header class="site-header">
-        <div class="site-top-box">
-            <img src="https://omnnbc.in/m/iIEkQ5" alt="Logo" class="site-logo">
-            <div class="site-title-text">
-                <h1>
-                    <a href="index.html">
-                        <span class="line1">Namo Narayanaya</span>
-                        <span class="line2">Bhakthi Channel</span>
-                    </a>
-                </h1>
-            </div>
-        </div>
-        <div class="tagline-box">
-            <p>Dasabodha Grantha Telugu Lyrics</p>
-        </div>
-    </header>
+<div id="header"></div>
 
-    <div class="main-wrapper">
-        <div id="post-title" class="post-title-box">Loading...</div>
+<div class="container">
+<h1 class="post-title" id="content-title"></h1>
+<div id="content-body"></div>
+</div>
 
-        <div id="post-content" class="post-content">
-            <p style="text-align:center;">శోధన జరుగుతోంది (Searching)...</p>
-        </div>
+<div id="footer"></div>
 
-        <div class="stats-line">
-            👍 Like (0) &nbsp;&nbsp; 👁 Views: <span id="v-count">1</span>
-        </div>
+<script>
+// Load header & footer
+fetch('header.html')
+.then(r=>r.text())
+.then(d=>document.getElementById('header').innerHTML=d);
 
-        <div class="share-buttons">
-            <button onclick="shareWA()" style="background:#25D366;">WhatsApp</button>
-            <button onclick="shareFB()" style="background:#3b5998;">Facebook</button>
-            <button onclick="copyURL()" style="background:#666;">Copy Link</button>
-            <input type="text" readonly id="urlBox" class="share-link-input">
-        </div>
-    </div>
+fetch('footer.html')
+.then(r=>r.text())
+.then(d=>document.getElementById('footer').innerHTML=d);
 
-    <footer>
-        <a href="index.html" class="back-home-btn">🏠 Home (మొదటి పేజీ)</a>
-        <p>&copy; <span id="y"></span> Namo Narayanaya Bhakthi Channel</p>
-        <p style="font-size:14px;">Powered by <a href="https://omnnbc.in" style="color:#ffcc00; text-decoration:none;">omnnbc.in</a></p>
-    </footer>
+// Get slug
+const params=new URLSearchParams(window.location.search);
+const slug=params.get("slug");
 
-    <script>
-        document.getElementById('y').textContent = new Date().getFullYear();
-        let pTitle = "";
+if(!slug){
+document.getElementById("content-title").innerText="No Content Found";
+throw new Error("Slug missing");
+}
 
-        async function initViewer() {
-            const params = new URLSearchParams(window.location.search);
-            const slug = params.get('id');
-            if (!slug) { window.location.href = 'index.html'; return; }
+// Load both posts & pages
+Promise.all([
+fetch('data/posts.json').then(res=>res.json()),
+fetch('data/pages.json').then(res=>res.json())
+])
+.then(([posts,pages])=>{
 
-            try {
-                const res = await fetch('./data/posts.json');
-                const posts = await res.json();
-                const post = posts.find(p => p.slug === slug);
+let item = posts.find(p=>p.slug===slug && p.status==="public");
 
-                if (post) {
-                    pTitle = post.title;
-                    document.title = post.title;
-                    document.getElementById('post-title').innerText = post.title;
-                    document.getElementById('post-content').innerHTML = post.content;
-                    document.getElementById('urlBox').value = window.location.href;
-                    document.getElementById('v-count').innerText = Math.floor(Math.random() * 50) + 100;
-                } else {
-                    document.getElementById('post-content').innerHTML = "Content Not Found.";
-                }
-            } catch (err) {
-                document.getElementById('post-content').innerHTML = "Error loading data.";
-            }
-        }
+if(!item){
+item = pages.find(p=>p.slug===slug && p.status==="public");
+}
 
-        function shareWA() { window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(pTitle + " " + window.location.href)}`, '_blank'); }
-        function shareFB() { window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank'); }
-        function copyURL() { const b = document.getElementById("urlBox"); b.select(); document.execCommand("copy"); alert("Link Copied!"); }
+if(!item){
+document.getElementById("content-title").innerText="Content Not Found";
+return;
+}
 
-        window.onload = initViewer;
-    </script>
+document.title=item.title;
+document.getElementById("content-title").innerText=item.title;
+document.getElementById("content-body").innerHTML=item.content;
+
+})
+.catch(err=>{
+console.error(err);
+document.getElementById("content-title").innerText="Error Loading Content";
+});
+</script>
+
 </body>
 </html>
