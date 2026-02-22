@@ -8,7 +8,7 @@
 <style>
 body{
 margin:0;
-font-family:Arial;
+font-family:Arial, sans-serif;
 background:#f4f6f9;
 }
 
@@ -32,7 +32,7 @@ text-align:center;
 }
 
 .share-section{
-margin-top:30px;
+margin-top:35px;
 text-align:center;
 }
 
@@ -99,12 +99,17 @@ opacity:0.85;
 
 <script>
 // Load header & footer
-fetch('header.html').then(r=>r.text()).then(d=>document.getElementById('header').innerHTML=d);
-fetch('footer.html').then(r=>r.text()).then(d=>document.getElementById('footer').innerHTML=d);
+fetch('header.html')
+.then(r=>r.text())
+.then(d=>document.getElementById('header').innerHTML=d);
+
+fetch('footer.html')
+.then(r=>r.text())
+.then(d=>document.getElementById('footer').innerHTML=d);
 
 // Get slug
-const params=new URLSearchParams(window.location.search);
-const slug=params.get("slug");
+const params = new URLSearchParams(window.location.search);
+const slug = params.get("slug");
 
 function loadJSON(path){
 return fetch(path)
@@ -121,9 +126,9 @@ loadJSON('data/pages.json')
 if(!Array.isArray(posts)) posts=[posts];
 if(!Array.isArray(pages)) pages=[pages];
 
-let item=posts.find(p=>p.slug===slug);
+let item = posts.find(p=>p.slug===slug);
 if(!item){
-item=pages.find(p=>p.slug===slug);
+item = pages.find(p=>p.slug===slug);
 }
 
 if(!item){
@@ -131,31 +136,38 @@ document.getElementById("content-title").innerText="Content Not Found";
 return;
 }
 
-document.title=item.title;
-document.getElementById("content-title").innerText=item.title;
-document.getElementById("content-body").innerHTML=item.content;
+document.title = item.title || "Content";
+document.getElementById("content-title").innerText = item.title || "";
+document.getElementById("content-body").innerHTML = item.content || "";
 
 });
 
-// Share Functions
+// Share Text Builder
+function getShareText(){
+const title = document.getElementById("content-title").innerText;
+const url = window.location.href;
+return title + " - " + url;
+}
+
 function shareWhatsApp(){
-const url=window.location.href;
-window.open(`https://wa.me/?text=${encodeURIComponent(url)}`,'_blank');
+const text = getShareText();
+window.open(`https://wa.me/?text=${encodeURIComponent(text)}`,'_blank');
 }
 
 function shareFacebook(){
-const url=window.location.href;
+const url = window.location.href;
 window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,'_blank');
 }
 
 function shareTwitter(){
-const url=window.location.href;
-window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`,'_blank');
+const text = getShareText();
+window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`,'_blank');
 }
 
 function copyURL(){
-navigator.clipboard.writeText(window.location.href);
-alert("Link copied successfully!");
+const text = getShareText();
+navigator.clipboard.writeText(text);
+alert("Post title and link copied!");
 }
 </script>
 
