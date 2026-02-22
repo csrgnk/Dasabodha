@@ -3,166 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loading... - Namo Narayanaya</title>
+    <title>Namo Narayanaya - Reading...</title>
     <link rel="icon" href="https://omnnbc.in/m/iIEkQ5" type="image/png">
 
     <style>
-        body { margin: 0; font-family: Arial, sans-serif; background: #f9f9f9; }
+        body { margin: 0; font-family: Arial, sans-serif; background: #f9f9f9; color: #333; }
         
-        /* Main Container matching your PHP style */
+        /* HEADER STYLES */
+        .site-header { width: 100%; background: #fff9c4; border-bottom: 2px solid #d81b60; box-sizing: border-box; }
+        .site-top-box { display: flex; align-items: center; justify-content: center; gap: 15px; padding: 15px; flex-wrap: wrap; }
+        .site-logo { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #d81b60; }
+        .site-title-text h1 { margin: 0; line-height: 1.2; text-align: left; }
+        .site-title-text h1 a { text-decoration: none; color: #d81b60; }
+        .site-title-text .line1 { display: block; font-size: 24px; font-weight: bold; }
+        .site-title-text .line2 { display: block; font-size: 20px; font-weight: bold; }
+        .tagline-box { background-color: #007BFF; color: white; padding: 10px; text-align: center; }
+        .tagline-box p { margin: 0; font-size: 16px; }
+
+        /* POST CONTENT CONTAINER */
         .main-wrapper { 
-            padding: 15px; 
+            padding: 20px; 
             background: #FFF9E6; 
             min-height: 100vh; 
             max-width: 800px; 
-            margin: 0 auto; 
+            margin: 20px auto; 
             box-sizing: border-box;
-            border: 1px solid #eee;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
         }
 
-        /* Post title box - Yellow Style */
         .post-title-box { 
             background: #FFD966; 
             padding: 15px; 
-            font-size: 24px; 
+            font-size: 26px; 
             font-weight: bold; 
             text-align: center; 
             margin-bottom: 20px; 
             border-radius: 5px; 
-            color: #333;
-            border-bottom: 2px solid #d81b60;
+            color: #002366;
+            border-bottom: 3px solid #FF69B4;
         }
 
         .post-content {
-            font-size: 20px;
+            font-size: 22px;
             line-height: 1.8;
             color: #222;
-            white-space: pre-wrap; /* Keeps Telugu line breaks */
+            white-space: pre-wrap;
+            padding: 10px;
         }
 
-        /* Share buttons styling */
-        .share-buttons { margin-top: 20px; border-top: 1px solid #ddd; padding-top: 15px; }
-        .share-buttons button { 
-            margin: 5px 5px 5px 0; 
-            padding: 10px 15px; 
-            border: none; 
-            border-radius: 4px; 
-            cursor: pointer; 
-            font-weight: bold; 
-            font-size: 14px; 
-            color: white; 
-        }
-        .share-buttons input { 
-            width: 80%; 
-            padding: 8px; 
-            margin-top: 10px; 
-            border-radius: 4px; 
-            border: 1px solid #ccc; 
-        }
+        /* SHARING & STATS */
+        .stats-line { margin: 20px 0 10px 0; font-weight: bold; color: #555; border-top: 1px solid #ddd; padding-top: 15px; }
+        .share-buttons button { margin: 5px; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; color: white; font-weight: bold; }
+        .share-link-input { width: 100%; padding: 10px; margin-top: 10px; border-radius: 4px; border: 1px solid #ccc; box-sizing: border-box; }
 
-        /* Stats line */
-        .stats-line { margin-top: 15px; font-weight: bold; color: #555; }
-
-        .back-home {
-            display: inline-block;
-            margin-bottom: 15px;
-            text-decoration: none;
-            color: #d81b60;
-            font-weight: bold;
-        }
+        /* FOOTER */
+        footer { background:#001a33; color:#fff; text-align:center; padding:40px 20px; margin-top:50px; }
+        .back-home-btn { display: inline-block; background:#ffcc00; color:#001a33; padding:10px 20px; border-radius:6px; text-decoration:none; font-weight:bold; margin-bottom:20px; }
     </style>
 </head>
 <body>
 
-    <div class="main-wrapper">
-        <a href="index.html" class="back-home">← Home (మొదటి పేజీ)</a>
+    <header class="site-header">
+        <div class="site-top-box">
+            <img src="https://omnnbc.in/m/iIEkQ5" alt="Logo" class="site-logo">
+            <div class="site-title-text">
+                <h1>
+                    <a href="index.html">
+                        <span class="line1">Namo Narayanaya</span>
+                        <span class="line2">Bhakthi Channel</span>
+                    </a>
+                </h1>
+            </div>
+        </div>
+        <div class="tagline-box">
+            <p>Dasabodha Grantha Telugu Lyrics</p>
+        </div>
+    </header>
 
+    <div class="main-wrapper">
         <div id="post-title" class="post-title-box">Loading...</div>
 
         <div id="post-content" class="post-content">
-            <p style="text-align:center;">శోధన జరుగుతోంది...</p>
+            <p style="text-align:center;">శోధన జరుగుతోంది (Searching)...</p>
         </div>
 
         <div class="stats-line">
-            👍 Like (<span id="like-count">0</span>) &nbsp;&nbsp; 👁 Views: <span id="view-count">1</span>
+            👍 Like (0) &nbsp;&nbsp; 👁 Views: <span id="v-count">1</span>
         </div>
 
         <div class="share-buttons">
-            <button onclick="shareWhatsApp()" style="background:#25D366;">WhatsApp</button>
-            <button onclick="shareFacebook()" style="background:#3b5998;">Facebook</button>
-            <button onclick="shareTelegram()" style="background:#0088cc;">Telegram</button>
-            <br>
-            <input type="text" readonly id="copyUrlText">
-            <button onclick="copyLink()" style="background:#666;">Copy Link</button>
+            <button onclick="shareWA()" style="background:#25D366;">WhatsApp</button>
+            <button onclick="shareFB()" style="background:#3b5998;">Facebook</button>
+            <button onclick="copyURL()" style="background:#666;">Copy Link</button>
+            <input type="text" readonly id="urlBox" class="share-link-input">
         </div>
     </div>
 
+    <footer>
+        <a href="index.html" class="back-home-btn">🏠 Home (మొదటి పేజీ)</a>
+        <p>&copy; <span id="y"></span> Namo Narayanaya Bhakthi Channel</p>
+        <p style="font-size:14px;">Powered by <a href="https://omnnbc.in" style="color:#ffcc00; text-decoration:none;">omnnbc.in</a></p>
+    </footer>
+
     <script>
-        let currentPostTitle = "";
-        let currentUrl = window.location.href;
+        document.getElementById('y').textContent = new Date().getFullYear();
+        let pTitle = "";
 
-        async function loadPostDetails() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const slug = urlParams.get('id');
-
-            if (!slug) {
-                window.location.href = 'index.html';
-                return;
-            }
+        async function initViewer() {
+            const params = new URLSearchParams(window.location.search);
+            const slug = params.get('id');
+            if (!slug) { window.location.href = 'index.html'; return; }
 
             try {
-                // Fetch posts.json
-                const response = await fetch('./data/posts.json');
-                const posts = await response.json();
-                
-                // Fetch pages.json (Merging like your PHP array_merge)
-                let pages = [];
-                try {
-                    const respPages = await fetch('./data/pages.json');
-                    pages = await respPages.json();
-                } catch(e) { console.log("No pages.json found"); }
-
-                const allItems = [...posts, ...pages];
-                const post = allItems.find(p => p.slug === slug);
+                const res = await fetch('./data/posts.json');
+                const posts = await res.json();
+                const post = posts.find(p => p.slug === slug);
 
                 if (post) {
-                    currentPostTitle = post.title;
+                    pTitle = post.title;
                     document.title = post.title;
                     document.getElementById('post-title').innerText = post.title;
                     document.getElementById('post-content').innerHTML = post.content;
-                    document.getElementById('copyUrlText').value = currentUrl;
-                    
-                    // Views Simulation (Since GitHub is static, we show a random base + local session)
-                    document.getElementById('view-count').innerText = Math.floor(Math.random() * 100) + 120;
+                    document.getElementById('urlBox').value = window.location.href;
+                    document.getElementById('v-count').innerText = Math.floor(Math.random() * 50) + 100;
                 } else {
-                    document.getElementById('post-content').innerHTML = "Page not found.";
+                    document.getElementById('post-content').innerHTML = "Content Not Found.";
                 }
             } catch (err) {
                 document.getElementById('post-content').innerHTML = "Error loading data.";
             }
         }
 
-        // Sharing Functions
-        function shareWhatsApp() {
-            const text = encodeURIComponent(currentPostTitle + " " + currentUrl);
-            window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
-        }
-        function shareFacebook() {
-            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`, '_blank');
-        }
-        function shareTelegram() {
-            const text = encodeURIComponent(currentPostTitle);
-            window.open(`https://t.me/share/url?url=${encodeURIComponent(currentUrl)}&text=${text}`, '_blank');
-        }
-        function copyLink() {
-            const copyText = document.getElementById("copyUrlText");
-            copyText.select();
-            document.execCommand("copy");
-            alert("లింక్ కాపీ చేయబడింది! (Link Copied)");
-        }
+        function shareWA() { window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(pTitle + " " + window.location.href)}`, '_blank'); }
+        function shareFB() { window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank'); }
+        function copyURL() { const b = document.getElementById("urlBox"); b.select(); document.execCommand("copy"); alert("Link Copied!"); }
 
-        window.onload = loadPostDetails;
+        window.onload = initViewer;
     </script>
-
 </body>
 </html>
