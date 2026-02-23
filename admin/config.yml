@@ -1,0 +1,19 @@
+backend:
+  name: github
+  repo: csrgnk/Dasabodha
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "posts"
+    label: "Posts"
+    folder: ""
+    create: true
+    slug: "{{slug}}/index"
+    extension: "html"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown" }
