@@ -2,6 +2,7 @@ backend:
   name: github
   repo: csrgnk/Dasabodha
   branch: main
+  auth_endpoint: https://api.netlify.com/auth
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
