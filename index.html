@@ -7,10 +7,10 @@
     <style>
         body { margin:0; font-family: 'Segoe UI', Arial, sans-serif; background:#f4f6f9; display: flex; flex-direction: column; min-height: 100vh; }
         
-        /* NAVIGATION MENU */
+        /* NAVIGATION MENU - Updated links */
         .nav-menu { 
             background: #C2185B; 
-            padding: 10px 5px; 
+            padding: 12px 5px; 
             text-align: center; 
             position: sticky; 
             top: 0; 
@@ -18,13 +18,13 @@
             white-space: nowrap; 
             overflow-x: auto; 
         }
-        .nav-menu a { color: white; text-decoration: none; margin: 0 10px; font-weight: bold; font-size: 14px; display: inline-block; }
+        .nav-menu a { color: white; text-decoration: none; margin: 0 12px; font-weight: bold; font-size: 14px; display: inline-block; }
         .nav-menu a.home-btn { background: #fff; color: #C2185B; padding: 5px 15px; border-radius: 4px; }
 
-        /* HEADER & BLUE BOX */
+        /* HEADER & CURVED BLUE BOX */
         header { 
             background:#fff9db; 
-            padding:30px 10px; 
+            padding:35px 10px; 
             text-align:center; 
             font-size:1.8rem; 
             font-weight:bold; 
@@ -33,13 +33,14 @@
         }
         .sub-title-box {
             background: #002366; 
-            color: #FFD700;
-            padding: 5px 20px;
-            border-radius: 4px;
+            color: #ffffff;      /* White text as requested */
+            padding: 8px 25px;
+            border-radius: 50px; /* Fully curved setup */
             font-size: 1.1rem;
             display: inline-block;
-            margin-top: 10px;
-            font-weight: normal;
+            margin-top: 12px;
+            font-weight: 500;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         
         .search-container { max-width: 800px; margin: 15px auto; padding: 0 15px; }
@@ -56,6 +57,8 @@
         .post-card h2 { margin:0 0 8px; color:#002366; font-size: 1.3rem; }
         .post-meta-desc { color: #555; font-size: 14px; margin: 8px 0; line-height: 1.5; }
         .post-date { font-size: 12px; color: #888; margin-bottom: 10px; }
+
+        .coming-soon { text-align: center; padding: 40px; color: #C2185B; font-weight: bold; font-size: 1.2rem; }
 
         /* DASHAKAM PAGINATION */
         .pagination-wrapper {
@@ -86,7 +89,7 @@
             flex-shrink: 0;
             transition: 0.3s;
         }
-        .pg-btn.active { background: #002366; color: #FFD700; box-shadow: 0 4px 10px rgba(0, 35, 102, 0.3); }
+        .pg-btn.active { background: #002366; color: #FFD700; }
 
         footer { background: #C2185B; color: white; text-align: center; padding: 20px; margin-top: auto; }
     </style>
@@ -95,9 +98,9 @@
 
 <nav class="nav-menu">
     <a href="https://csrgnk.github.io/Omnnbc/" class="home-btn">Home</a>
-    <a href="https://Dasabodha.omnnbc.in" target="_blank" style="color:#FFD700;">Dasabodha</a>
-    <a href="about-us">About Us</a>
-    <a href="contact-us">Contact Us</a>
+    <a href="about-us.html">About Us</a>
+    <a href="contact-us.html">Contact Us</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
 </nav>
 
 <header>
@@ -110,7 +113,7 @@
     <input type="text" id="postSearch" placeholder="Search for Dashakam or Samasam...">
 </div>
 
-<div class="container" id="postsContainer">Loading Dasabodha Content...</div>
+<div class="container" id="postsContainer">Loading...</div>
 
 <div class="pagination-wrapper">
     <p style="font-weight: bold; color: #C2185B;">Select Dashakam:</p>
@@ -123,7 +126,6 @@
     let allPosts = [];
     let currentDashakam = 1;
 
-    // Fetching data from your JSON
     fetch('./data/posts.json')
     .then(res => res.json())
     .then(data => {
@@ -131,14 +133,13 @@
         renderPage();
     })
     .catch(err => {
-        document.getElementById("postsContainer").innerHTML = "Error loading data. Please check data/posts.json";
+        document.getElementById("postsContainer").innerHTML = "<div class='coming-soon'>Posts are coming soon</div>";
     });
 
     function renderPage(filteredData = null) {
         const container = document.getElementById("postsContainer");
         container.innerHTML = "";
 
-        // Filter posts by selected Dashakam or use Search results
         let displayPosts;
         if(filteredData) {
             displayPosts = filteredData;
@@ -146,9 +147,10 @@
             displayPosts = allPosts.filter(post => post.dashakam == currentDashakam);
         }
 
+        // Updated "Coming Soon" logic
         if (displayPosts.length === 0) {
-            container.innerHTML = `<p style='text-align:center;'>ఈ దశకంలో ఇంకా పోస్టులు అందుబాటులో లేవు.</p>`;
-            setupPagination();
+            container.innerHTML = "<div class='coming-soon'>Posts are coming soon</div>";
+            if(!filteredData) setupPagination();
             return;
         }
 
@@ -157,7 +159,7 @@
             card.className = "post-card";
             card.innerHTML = `
                 <h2><a href="${post.url}" style="text-decoration:none; color:#002366;">${post.title}</a></h2>
-                <div class="post-date">ప్రచురణ: ${post.publish_date}</div>
+                <div class="post-date">Published: ${post.publish_date}</div>
                 <div class="post-meta-desc">${post.description}</div>
                 <a href="${post.url}" style="color:#C2185B; font-weight:bold; text-decoration:none; font-size:14px;">READ LYRICS →</a>
             `;
@@ -172,21 +174,19 @@
         const wrapper = document.getElementById("paginationWrapper");
         wrapper.innerHTML = "";
 
-        // Generating buttons for 20 Dashakams
         for (let i = 1; i <= 20; i++) {
             const btn = document.createElement("button");
             btn.className = `pg-btn ${i === currentDashakam ? 'active' : ''}`;
             btn.innerText = `Dashakam ${i}`;
             btn.onclick = () => { 
                 currentDashakam = i; 
-                document.getElementById('postSearch').value = ""; // Clear search on dashakam change
+                document.getElementById('postSearch').value = ""; 
                 renderPage(); 
             };
             wrapper.appendChild(btn);
         }
     }
 
-    // Search Functionality
     document.getElementById('postSearch').addEventListener('input', (e) => {
         const searchTerm = e.target.value.toLowerCase();
         if(searchTerm === "") {
