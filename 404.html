@@ -12,7 +12,7 @@
         * { box-sizing: border-box; }
         body { margin:0; font-family: 'Segoe UI', Arial, sans-serif; background:#f4f6f9; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
         
-        /* TOP MENU NAVIGATION */
+        /* NAVIGATION */
         .nav-menu { 
             background: #C2185B; padding: 12px 5px; text-align: center; position: sticky; top: 0; z-index: 1000; 
             white-space: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
@@ -21,12 +21,12 @@
         .nav-menu a { color: white; text-decoration: none; margin: 0 12px; font-weight: bold; font-size: 14px; display: inline-block; }
         .nav-menu a.home-btn { background: #fff; color: #C2185B; padding: 5px 15px; border-radius: 4px; }
 
-        /* SITE HEADER WITH CURVED BLUE BOX */
+        /* HEADER */
         header { 
             background:#fff9db; padding:30px 10px; text-align:center; color:#C2185B; border-bottom: 3px solid #FFD700;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
-        .header-main { font-size: 1.8rem; font-weight: bold; line-height: 1.2; }
+        .header-main { font-size: 1.8rem; font-weight: bold; }
         .header-sub-box { 
             background: #002366; color: #ffffff; padding: 8px 25px; border-radius: 50px; 
             font-size: 1.1rem; font-weight: 500; margin-top: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
@@ -86,37 +86,47 @@
 <footer><p>© 2026 Namo Narayanaya Bhakthi Channel</p></footer>
 
 <script>
-    const path = window.location.pathname;
-    const segments = path.split('/').filter(Boolean);
-    const cleanId = segments.pop();
+    // CORE ROUTING LOGIC
     const repo = "/Dasabodha"; 
+    const path = window.location.pathname;
+    
+    // Extracts clean ID (removes repo name and trailing slashes)
+    const segments = path.split('/').filter(s => s && s !== 'Dasabodha');
+    const cleanId = segments[segments.length - 1]; 
 
     function copyURL() { 
         navigator.clipboard.writeText(window.location.href); 
         alert("Link Copied!"); 
     }
 
-    if (cleanId && cleanId !== 'Dasabodha') {
-        // Step 1: Search in posts.json
-        fetch(`${repo}/data/posts.json`).then(res => res.json()).then(posts => {
-            const post = posts.find(p => p.url.includes(cleanId));
+    if (cleanId) {
+        // STEP 1: Check Posts (posts.json)
+        fetch(`${repo}/data/posts.json`)
+        .then(res => res.json())
+        .then(posts => {
+            // Find a post where the URL (e.g. posts/file.html) matches our cleanId
+            const post = posts.find(p => p.url.toLowerCase().includes(cleanId.toLowerCase()));
+            
             if (post) {
                 updateSEO(post.title, post.description);
+                // Load from the physical 'posts/' folder
                 loadContent(`${repo}/posts/${cleanId}.html`, post.title, true);
             } else {
-                // Step 2: Search in pages.json if not found in posts
+                // STEP 2: If no post found, check Pages (pages.json)
                 return fetch(`${repo}/data/pages.json`).then(res => res.json());
             }
-        }).then(pages => {
-            if (!pages) return;
+        })
+        .then(pages => {
+            if (!pages) return; // Exit if post was already found
             const page = pages.find(p => p.id === cleanId);
             if (page) {
                 updateSEO(page.title, "");
                 loadContent(`${repo}/${page.file}`, page.title, false);
             }
-        }).catch(() => { 
+        })
+        .catch(() => { 
             document.getElementById('postTitle').innerText = "Content Not Found"; 
-            document.getElementById('postContent').innerText = "Posts are coming soon";
+            document.getElementById('postContent').innerText = "Coming soon...";
         });
     }
 
@@ -131,7 +141,7 @@
             const temp = document.createElement('div');
             temp.innerHTML = html;
             
-            // Remove extra elements from fetched HTML to keep layout clean
+            // Cleanup extra tags from fetched file
             const extras = temp.querySelectorAll('header, footer, nav, style, script');
             extras.forEach(e => e.remove());
             
