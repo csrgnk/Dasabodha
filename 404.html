@@ -3,24 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
     <title id="pageTitle">Loading... - Namo Narayanaya</title>
     <meta id="metaDesc" name="description" content="Dasabodha Grantha Telugu Lyrics">
+    <link id="canonicalUrl" rel="canonical" href="">
+
     <style>
         * { box-sizing: border-box; }
         body { margin:0; font-family: 'Segoe UI', Arial, sans-serif; background:#f4f6f9; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
-        .nav-menu { background: #C2185B; padding: 12px 5px; text-align: center; position: sticky; top: 0; z-index: 1000; white-space: nowrap; overflow-x: auto; }
+        
+        /* TOP MENU NAVIGATION */
+        .nav-menu { 
+            background: #C2185B; padding: 12px 5px; text-align: center; position: sticky; top: 0; z-index: 1000; 
+            white-space: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
+        }
+        .nav-menu::-webkit-scrollbar { display: none; }
         .nav-menu a { color: white; text-decoration: none; margin: 0 12px; font-weight: bold; font-size: 14px; display: inline-block; }
         .nav-menu a.home-btn { background: #fff; color: #C2185B; padding: 5px 15px; border-radius: 4px; }
 
-        header { background:#fff9db; padding:30px 10px; text-align:center; color:#C2185B; border-bottom: 3px solid #FFD700; display: flex; flex-direction: column; align-items: center; }
-        .header-main { font-size: 1.8rem; font-weight: bold; }
-        .header-sub-box { background: #002366; color: #ffffff; padding: 8px 25px; border-radius: 50px; font-size: 1.1rem; font-weight: 500; margin-top: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        /* SITE HEADER WITH CURVED BLUE BOX */
+        header { 
+            background:#fff9db; padding:30px 10px; text-align:center; color:#C2185B; border-bottom: 3px solid #FFD700;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .header-main { font-size: 1.8rem; font-weight: bold; line-height: 1.2; }
+        .header-sub-box { 
+            background: #002366; color: #ffffff; padding: 8px 25px; border-radius: 50px; 
+            font-size: 1.1rem; font-weight: 500; margin-top: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+        }
 
         .container { width: 100%; max-width: 800px; margin: 0 auto; padding: 15px; flex: 1; }
-        .content-area { background:#fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; }
-        #postTitle { color: #002366; text-align: center; margin-top: 0; padding-bottom: 15px; border-bottom: 2px solid #fff9db; font-size: 1.5rem; }
+        .content-area { background:#fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; word-wrap: break-word; }
+        
+        #postTitle { color: #002366; text-align: center; margin-top: 0; padding-bottom: 15px; border-bottom: 2px solid #fff9db; font-size: 1.6rem; }
+        #postContent { font-size: 1.1rem; color: #333; }
+        
+        /* SHARE BUTTONS */
+        .share-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; }
+        .btn-s { padding: 10px 14px; border-radius: 6px; text-decoration: none; color: white; font-weight: bold; font-size: 12px; border: none; cursor: pointer; }
+        .wa { background: #25D366; } .fb { background: #1877F2; } .tw { background: #000; } .cp { background: #607D8B; }
         
         footer { background: #C2185B; color: white; text-align: center; padding: 20px; margin-top: auto; }
+
+        @media (max-width: 600px) {
+            .header-main { font-size: 1.5rem; }
+            .header-sub-box { font-size: 1rem; padding: 6px 20px; }
+        }
     </style>
 </head>
 <body>
@@ -39,9 +67,17 @@
 
 <div class="container">
     <article class="content-area">
-        <h1 id="postTitle">Loading...</h1>
+        <h1 id="postTitle">Loading Content...</h1>
         <div id="postContent"></div>
+        
+        <div class="share-row" id="shareRow" style="display:none;">
+            <a id="sWA" href="#" target="_blank" class="btn-s wa">WhatsApp</a>
+            <a id="sFB" href="#" target="_blank" class="btn-s fb">Facebook</a>
+            <a id="sTW" href="#" target="_blank" class="btn-s tw">Twitter</a>
+            <button onclick="copyURL()" class="btn-s cp">Copy Link</button>
+        </div>
     </article>
+    
     <div style="text-align:center; margin-top:20px;">
         <a href="/Dasabodha/" style="color:#C2185B; font-weight:bold; text-decoration:none;">← Back to Home</a>
     </div>
@@ -51,33 +87,64 @@
 
 <script>
     const path = window.location.pathname;
-    const cleanId = path.split('/').filter(Boolean).pop();
+    const segments = path.split('/').filter(Boolean);
+    const cleanId = segments.pop();
     const repo = "/Dasabodha"; 
 
+    function copyURL() { 
+        navigator.clipboard.writeText(window.location.href); 
+        alert("Link Copied!"); 
+    }
+
+    // Logic to identify and load requested content
     if (cleanId && cleanId !== 'Dasabodha') {
+        // Step 1: Check if requested ID is a Post
         fetch(`${repo}/data/posts.json`).then(res => res.json()).then(posts => {
             const post = posts.find(p => p.url.includes(cleanId));
             if (post) {
-                loadContent(`${repo}/posts/${cleanId}.html`, post.title);
+                updateSEO(post.title, post.description);
+                loadContent(`${repo}/posts/${cleanId}.html`, post.title, true);
             } else {
+                // Step 2: If not a post, check if it is a Page
                 return fetch(`${repo}/data/pages.json`).then(res => res.json());
             }
         }).then(pages => {
             if (!pages) return;
             const page = pages.find(p => p.id === cleanId);
-            if (page) loadContent(`${repo}/${page.file}`, page.title);
-        }).catch(() => { document.getElementById('postTitle').innerText = "Page Not Found"; });
+            if (page) {
+                updateSEO(page.title, "");
+                loadContent(`${repo}/${page.file}`, page.title, false);
+            }
+        }).catch(() => { 
+            document.getElementById('postTitle').innerText = "Content Not Found"; 
+        });
     }
 
-    function loadContent(url, title) {
+    function updateSEO(title, desc) {
+        document.title = title + " - Namo Narayanaya";
+        document.getElementById('canonicalUrl').setAttribute("href", window.location.href);
+    }
+
+    function loadContent(url, title, isPost) {
         document.getElementById('postTitle').innerText = title;
-        document.title = title + " - Dasabodha";
         fetch(url).then(res => res.text()).then(html => {
             const temp = document.createElement('div');
             temp.innerHTML = html;
+            
+            // Remove any layout tags from the fetched HTML to prevent duplicates
             const extras = temp.querySelectorAll('header, footer, nav, style, script');
             extras.forEach(e => e.remove());
+            
             document.getElementById('postContent').innerHTML = temp.innerHTML;
+            
+            if (isPost) {
+                const u = encodeURIComponent(window.location.href);
+                const m = encodeURIComponent(title + "\n\n"); 
+                document.getElementById('sWA').href = `https://api.whatsapp.com/send?text=${m}${u}`;
+                document.getElementById('sFB').href = `https://www.facebook.com/sharer/sharer.php?u=${u}`;
+                document.getElementById('sTW').href = `https://twitter.com/intent/tweet?text=${m}&url=${u}`;
+                document.getElementById('shareRow').style.display = 'flex';
+            }
         });
     }
 </script>
