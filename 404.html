@@ -96,16 +96,15 @@
         alert("Link Copied!"); 
     }
 
-    // Logic to identify and load requested content
     if (cleanId && cleanId !== 'Dasabodha') {
-        // Step 1: Check if requested ID is a Post
+        // Step 1: Search in posts.json
         fetch(`${repo}/data/posts.json`).then(res => res.json()).then(posts => {
             const post = posts.find(p => p.url.includes(cleanId));
             if (post) {
                 updateSEO(post.title, post.description);
                 loadContent(`${repo}/posts/${cleanId}.html`, post.title, true);
             } else {
-                // Step 2: If not a post, check if it is a Page
+                // Step 2: Search in pages.json if not found in posts
                 return fetch(`${repo}/data/pages.json`).then(res => res.json());
             }
         }).then(pages => {
@@ -117,6 +116,7 @@
             }
         }).catch(() => { 
             document.getElementById('postTitle').innerText = "Content Not Found"; 
+            document.getElementById('postContent').innerText = "Posts are coming soon";
         });
     }
 
@@ -131,7 +131,7 @@
             const temp = document.createElement('div');
             temp.innerHTML = html;
             
-            // Remove any layout tags from the fetched HTML to prevent duplicates
+            // Remove extra elements from fetched HTML to keep layout clean
             const extras = temp.querySelectorAll('header, footer, nav, style, script');
             extras.forEach(e => e.remove());
             
