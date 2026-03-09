@@ -1,93 +1,201 @@
 <!DOCTYPE html>
-<html>
+<html lang="te">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dasabodha</title>
-<style>
-body{margin:0;font-family:Arial;background:#f9f9f9}
-.container{padding:30px 15px}
-.post-box{
-background:#FFF9E6;
-padding:20px;
-margin-bottom:20px;
-border-radius:12px;
-box-shadow:0 4px 10px rgba(0,0,0,0.08);
-border-left:5px solid #FF69B4;
-}
-.post-box h2 a{color:#002366;text-decoration:none}
-.read-more{color:#FF69B4;font-weight:bold;text-decoration:none}
-.pagination{text-align:center;margin-top:40px}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Namo Narayanaya Bhakthi Channel - Dasabodha</title>
+    <style>
+        body { margin:0; font-family: 'Segoe UI', Arial, sans-serif; background:#f4f6f9; display: flex; flex-direction: column; min-height: 100vh; }
+        
+        /* NAVIGATION MENU */
+        .nav-menu { 
+            background: #C2185B; 
+            padding: 10px 5px; 
+            text-align: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            white-space: nowrap; 
+            overflow-x: auto; 
+        }
+        .nav-menu a { color: white; text-decoration: none; margin: 0 10px; font-weight: bold; font-size: 14px; display: inline-block; }
+        .nav-menu a.home-btn { background: #fff; color: #C2185B; padding: 5px 15px; border-radius: 4px; }
+
+        /* HEADER & BLUE BOX */
+        header { 
+            background:#fff9db; 
+            padding:30px 10px; 
+            text-align:center; 
+            font-size:1.8rem; 
+            font-weight:bold; 
+            color:#C2185B; 
+            border-bottom: 3px solid #FFD700;
+        }
+        .sub-title-box {
+            background: #002366; 
+            color: #FFD700;
+            padding: 5px 20px;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            display: inline-block;
+            margin-top: 10px;
+            font-weight: normal;
+        }
+        
+        .search-container { max-width: 800px; margin: 15px auto; padding: 0 15px; }
+        #postSearch { 
+            width: 100%; padding: 12px 20px; font-size: 16px; 
+            border: 2px solid #C2185B; border-radius: 30px; outline: none; box-sizing: border-box;
+        }
+        
+        .container { max-width:800px; margin:auto; padding:15px; flex: 1; }
+        .post-card { 
+            background:#FFFDE7; padding:20px; margin-bottom:15px; border-radius:12px; 
+            box-shadow:0 2px 8px rgba(0,0,0,0.08); border-left: 6px solid #C2185B; 
+        }
+        .post-card h2 { margin:0 0 8px; color:#002366; font-size: 1.3rem; }
+        .post-meta-desc { color: #555; font-size: 14px; margin: 8px 0; line-height: 1.5; }
+        .post-date { font-size: 12px; color: #888; margin-bottom: 10px; }
+
+        /* DASHAKAM PAGINATION */
+        .pagination-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 30px 0;
+            padding: 10px;
+            border-top: 2px solid #FFD700;
+        }
+        .page-numbers-container {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            width: 100%;
+            padding: 15px 5px;
+            scrollbar-width: thin;
+        }
+        .pg-btn {
+            min-width: 130px;
+            padding: 10px;
+            border: 2px solid #002366;
+            border-radius: 25px;
+            background: #fff;
+            color: #002366;
+            font-weight: bold;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: 0.3s;
+        }
+        .pg-btn.active { background: #002366; color: #FFD700; box-shadow: 0 4px 10px rgba(0, 35, 102, 0.3); }
+
+        footer { background: #C2185B; color: white; text-align: center; padding: 20px; margin-top: auto; }
+    </style>
 </head>
 <body>
 
-<div id="header"></div>
+<nav class="nav-menu">
+    <a href="https://csrgnk.github.io/Omnnbc/" class="home-btn">Home</a>
+    <a href="https://Dasabodha.omnnbc.in" target="_blank" style="color:#FFD700;">Dasabodha</a>
+    <a href="about-us">About Us</a>
+    <a href="contact-us">Contact Us</a>
+</nav>
 
-<div class="container">
-<h1 id="page-title" style="text-align:center;color:#FF69B4;"></h1>
-<div id="posts-container"></div>
-<div id="pagination" class="pagination"></div>
+<header>
+    Namo Narayanaya Bhakthi Channel
+    <br>
+    <div class="sub-title-box">Dasabodha Grantha Telugu Lyrics</div>
+</header>
+
+<div class="search-container">
+    <input type="text" id="postSearch" placeholder="Search for Dashakam or Samasam...">
 </div>
 
-<div id="footer"></div>
+<div class="container" id="postsContainer">Loading Dasabodha Content...</div>
+
+<div class="pagination-wrapper">
+    <p style="font-weight: bold; color: #C2185B;">Select Dashakam:</p>
+    <div class="page-numbers-container" id="paginationWrapper"></div>
+</div>
+
+<footer><p>© 2026 Namo Narayanaya Bhakthi Channel</p></footer>
 
 <script>
-// Load header & footer
-fetch('header.html').then(r=>r.text()).then(d=>document.getElementById('header').innerHTML=d);
-fetch('footer.html').then(r=>r.text()).then(d=>document.getElementById('footer').innerHTML=d);
+    let allPosts = [];
+    let currentDashakam = 1;
 
-// Posts logic
-const postsPerPage=10;
+    // Fetching data from your JSON
+    fetch('./data/posts.json')
+    .then(res => res.json())
+    .then(data => {
+        allPosts = data;
+        renderPage();
+    })
+    .catch(err => {
+        document.getElementById("postsContainer").innerHTML = "Error loading data. Please check data/posts.json";
+    });
 
-fetch('data/posts.json')
-.then(res=>res.json())
-.then(posts=>{
+    function renderPage(filteredData = null) {
+        const container = document.getElementById("postsContainer");
+        container.innerHTML = "";
 
-posts=posts.filter(p=>p.status==="public");
-posts.sort((a,b)=>new Date(b.created)-new Date(a.created));
+        // Filter posts by selected Dashakam or use Search results
+        let displayPosts;
+        if(filteredData) {
+            displayPosts = filteredData;
+        } else {
+            displayPosts = allPosts.filter(post => post.dashakam == currentDashakam);
+        }
 
-const params=new URLSearchParams(window.location.search);
-const currentPage=parseInt(params.get("page"))||1;
+        if (displayPosts.length === 0) {
+            container.innerHTML = `<p style='text-align:center;'>ఈ దశకంలో ఇంకా పోస్టులు అందుబాటులో లేవు.</p>`;
+            setupPagination();
+            return;
+        }
 
-const totalPages=Math.ceil(posts.length/postsPerPage);
-const start=(currentPage-1)*postsPerPage;
-const pagePosts=posts.slice(start,start+postsPerPage);
+        displayPosts.forEach(post => {
+            const card = document.createElement("div");
+            card.className = "post-card";
+            card.innerHTML = `
+                <h2><a href="${post.url}" style="text-decoration:none; color:#002366;">${post.title}</a></h2>
+                <div class="post-date">ప్రచురణ: ${post.publish_date}</div>
+                <div class="post-meta-desc">${post.description}</div>
+                <a href="${post.url}" style="color:#C2185B; font-weight:bold; text-decoration:none; font-size:14px;">READ LYRICS →</a>
+            `;
+            container.appendChild(card);
+        });
 
-document.getElementById("page-title").innerText="Dashakam "+currentPage;
+        if(!filteredData) setupPagination();
+        window.scrollTo(0, 0);
+    }
 
-const container=document.getElementById("posts-container");
+    function setupPagination() {
+        const wrapper = document.getElementById("paginationWrapper");
+        wrapper.innerHTML = "";
 
-pagePosts.forEach(post=>{
-let meta=post.meta_description?
-post.meta_description:
-post.content.replace(/<[^>]+>/g,"");
+        // Generating buttons for 20 Dashakams
+        for (let i = 1; i <= 20; i++) {
+            const btn = document.createElement("button");
+            btn.className = `pg-btn ${i === currentDashakam ? 'active' : ''}`;
+            btn.innerText = `Dashakam ${i}`;
+            btn.onclick = () => { 
+                currentDashakam = i; 
+                document.getElementById('postSearch').value = ""; // Clear search on dashakam change
+                renderPage(); 
+            };
+            wrapper.appendChild(btn);
+        }
+    }
 
-meta=meta.substring(0,160);
-
-container.innerHTML+=`
-<div class="post-box">
-<h2><a href="post.html?slug=${post.slug}">${post.title}</a></h2>
-<p>${meta}...</p>
-<a class="read-more" href="post.html?slug=${post.slug}">Read More →</a>
-</div>
-`;
-});
-
-let pagination=document.getElementById("pagination");
-
-if(currentPage>1){
-pagination.innerHTML+=`<a href="?page=${currentPage-1}">« Prev</a> `;
-}
-
-pagination.innerHTML+=`<strong>${currentPage}</strong>`;
-
-if(currentPage<totalPages){
-pagination.innerHTML+=` <a href="?page=${currentPage+1}">Next »</a>`;
-}
-
-});
+    // Search Functionality
+    document.getElementById('postSearch').addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        if(searchTerm === "") {
+            renderPage();
+        } else {
+            const filtered = allPosts.filter(p => p.title.toLowerCase().includes(searchTerm));
+            renderPage(filtered);
+        }
+    });
 </script>
-
 </body>
 </html>
