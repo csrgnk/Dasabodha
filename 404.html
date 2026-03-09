@@ -6,37 +6,39 @@
     
     <title id="pageTitle">Loading... - Namo Narayanaya</title>
     <meta id="metaDesc" name="description" content="Dasabodha Grantha Telugu Lyrics">
+    <meta id="metaKeys" name="keywords" content="bhakthi, stotrams, omnnbc">
     <link id="canonicalUrl" rel="canonical" href="">
 
     <style>
         * { box-sizing: border-box; }
         body { margin:0; font-family: 'Segoe UI', Arial, sans-serif; background:#f4f6f9; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
         
-        /* NAVIGATION */
+        /* TOP MENU */
         .nav-menu { 
             background: #C2185B; padding: 12px 5px; text-align: center; position: sticky; top: 0; z-index: 1000; 
-            white-space: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
+            white-space: nowrap; overflow-x: auto; 
         }
-        .nav-menu::-webkit-scrollbar { display: none; }
         .nav-menu a { color: white; text-decoration: none; margin: 0 12px; font-weight: bold; font-size: 14px; display: inline-block; }
         .nav-menu a.home-btn { background: #fff; color: #C2185B; padding: 5px 15px; border-radius: 4px; }
 
-        /* HEADER */
+        /* TWO LINE HEADER SETUP */
         header { 
-            background:#fff9db; padding:30px 10px; text-align:center; color:#C2185B; border-bottom: 3px solid #FFD700;
+            background:#fff9db; padding:25px 10px; text-align:center; color:#C2185B; border-bottom: 3px solid #FFD700;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
-        .header-main { font-size: 1.8rem; font-weight: bold; }
+        .header-main { font-size: 1.8rem; font-weight: bold; line-height: 1.1; }
+        .header-sub { font-size: 1.7rem; font-weight: bold; }
+        
+        /* Dasabodha Subtitle Box */
         .header-sub-box { 
             background: #002366; color: #ffffff; padding: 8px 25px; border-radius: 50px; 
-            font-size: 1.1rem; font-weight: 500; margin-top: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+            font-size: 1rem; font-weight: 500; margin-top: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
         }
 
         .container { width: 100%; max-width: 800px; margin: 0 auto; padding: 15px; flex: 1; }
-        .content-area { background:#fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; word-wrap: break-word; }
+        .content-area { background:#fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; }
         
         #postTitle { color: #002366; text-align: center; margin-top: 0; padding-bottom: 15px; border-bottom: 2px solid #fff9db; font-size: 1.6rem; }
-        #postContent { font-size: 1.1rem; color: #333; }
         
         /* SHARE BUTTONS */
         .share-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; }
@@ -47,7 +49,7 @@
 
         @media (max-width: 600px) {
             .header-main { font-size: 1.5rem; }
-            .header-sub-box { font-size: 1rem; padding: 6px 20px; }
+            .header-sub { font-size: 1.4rem; }
         }
     </style>
 </head>
@@ -61,13 +63,15 @@
 </nav>
 
 <header>
-    <div class="header-main">Namo Narayanaya Bhakthi Channel</div>
+    <div class="header-main">Namo Narayanaya</div>
+    <div class="header-sub">Bhakthi Channel</div>
     <div class="header-sub-box">Dasabodha Grantha Telugu Lyrics</div>
 </header>
 
 <div class="container">
     <article class="content-area">
         <h1 id="postTitle">Loading Content...</h1>
+        <div id="hiddenKeywords" style="display:none !important; visibility:hidden;" aria-hidden="true"></div>
         <div id="postContent"></div>
         
         <div class="share-row" id="shareRow" style="display:none;">
@@ -86,53 +90,62 @@
 <footer><p>© 2026 Namo Narayanaya Bhakthi Channel</p></footer>
 
 <script>
-    // CORE ROUTING LOGIC
-    const repo = "/Dasabodha"; 
     const path = window.location.pathname;
-    
-    // Extracts clean ID (removes repo name and trailing slashes)
-    const segments = path.split('/').filter(s => s && s !== 'Dasabodha');
-    const cleanId = segments[segments.length - 1]; 
+    const segments = path.split('/').filter(Boolean);
+    const cleanId = segments.pop();
+    const repo = "/Dasabodha"; 
 
     function copyURL() { 
         navigator.clipboard.writeText(window.location.href); 
         alert("Link Copied!"); 
     }
 
-    if (cleanId) {
-        // STEP 1: Check Posts (posts.json)
-        fetch(`${repo}/data/posts.json`)
-        .then(res => res.json())
-        .then(posts => {
-            // Find a post where the URL (e.g. posts/file.html) matches our cleanId
-            const post = posts.find(p => p.url.toLowerCase().includes(cleanId.toLowerCase()));
-            
+    if (cleanId && cleanId !== 'Dasabodha') {
+        fetch(`${repo}/data/posts.json`).then(res => res.json()).then(posts => {
+            const post = posts.find(p => p.url.includes(cleanId));
             if (post) {
                 updateSEO(post.title, post.description);
-                // Load from the physical 'posts/' folder
                 loadContent(`${repo}/posts/${cleanId}.html`, post.title, true);
             } else {
-                // STEP 2: If no post found, check Pages (pages.json)
                 return fetch(`${repo}/data/pages.json`).then(res => res.json());
             }
-        })
-        .then(pages => {
-            if (!pages) return; // Exit if post was already found
+        }).then(pages => {
+            if (!pages) return;
             const page = pages.find(p => p.id === cleanId);
             if (page) {
                 updateSEO(page.title, "");
                 loadContent(`${repo}/${page.file}`, page.title, false);
             }
-        })
-        .catch(() => { 
+        }).catch(() => { 
             document.getElementById('postTitle').innerText = "Content Not Found"; 
-            document.getElementById('postContent').innerText = "Coming soon...";
         });
     }
 
     function updateSEO(title, desc) {
+        // FOCUS KEYWORD LOGIC: Take first 4 words
+        const words = title.split(' ');
+        const focusKey = words.slice(0, 4).join(' ');
+        
         document.title = title + " - Namo Narayanaya";
+        
+        // Update Meta Description
+        const finalDesc = desc || "Read " + title + " on Namo Narayanaya Bhakthi Channel.";
+        document.querySelector('meta[name="description"]').setAttribute("content", finalDesc);
+        
+        // Update Meta Keywords with Focus Keywords
+        const metaKeys = `${focusKey}, ${title}, Dasabodha Telugu Lyrics, Namo Narayanaya`;
+        let metaTag = document.querySelector('meta[name="keywords"]');
+        if(!metaTag) {
+            metaTag = document.createElement('meta');
+            metaTag.name = "keywords";
+            document.head.appendChild(metaTag);
+        }
+        metaTag.setAttribute("content", metaKeys);
+        
         document.getElementById('canonicalUrl').setAttribute("href", window.location.href);
+        
+        // Hidden keywords for extra Search Engine relevance
+        document.getElementById('hiddenKeywords').innerText = `${focusKey}, ${title}, Namo Narayanaya Bhakthi Channel`;
     }
 
     function loadContent(url, title, isPost) {
@@ -140,11 +153,8 @@
         fetch(url).then(res => res.text()).then(html => {
             const temp = document.createElement('div');
             temp.innerHTML = html;
-            
-            // Cleanup extra tags from fetched file
             const extras = temp.querySelectorAll('header, footer, nav, style, script');
             extras.forEach(e => e.remove());
-            
             document.getElementById('postContent').innerHTML = temp.innerHTML;
             
             if (isPost) {
