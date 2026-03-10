@@ -15,17 +15,17 @@
         .nav-menu a { color: white; text-decoration: none; margin: 0 12px; font-weight: bold; font-size: 14px; display: inline-block; }
         .nav-menu a.home-btn { background: #fff; color: #C2185B; padding: 5px 15px; border-radius: 4px; }
 
-        /* HEADER - DECREASED HEIGHT */
+        /* HEADER - REDUCED HEIGHT */
         header { 
             background:#fff9db; padding:20px 10px; text-align:center; 
             border-bottom: 3px solid #FFD700;
         }
         .header-main { font-size: 1.6rem; font-weight: bold; color: #C2185B; line-height: 1.2; }
         
-        /* SUBTITLE - DECREASED TEXT SIZE */
+        /* SUBTITLE - REDUCED TEXT SIZE */
         .sub-title-box {
-            background: #002366; color: #ffffff; padding: 6px 20px; border-radius: 50px; 
-            font-size: 0.95rem; display: inline-block; margin-top: 10px; font-weight: 500; 
+            background: #002366; color: #ffffff; padding: 6px 18px; border-radius: 50px; 
+            font-size: 0.9rem; display: inline-block; margin-top: 10px; font-weight: 500; 
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         
@@ -40,10 +40,10 @@
             background:#FFFDE7; padding:20px; margin-bottom:15px; border-radius:12px; 
             box-shadow:0 2px 8px rgba(0,0,0,0.08); border-left: 6px solid #C2185B; 
         }
-        .post-card h2 { margin:0 0 8px; color:#002366; font-size: 1.3rem; }
+        .post-card h2 { margin:0 0 8px; color:#002366; font-size: 1.25rem; }
         .post-meta-desc { color: #555; font-size: 14px; margin: 8px 0; line-height: 1.5; }
         
-        .coming-soon { text-align: center; padding: 40px; color: #C2185B; font-weight: bold; font-size: 1.2rem; }
+        .coming-soon { text-align: center; padding: 40px; color: #C2185B; font-weight: bold; font-size: 1.1rem; }
 
         .pagination-wrapper {
             display: flex; flex-direction: column; align-items: center; 
@@ -54,9 +54,9 @@
             padding: 15px 5px; scrollbar-width: thin;
         }
         .pg-btn {
-            min-width: 130px; padding: 10px; border: 2px solid #002366; 
+            min-width: 125px; padding: 9px; border: 2px solid #002366; 
             border-radius: 25px; background: #fff; color: #002366; 
-            font-weight: bold; cursor: pointer; flex-shrink: 0; transition: 0.3s;
+            font-weight: bold; cursor: pointer; flex-shrink: 0; transition: 0.3s; font-size: 13px;
         }
         .pg-btn.active { background: #002366; color: #FFD700; }
 
@@ -84,7 +84,7 @@
 <div class="container" id="postsContainer">Loading Content...</div>
 
 <div class="pagination-wrapper">
-    <p style="font-weight: bold; color: #C2185B;">Select Dashakam:</p>
+    <p style="font-weight: bold; color: #C2185B; margin-bottom: 10px;">Select Dashakam:</p>
     <div class="page-numbers-container" id="paginationWrapper"></div>
 </div>
 
@@ -98,8 +98,13 @@
     fetch(`${repo}/data/posts.json`)
     .then(res => res.json())
     .then(data => {
-        // SORTING LOGIC: Orders Samasams 1, 2, 3...
+        // UNIVERSAL SORTING LOGIC: Fixes order for all Dashakams and Samasams
         allPosts = data.sort((a, b) => {
+            // 1. Sort by Dashakam Number first
+            if (parseInt(a.dashakam) !== parseInt(b.dashakam)) {
+                return parseInt(a.dashakam) - parseInt(b.dashakam);
+            }
+            // 2. Then sort by Samasam Number inside that Dashakam
             const matchA = a.url.match(/samasam-(\d+)/);
             const matchB = b.url.match(/samasam-(\d+)/);
             const numA = matchA ? parseInt(matchA[1]) : 0;
@@ -116,10 +121,11 @@
         const container = document.getElementById("postsContainer");
         container.innerHTML = "";
 
+        // Shows only posts for the selected Dashakam
         let displayPosts = filteredData || allPosts.filter(post => post.dashakam == currentDashakam);
 
         if (displayPosts.length === 0) {
-            container.innerHTML = "<div class='coming-soon'>Posts are coming soon</div>";
+            container.innerHTML = "<div class='coming-soon'>Posts are coming soon for Dashakam " + currentDashakam + "</div>";
             if(!filteredData) setupPagination();
             return;
         }
@@ -132,9 +138,9 @@
             card.className = "post-card";
             card.innerHTML = `
                 <h2><a href="${virtualUrl}" style="text-decoration:none; color:#002366;">${post.title}</a></h2>
-                <div style="font-size: 12px; color: #888; margin-bottom: 8px;">Date: ${post.publish_date}</div>
+                <div style="font-size: 11px; color: #999; margin-bottom: 8px;">Date: ${post.publish_date}</div>
                 <div class="post-meta-desc">${post.description}</div>
-                <a href="${virtualUrl}" style="color:#C2185B; font-weight:bold; text-decoration:none; font-size:14px;">READ LYRICS →</a>
+                <a href="${virtualUrl}" style="color:#C2185B; font-weight:bold; text-decoration:none; font-size:13px;">READ LYRICS →</a>
             `;
             container.appendChild(card);
         });
