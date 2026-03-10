@@ -1,0 +1,19 @@
+<div style="max-width:600px;margin:20px auto;background:white;padding:20px;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,0.1);">
+    <h2 style="text-align:center;color:orange;">Contact Us</h2>
+    
+        <input type="text" name="name" placeholder="Your Name" required="" style="padding:10px;margin:8px 0;border-radius:5px;border:1px solid #ccc;">
+        <input type="email" name="email" placeholder="Your Email" required="" style="padding:10px;margin:8px 0;border-radius:5px;border:1px solid #ccc;">
+        <textarea name="message" rows="6" placeholder="Your Message" required="" style="padding:10px;margin:8px 0;border-radius:5px;border:1px solid #ccc;"></textarea>
+        <button type="submit" style="padding:10px;background:brown;color:white;border:none;border-radius:5px;font-weight:bold;cursor:pointer;margin-top:5px;">Send Message</button>
+    
+    <div style="text-align:center;margin-top:10px;">
+        <a href="/index.php" style="color:orange;font-weight:bold;text-decoration:none;">← Back to Home</a>
+    </div>
+</div>
+
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    alert('Form submitted! You can integrate email or JSON storage in PHP.');
+});
+</script>
