@@ -12,12 +12,9 @@
         * { box-sizing: border-box; }
         body { margin:0; font-family: 'Segoe UI', Arial, sans-serif; background:#f4f6f9; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
         
-        /* NAVIGATION */
         .nav-menu { background: #C2185B; padding: 12px 5px; text-align: center; position: sticky; top: 0; z-index: 1000; white-space: nowrap; overflow-x: auto; }
         .nav-menu a { color: white; text-decoration: none; margin: 0 12px; font-weight: bold; font-size: 14px; display: inline-block; }
-        .nav-menu a.home-btn { background: #fff; color: #C2185B; padding: 5px 15px; border-radius: 4px; }
-
-        /* HEADER */
+        
         header { background:#fff9db; padding:20px 10px; text-align:center; color:#C2185B; border-bottom: 3px solid #FFD700; }
         .header-main { font-size: 1.8rem; font-weight: bold; line-height: 1.1; }
         .header-sub { font-size: 1.7rem; font-weight: bold; }
@@ -27,21 +24,25 @@
         .content-area { background:#fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; }
         #postTitle { color: #002366; text-align: center; border-bottom: 2px solid #fff9db; padding-bottom: 15px; font-size: 1.5rem; }
 
-        /* POST NAVIGATION BUTTONS */
-        .post-nav { display: flex; justify-content: space-between; margin-top: 30px; padding-top: 20px; border-top: 2px solid #f0f0f0; gap: 10px; }
-        .nav-btn { background: #002366; color: white; padding: 10px 15px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 14px; flex: 1; text-align: center; transition: 0.3s; }
-        .nav-btn:hover { background: #C2185B; }
+        /* POST NAVIGATION BUTTONS (3 BUTTONS SETUP) */
+        .post-nav { display: flex; justify-content: space-between; margin-top: 30px; padding-top: 20px; border-top: 2px solid #f0f0f0; gap: 8px; flex-wrap: wrap; }
+        .nav-btn { background: #002366; color: white; padding: 10px 8px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 13px; flex: 1; text-align: center; transition: 0.3s; min-width: 80px; }
+        .nav-btn.home-btn { background: #C2185B; }
+        .nav-btn:hover { opacity: 0.9; transform: translateY(-2px); }
         .nav-btn.disabled { background: #ccc; pointer-events: none; opacity: 0.5; }
 
         footer { background: #C2185B; color: white; text-align: center; padding: 20px; margin-top: auto; }
+        
+        @media (max-width: 480px) {
+            .nav-btn { font-size: 11px; padding: 8px 5px; }
+        }
     </style>
 </head>
 <body>
 
 <nav class="nav-menu">
-    <a href="/Dasabodha/" class="home-btn">Home</a>
+    <a href="/Dasabodha/">Home</a>
     <a href="/Dasabodha/about-us">About Us</a>
-    <a href="/Dasabodha/contact-us">Contact Us</a>
 </nav>
 
 <header>
@@ -56,8 +57,9 @@
         <div id="postContent"></div>
 
         <div class="post-nav" id="postNav" style="display:none;">
-            <a id="prevBtn" href="#" class="nav-btn">← Previous Samasam</a>
-            <a id="nextBtn" href="#" class="nav-btn">Next Samasam →</a>
+            <a id="prevBtn" href="#" class="nav-btn">← Previous</a>
+            <a href="/Dasabodha/" class="nav-btn home-btn">Home</a>
+            <a id="nextBtn" href="#" class="nav-btn">Next →</a>
         </div>
     </article>
 </div>
@@ -73,7 +75,6 @@
     if (cleanId && cleanId !== 'Dasabodha') {
         fetch(`${repo}/data/posts.json`).then(res => res.json()).then(allPosts => {
             
-            // Universal Sorter for all Dashakams and Samasams
             allPosts.sort((a, b) => {
                 if (parseInt(a.dashakam) !== parseInt(b.dashakam)) {
                     return parseInt(a.dashakam) - parseInt(b.dashakam);
@@ -103,7 +104,6 @@
         const nextBtn = document.getElementById('nextBtn');
         document.getElementById('postNav').style.display = 'flex';
 
-        // Previous Button Logic
         if (currentIndex > 0) {
             const prevPath = posts[currentIndex - 1].url.replace('posts/', '').replace('.html', '');
             prevBtn.href = `${repo}/${prevPath}`;
@@ -111,7 +111,6 @@
             prevBtn.classList.add('disabled');
         }
 
-        // Next Button Logic (Automatically jumps from Dashakam 2 Samasam 10 to Dashakam 3 Samasam 1)
         if (currentIndex < posts.length - 1) {
             const nextPath = posts[currentIndex + 1].url.replace('posts/', '').replace('.html', '');
             nextBtn.href = `${repo}/${nextPath}`;
@@ -134,7 +133,10 @@
     function loadStaticPage() {
         fetch(`${repo}/data/pages.json`).then(res => res.json()).then(pages => {
             const page = pages.find(p => p.id === cleanId);
-            if (page) loadPostContent(`${repo}/${page.file}`, page.title);
+            if (page) {
+                loadPostContent(`${repo}/${page.file}`, page.title);
+                document.getElementById('postNav').style.display = 'none'; // Hide nav for static pages
+            }
         });
     }
 
