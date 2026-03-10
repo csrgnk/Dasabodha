@@ -24,18 +24,23 @@
         .content-area { background:#fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; }
         #postTitle { color: #002366; text-align: center; border-bottom: 2px solid #fff9db; padding-bottom: 15px; font-size: 1.5rem; }
 
-        /* POST NAVIGATION BUTTONS (3 BUTTONS SETUP) */
-        .post-nav { display: flex; justify-content: space-between; margin-top: 30px; padding-top: 20px; border-top: 2px solid #f0f0f0; gap: 8px; flex-wrap: wrap; }
-        .nav-btn { background: #002366; color: white; padding: 10px 8px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 13px; flex: 1; text-align: center; transition: 0.3s; min-width: 80px; }
+        /* SHARE BUTTONS STYLE */
+        .share-section { margin-top: 25px; padding-top: 15px; border-top: 1px dashed #ccc; text-align: center; }
+        .share-title { font-size: 14px; font-weight: bold; color: #C2185B; margin-bottom: 10px; display: block; }
+        .share-grid { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+        .share-btn { padding: 8px 12px; border-radius: 5px; text-decoration: none; color: white; font-size: 12px; font-weight: bold; min-width: 80px; transition: 0.3s; cursor: pointer; border: none; }
+        .wa-btn { background: #25D366; }
+        .fb-btn { background: #1877F2; }
+        .tw-btn { background: #000000; }
+        .cp-btn { background: #607D8B; }
+
+        /* NAVIGATION BUTTONS */
+        .post-nav { display: flex; justify-content: space-between; margin-top: 30px; padding-top: 20px; border-top: 2px solid #f0f0f0; gap: 8px; }
+        .nav-btn { background: #002366; color: white; padding: 10px 8px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 13px; flex: 1; text-align: center; }
         .nav-btn.home-btn { background: #C2185B; }
-        .nav-btn:hover { opacity: 0.9; transform: translateY(-2px); }
         .nav-btn.disabled { background: #ccc; pointer-events: none; opacity: 0.5; }
 
         footer { background: #C2185B; color: white; text-align: center; padding: 20px; margin-top: auto; }
-        
-        @media (max-width: 480px) {
-            .nav-btn { font-size: 11px; padding: 8px 5px; }
-        }
     </style>
 </head>
 <body>
@@ -53,8 +58,18 @@
 
 <div class="container">
     <article class="content-area">
-        <h1 id="postTitle">Loading Content...</h1>
+        <h1 id="postTitle">Loading...</h1>
         <div id="postContent"></div>
+
+        <div class="share-section" id="shareSection" style="display:none;">
+            <span class="share-title">Share this Samasam:</span>
+            <div class="share-grid">
+                <a id="shareWA" target="_blank" class="share-btn wa-btn">WhatsApp</a>
+                <a id="shareFB" target="_blank" class="share-btn fb-btn">Facebook</a>
+                <a id="shareTW" target="_blank" class="share-btn tw-btn">Twitter</a>
+                <button onclick="copyCurrentLink()" class="share-btn cp-btn">Copy Link</button>
+            </div>
+        </div>
 
         <div class="post-nav" id="postNav" style="display:none;">
             <a id="prevBtn" href="#" class="nav-btn">← Previous</a>
@@ -72,31 +87,40 @@
     const segments = path.split('/').filter(Boolean);
     const cleanId = segments.pop();
 
+    function copyCurrentLink() {
+        navigator.clipboard.writeText(window.location.href);
+        alert("Link copied to clipboard!");
+    }
+
     if (cleanId && cleanId !== 'Dasabodha') {
         fetch(`${repo}/data/posts.json`).then(res => res.json()).then(allPosts => {
-            
             allPosts.sort((a, b) => {
-                if (parseInt(a.dashakam) !== parseInt(b.dashakam)) {
-                    return parseInt(a.dashakam) - parseInt(b.dashakam);
-                }
-                const getNum = url => {
-                    const match = url.match(/samasam-(\d+)/);
-                    return match ? parseInt(match[1]) : 0;
-                };
+                if (parseInt(a.dashakam) !== parseInt(b.dashakam)) return parseInt(a.dashakam) - parseInt(b.dashakam);
+                const getNum = u => parseInt(u.match(/samasam-(\d+)/)[1]);
                 return getNum(a.url) - getNum(b.url);
             });
 
             const index = allPosts.findIndex(p => p.url.includes(cleanId));
-
             if (index !== -1) {
                 const post = allPosts[index];
                 updateSEO(post.title, post.description);
                 loadPostContent(`${repo}/posts/${cleanId}.html`, post.title);
                 renderNavigation(allPosts, index);
+                setupShareLinks(post.title);
             } else {
                 loadStaticPage();
             }
         });
+    }
+
+    function setupShareLinks(title) {
+        document.getElementById('shareSection').style.display = 'block';
+        const url = window.location.href;
+        const text = encodeURIComponent(title + "\n" + url);
+        
+        document.getElementById('shareWA').href = `https://api.whatsapp.com/send?text=${text}`;
+        document.getElementById('shareFB').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+        document.getElementById('shareTW').href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`;
     }
 
     function renderNavigation(posts, currentIndex) {
@@ -107,16 +131,12 @@
         if (currentIndex > 0) {
             const prevPath = posts[currentIndex - 1].url.replace('posts/', '').replace('.html', '');
             prevBtn.href = `${repo}/${prevPath}`;
-        } else {
-            prevBtn.classList.add('disabled');
-        }
+        } else { prevBtn.classList.add('disabled'); }
 
         if (currentIndex < posts.length - 1) {
             const nextPath = posts[currentIndex + 1].url.replace('posts/', '').replace('.html', '');
             nextBtn.href = `${repo}/${nextPath}`;
-        } else {
-            nextBtn.classList.add('disabled');
-        }
+        } else { nextBtn.classList.add('disabled'); }
     }
 
     function loadPostContent(url, title) {
@@ -133,10 +153,7 @@
     function loadStaticPage() {
         fetch(`${repo}/data/pages.json`).then(res => res.json()).then(pages => {
             const page = pages.find(p => p.id === cleanId);
-            if (page) {
-                loadPostContent(`${repo}/${page.file}`, page.title);
-                document.getElementById('postNav').style.display = 'none'; // Hide nav for static pages
-            }
+            if (page) loadPostContent(`${repo}/${page.file}`, page.title);
         });
     }
 
