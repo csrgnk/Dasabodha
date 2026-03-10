@@ -6,51 +6,34 @@
     
     <title id="pageTitle">Loading... - Namo Narayanaya</title>
     <meta id="metaDesc" name="description" content="Dasabodha Grantha Telugu Lyrics">
-    <meta id="metaKeys" name="keywords" content="bhakthi, stotrams, omnnbc">
     <link id="canonicalUrl" rel="canonical" href="">
 
     <style>
         * { box-sizing: border-box; }
         body { margin:0; font-family: 'Segoe UI', Arial, sans-serif; background:#f4f6f9; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
         
-        /* TOP MENU */
-        .nav-menu { 
-            background: #C2185B; padding: 12px 5px; text-align: center; position: sticky; top: 0; z-index: 1000; 
-            white-space: nowrap; overflow-x: auto; 
-        }
+        /* NAVIGATION */
+        .nav-menu { background: #C2185B; padding: 12px 5px; text-align: center; position: sticky; top: 0; z-index: 1000; white-space: nowrap; overflow-x: auto; }
         .nav-menu a { color: white; text-decoration: none; margin: 0 12px; font-weight: bold; font-size: 14px; display: inline-block; }
         .nav-menu a.home-btn { background: #fff; color: #C2185B; padding: 5px 15px; border-radius: 4px; }
 
-        /* TWO LINE HEADER SETUP */
-        header { 
-            background:#fff9db; padding:25px 10px; text-align:center; color:#C2185B; border-bottom: 3px solid #FFD700;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-        }
+        /* HEADER */
+        header { background:#fff9db; padding:20px 10px; text-align:center; color:#C2185B; border-bottom: 3px solid #FFD700; }
         .header-main { font-size: 1.8rem; font-weight: bold; line-height: 1.1; }
         .header-sub { font-size: 1.7rem; font-weight: bold; }
-        
-        /* Dasabodha Subtitle Box */
-        .header-sub-box { 
-            background: #002366; color: #ffffff; padding: 8px 25px; border-radius: 50px; 
-            font-size: 1rem; font-weight: 500; margin-top: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
-        }
+        .header-sub-box { background: #002366; color: #ffffff; padding: 8px 25px; border-radius: 50px; font-size: 0.9rem; margin-top: 15px; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
 
         .container { width: 100%; max-width: 800px; margin: 0 auto; padding: 15px; flex: 1; }
         .content-area { background:#fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; }
-        
-        #postTitle { color: #002366; text-align: center; margin-top: 0; padding-bottom: 15px; border-bottom: 2px solid #fff9db; font-size: 1.6rem; }
-        
-        /* SHARE BUTTONS */
-        .share-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; }
-        .btn-s { padding: 10px 14px; border-radius: 6px; text-decoration: none; color: white; font-weight: bold; font-size: 12px; border: none; cursor: pointer; }
-        .wa { background: #25D366; } .fb { background: #1877F2; } .tw { background: #000; } .cp { background: #607D8B; }
-        
-        footer { background: #C2185B; color: white; text-align: center; padding: 20px; margin-top: auto; }
+        #postTitle { color: #002366; text-align: center; border-bottom: 2px solid #fff9db; padding-bottom: 15px; font-size: 1.5rem; }
 
-        @media (max-width: 600px) {
-            .header-main { font-size: 1.5rem; }
-            .header-sub { font-size: 1.4rem; }
-        }
+        /* POST NAVIGATION BUTTONS */
+        .post-nav { display: flex; justify-content: space-between; margin-top: 30px; padding-top: 20px; border-top: 2px solid #f0f0f0; gap: 10px; }
+        .nav-btn { background: #002366; color: white; padding: 10px 15px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 14px; flex: 1; text-align: center; transition: 0.3s; }
+        .nav-btn:hover { background: #C2185B; }
+        .nav-btn.disabled { background: #ccc; pointer-events: none; opacity: 0.5; }
+
+        footer { background: #C2185B; color: white; text-align: center; padding: 20px; margin-top: auto; }
     </style>
 </head>
 <body>
@@ -59,7 +42,6 @@
     <a href="/Dasabodha/" class="home-btn">Home</a>
     <a href="/Dasabodha/about-us">About Us</a>
     <a href="/Dasabodha/contact-us">Contact Us</a>
-    <a href="/Dasabodha/privacy-policy">Privacy Policy</a>
 </nav>
 
 <header>
@@ -71,84 +53,74 @@
 <div class="container">
     <article class="content-area">
         <h1 id="postTitle">Loading Content...</h1>
-        <div id="hiddenKeywords" style="display:none !important; visibility:hidden;" aria-hidden="true"></div>
         <div id="postContent"></div>
-        
-        <div class="share-row" id="shareRow" style="display:none;">
-            <a id="sWA" href="#" target="_blank" class="btn-s wa">WhatsApp</a>
-            <a id="sFB" href="#" target="_blank" class="btn-s fb">Facebook</a>
-            <a id="sTW" href="#" target="_blank" class="btn-s tw">Twitter</a>
-            <button onclick="copyURL()" class="btn-s cp">Copy Link</button>
+
+        <div class="post-nav" id="postNav" style="display:none;">
+            <a id="prevBtn" href="#" class="nav-btn">← Previous Samasam</a>
+            <a id="nextBtn" href="#" class="nav-btn">Next Samasam →</a>
         </div>
     </article>
-    
-    <div style="text-align:center; margin-top:20px;">
-        <a href="/Dasabodha/" style="color:#C2185B; font-weight:bold; text-decoration:none;">← Back to Home</a>
-    </div>
 </div>
 
 <footer><p>© 2026 Namo Narayanaya Bhakthi Channel</p></footer>
 
 <script>
+    const repo = "/Dasabodha";
     const path = window.location.pathname;
     const segments = path.split('/').filter(Boolean);
     const cleanId = segments.pop();
-    const repo = "/Dasabodha"; 
-
-    function copyURL() { 
-        navigator.clipboard.writeText(window.location.href); 
-        alert("Link Copied!"); 
-    }
 
     if (cleanId && cleanId !== 'Dasabodha') {
-        fetch(`${repo}/data/posts.json`).then(res => res.json()).then(posts => {
-            const post = posts.find(p => p.url.includes(cleanId));
-            if (post) {
+        fetch(`${repo}/data/posts.json`).then(res => res.json()).then(allPosts => {
+            
+            // Universal Sorter for all Dashakams and Samasams
+            allPosts.sort((a, b) => {
+                if (parseInt(a.dashakam) !== parseInt(b.dashakam)) {
+                    return parseInt(a.dashakam) - parseInt(b.dashakam);
+                }
+                const getNum = url => {
+                    const match = url.match(/samasam-(\d+)/);
+                    return match ? parseInt(match[1]) : 0;
+                };
+                return getNum(a.url) - getNum(b.url);
+            });
+
+            const index = allPosts.findIndex(p => p.url.includes(cleanId));
+
+            if (index !== -1) {
+                const post = allPosts[index];
                 updateSEO(post.title, post.description);
-                loadContent(`${repo}/posts/${cleanId}.html`, post.title, true);
+                loadPostContent(`${repo}/posts/${cleanId}.html`, post.title);
+                renderNavigation(allPosts, index);
             } else {
-                return fetch(`${repo}/data/pages.json`).then(res => res.json());
+                loadStaticPage();
             }
-        }).then(pages => {
-            if (!pages) return;
-            const page = pages.find(p => p.id === cleanId);
-            if (page) {
-                updateSEO(page.title, "");
-                loadContent(`${repo}/${page.file}`, page.title, false);
-            }
-        }).catch(() => { 
-            document.getElementById('postTitle').innerText = "Content Not Found"; 
         });
     }
 
-    function updateSEO(title, desc) {
-        // FOCUS KEYWORD LOGIC: Take first 4 words
-        const words = title.split(' ');
-        const focusKey = words.slice(0, 4).join(' ');
-        
-        document.title = title + " - Namo Narayanaya";
-        
-        // Update Meta Description
-        const finalDesc = desc || "Read " + title + " on Namo Narayanaya Bhakthi Channel.";
-        document.querySelector('meta[name="description"]').setAttribute("content", finalDesc);
-        
-        // Update Meta Keywords with Focus Keywords
-        const metaKeys = `${focusKey}, ${title}, Dasabodha Telugu Lyrics, Namo Narayanaya`;
-        let metaTag = document.querySelector('meta[name="keywords"]');
-        if(!metaTag) {
-            metaTag = document.createElement('meta');
-            metaTag.name = "keywords";
-            document.head.appendChild(metaTag);
+    function renderNavigation(posts, currentIndex) {
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        document.getElementById('postNav').style.display = 'flex';
+
+        // Previous Button Logic
+        if (currentIndex > 0) {
+            const prevPath = posts[currentIndex - 1].url.replace('posts/', '').replace('.html', '');
+            prevBtn.href = `${repo}/${prevPath}`;
+        } else {
+            prevBtn.classList.add('disabled');
         }
-        metaTag.setAttribute("content", metaKeys);
-        
-        document.getElementById('canonicalUrl').setAttribute("href", window.location.href);
-        
-        // Hidden keywords for extra Search Engine relevance
-        document.getElementById('hiddenKeywords').innerText = `${focusKey}, ${title}, Namo Narayanaya Bhakthi Channel`;
+
+        // Next Button Logic (Automatically jumps from Dashakam 2 Samasam 10 to Dashakam 3 Samasam 1)
+        if (currentIndex < posts.length - 1) {
+            const nextPath = posts[currentIndex + 1].url.replace('posts/', '').replace('.html', '');
+            nextBtn.href = `${repo}/${nextPath}`;
+        } else {
+            nextBtn.classList.add('disabled');
+        }
     }
 
-    function loadContent(url, title, isPost) {
+    function loadPostContent(url, title) {
         document.getElementById('postTitle').innerText = title;
         fetch(url).then(res => res.text()).then(html => {
             const temp = document.createElement('div');
@@ -156,16 +128,22 @@
             const extras = temp.querySelectorAll('header, footer, nav, style, script');
             extras.forEach(e => e.remove());
             document.getElementById('postContent').innerHTML = temp.innerHTML;
-            
-            if (isPost) {
-                const u = encodeURIComponent(window.location.href);
-                const m = encodeURIComponent(title + "\n\n"); 
-                document.getElementById('sWA').href = `https://api.whatsapp.com/send?text=${m}${u}`;
-                document.getElementById('sFB').href = `https://www.facebook.com/sharer/sharer.php?u=${u}`;
-                document.getElementById('sTW').href = `https://twitter.com/intent/tweet?text=${m}&url=${u}`;
-                document.getElementById('shareRow').style.display = 'flex';
-            }
         });
+    }
+
+    function loadStaticPage() {
+        fetch(`${repo}/data/pages.json`).then(res => res.json()).then(pages => {
+            const page = pages.find(p => p.id === cleanId);
+            if (page) loadPostContent(`${repo}/${page.file}`, page.title);
+        });
+    }
+
+    function updateSEO(title, desc) {
+        document.title = title + " - Namo Narayanaya";
+        const focusWords = title.split(' ').slice(0, 4).join(' ');
+        let meta = document.querySelector('meta[name="keywords"]');
+        if(!meta) { meta = document.createElement('meta'); meta.name="keywords"; document.head.appendChild(meta); }
+        meta.setAttribute("content", focusWords + ", Dasabodha Telugu, Namo Narayanaya");
     }
 </script>
 </body>
