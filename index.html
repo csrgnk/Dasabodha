@@ -15,14 +15,17 @@
         .nav-menu a { color: white; text-decoration: none; margin: 0 12px; font-weight: bold; font-size: 14px; display: inline-block; }
         .nav-menu a.home-btn { background: #fff; color: #C2185B; padding: 5px 15px; border-radius: 4px; }
 
-        /* HEADER & CURVED BLUE BOX */
+        /* HEADER - DECREASED HEIGHT */
         header { 
-            background:#fff9db; padding:35px 10px; text-align:center; font-size:1.8rem; font-weight:bold; 
-            color:#C2185B; border-bottom: 3px solid #FFD700;
+            background:#fff9db; padding:20px 10px; text-align:center; 
+            border-bottom: 3px solid #FFD700;
         }
+        .header-main { font-size: 1.6rem; font-weight: bold; color: #C2185B; line-height: 1.2; }
+        
+        /* SUBTITLE - DECREASED TEXT SIZE */
         .sub-title-box {
-            background: #002366; color: #ffffff; padding: 8px 25px; border-radius: 50px; 
-            font-size: 1.1rem; display: inline-block; margin-top: 12px; font-weight: 500; 
+            background: #002366; color: #ffffff; padding: 6px 20px; border-radius: 50px; 
+            font-size: 0.95rem; display: inline-block; margin-top: 10px; font-weight: 500; 
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         
@@ -38,12 +41,10 @@
             box-shadow:0 2px 8px rgba(0,0,0,0.08); border-left: 6px solid #C2185B; 
         }
         .post-card h2 { margin:0 0 8px; color:#002366; font-size: 1.3rem; }
-        .post-card h2 a:hover { color: #C2185B; }
         .post-meta-desc { color: #555; font-size: 14px; margin: 8px 0; line-height: 1.5; }
         
         .coming-soon { text-align: center; padding: 40px; color: #C2185B; font-weight: bold; font-size: 1.2rem; }
 
-        /* DASHAKAM PAGINATION */
         .pagination-wrapper {
             display: flex; flex-direction: column; align-items: center; 
             margin: 30px 0; padding: 10px; border-top: 2px solid #FFD700;
@@ -72,8 +73,7 @@
 </nav>
 
 <header>
-    Namo Narayanaya Bhakthi Channel
-    <br>
+    <div class="header-main">Namo Narayanaya Bhakthi Channel</div>
     <div class="sub-title-box">Dasabodha Grantha Telugu Lyrics</div>
 </header>
 
@@ -95,11 +95,17 @@
     let currentDashakam = 1;
     const repo = "/Dasabodha";
 
-    // Fetching data from posts.json
     fetch(`${repo}/data/posts.json`)
     .then(res => res.json())
     .then(data => {
-        allPosts = data;
+        // SORTING LOGIC: Orders Samasams 1, 2, 3...
+        allPosts = data.sort((a, b) => {
+            const matchA = a.url.match(/samasam-(\d+)/);
+            const matchB = b.url.match(/samasam-(\d+)/);
+            const numA = matchA ? parseInt(matchA[1]) : 0;
+            const numB = matchB ? parseInt(matchB[1]) : 0;
+            return numA - numB;
+        });
         renderPage();
     })
     .catch(err => {
@@ -110,13 +116,7 @@
         const container = document.getElementById("postsContainer");
         container.innerHTML = "";
 
-        // Filtering logic based on selected Dashakam or Search
-        let displayPosts;
-        if(filteredData) {
-            displayPosts = filteredData;
-        } else {
-            displayPosts = allPosts.filter(post => post.dashakam == currentDashakam);
-        }
+        let displayPosts = filteredData || allPosts.filter(post => post.dashakam == currentDashakam);
 
         if (displayPosts.length === 0) {
             container.innerHTML = "<div class='coming-soon'>Posts are coming soon</div>";
@@ -125,7 +125,6 @@
         }
 
         displayPosts.forEach(post => {
-            // IMPORTANT: Remove 'posts/' and '.html' to generate clean Virtual URL
             const cleanId = post.url.replace('posts/', '').replace('.html', '');
             const virtualUrl = `${repo}/${cleanId}`;
 
@@ -133,7 +132,7 @@
             card.className = "post-card";
             card.innerHTML = `
                 <h2><a href="${virtualUrl}" style="text-decoration:none; color:#002366;">${post.title}</a></h2>
-                <div style="font-size: 12px; color: #888; margin-bottom: 8px;">Published: ${post.publish_date}</div>
+                <div style="font-size: 12px; color: #888; margin-bottom: 8px;">Date: ${post.publish_date}</div>
                 <div class="post-meta-desc">${post.description}</div>
                 <a href="${virtualUrl}" style="color:#C2185B; font-weight:bold; text-decoration:none; font-size:14px;">READ LYRICS →</a>
             `;
@@ -147,8 +146,6 @@
     function setupPagination() {
         const wrapper = document.getElementById("paginationWrapper");
         wrapper.innerHTML = "";
-
-        // Generating buttons for 20 Dashakams
         for (let i = 1; i <= 20; i++) {
             const btn = document.createElement("button");
             btn.className = `pg-btn ${i === currentDashakam ? 'active' : ''}`;
@@ -162,15 +159,10 @@
         }
     }
 
-    // Search functionality
     document.getElementById('postSearch').addEventListener('input', (e) => {
         const searchTerm = e.target.value.toLowerCase();
-        if(searchTerm === "") {
-            renderPage();
-        } else {
-            const filtered = allPosts.filter(p => p.title.toLowerCase().includes(searchTerm));
-            renderPage(filtered);
-        }
+        const filtered = allPosts.filter(p => p.title.toLowerCase().includes(searchTerm));
+        renderPage(searchTerm === "" ? null : filtered);
     });
 </script>
 </body>
