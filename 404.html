@@ -1,171 +1,193 @@
 <!DOCTYPE html>
 <html lang="te">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
-    <title id="pageTitle">Loading... - Namo Narayanaya</title>
-    <meta id="metaDesc" name="description" content="Dasabodha Grantha Telugu Lyrics">
-    <link id="canonicalUrl" rel="canonical" href="">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title id="pageTitle">Loading... - Namo Narayanaya</title>
+<meta id="metaDesc" name="description" content="Dasabodha Grantha Telugu Lyrics">
+<link id="canonicalUrl" rel="canonical" href="">
+<style>
+* { box-sizing: border-box; }
+body { margin:0; font-family: 'Segoe UI', Arial, sans-serif; background:#f4f6f9; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
 
-    <style>
-        * { box-sizing: border-box; }
-        body { margin:0; font-family: 'Segoe UI', Arial, sans-serif; background:#f4f6f9; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
-        
-        /* TOP NAVIGATION MENU - FIXED LINKS */
-        .nav-menu { 
-            background: #C2185B; padding: 12px 5px; text-align: center; position: sticky; top: 0; z-index: 1000; 
-            white-space: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
-        }
-        .nav-menu::-webkit-scrollbar { display: none; }
-        .nav-menu a { color: white; text-decoration: none; margin: 0 10px; font-weight: bold; font-size: 13px; display: inline-block; }
-        .nav-menu a:hover { text-decoration: underline; }
+/* TOP NAVIGATION MENU */
+.nav-menu { 
+    background: #C2185B; padding: 12px 5px; text-align: center; position: sticky; top: 0; z-index: 1000; 
+    white-space: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
+}
+.nav-menu::-webkit-scrollbar { display: none; }
+.nav-menu a { color: white; text-decoration: none; margin: 0 10px; font-weight: bold; font-size: 13px; display: inline-block; }
+.nav-menu a:hover { text-decoration: underline; }
 
-        header { background:#fff9db; padding:20px 10px; text-align:center; color:#C2185B; border-bottom: 3px solid #FFD700; }
-        .header-main { font-size: 1.8rem; font-weight: bold; line-height: 1.1; }
-        .header-sub { font-size: 1.7rem; font-weight: bold; }
-        .header-sub-box { background: #002366; color: #ffffff; padding: 8px 25px; border-radius: 50px; font-size: 0.9rem; margin-top: 15px; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+header { background:#fff9db; padding:20px 10px; text-align:center; color:#C2185B; border-bottom: 3px solid #FFD700; }
+.header-main { font-size: 1.8rem; font-weight: bold; line-height: 1.1; }
+.header-sub { font-size: 1.7rem; font-weight: bold; }
+.header-sub-box { background: #002366; color: #ffffff; padding: 8px 25px; border-radius: 50px; font-size: 0.9rem; margin-top: 15px; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
 
-        .container { width: 100%; max-width: 800px; margin: 0 auto; padding: 15px; flex: 1; }
-        .content-area { background:#fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; }
-        #postTitle { color: #002366; text-align: center; border-bottom: 2px solid #fff9db; padding-bottom: 15px; font-size: 1.5rem; margin-top: 0; }
+.container { width: 100%; max-width: 800px; margin: 0 auto; padding: 15px; flex: 1; }
 
-        /* SHARE SECTION */
-        .share-section { margin-top: 25px; padding-top: 15px; border-top: 1px dashed #ccc; text-align: center; }
-        .share-grid { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
-        .share-btn { padding: 8px 12px; border-radius: 5px; text-decoration: none; color: white; font-size: 12px; font-weight: bold; min-width: 80px; cursor: pointer; border: none; }
-        .wa-btn { background: #25D366; } .fb-btn { background: #1877F2; } .tw-btn { background: #000; } .cp-btn { background: #607D8B; }
+/* CONTENT AREA - LIGHT YELLOW BACKGROUND & BROWN TEXT */
+.content-area { 
+    background: #FFFDE7; /* Light Yellow */
+    padding: 25px; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+    width: 100%; 
+    color: #5D4037; /* Brown Color */
+}
 
-        /* NAVIGATION BUTTONS */
-        .post-nav { display: flex; justify-content: space-between; margin-top: 30px; padding-top: 20px; border-top: 2px solid #f0f0f0; gap: 8px; }
-        .nav-btn { background: #002366; color: white; padding: 10px 8px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 13px; flex: 1; text-align: center; }
-        .nav-btn.home-link { background: #C2185B; }
-        .nav-btn.disabled { background: #ccc; pointer-events: none; opacity: 0.5; }
+/* POST TITLE - PINK CURVED BOX WITH WHITE TEXT */
+#postTitle { 
+    background: #C2185B; /* Pink */
+    color: #FFFFFF; /* White Text */
+    text-align: center; 
+    padding: 12px 20px; 
+    border-radius: 50px; /* Curved Box */
+    font-size: 1.4rem; 
+    margin: 0 auto 20px auto; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    display: table; /* Shrinks box to text width */
+    max-width: 90%;
+}
 
-        footer { background: #C2185B; color: white; text-align: center; padding: 20px; margin-top: auto; }
-    </style>
+/* Ensure all elements inside content are Brown */
+#postContent, #postContent p, #postContent div, #postContent span {
+    color: #5D4037 !important;
+}
+
+/* SHARE SECTION */
+.share-section { margin-top: 25px; padding-top: 15px; border-top: 1px dashed #ccc; text-align: center; }
+.share-grid { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.share-btn { padding: 8px 12px; border-radius: 5px; text-decoration: none; color: white; font-size: 12px; font-weight: bold; min-width: 80px; cursor: pointer; border: none; }
+.wa-btn { background: #25D366; } .fb-btn { background: #1877F2; } .tw-btn { background: #000; } .cp-btn { background: #607D8B; }
+
+/* NAVIGATION BUTTONS */
+.post-nav { display: flex; justify-content: space-between; margin-top: 30px; padding-top: 20px; border-top: 2px solid #f0f0f0; gap: 8px; }
+.nav-btn { background: #002366; color: white; padding: 10px 8px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 13px; flex: 1; text-align: center; }
+.nav-btn.home-link { background: #C2185B; }
+.nav-btn.disabled { background: #ccc; pointer-events: none; opacity: 0.5; }
+
+footer { background: #C2185B; color: white; text-align: center; padding: 20px; margin-top: auto; }
+</style>
 </head>
 <body>
 
 <nav class="nav-menu">
-    <a href="/Dasabodha/">Home</a>
-    <a href="/Dasabodha/about-us">About Us</a>
-    <a href="/Dasabodha/contact-us">Contact Us</a>
-    <a href="/Dasabodha/privacy-policy">Privacy Policy</a>
+<a href="/Dasabodha/">Home</a>
+<a href="/Dasabodha/about-us">About Us</a>
+<a href="/Dasabodha/contact-us">Contact Us</a>
+<a href="/Dasabodha/privacy-policy">Privacy Policy</a>
 </nav>
 
 <header>
-    <div class="header-main">Namo Narayanaya</div>
-    <div class="header-sub">Bhakthi Channel</div>
-    <div class="header-sub-box">Dasabodha Grantha Telugu Lyrics</div>
+<div class="header-main">Namo Narayanaya</div>
+<div class="header-sub">Bhakthi Channel</div>
+<div class="header-sub-box">Dasabodha Grantha Telugu Lyrics</div>
 </header>
 
 <div class="container">
-    <article class="content-area">
-        <h1 id="postTitle">Loading Content...</h1>
-        <div id="postContent"></div>
+<article class="content-area">
+<h1 id="postTitle">Loading Content...</h1>
+<div id="postContent"></div>
 
-        <div class="share-section" id="shareSection" style="display:none;">
-            <div class="share-grid">
-                <a id="shareWA" target="_blank" class="share-btn wa-btn">WhatsApp</a>
-                <a id="shareFB" target="_blank" class="share-btn fb-btn">Facebook</a>
-                <a id="shareTW" target="_blank" class="share-btn tw-btn">Twitter</a>
-                <button onclick="copyCurrentLink()" class="share-btn cp-btn">Copy Link</button>
-            </div>
-        </div>
+<div class="share-section" id="shareSection" style="display:none;">
+<div class="share-grid">
+<a id="shareWA" target="_blank" class="share-btn wa-btn">WhatsApp</a>
+<a id="shareFB" target="_blank" class="share-btn fb-btn">Facebook</a>
+<a id="shareTW" target="_blank" class="share-btn tw-btn">Twitter</a>
+<button onclick="copyCurrentLink()" class="share-btn cp-btn">Copy Link</button>
+</div>
+</div>
 
-        <div class="post-nav" id="postNav" style="display:none;">
-            <a id="prevBtn" href="#" class="nav-btn">← Previous</a>
-            <a href="/Dasabodha/" class="nav-btn home-link">Home</a>
-            <a id="nextBtn" href="#" class="nav-btn">Next →</a>
-        </div>
-    </article>
+<div class="post-nav" id="postNav" style="display:none;">
+<a id="prevBtn" href="#" class="nav-btn">← Previous</a>
+<a href="/Dasabodha/" class="nav-btn home-link">Home</a>
+<a id="nextBtn" href="#" class="nav-btn">Next →</a>
+</div>
+</article>
 </div>
 
 <footer><p>© 2026 Namo Narayanaya Bhakthi Channel</p></footer>
 
 <script>
-    const repo = "/Dasabodha";
-    const path = window.location.pathname;
-    const segments = path.split('/').filter(Boolean);
-    const cleanId = segments.pop();
+const repo = "/Dasabodha";
+const path = window.location.pathname;
+const segments = path.split('/').filter(Boolean);
+const cleanId = segments.pop();
 
-    function copyCurrentLink() {
-        navigator.clipboard.writeText(window.location.href);
-        alert("Link copied!");
-    }
+function copyCurrentLink() {
+    navigator.clipboard.writeText(window.location.href);
+    alert("Link copied!");
+}
 
-    if (cleanId && cleanId !== 'Dasabodha') {
-        fetch(`${repo}/data/posts.json`).then(res => res.json()).then(allPosts => {
-            // Sort by Dashakam and Samasam
-            allPosts.sort((a, b) => {
-                if (parseInt(a.dashakam) !== parseInt(b.dashakam)) return parseInt(a.dashakam) - parseInt(b.dashakam);
-                const getNum = u => { const m = u.match(/samasam-(\d+)/); return m ? parseInt(m[1]) : 0; };
-                return getNum(a.url) - getNum(b.url);
-            });
-
-            const index = allPosts.findIndex(p => p.url.includes(cleanId));
-            if (index !== -1) {
-                const post = allPosts[index];
-                updateSEO(post.title, post.description);
-                loadContent(`${repo}/posts/${cleanId}.html`, post.title);
-                renderNavigation(allPosts, index);
-                setupSharing(post.title);
-            } else {
-                checkPages();
-            }
+if (cleanId && cleanId !== 'Dasabodha') {
+    fetch(`${repo}/data/posts.json`).then(res => res.json()).then(allPosts => {
+        allPosts.sort((a, b) => {
+            if (parseInt(a.dashakam) !== parseInt(b.dashakam)) return parseInt(a.dashakam) - parseInt(b.dashakam);
+            const getNum = u => { const m = u.match(/samasam-(\d+)/); return m ? parseInt(m[1]) : 0; };
+            return getNum(a.url) - getNum(b.url);
         });
-    }
 
-    function checkPages() {
-        fetch(`${repo}/data/pages.json`).then(res => res.json()).then(pages => {
-            const page = pages.find(p => p.id === cleanId);
-            if (page) {
-                loadContent(`${repo}/${page.file}`, page.title);
-                document.getElementById('postNav').style.display = 'none';
-                document.getElementById('shareSection').style.display = 'none';
-            }
-        });
-    }
+        const index = allPosts.findIndex(p => p.url.includes(cleanId));
+        if (index !== -1) {
+            const post = allPosts[index];
+            updateSEO(post.title, post.description);
+            loadContent(`${repo}/posts/${cleanId}.html`, post.title);
+            renderNavigation(allPosts, index);
+            setupSharing(post.title);
+        } else {
+            checkPages();
+        }
+    });
+}
 
-    function renderNavigation(posts, currentIndex) {
-        document.getElementById('postNav').style.display = 'flex';
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
+function checkPages() {
+    fetch(`${repo}/data/pages.json`).then(res => res.json()).then(pages => {
+        const page = pages.find(p => p.id === cleanId);
+        if (page) {
+            loadContent(`${repo}/${page.file}`, page.title);
+            document.getElementById('postNav').style.display = 'none';
+            document.getElementById('shareSection').style.display = 'none';
+        }
+    });
+}
 
-        if (currentIndex > 0) {
-            prevBtn.href = `${repo}/${posts[currentIndex - 1].url.replace('posts/','').replace('.html','')}`;
-        } else { prevBtn.classList.add('disabled'); }
+function renderNavigation(posts, currentIndex) {
+    document.getElementById('postNav').style.display = 'flex';
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    if (currentIndex > 0) {
+        prevBtn.href = `${repo}/${posts[currentIndex - 1].url.replace('posts/','').replace('.html','')}`;
+    } else { prevBtn.classList.add('disabled'); }
+    if (currentIndex < posts.length - 1) {
+        nextBtn.href = `${repo}/${posts[currentIndex + 1].url.replace('posts/','').replace('.html','')}`;
+    } else { nextBtn.classList.add('disabled'); }
+}
 
-        if (currentIndex < posts.length - 1) {
-            nextBtn.href = `${repo}/${posts[currentIndex + 1].url.replace('posts/','').replace('.html','')}`;
-        } else { nextBtn.classList.add('disabled'); }
-    }
+function setupSharing(title) {
+    document.getElementById('shareSection').style.display = 'block';
+    const url = window.location.href;
+    const text = encodeURIComponent(title + "\n" + url);
+    document.getElementById('shareWA').href = `https://api.whatsapp.com/send?text=${text}`;
+    document.getElementById('shareFB').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+    document.getElementById('shareTW').href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`;
+}
 
-    function setupSharing(title) {
-        document.getElementById('shareSection').style.display = 'block';
-        const url = window.location.href;
-        const text = encodeURIComponent(title + "\n" + url);
-        document.getElementById('shareWA').href = `https://api.whatsapp.com/send?text=${text}`;
-        document.getElementById('shareFB').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-        document.getElementById('shareTW').href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`;
-    }
+function loadContent(url, title) {
+    document.getElementById('postTitle').innerText = title;
+    fetch(url).then(res => res.text()).then(html => {
+        const temp = document.createElement('div');
+        temp.innerHTML = html;
+        temp.querySelectorAll('header, footer, nav, style, script').forEach(e => e.remove());
+        document.getElementById('postContent').innerHTML = temp.innerHTML;
+    });
+}
 
-    function loadContent(url, title) {
-        document.getElementById('postTitle').innerText = title;
-        fetch(url).then(res => res.text()).then(html => {
-            const temp = document.createElement('div');
-            temp.innerHTML = html;
-            temp.querySelectorAll('header, footer, nav, style, script').forEach(e => e.remove());
-            document.getElementById('postContent').innerHTML = temp.innerHTML;
-        });
-    }
-
-    function updateSEO(title, desc) {
-        document.title = title + " - Namo Narayanaya";
-        const meta = document.querySelector('meta[name="description"]');
-        if(meta) meta.setAttribute("content", desc || title);
-    }
+function updateSEO(title, desc) {
+    document.title = title + " - Namo Narayanaya";
+    const meta = document.querySelector('meta[name="description"]');
+    if(meta) meta.setAttribute("content", desc || title);
+}
 </script>
 </body>
 </html>
