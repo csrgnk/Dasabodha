@@ -1,6 +1,43 @@
 <!DOCTYPE html>
 <html lang="te">
 <head>
+    <script type="text/javascript">
+    // Disable Right-Click
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+    // Disable Keyboard Shortcuts (Copy, Paste, View Source, Save, Inspect)
+    document.onkeydown = function(e) {
+        if (e.ctrlKey && 
+            (e.keyCode === 67 || // Ctrl+C
+             e.keyCode === 86 || // Ctrl+V
+             e.keyCode === 85 || // Ctrl+U
+             e.keyCode === 83 || // Ctrl+S
+             e.keyCode === 73 || // Ctrl+Shift+I
+             e.keyCode === 123)) { // F12
+            return false;
+        }
+    };
+
+    // Disable Text Selection via JavaScript
+    document.onselectstart = function() { return false; };
+</script>
+
+<style>
+    /* Disable Text Selection via CSS */
+    body {
+        -webkit-user-select: none;  /* Safari */
+        -moz-user-select: none;     /* Firefox */
+        -ms-user-select: none;      /* IE/Edge */
+        user-select: none;          /* Standard */
+    }
+
+    /* Additional Protection for Images */
+    img {
+        pointer-events: none;
+        -webkit-user-drag: none;
+    }
+</style>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dasabodha - Namo Narayanaya Bhakthi Channel</title>
