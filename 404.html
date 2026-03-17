@@ -18,15 +18,30 @@ flex-direction:column;
 min-height:100vh;
 }
 
+/* HEADER */
+
 header{
 background:#FFF3E0;
 padding:15px;
 text-align:center;
-font-size:1.4rem;
-font-weight:bold;
-color:#E65100;
 border-bottom:3px solid #FF9800;
 }
+
+.site-title{
+font-size:1.5rem;
+font-weight:bold;
+color:#E65100;
+line-height:1.2;
+}
+
+.site-subtitle{
+font-size:1rem;
+font-weight:600;
+color:#BF360C;
+margin-top:3px;
+}
+
+/* CONTAINER */
 
 .container{
 max-width:800px;
@@ -36,6 +51,8 @@ flex:1;
 width:100%;
 box-sizing:border-box;
 }
+
+/* TITLE */
 
 .post-title{
 background:linear-gradient(135deg,#FF9800,#E65100);
@@ -49,17 +66,29 @@ margin-bottom:10px;
 word-wrap:break-word;
 }
 
+/* CONTENT */
+
 .post-content{
 background:#FFFDE7;
 padding:15px;
 border-radius:10px;
 color:#2E3A59;
-line-height:1.7;
-font-size:15px;
+line-height:1.8;
+font-size:17px;
 word-break:break-word;
 }
 
-/* SHARE BUTTONS */
+/* IMAGES */
+
+.post-content img{
+max-width:100%;
+height:auto;
+display:block;
+margin:auto;
+border-radius:10px;
+}
+
+/* SHARE */
 
 .share-row{
 display:flex;
@@ -83,7 +112,7 @@ font-size:13px;
 .tw{background:#000;}
 .cp{background:#607D8B;border:none;cursor:pointer;}
 
-/* PREV NEXT */
+/* NAVIGATION */
 
 .nav-row{
 display:flex;
@@ -117,6 +146,8 @@ font-weight:bold;
 text-decoration:none;
 }
 
+/* FOOTER */
+
 footer{
 background:#E65100;
 color:white;
@@ -124,9 +155,15 @@ text-align:center;
 padding:15px;
 }
 
+/* MOBILE */
+
 @media(max-width:500px){
+
+.site-title{font-size:1.2rem;}
+.site-subtitle{font-size:0.9rem;}
 .post-title{font-size:1rem;}
-.post-content{font-size:14px;}
+.post-content{font-size:15.5px;}
+
 }
 
 </style>
@@ -135,7 +172,10 @@ padding:15px;
 
 <body>
 
-<header>Namo Narayanaya Bhakthi Channel</header>
+<header>
+<div class="site-title">Namo Narayanaya</div>
+<div class="site-subtitle">Bhakthi Channel</div>
+</header>
 
 <div class="container">
 
@@ -179,7 +219,6 @@ fetch(`${repo}/data/posts.json`)
 .then(r=>r.json())
 .then(posts=>{
 
-/* SORT */
 posts.sort((a,b)=>{
 if(a.dashakam!=b.dashakam) return a.dashakam-b.dashakam;
 const n1=parseInt(a.url.match(/samasam-(\d+)/)?.[1]||0);
@@ -195,7 +234,6 @@ if(post){
 document.title=post.title;
 document.getElementById("postTitle").innerText=post.title;
 
-/* LOAD CONTENT */
 fetch(`${repo}/posts/${slug}.html`)
 .then(r=>r.text())
 .then(html=>{
@@ -207,7 +245,7 @@ temp.querySelectorAll("header,footer,nav,script,style").forEach(e=>e.remove());
 
 document.getElementById("postContent").innerHTML=temp.innerHTML;
 
-/* SHARE LINKS */
+/* SHARE */
 const url=encodeURIComponent(window.location.href);
 const msg=encodeURIComponent(post.title+"\n\n");
 
