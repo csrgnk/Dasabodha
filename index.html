@@ -1,45 +1,31 @@
 <!DOCTYPE html>
 <html lang="te">
 <head>
-    <script type="text/javascript">
-    // Disable Right-Click
-    document.addEventListener('contextmenu', event => event.preventDefault());
-
-    // Disable Keyboard Shortcuts
-    document.onkeydown = function(e) {
-        if (e.ctrlKey && 
-            (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || 
-             e.keyCode === 83 || e.keyCode === 73 || e.keyCode === 123)) {
-            return false;
-        }
-    };
-
-    // Disable Text Selection
-    document.onselectstart = function() { return false; };
-</script>
-
-<style>
-    body {
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
-    img {
-        pointer-events: none;
-        -webkit-user-drag: none;
-    }
-</style>
-
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dasabodha - Namo Narayanaya Bhakthi Channel</title>
+    
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <script type="text/javascript">
+        // Security: Disable Right-Click and Copy
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.onkeydown = function(e) {
+            if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 73 || e.keyCode === 123)) {
+                return false;
+            }
+        };
+        document.onselectstart = function() { return false; };
+    </script>
+
     <style>
-        body { margin:0; font-family: 'Segoe UI', Arial, sans-serif; background:#f4f6f9; display: flex; flex-direction: column; min-height: 100vh; }
+        body { 
+            margin:0; font-family: 'Segoe UI', Arial, sans-serif; background:#f4f6f9; 
+            display: flex; flex-direction: column; min-height: 100vh; 
+            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+        }
         
         .nav-menu { 
             background: #C2185B; padding: 12px 5px; text-align: center; position: sticky; top: 0; z-index: 1000; 
@@ -92,6 +78,7 @@
         .pg-btn.active { background: #002366; color: #FFD700; }
 
         footer { background: #C2185B; color: white; text-align: center; padding: 20px; margin-top: auto; }
+        img { pointer-events: none; -webkit-user-drag: none; }
     </style>
 </head>
 <body>
@@ -101,7 +88,6 @@
     <a href="./about-us">About Us</a>
     <a href="./contact-us">Contact Us</a>
     <a href="./privacy-policy">Privacy Policy</a>
-    <a href="https://dasabodha.omnnbc.in/Upasana-Chandrika/">Upasana Chandrika</a>
     <a href="https://omnnbc.in/">Main Site</a>
 </nav>
 
@@ -127,16 +113,13 @@
     let allPosts = [];
     let currentDashakam = 1;
 
-    // AUTOMATIC PATH DETECTION: 
-    // If hostname is NOT github.io, we assume it is the subdomain and use root path.
+    // PATH DETECTION: Automatically works on dasabodha.omnnbc.in and csrgnk.github.io/Dasabodha
     const repoPath = window.location.hostname.includes('github.io') ? "/Dasabodha" : "";
-
-    // CACHE BUSTING: Adds a unique version number based on the current time
     const cacheBuster = "?v=" + new Date().getTime();
 
     fetch(`${repoPath}/data/posts.json${cacheBuster}`)
     .then(res => {
-        if (!res.ok) throw new Error('File not found');
+        if (!res.ok) throw new Error('File not found at ' + `${repoPath}/data/posts.json`);
         return res.json();
     })
     .then(data => {
@@ -153,8 +136,9 @@
         renderPage();
     })
     .catch(err => {
-        console.error("Path Error:", err);
-        document.getElementById("postsContainer").innerHTML = "<div class='coming-soon'>Content currently unavailable. Please refresh or check back later.</div>";
+        console.error(err);
+        document.getElementById("postsContainer").innerHTML = 
+            `<div class='coming-soon'>Content currently unavailable.<br>Please ensure your <b>data/posts.json</b> file exists in GitHub.</div>`;
     });
 
     function renderPage(filteredData = null) {
@@ -164,15 +148,15 @@
         let displayPosts = filteredData || allPosts.filter(post => post.dashakam == currentDashakam);
 
         if (displayPosts.length === 0) {
-            container.innerHTML = "<div class='coming-soon'>Posts are coming soon for Dashakam " + currentDashakam + "</div>";
+            container.innerHTML = `<div class='coming-soon'>Posts are coming soon for Dashakam ${currentDashakam}</div>`;
             if(!filteredData) setupPagination();
             return;
         }
 
         displayPosts.forEach(post => {
-            // Fixes link paths for subdomain
+            // Fixes link paths for both environments
             const cleanId = post.url.replace('posts/', '').replace('.html', '');
-            const virtualUrl = `${repoPath}/${cleanId}`;
+            const virtualUrl = `${repoPath}/posts/${cleanId}.html`;
 
             const card = document.createElement("div");
             card.className = "post-card";
