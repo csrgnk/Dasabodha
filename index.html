@@ -106,23 +106,28 @@ margin:30px 0;
 
 .page-numbers-container{
 display:flex;
-flex-wrap:wrap;   /* FIX overflow */
-justify-content:center;
 gap:10px;
+overflow-x:auto;        /* horizontal scroll */
+white-space:nowrap;     /* single line */
 width:100%;
 padding:10px;
+scrollbar-width:none;
+}
+
+.page-numbers-container::-webkit-scrollbar{
+display:none;
 }
 
 .pg-btn{
-min-width:100px;
-padding:8px 10px;
+min-width:120px;
+padding:8px 12px;
 border:2px solid #002366;
 border-radius:25px;
 background:white;
 color:#002366;
 font-weight:bold;
 cursor:pointer;
-font-size:13px;
+flex-shrink:0;
 }
 
 .pg-btn.active{
