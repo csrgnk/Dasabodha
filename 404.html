@@ -18,48 +18,90 @@ flex-direction:column;
 min-height:100vh;
 }
 
-/* HEADER */
-
 header{
 background:#FFF3E0;
-padding:20px;
+padding:15px;
 text-align:center;
-font-size:1.6rem;
+font-size:1.4rem;
 font-weight:bold;
 color:#E65100;
 border-bottom:3px solid #FF9800;
 }
-
-/* CONTAINER */
 
 .container{
 max-width:800px;
 margin:auto;
 padding:15px;
 flex:1;
+width:100%;
+box-sizing:border-box;
 }
-
-/* TITLE */
 
 .post-title{
 background:linear-gradient(135deg,#FF9800,#E65100);
 color:#fff;
 text-align:center;
-padding:15px;
-font-size:1.4rem;
+padding:12px;
+font-size:1.2rem;
 font-weight:bold;
-border-radius:15px;
+border-radius:12px;
 margin-bottom:10px;
+word-wrap:break-word;
 }
-
-/* CONTENT */
 
 .post-content{
 background:#FFFDE7;
-padding:20px;
-border-radius:12px;
+padding:15px;
+border-radius:10px;
 color:#2E3A59;
 line-height:1.7;
+font-size:15px;
+word-break:break-word;
+}
+
+/* SHARE BUTTONS */
+
+.share-row{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:10px;
+margin-top:20px;
+}
+
+.share-btn{
+padding:10px 14px;
+border-radius:6px;
+color:white;
+font-weight:bold;
+text-decoration:none;
+font-size:13px;
+}
+
+.wa{background:#25D366;}
+.fb{background:#1877F2;}
+.tw{background:#000;}
+.cp{background:#607D8B;border:none;cursor:pointer;}
+
+/* PREV NEXT */
+
+.nav-row{
+display:flex;
+justify-content:space-between;
+margin-top:20px;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.nav-btn{
+flex:1;
+text-align:center;
+padding:10px;
+background:#C2185B;
+color:white;
+text-decoration:none;
+border-radius:8px;
+font-size:13px;
 }
 
 /* BACK */
@@ -75,13 +117,16 @@ font-weight:bold;
 text-decoration:none;
 }
 
-/* FOOTER */
-
 footer{
 background:#E65100;
 color:white;
 text-align:center;
-padding:20px;
+padding:15px;
+}
+
+@media(max-width:500px){
+.post-title{font-size:1rem;}
+.post-content{font-size:14px;}
 }
 
 </style>
@@ -96,8 +141,20 @@ padding:20px;
 
 <div class="post-title" id="postTitle">Loading...</div>
 
-<div class="post-content" id="postContent">
-Please wait...
+<div class="post-content" id="postContent">Please wait...</div>
+
+<!-- SHARE -->
+<div class="share-row" id="shareRow" style="display:none;">
+<a id="sWA" class="share-btn wa" target="_blank">WhatsApp</a>
+<a id="sFB" class="share-btn fb" target="_blank">Facebook</a>
+<a id="sTW" class="share-btn tw" target="_blank">Twitter</a>
+<button onclick="copyURL()" class="share-btn cp">Copy Link</button>
+</div>
+
+<!-- PREV NEXT -->
+<div class="nav-row">
+<a id="prevPost" class="nav-btn" style="display:none;">← Previous</a>
+<a id="nextPost" class="nav-btn" style="display:none;">Next →</a>
 </div>
 
 <div class="back-home">
@@ -106,50 +163,79 @@ Please wait...
 
 </div>
 
-<footer>
-© 2026 Namo Narayanaya Bhakthi Channel
-</footer>
+<footer>© 2026 Namo Narayanaya Bhakthi Channel</footer>
 
 <script>
 
-/* GET SLUG */
-const path = window.location.pathname;
-const slug = path.replace(/^\/+|\/+$/g,'');
+const repo = window.location.hostname.includes('github.io') ? "/Dasabodha" : "";
+const slug = window.location.pathname.replace(/^\/+|\/+$/g,'');
 
-/* FETCH POSTS JSON */
+function copyURL(){
+navigator.clipboard.writeText(window.location.href);
+alert("Link copied!");
+}
 
-fetch("./data/posts.json")
+fetch(`${repo}/data/posts.json`)
 .then(r=>r.json())
 .then(posts=>{
 
-const post = posts.find(p => p.url === slug);
+/* SORT */
+posts.sort((a,b)=>{
+if(a.dashakam!=b.dashakam) return a.dashakam-b.dashakam;
+const n1=parseInt(a.url.match(/samasam-(\d+)/)?.[1]||0);
+const n2=parseInt(b.url.match(/samasam-(\d+)/)?.[1]||0);
+return n1-n2;
+});
+
+const index = posts.findIndex(p=>p.url===slug);
+const post = posts[index];
 
 if(post){
 
-document.title = post.title;
+document.title=post.title;
+document.getElementById("postTitle").innerText=post.title;
 
-document.getElementById("postTitle").innerText = post.title;
-
-/* LOAD ACTUAL HTML FILE */
-fetch(`./posts/${slug}.html`)
+/* LOAD CONTENT */
+fetch(`${repo}/posts/${slug}.html`)
 .then(r=>r.text())
 .then(html=>{
 
 const temp=document.createElement("div");
 temp.innerHTML=html;
 
-/* REMOVE HEADER/FOOTER FROM POST */
-const remove=temp.querySelectorAll("header,footer,nav,script,style");
-remove.forEach(e=>e.remove());
+temp.querySelectorAll("header,footer,nav,script,style").forEach(e=>e.remove());
 
 document.getElementById("postContent").innerHTML=temp.innerHTML;
+
+/* SHARE LINKS */
+const url=encodeURIComponent(window.location.href);
+const msg=encodeURIComponent(post.title+"\n\n");
+
+document.getElementById("sWA").href=`https://api.whatsapp.com/send?text=${msg}${url}`;
+document.getElementById("sFB").href=`https://www.facebook.com/sharer/sharer.php?u=${url}`;
+document.getElementById("sTW").href=`https://twitter.com/intent/tweet?text=${msg}&url=${url}`;
+
+document.getElementById("shareRow").style.display="flex";
+
+/* PREV */
+if(index>0){
+const prev=posts[index-1];
+document.getElementById("prevPost").href=`/${prev.url}/`;
+document.getElementById("prevPost").style.display="block";
+}
+
+/* NEXT */
+if(index<posts.length-1){
+const next=posts[index+1];
+document.getElementById("nextPost").href=`/${next.url}/`;
+document.getElementById("nextPost").style.display="block";
+}
 
 });
 
 }else{
 
 document.getElementById("postTitle").innerText="Page Not Found";
-
 document.getElementById("postContent").innerHTML="Content not available.";
 
 }
