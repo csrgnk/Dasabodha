@@ -2,218 +2,168 @@
 <html lang="te">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Loading...</title>
-    <link href="https://fonts.googleapis.com/css2?family=Mandali&display=swap" rel="stylesheet">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">Loading...</title>
     <style>
-        :root {
-            --primary: #C2185B;
-            --secondary: #002366;
-            --accent: #FFD700;
-            --bg: #fdfbf7;
-            --card-yellow: #FFFDE7;
+        body { 
+            margin: 0; 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            background: #f4f6f9; 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh; 
+            overflow-x: hidden; 
         }
 
-        body {
-            margin: 0;
-            font-family: 'Mandali', sans-serif;
-            background: var(--bg);
-            color: #222;
+        /* HEADER - Scrolling style */
+        header { 
+            background: #FFFDE7; 
+            padding: 20px 10px; 
+            text-align: center; 
+            color: #C2185B; 
+            border-bottom: 3px solid #FFD700; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            font-weight: bold; 
+            font-size: 1.8rem;
+            line-height: 1.2;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
-        header {
-            background: #fff;
-            padding: 20px 10px;
-            text-align: center;
-            border-bottom: 4px solid var(--accent);
+        .container { 
+            max-width: 800px; 
+            margin: auto; 
+            padding: 15px; 
+            flex: 1; 
+            width: 100%; 
+            box-sizing: border-box; 
         }
 
-        .site-title-main { font-size: 1.4rem; font-weight: 800; color: var(--primary); display: block; margin: 0; }
-        .site-title-sub { font-size: 1rem; font-weight: 600; color: var(--secondary); display: block; }
-
-        .container { max-width: 800px; margin: auto; padding: 15px; }
-
-        .post-title {
-            background: linear-gradient(135deg, var(--secondary), #0047AB);
-            color: #fff;
-            text-align: center;
-            padding: 18px;
-            font-size: 1.3rem;
-            border-radius: 12px;
-            margin-bottom: 20px;
+        /* POST TITLE - Height Reduced to 12px padding, Text Size Kept Big */
+        .post-title { 
+            background: #C2185B; 
+            color: white; 
+            text-align: center; 
+            padding: 12px 15px; /* Set to 12px as requested */
+            font-size: 1.6rem;   /* Keeping the same big text size */
+            font-weight: bold; 
+            border-radius: 12px; 
+            margin-bottom: 12px; 
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            word-wrap: break-word;
+            line-height: 1.2;
         }
 
-        .post-content {
-            background: var(--card-yellow);
-            padding: 25px;
-            border-radius: 12px;
-            border: 1px solid #f0e68c;
-            line-height: 2;
-            font-size: 22px; /* Large Text */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            min-height: 200px;
+        .post-content { 
+            background: #FFFDE7; 
+            padding: 20px; 
+            border-radius: 12px; 
+            color: #1A237E; 
+            line-height: 1.8; 
+            font-size: 20px; 
+            word-wrap: break-word;
         }
 
-        /* SHARE BUTTONS */
-        .share-row {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin: 30px 0;
-        }
+        .post-content img { max-width: 100%; height: auto; border-radius: 8px; }
 
-        .share-btn {
-            padding: 10px 15px;
-            border-radius: 8px;
-            color: white;
-            font-weight: bold;
-            text-decoration: none;
-            font-size: 13px;
-            min-width: 80px;
-            text-align: center;
-        }
+        .share-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px; }
+        .share-btn { padding: 10px 12px; border-radius: 8px; color: white; font-weight: bold; text-decoration: none; font-size: 13px; flex: 1; min-width: 90px; text-align: center; }
+        .wa { background: #25D366; } .fb { background: #1877F2; } .tw { background: #000; } .cp { background: #607D8B; border: none; cursor: pointer; }
+        
+        .back-home { text-align: center; margin: 25px 0; }
+        .back-home a { color: #C2185B; font-weight: bold; text-decoration: none; font-size: 17px; }
+        
+        footer { background: #C2185B; color: white; text-align: center; padding: 20px; margin-top: auto; }
 
-        .wa { background: #25D366; }
-        .fb { background: #1877F2; }
-        .tw { background: #000; }
-        .cp { background: #607D8B; border: none; cursor: pointer; }
-
-        /* PREVIOUS & NEXT BUTTONS SETUP */
-        .nav-row {
-            display: flex;
-            justify-content: space-between;
-            margin: 25px 0;
-            gap: 12px;
-        }
-
-        .nav-btn {
-            flex: 1;
-            text-align: center;
-            padding: 15px 10px;
-            background: var(--primary); /* Changed to your primary color */
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: bold;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            display: none; /* Hidden by default, shown via JS */
-        }
-
-        .back-home {
-            text-align: center;
-            margin: 30px 0 50px;
-        }
-
-        .back-home a {
-            color: var(--secondary);
-            font-weight: bold;
-            text-decoration: none;
-        }
-
-        footer { background: var(--primary); color: white; text-align: center; padding: 30px 15px; }
-
-        @media(max-width:500px){
-            .post-content { font-size: 20px; padding: 15px; }
-            .nav-btn { font-size: 13px; }
+        @media (max-width: 600px) {
+            header { font-size: 1.45rem; }
+            /* Keeping text size 1.4rem on mobile for better visibility */
+            .post-title { font-size: 1.4rem; padding: 12px 10px; } 
+            .post-content { font-size: 19px; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="site-title-main">Namo Narayanaya</div>
-    <div class="site-title-sub">Bhakthi Channel</div>
+    <div>Namo Narayanaya</div>
+    <div>Bhakthi Channel</div>
 </header>
 
 <div class="container">
     <div class="post-title" id="postTitle">Loading...</div>
-
-    <div class="post-content" id="postContent">
-        మంగళకరమైన శ్లోకాలు లోడ్ అవుతున్నాయి...
-    </div>
+    <div class="post-content" id="postContent"></div>
 
     <div class="share-row" id="shareRow" style="display:none;">
         <a id="sWA" class="share-btn wa" target="_blank">WhatsApp</a>
         <a id="sFB" class="share-btn fb" target="_blank">Facebook</a>
         <a id="sTW" class="share-btn tw" target="_blank">Twitter</a>
-        <button onclick="copyURL()" class="share-btn cp">Copy Link</button>
-    </div>
-
-    <div class="nav-row">
-        <a id="prevPost" class="nav-btn">← Previous Samasam</a>
-        <a id="nextPost" class="nav-btn">Next Samasam →</a>
+        <button onclick="copyURL()" class="share-btn cp">Copy URL</button>
     </div>
 
     <div class="back-home">
-        <a href="/">← Back to All Dashakams</a>
+        <a href="/">← Back to Home</a>
     </div>
 </div>
 
-<footer>© 2026 Namo Narayanaya Bhakthi Channel</footer>
+<footer>
+    <p>© 2026 Namo Narayanaya Bhakthi Channel</p>
+</footer>
 
 <script>
-function copyURL(){
-    navigator.clipboard.writeText(window.location.href);
-    alert("లింక్ కాపీ చేయబడింది!");
-}
+    const repoName = "Omnnbc"; 
+    const isGitHub = window.location.hostname.includes("github.io");
+    const baseUrl = isGitHub ? `/${repoName}` : "";
 
-const repo = window.location.hostname.includes('github.io') ? "/Dasabodha" : "";
-const slug = window.location.pathname.replace(/^\/+|\/+$/g,'');
-
-fetch(`${repo}/data/posts.json?v=${Date.now()}`)
-.then(r=>r.json())
-.then(posts => {
-    // 1. Sort posts correctly by dashakam and samasam number
-    posts.sort((a,b)=>{
-        if(parseInt(a.dashakam) !== parseInt(b.dashakam)) return parseInt(a.dashakam) - parseInt(b.dashakam);
-        const n1 = parseInt(a.url.match(/samasam-(\d+)/)?.[1] || 0);
-        const n2 = parseInt(b.url.match(/samasam-(\d+)/)?.[1] || 0);
-        return n1 - n2;
-    });
-
-    // 2. Find current post index
-    const index = posts.findIndex(p => p.url === slug);
-    const post = posts[index];
-
-    if(post) {
-        document.title = post.title;
-        document.getElementById("postTitle").innerText = post.title;
-
-        fetch(`${repo}/posts/${slug}.html`).then(r=>r.text()).then(html => {
-            const temp = document.createElement("div");
-            temp.innerHTML = html;
-            temp.querySelectorAll("header,footer,nav,script,style").forEach(e=>e.remove());
-            document.getElementById("postContent").innerHTML = temp.innerHTML;
-            
-            // Share setup
-            const url = encodeURIComponent(window.location.href);
-            const text = encodeURIComponent(post.title + "\n\n");
-            document.getElementById("sWA").href = `https://api.whatsapp.com/send?text=${text}${url}`;
-            document.getElementById("sFB").href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-            document.getElementById("sTW").href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
-            document.getElementById("shareRow").style.display = "flex";
-
-            // 3. Navigation Logic (Previous / Next)
-            if(index > 0) {
-                const prev = posts[index - 1];
-                const prevLink = document.getElementById("prevPost");
-                prevLink.href = `${repo}/${prev.url}/`;
-                prevLink.style.display = "block";
-            }
-
-            if(index < posts.length - 1) {
-                const next = posts[index + 1];
-                const nextLink = document.getElementById("nextPost");
-                nextLink.href = `${repo}/${next.url}/`;
-                nextLink.style.display = "block";
-            }
-        });
+    // Auto-clean URL address bar
+    if (window.location.pathname.includes("/" + repoName + "/")) {
+        const cleanPath = window.location.pathname.replace("/" + repoName + "/", "/");
+        window.history.replaceState(null, "", cleanPath);
     }
-});
+
+    let path = window.location.pathname;
+    let slug = path.split('/').filter(p => p && p !== repoName).pop();
+
+    function copyURL(){
+        navigator.clipboard.writeText(window.location.href);
+        alert("Link Copied!");
+    }
+
+    fetch(`${baseUrl}/data/posts.json`)
+    .then(r => r.json())
+    .then(posts => {
+        const post = posts.find(p => p.url === slug);
+
+        if(post) {
+            document.title = post.title + " - Namo Narayanaya";
+            document.getElementById("postTitle").innerText = post.title;
+
+            fetch(`${baseUrl}/posts/${slug}.html`)
+            .then(r => r.text())
+            .then(html => {
+                const temp = document.createElement("div");
+                temp.innerHTML = html;
+                const extras = temp.querySelectorAll("header,footer,nav,script,style");
+                extras.forEach(e => e.remove());
+
+                document.getElementById("postContent").innerHTML = temp.innerHTML;
+
+                const u = encodeURIComponent(window.location.href);
+                const m = encodeURIComponent(post.title + "\n\n");
+                document.getElementById("sWA").href = `https://api.whatsapp.com/send?text=${m}${u}`;
+                document.getElementById("sFB").href = `https://www.facebook.com/sharer/sharer.php?u=${u}`;
+                document.getElementById("sTW").href = `https://twitter.com/intent/tweet?text=${m}&url=${u}`;
+                document.getElementById("shareRow").style.display = "flex";
+            });
+        } else {
+            document.getElementById("postTitle").innerText = "Page Not Found";
+            document.getElementById("postContent").innerHTML = "<p style='text-align:center;'>Sorry, the page you are looking for does not exist.</p>";
+        }
+    })
+    .catch(e => console.error(e));
 </script>
 
 </body>
-</html>
+            </html>
+            
