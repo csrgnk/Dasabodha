@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Loading...</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mandali&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --primary: #C2185B;
@@ -15,159 +17,75 @@
 
         body {
             margin: 0;
-            font-family: 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Mandali', sans-serif;
             background: var(--bg);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            color: #333;
+            color: #222;
         }
 
-        /* CENTERED TWO-LINE HEADER */
         header {
             background: #fff;
             padding: 20px 10px;
             text-align: center;
             border-bottom: 4px solid var(--accent);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        .site-title-main {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: var(--primary);
-            display: block;
-            margin: 0;
-            line-height: 1.2;
-        }
+        .site-title-main { font-size: 1.4rem; font-weight: 800; color: var(--primary); display: block; }
+        .site-title-sub { font-size: 1rem; font-weight: 600; color: var(--secondary); display: block; }
 
-        .site-title-sub {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--secondary);
-            display: block;
-            margin-top: 2px;
-        }
+        .container { max-width: 800px; margin: auto; padding: 15px; }
 
-        .container {
-            max-width: 800px;
-            margin: auto;
-            padding: 15px;
-            flex: 1;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        /* SAMASAM TITLE BOX */
         .post-title {
             background: linear-gradient(135deg, var(--secondary), #0047AB);
             color: #fff;
             text-align: center;
-            padding: 15px;
-            font-size: 1.15rem;
-            font-weight: bold;
+            padding: 18px;
+            font-size: 1.3rem;
             border-radius: 12px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
         }
 
-        /* LYRICS CONTENT - LIGHT YELLOW */
         .post-content {
             background: var(--card-yellow);
-            padding: 20px;
+            padding: 25px;
             border-radius: 12px;
             border: 1px solid #f0e68c;
-            line-height: 1.8;
-            font-size: 18px;
-            word-break: break-word;
+            line-height: 2;
+            font-size: 22px; /* Large Text Choice */
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
-        .post-content img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 15px auto;
-            border-radius: 8px;
-        }
-
-        /* SHARE BUTTONS */
+        /* SHARING ROW SETUP */
         .share-row {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 10px;
-            margin: 25px 0;
+            margin: 30px 0;
         }
 
         .share-btn {
-            padding: 10px 18px;
-            border-radius: 25px;
+            padding: 10px 15px;
+            border-radius: 8px;
             color: white;
             font-weight: bold;
             text-decoration: none;
             font-size: 13px;
-            display: flex;
-            align-items: center;
-            transition: opacity 0.2s;
-        }
-
-        .wa { background: #25D366; }
-        .fb { background: #1877F2; }
-        .cp { background: var(--primary); border: none; cursor: pointer; }
-
-        /* PREV / NEXT NAVIGATION */
-        .nav-row {
-            display: flex;
-            justify-content: space-between;
-            margin: 20px 0;
-            gap: 12px;
-        }
-
-        .nav-btn {
-            flex: 1;
+            min-width: 80px;
             text-align: center;
-            padding: 12px;
-            background: #fff;
-            color: var(--secondary);
-            text-decoration: none;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: bold;
-            border: 2px solid var(--secondary);
-            transition: 0.3s;
+            transition: transform 0.2s;
         }
 
-        .nav-btn:hover {
-            background: var(--secondary);
-            color: #fff;
-        }
+        .share-btn:active { transform: scale(0.95); }
 
-        .back-home {
-            text-align: center;
-            margin: 20px 0 40px;
-        }
+        .wa { background: #25D366; } /* WhatsApp Green */
+        .fb { background: #1877F2; } /* Facebook Blue */
+        .tw { background: #000000; } /* Twitter (X) Black */
+        .cp { background: #607D8B; border: none; cursor: pointer; } /* Copy Grey-Blue */
 
-        .back-home a {
-            color: var(--primary);
-            font-weight: bold;
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
+        .nav-row { display: flex; gap: 10px; margin-bottom: 30px; }
+        .nav-btn { flex: 1; text-align: center; padding: 14px; background: #fff; color: var(--secondary); text-decoration: none; border-radius: 30px; border: 2px solid var(--secondary); font-weight: bold; }
 
-        footer {
-            background: var(--primary);
-            color: white;
-            text-align: center;
-            padding: 25px 15px;
-            font-size: 0.85rem;
-        }
-
-        @media(max-width:500px){
-            .site-title-main { font-size: 1.25rem; }
-            .post-content { font-size: 16.5px; padding: 15px; }
-            .post-title { font-size: 1rem; }
-        }
+        footer { background: var(--primary); color: white; text-align: center; padding: 30px 15px; }
     </style>
 </head>
 <body>
@@ -181,12 +99,13 @@
     <div class="post-title" id="postTitle">Loading...</div>
 
     <div class="post-content" id="postContent">
-        <div style="text-align:center; padding:20px;">Please wait while we load the sacred verses...</div>
+        మంగళకరమైన శ్లోకాలు లోడ్ అవుతున్నాయి...
     </div>
 
     <div class="share-row" id="shareRow" style="display:none;">
         <a id="sWA" class="share-btn wa" target="_blank">WhatsApp</a>
         <a id="sFB" class="share-btn fb" target="_blank">Facebook</a>
+        <a id="sTW" class="share-btn tw" target="_blank">Twitter</a>
         <button onclick="copyURL()" class="share-btn cp">Copy Link</button>
     </div>
 
@@ -195,77 +114,42 @@
         <a id="nextPost" class="nav-btn" style="display:none;">Next →</a>
     </div>
 
-    <div class="back-home">
-        <a href="/">← Back to All Dashakams</a>
+    <div style="text-align:center; margin-bottom:40px;">
+        <a href="/" style="color:var(--primary); font-weight:bold; text-decoration:none;">← Back to Home</a>
     </div>
 </div>
 
-<footer>
-    © 2026 Namo Narayanaya Bhakthi Channel
-</footer>
+<footer>© 2026 Namo Narayanaya Bhakthi Channel</footer>
 
 <script>
+function copyURL(){
+    navigator.clipboard.writeText(window.location.href);
+    alert("లింక్ కాపీ చేయబడింది! (Link Copied)");
+}
+
 const repo = window.location.hostname.includes('github.io') ? "/Dasabodha" : "";
 const slug = window.location.pathname.replace(/^\/+|\/+$/g,'');
 
-function copyURL(){
-    navigator.clipboard.writeText(window.location.href);
-    alert("Link copied successfully!");
-}
-
 fetch(`${repo}/data/posts.json?v=${Date.now()}`)
 .then(r=>r.json())
-.then(posts=>{
-    // Standard sorting
-    posts.sort((a,b)=>{
-        if(a.dashakam!=b.dashakam) return a.dashakam-b.dashakam;
-        const n1=parseInt(a.url.match(/samasam-(\d+)/)?.[1]||0);
-        const n2=parseInt(b.url.match(/samasam-(\d+)/)?.[1]||0);
-        return n1-n2;
-    });
-
-    const index = posts.findIndex(p=>p.url===slug);
-    const post = posts[index];
-
-    if(post){
+.then(posts => {
+    const post = posts.find(p => p.url === slug);
+    if(post) {
         document.title = post.title;
         document.getElementById("postTitle").innerText = post.title;
 
-        fetch(`${repo}/posts/${slug}.html`)
-        .then(r=>r.text())
-        .then(html=>{
-            const temp=document.createElement("div");
-            temp.innerHTML=html;
-            temp.querySelectorAll("header,footer,nav,script,style").forEach(e=>e.remove());
+        fetch(`${repo}/posts/${slug}.html`).then(r=>r.text()).then(html => {
+            document.getElementById("postContent").innerHTML = html;
             
-            document.getElementById("postContent").innerHTML = temp.innerHTML;
-
-            /* SHARE LOGIC */
-            const url=encodeURIComponent(window.location.href);
-            const msg=encodeURIComponent(post.title + "\n\n");
-            document.getElementById("sWA").href=`https://api.whatsapp.com/send?text=${msg}${url}`;
-            document.getElementById("sFB").href=`https://www.facebook.com/sharer/sharer.php?u=${url}`;
-            document.getElementById("shareRow").style.display="flex";
-
-            /* NAV LOGIC */
-            if(index > 0){
-                const prev = posts[index-1];
-                document.getElementById("prevPost").href = `/${prev.url}/`;
-                document.getElementById("prevPost").style.display = "block";
-            }
-            if(index < posts.length - 1){
-                const next = posts[index+1];
-                document.getElementById("nextPost").href = `/${next.url}/`;
-                document.getElementById("nextPost").style.display = "block";
-            }
+            // Setting up URL and Message for Sharing
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent(post.title + "\n\n");
+            
+            document.getElementById("sWA").href = `https://api.whatsapp.com/send?text=${text}${url}`;
+            document.getElementById("sFB").href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            document.getElementById("sTW").href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+            document.getElementById("shareRow").style.display = "flex";
         });
-    } else {
-        document.getElementById("postTitle").innerText = "Page Not Found";
-        document.getElementById("postContent").innerHTML = `
-            <div style="text-align:center; padding:30px;">
-                <p>Oops! The page you are looking for does not exist.</p>
-                <a href="/" style="color:var(--primary); font-weight:bold;">Return to Home</a>
-            </div>`;
     }
 });
 </script>
