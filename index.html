@@ -85,6 +85,16 @@ font-size:14px;
 margin:8px 0;
 }
 
+/* COMING SOON */
+
+.coming-soon{
+text-align:center;
+padding:40px 15px;
+font-size:16px;
+color:#C2185B;
+font-weight:bold;
+}
+
 /* DASHakam Pagination */
 
 .pagination-wrapper{
@@ -96,21 +106,23 @@ margin:30px 0;
 
 .page-numbers-container{
 display:flex;
+flex-wrap:wrap;   /* FIX overflow */
+justify-content:center;
 gap:10px;
-overflow-x:auto;
 width:100%;
 padding:10px;
 }
 
 .pg-btn{
-min-width:120px;
-padding:8px;
+min-width:100px;
+padding:8px 10px;
 border:2px solid #002366;
 border-radius:25px;
 background:white;
 color:#002366;
 font-weight:bold;
 cursor:pointer;
+font-size:13px;
 }
 
 .pg-btn.active{
@@ -169,12 +181,12 @@ fetch("./data/posts.json?v="+Date.now())
 
 allPosts=data.sort((a,b)=>{
 
-if(a.dashakam!=b.dashakam){
-return a.dashakam-b.dashakam;
+if(parseInt(a.dashakam)!==parseInt(b.dashakam)){
+return parseInt(a.dashakam)-parseInt(b.dashakam);
 }
 
-const numA=parseInt(a.url.match(/samasam-(\d+)/)[1]);
-const numB=parseInt(b.url.match(/samasam-(\d+)/)[1]);
+const numA=parseInt(a.url.match(/samasam-(\d+)/)?.[1] || 0);
+const numB=parseInt(b.url.match(/samasam-(\d+)/)?.[1] || 0);
 
 return numA-numB;
 
@@ -184,22 +196,36 @@ renderPage();
 
 });
 
+/* RENDER POSTS */
+
 function renderPage(){
 
 const container=document.getElementById("postsContainer");
 container.innerHTML="";
 
-const posts=allPosts.filter(p=>p.dashakam==currentDashakam);
+const posts=allPosts.filter(p=>parseInt(p.dashakam)===currentDashakam);
+
+/* NO POSTS */
 
 if(posts.length===0){
-container.innerHTML="Posts coming soon for this Dashakam";
+
+container.innerHTML=`
+<div class="coming-soon">
+Posts are coming soon for Dashakam ${currentDashakam}
+</div>
+`;
+
 setupPagination();
 return;
+
 }
+
+/* SHOW POSTS */
 
 posts.forEach(post=>{
 
 const card=document.createElement("div");
+
 card.className="post-card";
 
 card.innerHTML=`
@@ -214,7 +240,7 @@ ${post.title}
 ${post.description || ""}
 </div>
 
-<a href="./${post.url}/" style="color:#C2185B;font-weight:bold;text-decoration:none;">
+<a href="./${post.url}/" style="color:#C2185B;font-weight:bold;">
 READ LYRICS →
 </a>
 
@@ -227,6 +253,8 @@ container.appendChild(card);
 setupPagination();
 
 }
+
+/* PAGINATION 1–20 */
 
 function setupPagination(){
 
@@ -252,11 +280,11 @@ wrapper.appendChild(btn);
 
 }
 
+/* SEARCH */
+
 document.getElementById("postSearch").addEventListener("input",(e)=>{
 
 const term=e.target.value.toLowerCase();
-
-const filtered=allPosts.filter(p=>p.title.toLowerCase().includes(term));
 
 if(term===""){
 renderPage();
@@ -265,6 +293,8 @@ return;
 
 const container=document.getElementById("postsContainer");
 container.innerHTML="";
+
+const filtered=allPosts.filter(p=>p.title.toLowerCase().includes(term));
 
 filtered.forEach(post=>{
 
