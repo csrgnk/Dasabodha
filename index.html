@@ -10,7 +10,7 @@
             --secondary: #002366;
             --accent: #FFD700;
             --bg: #f4f6f9;
-            --card-yellow: #FFFDE7; /* Light Yellow for Cards & Header */
+            --card-yellow: #FFFDE7; 
         }
 
         body {
@@ -22,23 +22,21 @@
             overflow-x: hidden;
         }
 
-        /* UPDATED HEADER - Two Lines, Light Yellow, Centered */
+        /* HEADER - Scrolling (Not Sticky), Two Lines, Light Yellow */
         header {
             background: var(--card-yellow);
-            padding: 20px 10px;
+            padding: 25px 10px;
             text-align: center;
             border-bottom: 4px solid var(--accent);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            /* Removed sticky setup so it scrolls with page */
             display: flex;
             flex-direction: column;
             align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
         .site-title-main {
-            font-size: 1.8rem; /* Increased size */
+            font-size: 1.8rem;
             font-weight: 800;
             color: var(--primary);
             line-height: 1.2;
@@ -46,7 +44,7 @@
         }
 
         .site-title-sub {
-            font-size: 1.8rem; /* Same size as main line */
+            font-size: 1.8rem;
             font-weight: 800;
             color: var(--primary);
             line-height: 1.2;
@@ -84,11 +82,6 @@
             border-radius: 25px;
             outline: none;
             text-align: center;
-            transition: 0.3s;
-        }
-
-        #postSearch:focus {
-            border-color: var(--primary);
         }
 
         /* POST CARDS */
@@ -101,7 +94,7 @@
 
         .post-card {
             background: var(--card-yellow);
-            padding: 20px;
+            padding: 22px;
             margin-bottom: 15px;
             border-radius: 12px;
             border-left: 6px solid var(--primary);
@@ -183,8 +176,8 @@
         }
 
         @media (max-width: 480px) {
-            .site-title-main, .site-title-sub { font-size: 1.4rem; }
-            .post-card h2 { font-size: 1.2rem; }
+            .site-title-main, .site-title-sub { font-size: 1.45rem; }
+            .post-card h2 { font-size: 1.25rem; }
         }
     </style>
 </head>
@@ -238,7 +231,7 @@
         const posts = allPosts.filter(p => parseInt(p.dashakam) === currentDashakam);
 
         if (posts.length === 0) {
-            container.innerHTML = `<div style="text-align:center; padding:50px; color:#999;">Lyrics for Dashakam ${currentDashakam} coming soon.</div>`;
+            container.innerHTML = `<div style="text-align:center; padding:50px; color:#999;">Lyrics coming soon.</div>`;
             setupPagination();
             return;
         }
@@ -248,7 +241,7 @@
             card.className = "post-card";
             card.innerHTML = `
                 <h2><a href="./${post.url}/">${post.title}</a></h2>
-                <div class="post-meta-desc">${post.description || "Read Telugu lyrics for this samasam."}</div>
+                <div class="post-meta-desc">${post.description || "Read Telugu lyrics."}</div>
                 <a href="./${post.url}/" class="read-link">READ LYRICS →</a>
             `;
             container.appendChild(card);
@@ -283,7 +276,6 @@
 
         const filtered = allPosts.filter(p => p.title.toLowerCase().includes(term));
         container.innerHTML = "";
-        
         filtered.forEach(post => {
             const card = document.createElement("div");
             card.className = "post-card";
