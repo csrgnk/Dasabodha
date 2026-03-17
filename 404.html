@@ -29,7 +29,7 @@
             border-bottom: 4px solid var(--accent);
         }
 
-        .site-title-main { font-size: 1.4rem; font-weight: 800; color: var(--primary); display: block; }
+        .site-title-main { font-size: 1.4rem; font-weight: 800; color: var(--primary); display: block; margin: 0; }
         .site-title-sub { font-size: 1rem; font-weight: 600; color: var(--secondary); display: block; }
 
         .container { max-width: 800px; margin: auto; padding: 15px; }
@@ -50,11 +50,12 @@
             border-radius: 12px;
             border: 1px solid #f0e68c;
             line-height: 2;
-            font-size: 22px; /* Large Text Choice */
+            font-size: 22px; /* Large Text */
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            min-height: 200px;
         }
 
-        /* SHARING ROW SETUP */
+        /* SHARE BUTTONS */
         .share-row {
             display: flex;
             flex-wrap: wrap;
@@ -72,20 +73,52 @@
             font-size: 13px;
             min-width: 80px;
             text-align: center;
-            transition: transform 0.2s;
         }
 
-        .share-btn:active { transform: scale(0.95); }
+        .wa { background: #25D366; }
+        .fb { background: #1877F2; }
+        .tw { background: #000; }
+        .cp { background: #607D8B; border: none; cursor: pointer; }
 
-        .wa { background: #25D366; } /* WhatsApp Green */
-        .fb { background: #1877F2; } /* Facebook Blue */
-        .tw { background: #000000; } /* Twitter (X) Black */
-        .cp { background: #607D8B; border: none; cursor: pointer; } /* Copy Grey-Blue */
+        /* PREVIOUS & NEXT BUTTONS SETUP */
+        .nav-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 25px 0;
+            gap: 12px;
+        }
 
-        .nav-row { display: flex; gap: 10px; margin-bottom: 30px; }
-        .nav-btn { flex: 1; text-align: center; padding: 14px; background: #fff; color: var(--secondary); text-decoration: none; border-radius: 30px; border: 2px solid var(--secondary); font-weight: bold; }
+        .nav-btn {
+            flex: 1;
+            text-align: center;
+            padding: 15px 10px;
+            background: var(--primary); /* Changed to your primary color */
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: none; /* Hidden by default, shown via JS */
+        }
+
+        .back-home {
+            text-align: center;
+            margin: 30px 0 50px;
+        }
+
+        .back-home a {
+            color: var(--secondary);
+            font-weight: bold;
+            text-decoration: none;
+        }
 
         footer { background: var(--primary); color: white; text-align: center; padding: 30px 15px; }
+
+        @media(max-width:500px){
+            .post-content { font-size: 20px; padding: 15px; }
+            .nav-btn { font-size: 13px; }
+        }
     </style>
 </head>
 <body>
@@ -110,12 +143,12 @@
     </div>
 
     <div class="nav-row">
-        <a id="prevPost" class="nav-btn" style="display:none;">← Previous</a>
-        <a id="nextPost" class="nav-btn" style="display:none;">Next →</a>
+        <a id="prevPost" class="nav-btn">← Previous Samasam</a>
+        <a id="nextPost" class="nav-btn">Next Samasam →</a>
     </div>
 
-    <div style="text-align:center; margin-bottom:40px;">
-        <a href="/" style="color:var(--primary); font-weight:bold; text-decoration:none;">← Back to Home</a>
+    <div class="back-home">
+        <a href="/">← Back to All Dashakams</a>
     </div>
 </div>
 
@@ -124,7 +157,7 @@
 <script>
 function copyURL(){
     navigator.clipboard.writeText(window.location.href);
-    alert("లింక్ కాపీ చేయబడింది! (Link Copied)");
+    alert("లింక్ కాపీ చేయబడింది!");
 }
 
 const repo = window.location.hostname.includes('github.io') ? "/Dasabodha" : "";
@@ -133,22 +166,50 @@ const slug = window.location.pathname.replace(/^\/+|\/+$/g,'');
 fetch(`${repo}/data/posts.json?v=${Date.now()}`)
 .then(r=>r.json())
 .then(posts => {
-    const post = posts.find(p => p.url === slug);
+    // 1. Sort posts correctly by dashakam and samasam number
+    posts.sort((a,b)=>{
+        if(parseInt(a.dashakam) !== parseInt(b.dashakam)) return parseInt(a.dashakam) - parseInt(b.dashakam);
+        const n1 = parseInt(a.url.match(/samasam-(\d+)/)?.[1] || 0);
+        const n2 = parseInt(b.url.match(/samasam-(\d+)/)?.[1] || 0);
+        return n1 - n2;
+    });
+
+    // 2. Find current post index
+    const index = posts.findIndex(p => p.url === slug);
+    const post = posts[index];
+
     if(post) {
         document.title = post.title;
         document.getElementById("postTitle").innerText = post.title;
 
         fetch(`${repo}/posts/${slug}.html`).then(r=>r.text()).then(html => {
-            document.getElementById("postContent").innerHTML = html;
+            const temp = document.createElement("div");
+            temp.innerHTML = html;
+            temp.querySelectorAll("header,footer,nav,script,style").forEach(e=>e.remove());
+            document.getElementById("postContent").innerHTML = temp.innerHTML;
             
-            // Setting up URL and Message for Sharing
+            // Share setup
             const url = encodeURIComponent(window.location.href);
             const text = encodeURIComponent(post.title + "\n\n");
-            
             document.getElementById("sWA").href = `https://api.whatsapp.com/send?text=${text}${url}`;
             document.getElementById("sFB").href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
             document.getElementById("sTW").href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
             document.getElementById("shareRow").style.display = "flex";
+
+            // 3. Navigation Logic (Previous / Next)
+            if(index > 0) {
+                const prev = posts[index - 1];
+                const prevLink = document.getElementById("prevPost");
+                prevLink.href = `${repo}/${prev.url}/`;
+                prevLink.style.display = "block";
+            }
+
+            if(index < posts.length - 1) {
+                const next = posts[index + 1];
+                const nextLink = document.getElementById("nextPost");
+                nextLink.href = `${repo}/${next.url}/`;
+                nextLink.style.display = "block";
+            }
         });
     }
 });
