@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title id="pageTitle">Loading...</title>
+<title>Loading...</title>
 
 <style>
 
@@ -30,7 +30,7 @@ color:#E65100;
 border-bottom:3px solid #FF9800;
 }
 
-/* MAIN CONTAINER */
+/* CONTAINER */
 
 .container{
 max-width:800px;
@@ -39,21 +39,20 @@ padding:15px;
 flex:1;
 }
 
-/* POST TITLE (UPDATED COLOR) */
+/* TITLE */
 
 .post-title{
 background:linear-gradient(135deg,#FF9800,#E65100);
-color:#ffffff;
+color:#fff;
 text-align:center;
 padding:15px;
-font-size:1.5rem;
+font-size:1.4rem;
 font-weight:bold;
 border-radius:15px;
-margin-bottom:12px;
-box-shadow:0 4px 10px rgba(0,0,0,0.2);
+margin-bottom:10px;
 }
 
-/* POST CONTENT (UPDATED TEXT COLOR) */
+/* CONTENT */
 
 .post-content{
 background:#FFFDE7;
@@ -61,34 +60,9 @@ padding:20px;
 border-radius:12px;
 color:#2E3A59;
 line-height:1.7;
-font-size:16px;
 }
 
-/* SHARE BUTTONS */
-
-.share-row{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:10px;
-margin-top:25px;
-}
-
-.share-btn{
-padding:10px 14px;
-border-radius:6px;
-color:white;
-font-weight:bold;
-text-decoration:none;
-font-size:13px;
-}
-
-.wa{background:#25D366;}
-.fb{background:#1877F2;}
-.tw{background:#000;}
-.cp{background:#607D8B;border:none;cursor:pointer;}
-
-/* BACK HOME */
+/* BACK */
 
 .back-home{
 text-align:center;
@@ -108,7 +82,6 @@ background:#E65100;
 color:white;
 text-align:center;
 padding:20px;
-margin-top:auto;
 }
 
 </style>
@@ -123,15 +96,8 @@ margin-top:auto;
 
 <div class="post-title" id="postTitle">Loading...</div>
 
-<div class="post-content" id="postContent"></div>
-
-<div class="share-row" id="shareRow" style="display:none;">
-
-<a id="sWA" class="share-btn wa" target="_blank">WhatsApp</a>
-<a id="sFB" class="share-btn fb" target="_blank">Facebook</a>
-<a id="sTW" class="share-btn tw" target="_blank">Twitter</a>
-<button onclick="copyURL()" class="share-btn cp">Copy URL</button>
-
+<div class="post-content" id="postContent">
+Please wait...
 </div>
 
 <div class="back-home">
@@ -141,64 +107,50 @@ margin-top:auto;
 </div>
 
 <footer>
-<p>© 2026 Namo Narayanaya Bhakthi Channel</p>
+© 2026 Namo Narayanaya Bhakthi Channel
 </footer>
 
 <script>
 
-const repo = window.location.hostname.includes("github.io") ? "/Omnnbc" : "";
-
+/* GET SLUG */
 const path = window.location.pathname;
+const slug = path.replace(/^\/+|\/+$/g,'');
 
-const slug = path.split('/').filter(Boolean).pop();
+/* FETCH POSTS JSON */
 
-function copyURL(){
-navigator.clipboard.writeText(window.location.href);
-alert("Link copied!");
-}
-
-fetch(`${repo}/data/posts.json`)
+fetch("./data/posts.json")
 .then(r=>r.json())
 .then(posts=>{
 
-const post=posts.find(p=>p.url===slug);
+const post = posts.find(p => p.url === slug);
 
 if(post){
 
-document.title=post.title+" - Namo Narayanaya";
+document.title = post.title;
 
-document.getElementById("postTitle").innerText=post.title;
+document.getElementById("postTitle").innerText = post.title;
 
-fetch(`${repo}/posts/${slug}.html`)
+/* LOAD ACTUAL HTML FILE */
+fetch(`./posts/${slug}.html`)
 .then(r=>r.text())
 .then(html=>{
 
 const temp=document.createElement("div");
-
 temp.innerHTML=html;
 
-const extras=temp.querySelectorAll("header,footer,nav,script,style");
-
-extras.forEach(e=>e.remove());
+/* REMOVE HEADER/FOOTER FROM POST */
+const remove=temp.querySelectorAll("header,footer,nav,script,style");
+remove.forEach(e=>e.remove());
 
 document.getElementById("postContent").innerHTML=temp.innerHTML;
-
-/* SHARE LINKS */
-
-const u=encodeURIComponent(window.location.href);
-const m=encodeURIComponent(post.title+"\n\n");
-
-document.getElementById("sWA").href=`https://api.whatsapp.com/send?text=${m}${u}`;
-document.getElementById("sFB").href=`https://www.facebook.com/sharer/sharer.php?u=${u}`;
-document.getElementById("sTW").href=`https://twitter.com/intent/tweet?text=${m}&url=${u}`;
-
-document.getElementById("shareRow").style.display="flex";
 
 });
 
 }else{
 
 document.getElementById("postTitle").innerText="Page Not Found";
+
+document.getElementById("postContent").innerHTML="Content not available.";
 
 }
 
