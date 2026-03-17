@@ -41,21 +41,27 @@ margin-top:10px;
 box-shadow:0 4px 10px rgba(0,0,0,0.2);
 }
 
-/* SEARCH */
+/* SEARCH (UPDATED) */
 
 .search-container{
 max-width:800px;
 margin:15px auto;
-padding:0 15px;
+display:flex;
+justify-content:center;
+padding:0 10px;
+box-sizing:border-box;
 }
 
 #postSearch{
 width:100%;
-padding:12px 20px;
-font-size:16px;
+max-width:420px;   /* smaller width */
+padding:10px 16px;
+font-size:15px;
 border:2px solid #C2185B;
 border-radius:30px;
 outline:none;
+text-align:center;
+box-sizing:border-box;
 }
 
 /* POSTS */
@@ -64,6 +70,7 @@ outline:none;
 max-width:800px;
 margin:auto;
 padding:15px;
+box-sizing:border-box;
 }
 
 .post-card{
@@ -107,8 +114,8 @@ margin:30px 0;
 .page-numbers-container{
 display:flex;
 gap:10px;
-overflow-x:auto;        /* horizontal scroll */
-white-space:nowrap;     /* single line */
+overflow-x:auto;
+white-space:nowrap;
 width:100%;
 padding:10px;
 scrollbar-width:none;
@@ -142,6 +149,22 @@ background:#C2185B;
 color:white;
 text-align:center;
 padding:20px;
+}
+
+/* MOBILE FIX */
+
+@media(max-width:500px){
+
+#postSearch{
+max-width:100%;
+font-size:14px;
+padding:9px 14px;
+}
+
+.post-card{
+padding:15px;
+}
+
 }
 
 </style>
@@ -210,8 +233,6 @@ container.innerHTML="";
 
 const posts=allPosts.filter(p=>parseInt(p.dashakam)===currentDashakam);
 
-/* NO POSTS */
-
 if(posts.length===0){
 
 container.innerHTML=`
@@ -224,8 +245,6 @@ setupPagination();
 return;
 
 }
-
-/* SHOW POSTS */
 
 posts.forEach(post=>{
 
@@ -259,7 +278,7 @@ setupPagination();
 
 }
 
-/* PAGINATION 1–20 */
+/* PAGINATION */
 
 function setupPagination(){
 
