@@ -22,13 +22,12 @@
             overflow-x: hidden;
         }
 
-        /* HEADER - Scrolling (Not Sticky), Two Lines, Light Yellow */
+        /* HEADER - Two Lines, Centered, Scrolling (Not Sticky) */
         header {
             background: var(--card-yellow);
             padding: 25px 10px;
             text-align: center;
             border-bottom: 4px solid var(--accent);
-            /* Removed sticky setup so it scrolls with page */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -82,6 +81,11 @@
             border-radius: 25px;
             outline: none;
             text-align: center;
+            transition: 0.3s;
+        }
+
+        #postSearch:focus {
+            border-color: var(--primary);
         }
 
         /* POST CARDS */
@@ -117,6 +121,7 @@
             color: #555;
             font-size: 1rem;
             margin-bottom: 15px;
+            overflow: hidden;
         }
 
         .read-link {
@@ -145,6 +150,7 @@
             overflow-x: auto;
             padding: 10px 15px;
             scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
         }
 
         .page-numbers-container::-webkit-scrollbar { display: none; }
@@ -178,6 +184,7 @@
         @media (max-width: 480px) {
             .site-title-main, .site-title-sub { font-size: 1.45rem; }
             .post-card h2 { font-size: 1.25rem; }
+            .post-content { font-size: 19px; }
         }
     </style>
 </head>
@@ -211,6 +218,7 @@
     let allPosts = [];
     let currentDashakam = 1;
 
+    // Fetching the posts data
     fetch("./data/posts.json?v=" + Date.now())
         .then(res => res.json())
         .then(data => {
@@ -225,13 +233,20 @@
             renderPage();
         });
 
+    // Function to limit description to 200 characters
+    function limitDescription(text, limit = 200) {
+        if (!text) return "Read Telugu lyrics for this samasam.";
+        if (text.length <= limit) return text;
+        return text.substring(0, limit) + "...";
+    }
+
     function renderPage() {
         const container = document.getElementById("postsContainer");
         container.innerHTML = "";
         const posts = allPosts.filter(p => parseInt(p.dashakam) === currentDashakam);
 
         if (posts.length === 0) {
-            container.innerHTML = `<div style="text-align:center; padding:50px; color:#999;">Lyrics coming soon.</div>`;
+            container.innerHTML = `<div style="text-align:center; padding:50px; color:#999;">Lyrics for Dashakam ${currentDashakam} coming soon.</div>`;
             setupPagination();
             return;
         }
@@ -239,9 +254,13 @@
         posts.forEach(post => {
             const card = document.createElement("div");
             card.className = "post-card";
+            
+            // Limit character count here
+            const shortDesc = limitDescription(post.description);
+
             card.innerHTML = `
                 <h2><a href="./${post.url}/">${post.title}</a></h2>
-                <div class="post-meta-desc">${post.description || "Read Telugu lyrics."}</div>
+                <div class="post-meta-desc">${shortDesc}</div>
                 <a href="./${post.url}/" class="read-link">READ LYRICS →</a>
             `;
             container.appendChild(card);
@@ -269,6 +288,7 @@
         }
     }
 
+    // Search functionality with character limit
     document.getElementById("postSearch").addEventListener("input", (e) => {
         const term = e.target.value.toLowerCase().trim();
         const container = document.getElementById("postsContainer");
@@ -276,12 +296,15 @@
 
         const filtered = allPosts.filter(p => p.title.toLowerCase().includes(term));
         container.innerHTML = "";
+        
         filtered.forEach(post => {
             const card = document.createElement("div");
             card.className = "post-card";
+            const shortDesc = limitDescription(post.description);
+
             card.innerHTML = `
                 <h2><a href="./${post.url}/">${post.title}</a></h2>
-                <div class="post-meta-desc">${post.description || ""}</div>
+                <div class="post-meta-desc">${shortDesc}</div>
                 <a href="./${post.url}/" class="read-link">READ LYRICS →</a>
             `;
             container.appendChild(card);
