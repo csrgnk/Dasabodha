@@ -7,169 +7,171 @@
 
 <style>
 :root {
-  --primary:#C2185B;
-  --secondary:#002366;
-  --accent:#FFD700;
-  --bg:#f4f6f9;
-  --card-yellow:#FFFDE7;
+  --primary: #C2185B;
+  --secondary: #002366;
+  --accent: #FFD700;
+  --bg: #f4f6f9;
+  --card-yellow: #FFFDE7;
 }
 
-body{
-  margin:0;
-  font-family:'Segoe UI',sans-serif;
-  background:var(--bg);
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: var(--bg);
 }
 
-/* 🔵 TOP MENU */
-.blue-nav{
-  background:#001a4d;
+/* 🔵 TOP LINKS */
+.top-links{
+  background:#002366;
   padding:6px 0;
   display:flex;
   overflow-x:auto;
   white-space:nowrap;
 }
-.blue-nav a{
+.top-links a{
   color:#fff;
   text-decoration:none;
   font-size:14px;
   padding:4px 14px;
 }
 
-/* 🔴 PINK MENU */
-.scroll-container{
-  background:#C71585;
+/* 🔴 OUTER LINKS */
+.outer-links{
+  background:#C2185B;
   padding:6px 0;
   display:flex;
   overflow-x:auto;
   white-space:nowrap;
 }
-.scroll-container a{
+.outer-links a{
   background:#fff;
-  color:#C71585;
-  padding:6px 14px;
-  margin:0 6px;
-  border-radius:6px;
+  color:#C2185B;
   text-decoration:none;
+  padding:5px 12px;
+  margin:0 5px;
+  border-radius:5px;
+  font-size:13px;
   flex-shrink:0;
 }
 
 /* HEADER */
-header{
-  background:var(--card-yellow);
-  padding:20px 10px;
-  text-align:center;
-  border-bottom:4px solid var(--accent);
+header {
+  background: var(--card-yellow);
+  padding: 25px 10px;
+  text-align: center;
+  border-bottom: 4px solid var(--accent);
 }
 
 .site-title-main,
-.site-title-sub{
-  font-size:1.6rem;
-  font-weight:800;
-  color:var(--primary);
-  white-space:nowrap;
+.site-title-sub {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--primary);
+  white-space: nowrap;
 }
 
-.sub-title-box{
-  background:var(--secondary);
-  color:#fff;
-  padding:6px 18px;
-  border-radius:20px;
-  margin-top:10px;
-  display:inline-block;
-  font-size:0.85rem;
+.sub-title-box {
+  background: var(--secondary);
+  color: #fff;
+  padding: 6px 18px;
+  border-radius: 20px;
+  margin-top: 10px;
+  display: inline-block;
+  font-size: 0.85rem;
 }
 
 /* SEARCH */
-.search-container{
-  padding:15px;
-  text-align:center;
-  background:#fff;
+.search-container {
+  padding: 15px;
+  text-align: center;
+  background: #fff;
 }
-#postSearch{
-  width:80%;
-  max-width:280px;
-  padding:10px;
-  border-radius:20px;
-  border:2px solid #ddd;
-  text-align:center;
+#postSearch {
+  width: 80%;
+  max-width: 280px;
+  padding: 10px;
+  border-radius: 20px;
+  border: 2px solid #ddd;
+  text-align: center;
 }
 
 /* POSTS */
-.container{
-  max-width:700px;
-  margin:auto;
-  padding:15px;
+.container {
+  max-width: 700px;
+  margin: auto;
+  padding: 15px;
 }
 
-.post-card{
-  background:var(--card-yellow);
-  padding:18px;
-  margin-bottom:12px;
-  border-radius:10px;
-  border-left:5px solid var(--primary);
+.post-card {
+  background: var(--card-yellow);
+  padding: 20px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  border-left: 5px solid var(--primary);
 }
 
-.post-card h2{
-  margin:0;
-  font-size:1.2rem;
+/* 🔻 SIZE REDUCED */
+.post-card h2 {
+  margin: 0;
+  font-size: 1.2rem;
 }
 
-.post-meta-desc{
-  font-size:14px;
-  margin:6px 0;
+.post-meta-desc {
+  font-size: 0.95rem;
+  margin: 6px 0;
 }
 
-.read-link{
-  color:var(--primary);
-  font-weight:bold;
-  text-decoration:none;
+.read-link {
+  color: var(--primary);
+  font-weight: bold;
+  text-decoration: none;
 }
 
 /* PAGINATION */
-.pagination-wrapper{
-  text-align:center;
-  padding:20px;
+.pagination-wrapper {
+  text-align: center;
+  padding: 20px;
 }
 
-.page-numbers-container{
-  display:flex;
-  gap:10px;
-  overflow-x:auto;
+.page-numbers-container {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
 }
 
-.pg-btn{
-  min-width:100px;
-  padding:10px;
-  border-radius:25px;
-  border:1px solid #ccc;
+.pg-btn {
+  min-width: 100px;
+  padding: 10px;
+  border-radius: 25px;
+  border: 1px solid #ccc;
 }
 
-.pg-btn.active{
-  background:var(--secondary);
-  color:#FFD700;
+.pg-btn.active {
+  background: var(--secondary);
+  color: #FFD700;
 }
 
-footer{
-  background:var(--primary);
-  color:#fff;
-  text-align:center;
-  padding:20px;
+footer {
+  background: var(--primary);
+  color: #fff;
+  text-align: center;
+  padding: 20px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🔵 TOP MENU (LOCAL PAGES ONLY) -->
-<nav class="blue-nav">
+<!-- 🔵 TOP LINKS -->
+<div class="top-links">
   <a href="/">Home</a>
   <a href="/about-us">About Us</a>
   <a href="/contact-us">Contact Us</a>
   <a href="/privacy-policy">Privacy Policy</a>
-</nav>
+</div>
 
-<!-- 🔴 PINK MENU (EXTERNAL + MAIN SITE) -->
-<div class="scroll-container">
+<!-- 🔴 OUTER LINKS -->
+<div class="outer-links">
   <a href="https://omnnbc.in/">Omnnbc</a>
   <a href="https://csrgnk.github.io/Upasana-Chandrika/">Upasana Chandrika</a>
   <a href="https://csrgnk.github.io/manache-shlok/">Manache Shlok Telugu</a>
@@ -183,12 +185,15 @@ footer{
   <div class="sub-title-box">Dasabodha Grantha Telugu Lyrics</div>
 </header>
 
+<!-- SEARCH -->
 <div class="search-container">
   <input type="text" id="postSearch" placeholder="Search Samasam Name...">
 </div>
 
+<!-- POSTS -->
 <div class="container" id="postsContainer">Loading...</div>
 
+<!-- PAGINATION -->
 <div class="pagination-wrapper">
   <div class="page-numbers-container" id="paginationWrapper"></div>
 </div>
