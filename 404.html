@@ -8,109 +8,135 @@
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-:root{
---primary:#922B21;
---secondary:#1C2833;
---accent:#D4AC0D;
---bg:#F9F7F2;
+:root {
+    --primary: #7B241C;
+    --secondary: #1A1A1A;
+    --accent: #F1C40F;
+    --bg: #FFFDF7;
+    --card: #FFFFFF;
+
+    --top-links-bg: #0B1C2C;
+    --outer-links-bg: #922B21;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body{
-margin:0;
-padding-top:90px;
-font-family:'Inter',sans-serif;
-background:var(--bg);
-display:flex;
-flex-direction:column;
-min-height:100vh;
+    margin:0;
+    padding-top:95px;
+    font-family:'Inter',sans-serif;
+    background:var(--bg);
+    display:flex;
+    flex-direction:column;
+    min-height:100vh;
 }
 
-/* TOP NAV */
+/* 🔵 NAV */
 .fixed-nav-wrapper{
-position:fixed;
-top:0;
-left:0;
-right:0;
-z-index:1000;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:1000;
+    box-shadow:0 2px 8px rgba(0,0,0,0.15);
 }
 
+/* TOP LINKS */
 .top-links{
-background:#1B2631;
-display:flex;
-justify-content:center;
-gap:10px;
-padding:8px;
+    background:var(--top-links-bg);
+    display:flex;
+    overflow-x:auto;
+    white-space:nowrap;
+    padding:10px 12px;
+    gap:18px;
+    scrollbar-width:none;
 }
+.top-links::-webkit-scrollbar{display:none;}
 
+/* OUTER LINKS */
 .outer-links{
-background:#7B241C;
-display:flex;
-overflow-x:auto;
-padding:10px;
-gap:15px;
+    background:var(--outer-links-bg);
+    display:flex;
+    overflow-x:auto;
+    white-space:nowrap;
+    padding:12px 14px;
+    gap:20px;
+    scrollbar-width:none;
 }
+.outer-links::-webkit-scrollbar{display:none;}
 
+/* LINKS */
 .fixed-nav-wrapper a{
-color:#fff;
-text-decoration:none;
-font-size:0.7rem;
-font-weight:600;
+    color:#fff;
+    text-decoration:none;
+    font-size:0.85rem;
+    font-weight:700;
+    letter-spacing:0.6px;
+    padding:6px 10px;
+    border-radius:6px;
+    transition:0.3s;
+}
+.fixed-nav-wrapper a:hover{
+    background:rgba(255,255,255,0.15);
 }
 
 /* HEADER */
 header{
-background:#fff;
-padding:25px 10px;
-text-align:center;
-border-bottom:3px solid var(--accent);
+    background:#fff;
+    padding:25px 10px;
+    text-align:center;
+    border-bottom:3px solid var(--accent);
 }
 
 .site-title-main{
-font-family:'Crimson Text',serif;
-font-size:1.8rem;
-color:var(--primary);
-font-weight:700;
+    font-family:'Crimson Text',serif;
+    font-size:1.9rem;
+    color:var(--primary);
+    font-weight:700;
 }
 
 .site-title-sub{
-font-size:0.9rem;
-letter-spacing:3px;
-text-transform:uppercase;
-color:var(--secondary);
+    font-size:0.95rem;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--secondary);
 }
 
 /* CONTENT */
 .container{
-max-width:800px;
-margin:auto;
-padding:20px;
-flex:1;
+    max-width:800px;
+    margin:auto;
+    padding:20px;
+    flex:1;
 }
 
 .post-title{
-background:var(--primary);
-color:#fff;
-text-align:center;
-padding:12px;
-font-size:1.5rem;
-border-radius:10px;
-margin-bottom:15px;
+    background:linear-gradient(135deg,#7B241C,#922B21);
+    color:#fff;
+    text-align:center;
+    padding:12px;
+    font-size:1.5rem;
+    border-radius:10px;
+    margin-bottom:15px;
 }
 
 .post-content{
-background:#fff;
-padding:20px;
-border-radius:10px;
-font-size:19px;
-line-height:1.8;
+    background:#fff;
+    padding:20px;
+    border-radius:10px;
+    font-size:19px;
+    line-height:1.8;
 }
 
+/* FOOTER */
 footer{
-background:var(--primary);
-color:#fff;
-text-align:center;
-padding:20px;
-font-size:0.85rem;
+    background:var(--primary);
+    color:#fff;
+    text-align:center;
+    padding:20px;
+    font-size:0.85rem;
 }
 </style>
 </head>
@@ -152,7 +178,7 @@ font-size:0.85rem;
 © 2026 Namo Narayanaya Bhakthi Channel
 </footer>
 
-<!-- ✅ FINAL SCRIPT -->
+<!-- ✅ SAME WORKING SCRIPT -->
 <script>
 const repoName = "Dasabodha";
 const mainHome = "https://dasabodha.omnnbc.in/";
@@ -164,17 +190,12 @@ const slug = segments.pop();
 const isCustomDomain = window.location.hostname.includes("omnnbc.in");
 const fetchBase = isCustomDomain ? "" : `/${repoName}`;
 
-// HOME
 if (!slug || slug === repoName) {
     document.getElementById("postTitle").innerText = "Welcome";
     document.getElementById("postContent").innerHTML =
     `<p style='text-align:center;'>Go to <a href="${mainHome}">Home Page</a></p>`;
 }
-
-// ROUTING
 else {
-
-    // 🔵 TRY PAGES
     fetch(`${fetchBase}/pages/${slug}.html`)
     .then(res => {
         if(res.ok){
@@ -194,8 +215,6 @@ else {
         }
         throw new Error("Not page");
     })
-
-    // 🔴 TRY POSTS
     .catch(() => {
         fetch(`${fetchBase}/data/posts.json?v=${Date.now()}`)
         .then(r => r.json())
@@ -233,14 +252,13 @@ else {
     });
 }
 
-// 404 DISPLAY
 function show404(){
     document.title = "404";
     document.getElementById("postTitle").innerText = "404 - Page Not Found";
     document.getElementById("postContent").innerHTML =
     `<div style="text-align:center;">
         <p>This page is not available.</p>
-        <a href="${mainHome}" style="color:#922B21;font-weight:bold;">Go to Home</a>
+        <a href="${mainHome}" style="color:#7B241C;font-weight:bold;">Go to Home</a>
      </div>`;
 }
 </script>
