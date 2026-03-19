@@ -68,34 +68,48 @@ body{
     border-radius:6px;
 }
 
-/* HEADER (SAME SIZE, ONLY STYLE CHANGE) */
+/* HEADER (UPDATED) */
 header{
     background:#fff;
-    padding:30px 15px;
-    text-align:center;
+    padding:15px 10px;
     border-bottom:3px solid var(--accent);
+}
+
+.header-flex{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+}
+
+.header-logo{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+}
+
+.header-text{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
 }
 
 .site-title-main{
     font-family:'Crimson Text',serif;
     font-size:1.9rem;
     font-weight:700;
-    color:#E91E63; /* pink */
+    color:#E91E63;
     margin:0;
 }
 
 .site-title-sub{
-    font-size:0.95rem;
-    font-weight:700;
-    letter-spacing:3px;
-    text-transform:uppercase;
-    color:var(--secondary);
-    margin-top:6px;
-
+    margin-top:4px;
     display:inline-block;
     background:#fff;
-    padding:6px 14px;
+    padding:4px 10px;
     border-radius:20px;
+    font-size:0.85rem;
+    color:var(--secondary);
 }
 
 /* CONTENT */
@@ -156,18 +170,18 @@ footer{
 
 <!-- HEADER -->
 <header>
+    <div class="header-flex">
+        <img src="https://csrgnk.github.io/Omnnbc/assets/images/Omnnbc-new.png" class="header-logo">
 
-    <img src="https://csrgnk.github.io/Omnnbc/assets/images/Omnnbc-new.png"
-         style="width:60px; display:block; margin:0 auto 8px auto; border-radius:50%;">
-
-    <div class="site-title-main">
-        Namo Narayanaya Bhakthi Channel
+        <div class="header-text">
+            <div class="site-title-main">
+                Namo Narayanaya Bhakthi Channel
+            </div>
+            <div class="site-title-sub">
+                Dasabodha Grantha Telugu Lyrics
+            </div>
+        </div>
     </div>
-
-    <div class="site-title-sub">
-        Dasabodha Grantha Telugu Lyrics
-    </div>
-
 </header>
 
 <!-- CONTENT -->
