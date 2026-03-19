@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title id="pageTitle">Loading...</title>
+    <title id="pageTitle">Loading Content...</title>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -26,7 +26,7 @@
             overflow-x: hidden; 
         }
 
-        /* FIXED NAVIGATION */
+        /* FIXED NAVIGATION (Formula Match) */
         .fixed-nav-wrapper {
             position: fixed;
             top: 0;
@@ -66,7 +66,7 @@
             letter-spacing: 0.5px;
         }
 
-        /* HEADER */
+        /* HEADER BRANDING */
         header { 
             background: #fff; 
             padding: 30px 10px; 
@@ -101,6 +101,7 @@
             box-sizing: border-box; 
         }
 
+        /* POST TITLE FORMULA - 12px Padding */
         .post-title { 
             background: var(--primary); 
             color: white; 
@@ -124,6 +125,7 @@
             border: 1px solid #eee;
         }
 
+        /* SHARE SECTION */
         .share-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 25px; }
         .share-btn { padding: 12px; border-radius: 8px; color: white; font-weight: bold; text-decoration: none; font-size: 12px; flex: 1; min-width: 80px; text-align: center; text-transform: uppercase; }
         .wa { background: #25D366; } .fb { background: #1877F2; } .tw { background: #000; } .cp { background: #607D8B; border: none; cursor: pointer; }
@@ -145,7 +147,7 @@
 
 <div class="fixed-nav-wrapper">
     <div class="top-links">
-        <a href="/">Home</a>
+        <a href="https://dasabodha.omnnbc.in/">Home</a>
         <a href="/about-us">About Us</a>
         <a href="/contact-us">Contact Us</a>
         <a href="/privacy-policy">Privacy Policy</a>
@@ -165,9 +167,9 @@
 </header>
 
 <div class="container">
-    <div class="post-title" id="postTitle">Loading...</div>
+    <div class="post-title" id="postTitle">Loading Content...</div>
     <div class="post-content" id="postContent">
-        <div style="text-align:center; padding:20px;">Fetching content, please wait...</div>
+        <div style="text-align:center; padding:20px;">Fetching spiritual lyrics...</div>
     </div>
 
     <div class="share-row" id="shareRow" style="display:none;">
@@ -178,7 +180,7 @@
     </div>
 
     <div class="back-home">
-        <a href="/">← Back to Home</a>
+        <a href="https://dasabodha.omnnbc.in/">← Back to Home</a>
     </div>
 </div>
 
@@ -187,12 +189,12 @@
 </footer>
 
 <script>
-    // Configuration for Dasabodha Repository
+    // FORMULA SETUP
     const repoName = "Dasabodha"; 
     const isGitHub = window.location.hostname.includes("github.io");
     const sitePath = window.location.pathname;
 
-    // Extract slug
+    // Correcting slug extraction for clean URLs
     let pathSegments = sitePath.split('/').filter(p => p && p !== repoName);
     let slug = pathSegments.pop(); 
 
@@ -204,9 +206,10 @@
     }
 
     if (!slug || slug === repoName) {
-        document.getElementById("postTitle").innerText = "Information";
-        document.getElementById("postContent").innerHTML = "<p style='text-align:center;'>Please select a Samasam from the home page.</p>";
+        document.getElementById("postTitle").innerText = "Page Not Found";
+        document.getElementById("postContent").innerHTML = "<p style='text-align:center;'>Please select a valid Samasam from the home page.</p>";
     } else {
+        // Step 1: Fetch metadata
         fetch(`${fetchBase}/data/posts.json?v=${Date.now()}`)
         .then(r => r.json())
         .then(posts => {
@@ -216,7 +219,10 @@
                 document.title = post.title + " - Namo Narayanaya";
                 document.getElementById("postTitle").innerText = post.title;
 
-                fetch(`${fetchBase}/posts/${slug}.html`)
+                // Step 2: Fetch the actual HTML content
+                // Formula: Checks root first, then /posts/ folder if needed
+                fetch(`${fetchBase}/${slug}.html`)
+                .catch(() => fetch(`${fetchBase}/posts/${slug}.html`))
                 .then(r => {
                     if (!r.ok) throw new Error("File not found");
                     return r.text();
@@ -224,11 +230,14 @@
                 .then(html => {
                     const temp = document.createElement("div");
                     temp.innerHTML = html;
+                    
+                    // Cleanup HTML elements that shouldn't be inside the card
                     const extras = temp.querySelectorAll("header,footer,nav,script,style,meta,title");
                     extras.forEach(e => e.remove());
 
                     document.getElementById("postContent").innerHTML = temp.innerHTML;
 
+                    // Social Setup
                     const u = encodeURIComponent(window.location.href);
                     const m = encodeURIComponent(post.title + "\n\n");
                     document.getElementById("sWA").href = `https://api.whatsapp.com/send?text=${m}${u}`;
@@ -237,16 +246,16 @@
                     document.getElementById("shareRow").style.display = "flex";
                 })
                 .catch(() => {
-                    document.getElementById("postContent").innerHTML = `<p style='text-align:center; padding:20px;'>Content for <b>${slug}</b> is coming soon.</p>`;
+                    document.getElementById("postContent").innerHTML = `<p style='text-align:center; padding:20px;'>Content is currently being updated. Please check back soon.</p>`;
                 });
             } else {
-                document.getElementById("postTitle").innerText = "Page Not Found";
-                document.getElementById("postContent").innerHTML = "<p style='text-align:center; padding:20px;'>This Samasam is not available.</p>";
+                document.getElementById("postTitle").innerText = "Information";
+                document.getElementById("postContent").innerHTML = "<p style='text-align:center;'>Samasam link not found in our database.</p>";
             }
         })
         .catch(() => {
             document.getElementById("postTitle").innerText = "System Error";
-            document.getElementById("postContent").innerHTML = "<p style='text-align:center;'>Database connection failed.</p>";
+            document.getElementById("postContent").innerHTML = "<p style='text-align:center;'>Unable to load database.</p>";
         });
     }
 </script>
