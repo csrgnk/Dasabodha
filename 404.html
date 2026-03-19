@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title id="pageTitle">Loading Content...</title>
+    <title id="pageTitle">Loading...</title>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -145,7 +145,7 @@
 
 <div class="fixed-nav-wrapper">
     <div class="top-links">
-        <a href="https://dasabodha.omnnbc.in/">Home</a>
+        <a href="/">Home</a>
         <a href="/about-us">About Us</a>
         <a href="/contact-us">Contact Us</a>
         <a href="/privacy-policy">Privacy Policy</a>
@@ -167,7 +167,7 @@
 <div class="container">
     <div class="post-title" id="postTitle">Loading...</div>
     <div class="post-content" id="postContent">
-        <div style="text-align:center; padding:20px;">Fetching spiritual wisdom...</div>
+        <div style="text-align:center; padding:20px;">Fetching content, please wait...</div>
     </div>
 
     <div class="share-row" id="shareRow" style="display:none;">
@@ -178,7 +178,7 @@
     </div>
 
     <div class="back-home">
-        <a id="homeLink" href="https://dasabodha.omnnbc.in/">← Back to Home</a>
+        <a href="/">← Back to Home</a>
     </div>
 </div>
 
@@ -187,20 +187,15 @@
 </footer>
 
 <script>
-    // Configuration
-    const repoName = "Dasabodha";
-    const mainHome = "https://dasabodha.omnnbc.in/";
+    // Configuration for Dasabodha Repository
+    const repoName = "Dasabodha"; 
     const isGitHub = window.location.hostname.includes("github.io");
     const sitePath = window.location.pathname;
 
-    // Correcting Home link
-    document.getElementById("homeLink").href = mainHome;
+    // Extract slug
+    let pathSegments = sitePath.split('/').filter(p => p && p !== repoName);
+    let slug = pathSegments.pop(); 
 
-    // Extracting Slug without folder names
-    let segments = sitePath.split('/').filter(p => p && p !== repoName);
-    let slug = segments.pop(); 
-
-    // Define where to fetch the actual files (root of the repo)
     const fetchBase = isGitHub ? `/${repoName}` : "";
 
     function copyURL(){
@@ -210,9 +205,8 @@
 
     if (!slug || slug === repoName) {
         document.getElementById("postTitle").innerText = "Information";
-        document.getElementById("postContent").innerHTML = `<p style='text-align:center;'>Please select a Samasam from the <a href="${mainHome}">Home Page</a>.</p>`;
+        document.getElementById("postContent").innerHTML = "<p style='text-align:center;'>Please select a Samasam from the home page.</p>";
     } else {
-        // Fetch JSON from root /data/ folder
         fetch(`${fetchBase}/data/posts.json?v=${Date.now()}`)
         .then(r => r.json())
         .then(posts => {
@@ -222,8 +216,7 @@
                 document.title = post.title + " - Namo Narayanaya";
                 document.getElementById("postTitle").innerText = post.title;
 
-                // fetch HTML directly from root folder (not /posts/)
-                fetch(`${fetchBase}/${slug}.html`)
+                fetch(`${fetchBase}/posts/${slug}.html`)
                 .then(r => {
                     if (!r.ok) throw new Error("File not found");
                     return r.text();
@@ -236,7 +229,6 @@
 
                     document.getElementById("postContent").innerHTML = temp.innerHTML;
 
-                    // Social Setup
                     const u = encodeURIComponent(window.location.href);
                     const m = encodeURIComponent(post.title + "\n\n");
                     document.getElementById("sWA").href = `https://api.whatsapp.com/send?text=${m}${u}`;
@@ -245,16 +237,16 @@
                     document.getElementById("shareRow").style.display = "flex";
                 })
                 .catch(() => {
-                    document.getElementById("postContent").innerHTML = `<p style='text-align:center; padding:20px;'>Content is coming soon.</p>`;
+                    document.getElementById("postContent").innerHTML = `<p style='text-align:center; padding:20px;'>Content for <b>${slug}</b> is coming soon.</p>`;
                 });
             } else {
                 document.getElementById("postTitle").innerText = "Page Not Found";
-                document.getElementById("postContent").innerHTML = "<p style='text-align:center;'>This Samasam is not available.</p>";
+                document.getElementById("postContent").innerHTML = "<p style='text-align:center; padding:20px;'>This Samasam is not available.</p>";
             }
         })
         .catch(() => {
             document.getElementById("postTitle").innerText = "System Error";
-            document.getElementById("postContent").innerHTML = "<p style='text-align:center;'>Database error.</p>";
+            document.getElementById("postContent").innerHTML = "<p style='text-align:center;'>Database connection failed.</p>";
         });
     }
 </script>
