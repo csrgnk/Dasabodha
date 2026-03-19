@@ -9,19 +9,17 @@
 
 <style>
 :root {
-    --primary: #7B241C;
+    --primary: #3FA3A1;
     --secondary: #1A1A1A;
-    --accent: #F1C40F;
-    --bg: #FFFDF7;
+    --accent: #F4D03F;
+    --bg: #F4FBFB;
     --card: #FFFFFF;
 
-    --top-links-bg: #0B1C2C;
-    --outer-links-bg: #922B21;
+    --top-links-bg: #145A5A;
+    --outer-links-bg: #3FA3A1;
 }
 
-html {
-    scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body{
     margin:0;
@@ -33,7 +31,7 @@ body{
     min-height:100vh;
 }
 
-/* 🔵 NAV */
+/* NAV */
 .fixed-nav-wrapper{
     position:fixed;
     top:0;
@@ -43,7 +41,6 @@ body{
     box-shadow:0 2px 8px rgba(0,0,0,0.15);
 }
 
-/* TOP LINKS */
 .top-links{
     background:var(--top-links-bg);
     display:flex;
@@ -55,7 +52,6 @@ body{
 }
 .top-links::-webkit-scrollbar{display:none;}
 
-/* OUTER LINKS */
 .outer-links{
     background:var(--outer-links-bg);
     display:flex;
@@ -67,11 +63,10 @@ body{
 }
 .outer-links::-webkit-scrollbar{display:none;}
 
-/* LINKS */
 .fixed-nav-wrapper a{
     color:#fff;
     text-decoration:none;
-    font-size:0.85rem;
+    font-size:0.9rem;
     font-weight:700;
     letter-spacing:0.6px;
     padding:6px 10px;
@@ -79,7 +74,7 @@ body{
     transition:0.3s;
 }
 .fixed-nav-wrapper a:hover{
-    background:rgba(255,255,255,0.15);
+    background:rgba(255,255,255,0.2);
 }
 
 /* HEADER */
@@ -113,7 +108,7 @@ header{
 }
 
 .post-title{
-    background:linear-gradient(135deg,#7B241C,#922B21);
+    background: linear-gradient(135deg, #2E8B87, #3FA3A1);
     color:#fff;
     text-align:center;
     padding:12px;
@@ -132,7 +127,7 @@ header{
 
 /* FOOTER */
 footer{
-    background:var(--primary);
+    background:#2E8B87;
     color:#fff;
     text-align:center;
     padding:20px;
@@ -178,7 +173,7 @@ footer{
 © 2026 Namo Narayanaya Bhakthi Channel
 </footer>
 
-<!-- ✅ SAME WORKING SCRIPT -->
+<!-- SCRIPT -->
 <script>
 const repoName = "Dasabodha";
 const mainHome = "https://dasabodha.omnnbc.in/";
@@ -258,7 +253,7 @@ function show404(){
     document.getElementById("postContent").innerHTML =
     `<div style="text-align:center;">
         <p>This page is not available.</p>
-        <a href="${mainHome}" style="color:#7B241C;font-weight:bold;">Go to Home</a>
+        <a href="${mainHome}" style="color:#3FA3A1;font-weight:bold;">Go to Home</a>
      </div>`;
 }
 </script>
