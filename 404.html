@@ -3,163 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title id="pageTitle">Loading...</title>
-
+    <title id="pageTitle">Loading Content...</title>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #922B21; 
+            --secondary: #1C2833; 
+            --accent: #D4AC0D; 
+            --bg: #F9F7F2; 
+            --top-links-bg: #1B2631; 
+            --outer-links-bg: #7B241C; 
+        }
 
-<style>
-:root {
-    --primary:#922B21;
-    --secondary:#1C2833;
-    --accent:#D4AC0D;
-    --bg:#F9F7F2;
-    --top-links-bg:#1B2631;
-    --outer-links-bg:#7B241C;
-}
+        body { 
+            margin: 0; 
+            padding-top: 90px; 
+            font-family: 'Inter', sans-serif; 
+            background: var(--bg); 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh; 
+            overflow-x: hidden; 
+        }
 
-body{
-margin:0;
-padding-top:90px;
-font-family:'Inter',sans-serif;
-background:var(--bg);
-display:flex;
-flex-direction:column;
-min-height:100vh;
-overflow-x:hidden;
-}
+        /* FIXED NAVIGATION */
+        .fixed-nav-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
 
-/* NAV */
-.fixed-nav-wrapper{
-position:fixed;
-top:0;
-left:0;
-right:0;
-z-index:1000;
-box-shadow:0 2px 8px rgba(0,0,0,0.15);
-}
+        .top-links {
+            background: var(--top-links-bg);
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 8px 5px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
 
-.top-links{
-background:var(--top-links-bg);
-display:flex;
-justify-content:center;
-gap:10px;
-padding:8px 5px;
-border-bottom:1px solid rgba(255,255,255,0.1);
-}
+        .outer-links {
+            background: var(--outer-links-bg);
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 10px 15px;
+            gap: 18px;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        .outer-links::-webkit-scrollbar { display: none; }
 
-.outer-links{
-background:var(--outer-links-bg);
-display:flex;
-overflow-x:auto;
-white-space:nowrap;
-padding:10px 15px;
-gap:18px;
-scrollbar-width:none;
-}
-.outer-links::-webkit-scrollbar{display:none;}
+        .fixed-nav-wrapper a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
 
-.fixed-nav-wrapper a{
-color:#fff;
-text-decoration:none;
-font-size:0.7rem;
-font-weight:600;
-text-transform:uppercase;
-}
+        /* HEADER */
+        header { 
+            background: #fff; 
+            padding: 30px 10px; 
+            text-align: center; 
+            border-bottom: 3px solid var(--accent); 
+        }
 
-/* HEADER */
-header{
-background:#fff;
-padding:30px 10px;
-text-align:center;
-border-bottom:3px solid var(--accent);
-}
+        .site-title-main {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.1;
+            margin: 0;
+        }
 
-.site-title-main{
-font-family:'Crimson Text',serif;
-font-size:1.9rem;
-font-weight:700;
-color:var(--primary);
-}
+        .site-title-sub {
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--secondary);
+            margin: 2px 0 0 0;
+        }
 
-.site-title-sub{
-font-size:0.95rem;
-font-weight:700;
-letter-spacing:3px;
-text-transform:uppercase;
-color:var(--secondary);
-}
+        .container { 
+            max-width: 800px; 
+            margin: auto; 
+            padding: 20px 15px; 
+            flex: 1; 
+            width: 100%; 
+            box-sizing: border-box; 
+        }
 
-/* CONTENT */
-.container{
-max-width:800px;
-margin:auto;
-padding:20px 15px;
-flex:1;
-}
+        .post-title { 
+            background: var(--primary); 
+            color: white; 
+            text-align: center; 
+            padding: 12px 15px; 
+            font-size: 1.6rem;   
+            font-weight: bold; 
+            border-radius: 12px; 
+            margin-bottom: 15px; 
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            font-family: 'Crimson Text', serif;
+        }
 
-.post-title{
-background:var(--primary);
-color:#fff;
-text-align:center;
-padding:12px;
-font-size:1.6rem;
-border-radius:12px;
-margin-bottom:15px;
-font-family:'Crimson Text',serif;
-}
+        .post-content { 
+            background: #fff; 
+            padding: 25px; 
+            border-radius: 12px; 
+            color: #1C2833; 
+            line-height: 1.8; 
+            font-size: 20px; 
+            border: 1px solid #eee;
+        }
 
-.post-content{
-background:#fff;
-padding:25px;
-border-radius:12px;
-font-size:20px;
-line-height:1.8;
-}
+        .share-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 25px; }
+        .share-btn { padding: 12px; border-radius: 8px; color: white; font-weight: bold; text-decoration: none; font-size: 12px; flex: 1; min-width: 80px; text-align: center; text-transform: uppercase; }
+        .wa { background: #25D366; } .fb { background: #1877F2; } .tw { background: #000; } .cp { background: #607D8B; border: none; cursor: pointer; }
+        
+        .back-home { text-align: center; margin: 30px 0; }
+        .back-home a { color: var(--primary); font-weight: bold; text-decoration: none; font-size: 16px; border-bottom: 2px solid var(--primary); }
+        
+        footer { background: var(--primary); color: white; text-align: center; padding: 25px; margin-top: auto; font-size: 0.9rem; }
 
-/* SHARE */
-.share-row{
-display:flex;
-flex-wrap:wrap;
-gap:10px;
-margin-top:25px;
-}
-
-.share-btn{
-padding:12px;
-border-radius:8px;
-color:#fff;
-font-size:12px;
-flex:1;
-text-align:center;
-text-decoration:none;
-}
-
-.wa{background:#25D366;}
-.fb{background:#1877F2;}
-.tw{background:#000;}
-.cp{background:#607D8B;border:none;}
-
-.back-home{text-align:center;margin:30px 0;}
-.back-home a{color:var(--primary);font-weight:bold;text-decoration:none;}
-
-footer{
-background:var(--primary);
-color:#fff;
-text-align:center;
-padding:25px;
-}
-</style>
+        @media (max-width: 600px) {
+            body { padding-top: 85px; }
+            .site-title-main { font-size: 1.6rem; }
+            .post-title { font-size: 1.4rem; padding: 12px 10px; } 
+            .post-content { font-size: 19px; padding: 15px; }
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- ✅ FIXED LINKS ONLY -->
 <div class="fixed-nav-wrapper">
     <div class="top-links">
-        <a href="/Dasabodha/">Home</a>
-        <a href="/Dasabodha/pages/about-us.html">About Us</a>
-        <a href="/Dasabodha/pages/contact-us.html">Contact Us</a>
-        <a href="/Dasabodha/pages/privacy-policy.html">Privacy Policy</a>
+        <a href="https://dasabodha.omnnbc.in/">Home</a>
+        <a href="/about-us">About Us</a>
+        <a href="/contact-us">Contact Us</a>
+        <a href="/privacy-policy">Privacy Policy</a>
     </div>
 
     <div class="outer-links">
@@ -177,7 +166,9 @@ padding:25px;
 
 <div class="container">
     <div class="post-title" id="postTitle">Loading...</div>
-    <div class="post-content" id="postContent">Loading...</div>
+    <div class="post-content" id="postContent">
+        <div style="text-align:center; padding:20px;">Fetching spiritual wisdom...</div>
+    </div>
 
     <div class="share-row" id="shareRow" style="display:none;">
         <a id="sWA" class="share-btn wa" target="_blank">WhatsApp</a>
@@ -187,63 +178,85 @@ padding:25px;
     </div>
 
     <div class="back-home">
-        <a href="/Dasabodha/">← Back to Home</a>
+        <a id="homeLink" href="https://dasabodha.omnnbc.in/">← Back to Home</a>
     </div>
 </div>
 
 <footer>
-© 2026 Namo Narayanaya Bhakthi Channel
+    © 2026 Namo Narayanaya Bhakthi Channel
 </footer>
 
 <script>
-const repoName="Dasabodha";
-const isGitHub=window.location.hostname.includes("github.io");
-const sitePath=window.location.pathname;
+    // Configuration
+    const repoName = "Dasabodha";
+    const mainHome = "https://dasabodha.omnnbc.in/";
+    const isGitHub = window.location.hostname.includes("github.io");
+    const sitePath = window.location.pathname;
 
-let pathSegments=sitePath.split('/').filter(p=>p && p!==repoName);
-let slug=pathSegments.pop();
+    // Correcting Home link
+    document.getElementById("homeLink").href = mainHome;
 
-const fetchBase=isGitHub?`/${repoName}`:"";
+    // Extracting Slug without folder names
+    let segments = sitePath.split('/').filter(p => p && p !== repoName);
+    let slug = segments.pop(); 
 
-function copyURL(){
-navigator.clipboard.writeText(window.location.href);
-alert("Link Copied!");
-}
+    // Define where to fetch the actual files (root of the repo)
+    const fetchBase = isGitHub ? `/${repoName}` : "";
 
-if(!slug||slug===repoName){
-document.getElementById("postTitle").innerText="Information";
-document.getElementById("postContent").innerHTML="<p style='text-align:center;'>Select from home page</p>";
-}else{
-fetch(`${fetchBase}/data/posts.json?v=${Date.now()}`)
-.then(r=>r.json())
-.then(posts=>{
-const post=posts.find(p=>p.url===slug);
+    function copyURL(){
+        navigator.clipboard.writeText(window.location.href);
+        alert("Link Copied!");
+    }
 
-if(post){
-document.title=post.title;
-document.getElementById("postTitle").innerText=post.title;
+    if (!slug || slug === repoName) {
+        document.getElementById("postTitle").innerText = "Information";
+        document.getElementById("postContent").innerHTML = `<p style='text-align:center;'>Please select a Samasam from the <a href="${mainHome}">Home Page</a>.</p>`;
+    } else {
+        // Fetch JSON from root /data/ folder
+        fetch(`${fetchBase}/data/posts.json?v=${Date.now()}`)
+        .then(r => r.json())
+        .then(posts => {
+            const post = posts.find(p => p.url === slug);
 
-fetch(`${fetchBase}/posts/${slug}.html`)
-.then(r=>r.text())
-.then(html=>{
-const temp=document.createElement("div");
-temp.innerHTML=html;
-temp.querySelectorAll("header,footer,nav,script,style").forEach(e=>e.remove());
+            if(post) {
+                document.title = post.title + " - Namo Narayanaya";
+                document.getElementById("postTitle").innerText = post.title;
 
-document.getElementById("postContent").innerHTML=temp.innerHTML;
+                // fetch HTML directly from root folder (not /posts/)
+                fetch(`${fetchBase}/${slug}.html`)
+                .then(r => {
+                    if (!r.ok) throw new Error("File not found");
+                    return r.text();
+                })
+                .then(html => {
+                    const temp = document.createElement("div");
+                    temp.innerHTML = html;
+                    const extras = temp.querySelectorAll("header,footer,nav,script,style,meta,title");
+                    extras.forEach(e => e.remove());
 
-const u=encodeURIComponent(window.location.href);
-const m=encodeURIComponent(post.title+"\n\n");
+                    document.getElementById("postContent").innerHTML = temp.innerHTML;
 
-sWA.href=`https://api.whatsapp.com/send?text=${m}${u}`;
-sFB.href=`https://www.facebook.com/sharer/sharer.php?u=${u}`;
-sTW.href=`https://twitter.com/intent/tweet?text=${m}&url=${u}`;
-
-document.getElementById("shareRow").style.display="flex";
-});
-}
-});
-}
+                    // Social Setup
+                    const u = encodeURIComponent(window.location.href);
+                    const m = encodeURIComponent(post.title + "\n\n");
+                    document.getElementById("sWA").href = `https://api.whatsapp.com/send?text=${m}${u}`;
+                    document.getElementById("sFB").href = `https://www.facebook.com/sharer/sharer.php?u=${u}`;
+                    document.getElementById("sTW").href = `https://twitter.com/intent/tweet?text=${m}&url=${u}`;
+                    document.getElementById("shareRow").style.display = "flex";
+                })
+                .catch(() => {
+                    document.getElementById("postContent").innerHTML = `<p style='text-align:center; padding:20px;'>Content is coming soon.</p>`;
+                });
+            } else {
+                document.getElementById("postTitle").innerText = "Page Not Found";
+                document.getElementById("postContent").innerHTML = "<p style='text-align:center;'>This Samasam is not available.</p>";
+            }
+        })
+        .catch(() => {
+            document.getElementById("postTitle").innerText = "System Error";
+            document.getElementById("postContent").innerHTML = "<p style='text-align:center;'>Database error.</p>";
+        });
+    }
 </script>
 
 </body>
