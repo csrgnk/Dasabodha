@@ -1,315 +1,247 @@
 <!DOCTYPE html>
 <html lang="te">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Dasabodha Grantha Telugu Lyrics | Namo Narayanaya</title>
-    <style>
-        :root {
-            --primary: #C2185B;
-            --secondary: #002366;
-            --accent: #FFD700;
-            --bg: #f4f6f9;
-            --card-yellow: #FFFDE7; 
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dasabodha Grantha Telugu Lyrics | Namo Narayanaya</title>
 
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Roboto, -apple-system, sans-serif;
-            background: var(--bg);
-            color: #333;
-            line-height: 1.5;
-            overflow-x: hidden;
-        }
+<style>
+:root {
+  --primary:#C2185B;
+  --secondary:#002366;
+  --accent:#FFD700;
+  --bg:#f4f6f9;
+  --card-yellow:#FFFDE7;
+}
 
-        /* HEADER - Two Lines, Centered, Scrolling (Not Sticky) */
-        header {
-            background: var(--card-yellow);
-            padding: 25px 10px;
-            text-align: center;
-            border-bottom: 4px solid var(--accent);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:var(--bg);
+}
 
-        .site-title-main {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--primary);
-            line-height: 1.2;
-            margin: 0;
-        }
+/* 🔵 TOP MENU */
+.blue-nav{
+  background:#001a4d;
+  padding:6px 0;
+  display:flex;
+  overflow-x:auto;
+  white-space:nowrap;
+}
+.blue-nav a{
+  color:#fff;
+  text-decoration:none;
+  font-size:14px;
+  padding:4px 14px;
+}
 
-        .site-title-sub {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--primary);
-            line-height: 1.2;
-            margin: 2px 0 0 0;
-        }
+/* 🔴 PINK MENU */
+.scroll-container{
+  background:#C71585;
+  padding:6px 0;
+  display:flex;
+  overflow-x:auto;
+  white-space:nowrap;
+}
+.scroll-container a{
+  background:#fff;
+  color:#C71585;
+  padding:6px 14px;
+  margin:0 6px;
+  border-radius:6px;
+  text-decoration:none;
+  flex-shrink:0;
+}
 
-        .sub-title-box {
-            background: var(--secondary);
-            color: #fff;
-            padding: 6px 18px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            display: inline-block;
-            margin-top: 12px;
-            text-transform: uppercase;
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
+/* HEADER */
+header{
+  background:var(--card-yellow);
+  padding:20px 10px;
+  text-align:center;
+  border-bottom:4px solid var(--accent);
+}
 
-        /* SEARCH CONTAINER */
-        .search-container {
-            padding: 15px;
-            background: #fff;
-            display: flex;
-            justify-content: center;
-            border-bottom: 1px solid #eee;
-        }
+.site-title-main,
+.site-title-sub{
+  font-size:1.6rem;
+  font-weight:800;
+  color:var(--primary);
+  white-space:nowrap;
+}
 
-        #postSearch {
-            width: 100%;
-            max-width: 320px;
-            padding: 12px;
-            font-size: 16px; 
-            border: 2px solid #ddd;
-            border-radius: 25px;
-            outline: none;
-            text-align: center;
-            transition: 0.3s;
-        }
+.sub-title-box{
+  background:var(--secondary);
+  color:#fff;
+  padding:6px 18px;
+  border-radius:20px;
+  margin-top:10px;
+  display:inline-block;
+  font-size:0.85rem;
+}
 
-        #postSearch:focus {
-            border-color: var(--primary);
-        }
+/* SEARCH */
+.search-container{
+  padding:15px;
+  text-align:center;
+  background:#fff;
+}
+#postSearch{
+  width:80%;
+  max-width:280px;
+  padding:10px;
+  border-radius:20px;
+  border:2px solid #ddd;
+  text-align:center;
+}
 
-        /* POST CARDS */
-        .container {
-            max-width: 700px;
-            margin: auto;
-            padding: 15px;
-            min-height: 50vh;
-        }
+/* POSTS */
+.container{
+  max-width:700px;
+  margin:auto;
+  padding:15px;
+}
 
-        .post-card {
-            background: var(--card-yellow);
-            padding: 22px;
-            margin-bottom: 15px;
-            border-radius: 12px;
-            border-left: 6px solid var(--primary);
-            box-shadow: 0 3px 6px rgba(0,0,0,0.05);
-        }
+.post-card{
+  background:var(--card-yellow);
+  padding:18px;
+  margin-bottom:12px;
+  border-radius:10px;
+  border-left:5px solid var(--primary);
+}
 
-        .post-card h2 {
-            margin: 0 0 10px;
-            font-size: 1.3rem;
-            color: var(--secondary);
-            line-height: 1.4;
-        }
+.post-card h2{
+  margin:0;
+  font-size:1.2rem;
+}
 
-        .post-card h2 a {
-            text-decoration: none;
-            color: inherit;
-        }
+.post-meta-desc{
+  font-size:14px;
+  margin:6px 0;
+}
 
-        .post-meta-desc {
-            color: #555;
-            font-size: 1rem;
-            margin-bottom: 15px;
-            overflow: hidden;
-        }
+.read-link{
+  color:var(--primary);
+  font-weight:bold;
+  text-decoration:none;
+}
 
-        .read-link {
-            color: var(--primary);
-            font-weight: 700;
-            text-decoration: none;
-            font-size: 0.9rem;
-            display: inline-block;
-            border: 1px solid var(--primary);
-            padding: 8px 18px;
-            border-radius: 5px;
-            background: #fff;
-        }
+/* PAGINATION */
+.pagination-wrapper{
+  text-align:center;
+  padding:20px;
+}
 
-        /* PAGINATION */
-        .pagination-wrapper {
-            background: #fff;
-            padding: 25px 0;
-            text-align: center;
-            border-top: 1px solid #eee;
-        }
+.page-numbers-container{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+}
 
-        .page-numbers-container {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            padding: 10px 15px;
-            scrollbar-width: none;
-            -webkit-overflow-scrolling: touch;
-        }
+.pg-btn{
+  min-width:100px;
+  padding:10px;
+  border-radius:25px;
+  border:1px solid #ccc;
+}
 
-        .page-numbers-container::-webkit-scrollbar { display: none; }
+.pg-btn.active{
+  background:var(--secondary);
+  color:#FFD700;
+}
 
-        .pg-btn {
-            min-width: 110px;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 30px;
-            background: white;
-            color: var(--secondary);
-            font-weight: 600;
-            flex-shrink: 0;
-            cursor: pointer;
-        }
-
-        .pg-btn.active {
-            background: var(--secondary);
-            color: var(--accent);
-            border-color: var(--secondary);
-        }
-
-        footer {
-            background: var(--primary);
-            color: white;
-            text-align: center;
-            padding: 30px 15px;
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 480px) {
-            .site-title-main, .site-title-sub { font-size: 1.45rem; }
-            .post-card h2 { font-size: 1.25rem; }
-            .post-content { font-size: 19px; }
-        }
-    </style>
+footer{
+  background:var(--primary);
+  color:#fff;
+  text-align:center;
+  padding:20px;
+}
+</style>
 </head>
+
 <body>
 
+<!-- 🔵 TOP MENU (LOCAL PAGES ONLY) -->
+<nav class="blue-nav">
+  <a href="/">Home</a>
+  <a href="/about-us">About Us</a>
+  <a href="/contact-us">Contact Us</a>
+  <a href="/privacy-policy">Privacy Policy</a>
+</nav>
+
+<!-- 🔴 PINK MENU (EXTERNAL + MAIN SITE) -->
+<div class="scroll-container">
+  <a href="https://omnnbc.in/">Omnnbc</a>
+  <a href="https://csrgnk.github.io/Upasana-Chandrika/">Upasana Chandrika</a>
+  <a href="https://csrgnk.github.io/manache-shlok/">Manache Shlok Telugu</a>
+  <a href="https://csrgnk.github.io/manache-shlok/hindi/">Manache Shlok Hindi</a>
+</div>
+
+<!-- HEADER -->
 <header>
-    <div class="site-title-main">Namo Narayanaya</div>
-    <div class="site-title-sub">Bhakthi Channel</div>
-    <div class="sub-title-box">Dasabodha Grantha Telugu Lyrics</div>
+  <div class="site-title-main">Namo Narayanaya</div>
+  <div class="site-title-sub">Bhakthi Channel</div>
+  <div class="sub-title-box">Dasabodha Grantha Telugu Lyrics</div>
 </header>
 
 <div class="search-container">
-    <input type="text" id="postSearch" placeholder="Search Samasam Name...">
+  <input type="text" id="postSearch" placeholder="Search Samasam Name...">
 </div>
 
-<div class="container" id="postsContainer">
-    <div style="text-align:center; padding:50px;">Loading Content...</div>
-</div>
+<div class="container" id="postsContainer">Loading...</div>
 
 <div class="pagination-wrapper">
-    <p style="font-weight:bold; color:var(--primary); margin-bottom:10px;">Select Dashakam</p>
-    <div class="page-numbers-container" id="paginationWrapper"></div>
+  <div class="page-numbers-container" id="paginationWrapper"></div>
 </div>
 
 <footer>
-    © 2026 Namo Narayanaya Bhakthi Channel<br>
-    <small>Sharing Spiritual Wisdom</small>
+© 2026 Namo Narayanaya Bhakthi Channel
 </footer>
 
 <script>
-    let allPosts = [];
-    let currentDashakam = 1;
+let allPosts=[];
+let currentDashakam=1;
 
-    // Fetching the posts data
-    fetch("./data/posts.json?v=" + Date.now())
-        .then(res => res.json())
-        .then(data => {
-            allPosts = data.sort((a, b) => {
-                if (parseInt(a.dashakam) !== parseInt(b.dashakam)) {
-                    return parseInt(a.dashakam) - parseInt(b.dashakam);
-                }
-                const numA = parseInt(a.url.match(/samasam-(\d+)/)?.[1] || 0);
-                const numB = parseInt(b.url.match(/samasam-(\d+)/)?.[1] || 0);
-                return numA - numB;
-            });
-            renderPage();
-        });
+fetch("./data/posts.json")
+.then(r=>r.json())
+.then(data=>{
+  allPosts=data;
+  renderPage();
+});
 
-    // Function to limit description to 200 characters
-    function limitDescription(text, limit = 200) {
-        if (!text) return "Read Telugu lyrics for this samasam.";
-        if (text.length <= limit) return text;
-        return text.substring(0, limit) + "...";
-    }
+function renderPage(){
+  const container=document.getElementById("postsContainer");
+  container.innerHTML="";
 
-    function renderPage() {
-        const container = document.getElementById("postsContainer");
-        container.innerHTML = "";
-        const posts = allPosts.filter(p => parseInt(p.dashakam) === currentDashakam);
+  const posts=allPosts.filter(p=>parseInt(p.dashakam)===currentDashakam);
 
-        if (posts.length === 0) {
-            container.innerHTML = `<div style="text-align:center; padding:50px; color:#999;">Lyrics for Dashakam ${currentDashakam} coming soon.</div>`;
-            setupPagination();
-            return;
-        }
+  posts.forEach(post=>{
+    const card=document.createElement("div");
+    card.className="post-card";
 
-        posts.forEach(post => {
-            const card = document.createElement("div");
-            card.className = "post-card";
-            
-            // Limit character count here
-            const shortDesc = limitDescription(post.description);
+    card.innerHTML=`
+      <h2><a href="./${post.url}/">${post.title}</a></h2>
+      <div class="post-meta-desc">${post.description||""}</div>
+      <a href="./${post.url}/" class="read-link">READ →</a>
+    `;
 
-            card.innerHTML = `
-                <h2><a href="./${post.url}/">${post.title}</a></h2>
-                <div class="post-meta-desc">${shortDesc}</div>
-                <a href="./${post.url}/" class="read-link">READ LYRICS →</a>
-            `;
-            container.appendChild(card);
-        });
-        setupPagination();
-    }
+    container.appendChild(card);
+  });
 
-    function setupPagination() {
-        const wrapper = document.getElementById("paginationWrapper");
-        wrapper.innerHTML = "";
-        for (let i = 1; i <= 20; i++) {
-            const btn = document.createElement("button");
-            btn.className = "pg-btn" + (i === currentDashakam ? " active" : "");
-            btn.innerText = "Dashakam " + i;
-            btn.onclick = () => {
-                currentDashakam = i;
-                window.scrollTo({top: 0, behavior: 'smooth'});
-                renderPage();
-            };
-            wrapper.appendChild(btn);
-        }
-        const activeBtn = wrapper.querySelector('.active');
-        if(activeBtn) {
-            wrapper.scrollTo({ left: activeBtn.offsetLeft - 40, behavior: 'smooth' });
-        }
-    }
+  setupPagination();
+}
 
-    // Search functionality with character limit
-    document.getElementById("postSearch").addEventListener("input", (e) => {
-        const term = e.target.value.toLowerCase().trim();
-        const container = document.getElementById("postsContainer");
-        if (term === "") { renderPage(); return; }
+function setupPagination(){
+  const wrapper=document.getElementById("paginationWrapper");
+  wrapper.innerHTML="";
 
-        const filtered = allPosts.filter(p => p.title.toLowerCase().includes(term));
-        container.innerHTML = "";
-        
-        filtered.forEach(post => {
-            const card = document.createElement("div");
-            card.className = "post-card";
-            const shortDesc = limitDescription(post.description);
-
-            card.innerHTML = `
-                <h2><a href="./${post.url}/">${post.title}</a></h2>
-                <div class="post-meta-desc">${shortDesc}</div>
-                <a href="./${post.url}/" class="read-link">READ LYRICS →</a>
-            `;
-            container.appendChild(card);
-        });
-    });
+  for(let i=1;i<=20;i++){
+    const btn=document.createElement("button");
+    btn.className="pg-btn"+(i===currentDashakam?" active":"");
+    btn.innerText="Dashakam "+i;
+    btn.onclick=()=>{currentDashakam=i;renderPage();};
+    wrapper.appendChild(btn);
+  }
+}
 </script>
 
 </body>
