@@ -2,113 +2,149 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Page Not Found</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Namo Narayanaya</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-:root {
-    --primary:#922B21;
-    --secondary:#1C2833;
-    --accent:#D4AC0D;
-    --bg:#F9F7F2;
+:root{
+--primary:#922B21;
+--secondary:#1C2833;
+--accent:#D4AC0D;
+--bg:#F9F7F2;
 }
 
 body{
-    margin:0;
-    font-family:'Inter',sans-serif;
-    background:var(--bg);
-    display:flex;
-    flex-direction:column;
-    min-height:100vh;
-    text-align:center;
+margin:0;
+padding-top:90px;
+font-family:'Inter',sans-serif;
+background:var(--bg);
+display:flex;
+flex-direction:column;
+min-height:100vh;
 }
 
+/* TOP NAV */
+.fixed-nav-wrapper{
+position:fixed;
+top:0;
+left:0;
+right:0;
+z-index:1000;
+}
+
+.top-links{
+background:#1B2631;
+display:flex;
+justify-content:center;
+gap:10px;
+padding:8px;
+}
+
+.outer-links{
+background:#7B241C;
+display:flex;
+overflow-x:auto;
+padding:10px;
+gap:15px;
+}
+
+.fixed-nav-wrapper a{
+color:#fff;
+text-decoration:none;
+font-size:0.7rem;
+font-weight:600;
+}
+
+/* HEADER */
 header{
-    background:#fff;
-    padding:30px 15px;
-    border-bottom:3px solid var(--accent);
+background:#fff;
+padding:25px 10px;
+text-align:center;
+border-bottom:3px solid var(--accent);
 }
 
 .site-title-main{
-    font-family:'Crimson Text',serif;
-    font-size:1.8rem;
-    color:var(--primary);
-    font-weight:700;
+font-family:'Crimson Text',serif;
+font-size:1.8rem;
+color:var(--primary);
+font-weight:700;
 }
 
 .site-title-sub{
-    font-size:0.9rem;
-    letter-spacing:3px;
-    text-transform:uppercase;
-    color:var(--secondary);
+font-size:0.9rem;
+letter-spacing:3px;
+text-transform:uppercase;
+color:var(--secondary);
 }
 
+/* CONTENT */
 .container{
-    flex:1;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
+max-width:800px;
+margin:auto;
+padding:20px;
+flex:1;
 }
 
-.error-box{
-    background:#fff;
-    padding:30px;
-    border-radius:12px;
-    max-width:500px;
-    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+.post-title{
+background:var(--primary);
+color:#fff;
+text-align:center;
+padding:12px;
+font-size:1.5rem;
+border-radius:10px;
+margin-bottom:15px;
 }
 
-.error-code{
-    font-size:3rem;
-    font-weight:bold;
-    color:var(--primary);
-}
-
-.error-text{
-    margin:15px 0;
-    font-size:1.1rem;
-}
-
-.btn{
-    display:inline-block;
-    margin-top:15px;
-    padding:12px 20px;
-    background:var(--primary);
-    color:#fff;
-    text-decoration:none;
-    border-radius:8px;
-    font-weight:bold;
+.post-content{
+background:#fff;
+padding:20px;
+border-radius:10px;
+font-size:19px;
+line-height:1.8;
 }
 
 footer{
-    background:var(--primary);
-    color:#fff;
-    padding:20px;
-    font-size:0.85rem;
+background:var(--primary);
+color:#fff;
+text-align:center;
+padding:20px;
+font-size:0.85rem;
 }
 </style>
 </head>
 
 <body>
 
+<!-- NAV -->
+<div class="fixed-nav-wrapper">
+    <div class="top-links">
+        <a href="https://dasabodha.omnnbc.in/">Home</a>
+        <a href="/about-us">About Us</a>
+        <a href="/contact-us">Contact Us</a>
+        <a href="/privacy-policy">Privacy Policy</a>
+    </div>
+
+    <div class="outer-links">
+        <a href="https://csrgnk.github.io/Omnnbc/">Main site</a>
+        <a href="https://csrgnk.github.io/Upasana-Chandrika/">Upasana Chandrika</a>
+        <a href="https://csrgnk.github.io/manache-shlok/">Manache Shlok Telugu</a>
+        <a href="https://csrgnk.github.io/manache-shlok/hindi/">Manache Shlok Hindi</a>
+    </div>
+</div>
+
+<!-- HEADER -->
 <header>
     <div class="site-title-main">Namo Narayanaya</div>
     <div class="site-title-sub">Bhakthi Channel</div>
 </header>
 
+<!-- CONTENT -->
 <div class="container">
-    <div class="error-box">
-        <div class="error-code">404</div>
-        <div class="error-text">
-            The page you are looking for is not available.<br>
-            Redirecting or try Home page.
-        </div>
-
-        <a href="https://dasabodha.omnnbc.in/" class="btn">Go to Home</a>
+    <div class="post-title" id="postTitle">Loading...</div>
+    <div class="post-content" id="postContent">
+        <div style="text-align:center;">Loading content...</div>
     </div>
 </div>
 
@@ -116,8 +152,11 @@ footer{
 © 2026 Namo Narayanaya Bhakthi Channel
 </footer>
 
+<!-- ✅ FINAL SCRIPT -->
 <script>
 const repoName = "Dasabodha";
+const mainHome = "https://dasabodha.omnnbc.in/";
+
 const path = window.location.pathname;
 const segments = path.split('/').filter(p => p && p !== repoName);
 const slug = segments.pop();
@@ -125,27 +164,85 @@ const slug = segments.pop();
 const isCustomDomain = window.location.hostname.includes("omnnbc.in");
 const fetchBase = isCustomDomain ? "" : `/${repoName}`;
 
-// 🔥 Try PAGES first
-fetch(`${fetchBase}/pages/${slug}.html`)
-.then(res=>{
-    if(res.ok){
-        window.location.href = `${fetchBase}/pages/${slug}.html`;
-    } else {
-        throw new Error("Not page");
-    }
-})
+// HOME
+if (!slug || slug === repoName) {
+    document.getElementById("postTitle").innerText = "Welcome";
+    document.getElementById("postContent").innerHTML =
+    `<p style='text-align:center;'>Go to <a href="${mainHome}">Home Page</a></p>`;
+}
 
-// 🔥 Then POSTS
-.catch(()=>{
-    fetch(`${fetchBase}/data/posts.json`)
-    .then(r=>r.json())
-    .then(posts=>{
-        const post = posts.find(p=>p.url===slug);
-        if(post){
-            window.location.href = `${fetchBase}/${slug}`;
+// ROUTING
+else {
+
+    // 🔵 TRY PAGES
+    fetch(`${fetchBase}/pages/${slug}.html`)
+    .then(res => {
+        if(res.ok){
+            return res.text().then(html => {
+                const temp = document.createElement("div");
+                temp.innerHTML = html;
+
+                temp.querySelectorAll("header,footer,nav,script,style,meta,title")
+                    .forEach(e => e.remove());
+
+                const titleText = slug.replace(/-/g," ");
+
+                document.title = titleText;
+                document.getElementById("postTitle").innerText = titleText;
+                document.getElementById("postContent").innerHTML = temp.innerHTML;
+            });
         }
+        throw new Error("Not page");
+    })
+
+    // 🔴 TRY POSTS
+    .catch(() => {
+        fetch(`${fetchBase}/data/posts.json?v=${Date.now()}`)
+        .then(r => r.json())
+        .then(posts => {
+            const post = posts.find(p => p.url === slug);
+
+            if(post){
+                document.title = post.title;
+                document.getElementById("postTitle").innerText = post.title;
+
+                fetch(`${fetchBase}/${slug}.html`)
+                .then(res => {
+                    if(!res.ok) return fetch(`${fetchBase}/posts/${slug}.html`);
+                    return res;
+                })
+                .then(r => {
+                    if (!r.ok) throw new Error("Not found");
+                    return r.text();
+                })
+                .then(html => {
+                    const temp = document.createElement("div");
+                    temp.innerHTML = html;
+
+                    temp.querySelectorAll("header,footer,nav,script,style,meta,title")
+                        .forEach(e => e.remove());
+
+                    document.getElementById("postContent").innerHTML = temp.innerHTML;
+                })
+                .catch(() => show404());
+            } else {
+                show404();
+            }
+        })
+        .catch(() => show404());
     });
-});
+}
+
+// 404 DISPLAY
+function show404(){
+    document.title = "404";
+    document.getElementById("postTitle").innerText = "404 - Page Not Found";
+    document.getElementById("postContent").innerHTML =
+    `<div style="text-align:center;">
+        <p>This page is not available.</p>
+        <a href="${mainHome}" style="color:#922B21;font-weight:bold;">Go to Home</a>
+     </div>`;
+}
 </script>
 
 </body>
