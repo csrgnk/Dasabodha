@@ -12,61 +12,63 @@
             --accent: #D4AC0D; 
             --bg: #F9F7F2; 
             --card: #FFFFFF;
-            --nav-top: #2C3E50; /* Dark Blue-Grey for Line 1 */
-            --nav-bottom: #8E44AD; /* Purple for Line 2 */
+            --top-links-bg: #1B2631; /* Deep Navy */
+            --outer-links-bg: #7B241C; /* Vibrant Maroon */
         }
 
         body {
             margin: 0;
-            padding-top: 85px; /* Space for the fixed menu */
+            padding-top: 90px; /* Space for fixed nav */
             font-family: 'Inter', sans-serif;
             background: var(--bg);
             color: var(--secondary);
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            overflow-x: hidden;
         }
 
-        /* FIXED TOP NAVIGATION */
+        /* 🔵 FIXED TOP NAVIGATION */
         .fixed-nav-wrapper {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
 
-        /* Line 1: Main Pages (Dark Blue-Grey) */
-        .nav-line-1 {
-            background: var(--nav-top);
+        /* 🔵 TOP LINKS (Line 1) */
+        .top-links {
+            background: var(--top-links-bg);
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
             padding: 8px 5px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* Line 2: Categories (Purple + Scrollable) */
-        .nav-line-2 {
-            background: var(--nav-bottom);
+        /* 🔴 OUTER LINKS (Line 2 - Scrollable) */
+        .outer-links {
+            background: var(--outer-links-bg);
             display: flex;
             overflow-x: auto;
             white-space: nowrap;
             padding: 10px 15px;
-            gap: 20px;
+            gap: 18px;
+            scrollbar-width: none;
             -webkit-overflow-scrolling: touch;
         }
         
-        /* Hide scrollbar for Chrome/Safari/Firefox */
-        .nav-line-2::-webkit-scrollbar { display: none; }
-        .nav-line-2 { -ms-overflow-style: none; scrollbar-width: none; }
+        .outer-links::-webkit-scrollbar { display: none; }
 
         .fixed-nav-wrapper a {
             color: #ffffff;
             text-decoration: none;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
+
+        .fixed-nav-wrapper a:hover { color: var(--accent); }
 
         /* HEADER BRANDING */
         header {
@@ -78,14 +80,15 @@
 
         .site-title-main {
             font-family: 'Crimson Text', serif;
-            font-size: 2rem;
+            font-size: 1.9rem;
             font-weight: 700;
             color: var(--primary);
             line-height: 1.1;
+            margin: 0;
         }
 
         .site-title-sub {
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 700;
             letter-spacing: 3px;
             text-transform: uppercase;
@@ -96,32 +99,33 @@
         .sub-title-box {
             background: var(--primary);
             color: #fff;
-            padding: 5px 15px;
+            padding: 4px 12px;
             border-radius: 4px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             display: inline-block;
             margin-top: 12px;
+            font-weight: 600;
         }
 
-        /* SEARCH AREA - Narrowed to fix overflow */
+        /* SEARCH AREA - COMPACT & NO OVERFLOW */
         .search-area {
-            width: 85%;
-            max-width: 280px; /* Small width for perfect mobile fit */
+            width: 90%;
+            max-width: 260px; 
             margin: 20px auto;
         }
 
         #postSearch {
             width: 100%;
-            padding: 10px 15px;
+            padding: 10px;
             border-radius: 20px;
             border: 1px solid #ccc;
             font-size: 14px;
             outline: none;
             text-align: center;
-            box-sizing: border-box; /* Ensures padding doesn't increase width */
+            box-sizing: border-box;
         }
 
-        /* CONTENT */
+        /* CONTAINER */
         .container {
             max-width: 700px;
             margin: 0 auto 40px;
@@ -131,25 +135,26 @@
 
         .post-card {
             background: var(--card);
-            border-radius: 10px;
-            padding: 20px;
+            border-radius: 8px;
+            padding: 18px;
             margin-bottom: 15px;
             border: 1px solid #eee;
             border-left: 5px solid var(--primary);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
         }
 
         .post-card h2 {
             margin: 0 0 8px;
             font-family: 'Crimson Text', serif;
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             color: var(--secondary);
         }
 
         .post-card h2 a { text-decoration: none; color: inherit; }
 
-        .post-meta-desc { font-size: 0.9rem; color: #666; }
+        .post-meta-desc { font-size: 0.9rem; color: #555; line-height: 1.4; }
 
-        /* DASHAKAM NAV */
+        /* DASHAKAM NAVIGATION */
         .nav-section {
             background: #fff;
             padding: 20px 0;
@@ -168,26 +173,21 @@
         .scroll-container::-webkit-scrollbar { display: none; }
 
         .dash-btn {
-            min-width: 100px;
+            min-width: 95px;
             padding: 10px;
             border-radius: 20px;
             border: 1px solid #ddd;
             background: #fff;
             font-weight: 600;
             flex-shrink: 0;
+            cursor: pointer;
+            font-size: 0.8rem;
         }
 
         .dash-btn.active {
             background: var(--secondary);
             color: var(--accent);
-        }
-
-        footer {
-            background: var(--primary);
-            color: #fff;
-            text-align: center;
-            padding: 30px 15px;
-            font-size: 0.8rem;
+            border-color: var(--secondary);
         }
 
         .empty-state {
@@ -195,30 +195,40 @@
             padding: 40px 20px;
             border: 2px dashed #ccc;
             background: #fff;
-            margin-top: 20px;
+            margin-top: 10px;
+            border-radius: 8px;
+        }
+
+        footer {
+            background: var(--primary);
+            color: #fff;
+            text-align: center;
+            padding: 25px 15px;
+            font-size: 0.8rem;
         }
 
         @media (max-width: 480px) {
-            body { padding-top: 80px; }
-            .site-title-main { font-size: 1.6rem; }
-            .nav-line-1 a { font-size: 0.65rem; }
+            body { padding-top: 85px; }
+            .site-title-main { font-size: 1.5rem; }
+            .top-links a { font-size: 0.6rem; }
         }
     </style>
 </head>
 <body>
 
 <div class="fixed-nav-wrapper">
-    <div class="nav-line-1">
+    <div class="top-links">
         <a href="/">Home</a>
         <a href="/about-us">About Us</a>
         <a href="/contact-us">Contact Us</a>
-        <a href="/privacy-policy">Privacy</a>
+        <a href="/privacy-policy">Privacy Policy</a>
     </div>
-    <div class="nav-line-2">
-        <a href="https://omnnbc.com" target="_blank">Main Site</a>
-        <a href="/upasana-chandrika">Upasana Chandrika</a>
-        <a href="/manache-shlok">Manache-Shlok</a>
-        <a href="/manache-shlok-hindi">Manache-Shlok Hindi</a>
+
+    <div class="outer-links">
+        <a href="https://omnnbc.in/">Omnnbc</a>
+        <a href="https://csrgnk.github.io/Upasana-Chandrika/">Upasana Chandrika</a>
+        <a href="https://csrgnk.github.io/manache-shlok/">Manache Shlok Telugu</a>
+        <a href="https://csrgnk.github.io/manache-shlok/hindi/">Manache Shlok Hindi</a>
     </div>
 </div>
 
@@ -235,7 +245,7 @@
 <div class="container" id="postsContainer"></div>
 
 <div class="nav-section">
-    <p style="font-weight: bold; color: var(--primary); margin-bottom: 5px; font-size: 0.9rem;">Select Dashakam</p>
+    <p style="font-weight: bold; color: var(--primary); margin-bottom: 5px; font-size: 0.85rem;">SELECT DASHAKAM</p>
     <div class="scroll-container" id="dashButtons"></div>
 </div>
 
@@ -255,7 +265,7 @@
             setupDashNav();
         })
         .catch(() => {
-            document.getElementById("postsContainer").innerHTML = '<div class="empty-state">Data loading error.</div>';
+            document.getElementById("postsContainer").innerHTML = '<div class="empty-state">Unable to load content.</div>';
         });
 
     function renderPage(searchTerm = "") {
@@ -277,8 +287,8 @@
         if (filtered.length === 0) {
             container.innerHTML = `
                 <div class="empty-state">
-                    <h3>🙏 Coming Soon</h3>
-                    <p>Lyrics for Dashakam ${currentDashakam} are being updated.<br>Check back soon.</p>
+                    <h3 style="color:var(--primary); margin:0;">🙏 Coming Soon</h3>
+                    <p style="font-size:0.9rem; color:#666;">Lyrics for Dashakam ${currentDashakam} are being updated.</p>
                 </div>`;
             return;
         }
@@ -288,8 +298,8 @@
             card.className = "post-card";
             card.innerHTML = `
                 <h2><a href="./${post.url}/">${post.title}</a></h2>
-                <div class="post-meta-desc">${post.description.substring(0, 140)}...</div>
-                <a href="./${post.url}/" style="text-decoration:none; color:var(--primary); font-weight:700; font-size:0.8rem;">READ LYRICS →</a>
+                <div class="post-meta-desc">${post.description.substring(0, 130)}...</div>
+                <a href="./${post.url}/" style="text-decoration:none; color:var(--primary); font-weight:700; font-size:0.8rem; display:inline-block; margin-top:10px;">READ LYRICS →</a>
             `;
             container.appendChild(card);
         });
