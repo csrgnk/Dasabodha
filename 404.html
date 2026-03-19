@@ -13,13 +13,10 @@
     --secondary: #1A1A1A;
     --accent: #F4D03F;
     --bg: #F4FBFB;
-    --card: #FFFFFF;
 
     --top-links-bg: #145A5A;
     --outer-links-bg: #3FA3A1;
 }
-
-html { scroll-behavior: smooth; }
 
 body{
     margin:0;
@@ -38,7 +35,6 @@ body{
     left:0;
     right:0;
     z-index:1000;
-    box-shadow:0 2px 8px rgba(0,0,0,0.15);
 }
 
 .top-links{
@@ -68,19 +64,14 @@ body{
     text-decoration:none;
     font-size:0.9rem;
     font-weight:700;
-    letter-spacing:0.6px;
     padding:6px 10px;
     border-radius:6px;
-    transition:0.3s;
-}
-.fixed-nav-wrapper a:hover{
-    background:rgba(255,255,255,0.2);
 }
 
-/* HEADER */
+/* HEADER (SAME SIZE, ONLY STYLE CHANGE) */
 header{
     background:#fff;
-    padding:25px 10px;
+    padding:30px 15px;
     text-align:center;
     border-bottom:3px solid var(--accent);
 }
@@ -88,15 +79,23 @@ header{
 .site-title-main{
     font-family:'Crimson Text',serif;
     font-size:1.9rem;
-    color:var(--primary);
     font-weight:700;
+    color:#E91E63; /* pink */
+    margin:0;
 }
 
 .site-title-sub{
     font-size:0.95rem;
+    font-weight:700;
     letter-spacing:3px;
     text-transform:uppercase;
     color:var(--secondary);
+    margin-top:6px;
+
+    display:inline-block;
+    background:#fff;
+    padding:6px 14px;
+    border-radius:20px;
 }
 
 /* CONTENT */
@@ -108,7 +107,7 @@ header{
 }
 
 .post-title{
-    background: linear-gradient(135deg, #2E8B87, #3FA3A1);
+    background:linear-gradient(135deg,#2E8B87,#3FA3A1);
     color:#fff;
     text-align:center;
     padding:12px;
@@ -157,8 +156,18 @@ footer{
 
 <!-- HEADER -->
 <header>
-    <div class="site-title-main">Namo Narayanaya</div>
-    <div class="site-title-sub">Bhakthi Channel</div>
+
+    <img src="https://csrgnk.github.io/Omnnbc/assets/images/Omnnbc-new.png"
+         style="width:60px; display:block; margin:0 auto 8px auto; border-radius:50%;">
+
+    <div class="site-title-main">
+        Namo Narayanaya Bhakthi Channel
+    </div>
+
+    <div class="site-title-sub">
+        Dasabodha Grantha Telugu Lyrics
+    </div>
+
 </header>
 
 <!-- CONTENT -->
