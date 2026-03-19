@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Dasabodha Grantha Telugu Lyrics | Namo Narayanaya</title>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,600;0,700;1,400&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #922B21; /* Deep Madder Red */
-            --secondary: #1C2833; /* Dark Charcoal */
-            --accent: #D4AC0D; /* Temple Gold */
-            --bg: #F9F7F2; /* Soft Parchment */
+            --primary: #922B21; 
+            --secondary: #1C2833; 
+            --accent: #D4AC0D; 
+            --bg: #F9F7F2; 
             --card: #FFFFFF;
         }
 
@@ -22,149 +22,139 @@
             line-height: 1.6;
         }
 
-        /* HEADER */
+        /* TOP NAVIGATION MENU */
+        .top-nav {
+            background: var(--secondary);
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .top-nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .top-nav a:hover {
+            color: var(--accent);
+        }
+
+        /* HEADER - TWO LINE CENTERED SETUP */
         header {
             background: #fff;
-            padding: 40px 15px;
+            padding: 35px 15px;
             text-align: center;
             border-bottom: 3px solid var(--accent);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .site-title-main {
             font-family: 'Crimson Text', serif;
-            font-size: 2.4rem;
+            font-size: 2.2rem;
             font-weight: 700;
             color: var(--primary);
-            margin: 0;
+            line-height: 1.1;
+            width: 100%;
         }
 
         .site-title-sub {
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 700;
             letter-spacing: 4px;
             text-transform: uppercase;
             color: var(--secondary);
             margin-top: 5px;
-            opacity: 0.8;
+            width: 100%;
         }
 
         .sub-title-box {
             background: var(--primary);
             color: #fff;
-            padding: 6px 20px;
+            padding: 5px 18px;
             border-radius: 4px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             display: inline-block;
             margin-top: 15px;
-            font-weight: 500;
         }
 
-        /* SEARCH BAR */
+        /* SEARCH AREA - DECREASED WIDTH */
         .search-area {
-            max-width: 600px;
-            margin: 20px auto;
+            max-width: 350px; /* Decreased width as requested */
+            margin: 25px auto;
             padding: 0 15px;
         }
 
         #postSearch {
             width: 100%;
-            padding: 15px 25px;
-            border-radius: 50px;
-            border: 1px solid #ddd;
-            font-size: 16px;
+            padding: 12px 20px;
+            border-radius: 25px;
+            border: 1px solid #ccc;
+            font-size: 15px;
             outline: none;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            transition: 0.3s;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
-        #postSearch:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 10px rgba(146, 43, 33, 0.1);
-        }
-
-        /* CARDS */
+        /* CONTENT CONTAINER */
         .container {
-            max-width: 800px;
-            margin: 0 auto 50px;
+            max-width: 750px;
+            margin: 0 auto 40px;
             padding: 0 15px;
-            min-height: 400px;
+            min-height: 300px;
         }
 
         .post-card {
             background: var(--card);
             border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 20px;
+            padding: 22px;
+            margin-bottom: 15px;
             border: 1px solid #eee;
-            position: relative;
-            transition: 0.2s;
-        }
-
-        .post-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-        }
-
-        /* Samasam Badge */
-        .samasam-badge {
-            display: inline-block;
-            background: #FEF9E7;
-            color: #9A7D0A;
-            padding: 2px 10px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            border: 1px solid #F9E79F;
+            border-left: 5px solid var(--primary);
+            transition: 0.3s;
         }
 
         .post-card h2 {
-            margin: 0 0 12px;
+            margin: 0 0 10px;
             font-family: 'Crimson Text', serif;
-            font-size: 1.6rem;
-            color: var(--primary);
+            font-size: 1.5rem;
+            color: var(--secondary);
         }
 
         .post-card h2 a { text-decoration: none; color: inherit; }
 
         .post-meta-desc {
             font-size: 0.95rem;
-            color: #5D6D7E;
-            margin-bottom: 20px;
+            color: #555;
+            margin-bottom: 15px;
         }
 
         .read-link {
             text-decoration: none;
             color: var(--primary);
             font-weight: 700;
-            font-size: 0.9rem;
-            border-bottom: 2px solid transparent;
-            transition: 0.3s;
+            font-size: 0.85rem;
         }
 
-        .read-link:hover {
-            border-bottom-color: var(--primary);
-        }
-
-        /* COMING SOON MESSAGE */
+        /* COMING SOON BOX */
         .empty-state {
             text-align: center;
-            padding: 80px 20px;
+            padding: 60px 20px;
             background: #fff;
-            border-radius: 12px;
-            border: 2px dashed #ddd;
+            border-radius: 10px;
+            border: 2px dashed #ccc;
+            color: #777;
         }
 
-        .empty-state h3 {
-            color: var(--primary);
-            margin-bottom: 10px;
-        }
-
-        /* PAGINATION SCROLLER */
+        /* DASHAKAM NAV SCROLLER */
         .nav-section {
             background: #fff;
-            padding: 30px 0;
+            padding: 25px 0;
             border-top: 1px solid #eee;
             text-align: center;
         }
@@ -173,7 +163,7 @@
             display: flex;
             gap: 10px;
             overflow-x: auto;
-            padding: 10px 20px;
+            padding: 10px 15px;
             scrollbar-width: none;
         }
 
@@ -182,31 +172,42 @@
         .dash-btn {
             min-width: 110px;
             padding: 12px;
-            border-radius: 8px;
+            border-radius: 30px;
             border: 1px solid #ddd;
             background: #fff;
             cursor: pointer;
             font-weight: 600;
-            white-space: nowrap;
-            transition: 0.3s;
+            flex-shrink: 0;
         }
 
         .dash-btn.active {
-            background: var(--primary);
-            color: #fff;
-            border-color: var(--primary);
+            background: var(--secondary);
+            color: var(--accent);
+            border-color: var(--secondary);
         }
 
         footer {
-            background: var(--secondary);
+            background: var(--primary);
             color: #fff;
             text-align: center;
-            padding: 40px 15px;
+            padding: 30px 15px;
             font-size: 0.85rem;
+        }
+
+        @media (max-width: 480px) {
+            .site-title-main { font-size: 1.7rem; }
+            .site-title-sub { font-size: 0.9rem; letter-spacing: 2px; }
         }
     </style>
 </head>
 <body>
+
+<nav class="top-nav">
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+    <a href="https://omnnbc.com" target="_blank">Main Site</a>
+</nav>
 
 <header>
     <div class="site-title-main">Namo Narayanaya</div>
@@ -215,33 +216,36 @@
 </header>
 
 <div class="search-area">
-    <input type="text" id="postSearch" placeholder="Search Samasam Name (e.g. Samasam 1)...">
+    <input type="text" id="postSearch" placeholder="Search Samasam Name...">
 </div>
 
 <div class="container" id="postsContainer">
     </div>
 
 <div class="nav-section">
-    <p style="font-weight: 700; color: var(--primary); margin-bottom: 15px;">SELECT DASHAKAM</p>
+    <p style="font-weight: bold; color: var(--primary); margin-bottom: 10px;">Select Dashakam</p>
     <div class="scroll-container" id="dashButtons"></div>
 </div>
 
 <footer>
     © 2026 Namo Narayanaya Bhakthi Channel<br>
-    <small>Spiritual Wisdom for Daily Living</small>
+    <small>Sharing Spiritual Wisdom</small>
 </footer>
 
 <script>
     let allPosts = [];
     let currentDashakam = 1;
 
-    // Load Data
+    // Fetching the posts data
     fetch("./data/posts.json?v=" + Date.now())
         .then(res => res.json())
         .then(data => {
             allPosts = data;
             renderPage();
             setupDashNav();
+        })
+        .catch(err => {
+            document.getElementById("postsContainer").innerHTML = '<div class="empty-state">Error loading content.</div>';
         });
 
     function renderPage(searchTerm = "") {
@@ -249,11 +253,9 @@
         container.innerHTML = "";
 
         let filtered;
-        
         if(searchTerm) {
             filtered = allPosts.filter(p => p.title.toLowerCase().includes(searchTerm.toLowerCase()));
         } else {
-            // Filter by Dashakam and sort by Samasam number
             filtered = allPosts.filter(p => parseInt(p.dashakam) === currentDashakam)
                 .sort((a, b) => {
                     const numA = parseInt(a.url.match(/samasam-(\d+)/)?.[1] || 0);
@@ -262,27 +264,23 @@
                 });
         }
 
-        // COMING SOON LOGIC
+        // COMING SOON SETUP
         if (filtered.length === 0) {
             container.innerHTML = `
                 <div class="empty-state">
                     <h3>🙏 Coming Soon</h3>
-                    <p>Lyrics for Dashakam ${currentDashakam} are currently being prepared.<br>Please check back later.</p>
+                    <p>Lyrics for Dashakam ${currentDashakam} are being updated.<br>Please check back shortly.</p>
                 </div>`;
             return;
         }
 
         filtered.forEach(post => {
-            // Extract Samasam number for badge if available
-            const samasamNum = post.url.match(/samasam-(\d+)/)?.[1] || "";
-            
             const card = document.createElement("div");
             card.className = "post-card";
             card.innerHTML = `
-                ${samasamNum ? `<span class="samasam-badge">SAMASAM ${samasamNum}</span>` : ''}
                 <h2><a href="./${post.url}/">${post.title}</a></h2>
-                <div class="post-meta-desc">${post.description.substring(0, 160)}...</div>
-                <a href="./${post.url}/" class="read-link">VIEW TELUGU LYRICS →</a>
+                <div class="post-meta-desc">${post.description.substring(0, 180)}...</div>
+                <a href="./${post.url}/" class="read-link">READ LYRICS →</a>
             `;
             container.appendChild(card);
         });
@@ -297,17 +295,16 @@
             btn.innerText = "Dashakam " + i;
             btn.onclick = () => {
                 currentDashakam = i;
-                document.getElementById("postSearch").value = ""; // Clear search when switching dashakam
+                document.getElementById("postSearch").value = "";
                 document.querySelectorAll('.dash-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                window.scrollTo({top: 200, behavior: 'smooth'});
+                window.scrollTo({top: 0, behavior: 'smooth'});
                 renderPage();
             };
             wrapper.appendChild(btn);
         }
     }
 
-    // Search Logic
     document.getElementById("postSearch").addEventListener("input", (e) => {
         renderPage(e.target.value.trim());
     });
