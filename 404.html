@@ -1,166 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title id="pageTitle">Loading Content...</title>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #922B21; 
-            --secondary: #1C2833; 
-            --accent: #D4AC0D; 
-            --bg: #F9F7F2; 
-            --card: #FFFFFF;
-            --top-links-bg: #1B2631; 
-            --outer-links-bg: #7B241C; 
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Not Found</title>
 
-        body { 
-            margin: 0; 
-            padding-top: 90px; 
-            font-family: 'Inter', sans-serif; 
-            background: var(--bg); 
-            display: flex; 
-            flex-direction: column; 
-            min-height: 100vh; 
-            overflow-x: hidden; 
-        }
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
-        /* 🔵 FIXED TOP NAVIGATION */
-        .fixed-nav-wrapper {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        }
+<style>
+:root {
+    --primary:#922B21;
+    --secondary:#1C2833;
+    --accent:#D4AC0D;
+    --bg:#F9F7F2;
+}
 
-        .top-links {
-            background: var(--top-links-bg);
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            padding: 8px 5px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
+body{
+    margin:0;
+    font-family:'Inter',sans-serif;
+    background:var(--bg);
+    display:flex;
+    flex-direction:column;
+    min-height:100vh;
+    text-align:center;
+}
 
-        .outer-links {
-            background: var(--outer-links-bg);
-            display: flex;
-            overflow-x: auto;
-            white-space: nowrap;
-            padding: 10px 15px;
-            gap: 18px;
-            scrollbar-width: none;
-            -webkit-overflow-scrolling: touch;
-        }
-        .outer-links::-webkit-scrollbar { display: none; }
+header{
+    background:#fff;
+    padding:30px 15px;
+    border-bottom:3px solid var(--accent);
+}
 
-        .fixed-nav-wrapper a {
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+.site-title-main{
+    font-family:'Crimson Text',serif;
+    font-size:1.8rem;
+    color:var(--primary);
+    font-weight:700;
+}
 
-        /* HEADER BRANDING */
-        header { 
-            background: #fff; 
-            padding: 30px 15px; 
-            text-align: center; 
-            border-bottom: 3px solid var(--accent); 
-        }
+.site-title-sub{
+    font-size:0.9rem;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--secondary);
+}
 
-        .site-title-main {
-            font-family: 'Crimson Text', serif;
-            font-size: 1.9rem;
-            font-weight: 700;
-            color: var(--primary);
-            line-height: 1.1;
-            margin: 0;
-        }
+.container{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
 
-        .site-title-sub {
-            font-size: 0.95rem;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--secondary);
-            margin-top: 5px;
-        }
+.error-box{
+    background:#fff;
+    padding:30px;
+    border-radius:12px;
+    max-width:500px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
 
-        /* CONTENT CONTAINER */
-        .container { 
-            max-width: 800px; 
-            margin: auto; 
-            padding: 20px 15px; 
-            flex: 1; 
-            width: 100%; 
-            box-sizing: border-box; 
-        }
+.error-code{
+    font-size:3rem;
+    font-weight:bold;
+    color:var(--primary);
+}
 
-        .post-title { 
-            background: var(--primary); 
-            color: white; 
-            text-align: center; 
-            padding: 12px 15px; 
-            font-size: 1.6rem;   
-            font-weight: bold; 
-            border-radius: 12px; 
-            margin-bottom: 15px; 
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-            font-family: 'Crimson Text', serif;
-        }
+.error-text{
+    margin:15px 0;
+    font-size:1.1rem;
+}
 
-        .post-content { 
-            background: #fff; 
-            padding: 25px; 
-            border-radius: 12px; 
-            color: #1C2833; 
-            line-height: 1.8; 
-            font-size: 20px; 
-            border: 1px solid #eee;
-        }
+.btn{
+    display:inline-block;
+    margin-top:15px;
+    padding:12px 20px;
+    background:var(--primary);
+    color:#fff;
+    text-decoration:none;
+    border-radius:8px;
+    font-weight:bold;
+}
 
-        /* SHARE BUTTONS */
-        .share-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 25px; }
-        .share-btn { padding: 12px; border-radius: 8px; color: white; font-weight: bold; text-decoration: none; font-size: 12px; flex: 1; min-width: 80px; text-align: center; text-transform: uppercase; }
-        .wa { background: #25D366; } .fb { background: #1877F2; } .tw { background: #000; } .cp { background: #607D8B; border: none; cursor: pointer; }
-        
-        .back-home { text-align: center; margin: 30px 0; }
-        .back-home a { color: var(--primary); font-weight: bold; text-decoration: none; font-size: 16px; border-bottom: 2px solid var(--primary); }
-        
-        footer { background: var(--primary); color: white; text-align: center; padding: 25px; margin-top: auto; font-size: 0.85rem; }
-
-        @media (max-width: 480px) {
-            body { padding-top: 85px; }
-            .site-title-main { font-size: 1.6rem; }
-            .post-title { font-size: 1.4rem; padding: 12px 10px; } 
-            .post-content { font-size: 19px; padding: 15px; }
-        }
-    </style>
+footer{
+    background:var(--primary);
+    color:#fff;
+    padding:20px;
+    font-size:0.85rem;
+}
+</style>
 </head>
+
 <body>
-
-<div class="fixed-nav-wrapper">
-    <div class="top-links">
-        <a href="https://dasabodha.omnnbc.in/">Home</a>
-        <a href="/about-us">About Us</a>
-        <a href="/contact-us">Contact Us</a>
-        <a href="/privacy-policy">Privacy Policy</a>
-    </div>
-
-    <div class="outer-links">
-        <a href="https://csrgnk.github.io/Omnnbc/">Main site</a>
-        <a href="https://csrgnk.github.io/Upasana-Chandrika/">Upasana Chandrika</a>
-        <a href="https://csrgnk.github.io/manache-shlok/">Manache Shlok Telugu</a>
-        <a href="https://csrgnk.github.io/manache-shlok/hindi/">Manache Shlok Hindi</a>
-    </div>
-</div>
 
 <header>
     <div class="site-title-main">Namo Narayanaya</div>
@@ -168,102 +101,51 @@
 </header>
 
 <div class="container">
-    <div class="post-title" id="postTitle">Loading...</div>
-    <div class="post-content" id="postContent">
-        <div style="text-align:center; padding:20px;">Fetching spiritual wisdom...</div>
-    </div>
+    <div class="error-box">
+        <div class="error-code">404</div>
+        <div class="error-text">
+            The page you are looking for is not available.<br>
+            Redirecting or try Home page.
+        </div>
 
-    <div class="share-row" id="shareRow" style="display:none;">
-        <a id="sWA" class="share-btn wa" target="_blank">WhatsApp</a>
-        <a id="sFB" class="share-btn fb" target="_blank">Facebook</a>
-        <a id="sTW" class="share-btn tw" target="_blank">Twitter</a>
-        <button onclick="copyURL()" class="share-btn cp">Copy Link</button>
-    </div>
-
-    <div class="back-home">
-        <a href="https://dasabodha.omnnbc.in/">← Back to Home</a>
+        <a href="https://dasabodha.omnnbc.in/" class="btn">Go to Home</a>
     </div>
 </div>
 
 <footer>
-    © 2026 Namo Narayanaya Bhakthi Channel
+© 2026 Namo Narayanaya Bhakthi Channel
 </footer>
 
 <script>
-    // FORMULA FOR ROUTING
-    const repoName = "Dasabodha";
-    const mainHome = "https://dasabodha.omnnbc.in/";
-    
-    // Extract Slug
-    const path = window.location.pathname;
-    const segments = path.split('/').filter(p => p && p !== repoName);
-    const slug = segments.pop(); 
+const repoName = "Dasabodha";
+const path = window.location.pathname;
+const segments = path.split('/').filter(p => p && p !== repoName);
+const slug = segments.pop();
 
-    // Auto-detect base folder
-    const isCustomDomain = window.location.hostname.includes("omnnbc.in");
-    const fetchBase = isCustomDomain ? "" : `/${repoName}`;
+const isCustomDomain = window.location.hostname.includes("omnnbc.in");
+const fetchBase = isCustomDomain ? "" : `/${repoName}`;
 
-    function copyURL(){
-        navigator.clipboard.writeText(window.location.href);
-        alert("Link Copied!");
-    }
-
-    if (!slug || slug === repoName) {
-        document.getElementById("postTitle").innerText = "Information";
-        document.getElementById("postContent").innerHTML = `<p style='text-align:center;'>Please select a Samasam from the <a href="${mainHome}">Home Page</a>.</p>`;
+// 🔥 Try PAGES first
+fetch(`${fetchBase}/pages/${slug}.html`)
+.then(res=>{
+    if(res.ok){
+        window.location.href = `${fetchBase}/pages/${slug}.html`;
     } else {
-        // Step 1: Fetch JSON data
-        fetch(`${fetchBase}/data/posts.json?v=${Date.now()}`)
-        .then(r => r.json())
-        .then(posts => {
-            const post = posts.find(p => p.url === slug);
-
-            if(post) {
-                document.title = post.title + " - Namo Narayanaya";
-                document.getElementById("postTitle").innerText = post.title;
-
-                // Step 2: Try to fetch HTML directly from root or posts folder
-                fetch(`${fetchBase}/${slug}.html`)
-                .then(res => {
-                    if(!res.ok) return fetch(`${fetchBase}/posts/${slug}.html`);
-                    return res;
-                })
-                .then(r => {
-                    if (!r.ok) throw new Error("File not found");
-                    return r.text();
-                })
-                .then(html => {
-                    const temp = document.createElement("div");
-                    temp.innerHTML = html;
-                    
-                    // Clean extra components
-                    const extras = temp.querySelectorAll("header,footer,nav,script,style,meta,title");
-                    extras.forEach(e => e.remove());
-
-                    document.getElementById("postContent").innerHTML = temp.innerHTML;
-
-                    // Social Setup
-                    const u = encodeURIComponent(window.location.href);
-                    const m = encodeURIComponent(post.title + "\n\n");
-                    document.getElementById("sWA").href = `https://api.whatsapp.com/send?text=${m}${u}`;
-                    document.getElementById("sFB").href = `https://www.facebook.com/sharer/sharer.php?u=${u}`;
-                    document.getElementById("sTW").href = `https://twitter.com/intent/tweet?text=${m}&url=${u}`;
-                    document.getElementById("shareRow").style.display = "flex";
-                })
-                .catch(() => {
-                    document.getElementById("postContent").innerHTML = `<p style='text-align:center; padding:20px;'>The Samasam content for <b>${slug}</b> is coming soon.</p>`;
-                });
-            } else {
-                document.getElementById("postTitle").innerText = "Page Not Found";
-                document.getElementById("postContent").innerHTML = "<p style='text-align:center;'>This Samasam is not available in our database.</p>";
-            }
-        })
-        .catch(err => {
-            console.error(err);
-            document.getElementById("postTitle").innerText = "System Error";
-            document.getElementById("postContent").innerHTML = "<p style='text-align:center;'>Unable to load database. Please check connection.</p>";
-        });
+        throw new Error("Not page");
     }
+})
+
+// 🔥 Then POSTS
+.catch(()=>{
+    fetch(`${fetchBase}/data/posts.json`)
+    .then(r=>r.json())
+    .then(posts=>{
+        const post = posts.find(p=>p.url===slug);
+        if(post){
+            window.location.href = `${fetchBase}/${slug}`;
+        }
+    });
+});
 </script>
 
 </body>
