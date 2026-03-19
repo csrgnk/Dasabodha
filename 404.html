@@ -11,6 +11,7 @@
             --secondary: #1C2833; 
             --accent: #D4AC0D; 
             --bg: #F9F7F2; 
+            --card: #FFFFFF;
             --top-links-bg: #1B2631; 
             --outer-links-bg: #7B241C; 
         }
@@ -26,7 +27,7 @@
             overflow-x: hidden; 
         }
 
-        /* FIXED NAVIGATION (Formula Match) */
+        /* 🔵 FIXED TOP NAVIGATION */
         .fixed-nav-wrapper {
             position: fixed;
             top: 0;
@@ -69,7 +70,7 @@
         /* HEADER BRANDING */
         header { 
             background: #fff; 
-            padding: 30px 10px; 
+            padding: 30px 15px; 
             text-align: center; 
             border-bottom: 3px solid var(--accent); 
         }
@@ -89,9 +90,10 @@
             letter-spacing: 3px;
             text-transform: uppercase;
             color: var(--secondary);
-            margin: 2px 0 0 0;
+            margin-top: 5px;
         }
 
+        /* CONTENT CONTAINER */
         .container { 
             max-width: 800px; 
             margin: auto; 
@@ -101,7 +103,6 @@
             box-sizing: border-box; 
         }
 
-        /* POST TITLE FORMULA - 12px Padding */
         .post-title { 
             background: var(--primary); 
             color: white; 
@@ -125,7 +126,7 @@
             border: 1px solid #eee;
         }
 
-        /* SHARE SECTION */
+        /* SHARE BUTTONS */
         .share-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 25px; }
         .share-btn { padding: 12px; border-radius: 8px; color: white; font-weight: bold; text-decoration: none; font-size: 12px; flex: 1; min-width: 80px; text-align: center; text-transform: uppercase; }
         .wa { background: #25D366; } .fb { background: #1877F2; } .tw { background: #000; } .cp { background: #607D8B; border: none; cursor: pointer; }
@@ -133,9 +134,9 @@
         .back-home { text-align: center; margin: 30px 0; }
         .back-home a { color: var(--primary); font-weight: bold; text-decoration: none; font-size: 16px; border-bottom: 2px solid var(--primary); }
         
-        footer { background: var(--primary); color: white; text-align: center; padding: 25px; margin-top: auto; font-size: 0.9rem; }
+        footer { background: var(--primary); color: white; text-align: center; padding: 25px; margin-top: auto; font-size: 0.85rem; }
 
-        @media (max-width: 600px) {
+        @media (max-width: 480px) {
             body { padding-top: 85px; }
             .site-title-main { font-size: 1.6rem; }
             .post-title { font-size: 1.4rem; padding: 12px 10px; } 
@@ -167,9 +168,9 @@
 </header>
 
 <div class="container">
-    <div class="post-title" id="postTitle">Loading Content...</div>
+    <div class="post-title" id="postTitle">Loading...</div>
     <div class="post-content" id="postContent">
-        <div style="text-align:center; padding:20px;">Fetching spiritual lyrics...</div>
+        <div style="text-align:center; padding:20px;">Fetching spiritual wisdom...</div>
     </div>
 
     <div class="share-row" id="shareRow" style="display:none;">
@@ -189,16 +190,18 @@
 </footer>
 
 <script>
-    // FORMULA SETUP
-    const repoName = "Dasabodha"; 
-    const isGitHub = window.location.hostname.includes("github.io");
-    const sitePath = window.location.pathname;
+    // FORMULA FOR ROUTING
+    const repoName = "Dasabodha";
+    const mainHome = "https://dasabodha.omnnbc.in/";
+    
+    // Extract Slug
+    const path = window.location.pathname;
+    const segments = path.split('/').filter(p => p && p !== repoName);
+    const slug = segments.pop(); 
 
-    // Correcting slug extraction for clean URLs
-    let pathSegments = sitePath.split('/').filter(p => p && p !== repoName);
-    let slug = pathSegments.pop(); 
-
-    const fetchBase = isGitHub ? `/${repoName}` : "";
+    // Auto-detect base folder
+    const isCustomDomain = window.location.hostname.includes("omnnbc.in");
+    const fetchBase = isCustomDomain ? "" : `/${repoName}`;
 
     function copyURL(){
         navigator.clipboard.writeText(window.location.href);
@@ -206,10 +209,10 @@
     }
 
     if (!slug || slug === repoName) {
-        document.getElementById("postTitle").innerText = "Page Not Found";
-        document.getElementById("postContent").innerHTML = "<p style='text-align:center;'>Please select a valid Samasam from the home page.</p>";
+        document.getElementById("postTitle").innerText = "Information";
+        document.getElementById("postContent").innerHTML = `<p style='text-align:center;'>Please select a Samasam from the <a href="${mainHome}">Home Page</a>.</p>`;
     } else {
-        // Step 1: Fetch metadata
+        // Step 1: Fetch JSON data
         fetch(`${fetchBase}/data/posts.json?v=${Date.now()}`)
         .then(r => r.json())
         .then(posts => {
@@ -219,10 +222,12 @@
                 document.title = post.title + " - Namo Narayanaya";
                 document.getElementById("postTitle").innerText = post.title;
 
-                // Step 2: Fetch the actual HTML content
-                // Formula: Checks root first, then /posts/ folder if needed
+                // Step 2: Try to fetch HTML directly from root or posts folder
                 fetch(`${fetchBase}/${slug}.html`)
-                .catch(() => fetch(`${fetchBase}/posts/${slug}.html`))
+                .then(res => {
+                    if(!res.ok) return fetch(`${fetchBase}/posts/${slug}.html`);
+                    return res;
+                })
                 .then(r => {
                     if (!r.ok) throw new Error("File not found");
                     return r.text();
@@ -231,7 +236,7 @@
                     const temp = document.createElement("div");
                     temp.innerHTML = html;
                     
-                    // Cleanup HTML elements that shouldn't be inside the card
+                    // Clean extra components
                     const extras = temp.querySelectorAll("header,footer,nav,script,style,meta,title");
                     extras.forEach(e => e.remove());
 
@@ -246,16 +251,17 @@
                     document.getElementById("shareRow").style.display = "flex";
                 })
                 .catch(() => {
-                    document.getElementById("postContent").innerHTML = `<p style='text-align:center; padding:20px;'>Content is currently being updated. Please check back soon.</p>`;
+                    document.getElementById("postContent").innerHTML = `<p style='text-align:center; padding:20px;'>The Samasam content for <b>${slug}</b> is coming soon.</p>`;
                 });
             } else {
-                document.getElementById("postTitle").innerText = "Information";
-                document.getElementById("postContent").innerHTML = "<p style='text-align:center;'>Samasam link not found in our database.</p>";
+                document.getElementById("postTitle").innerText = "Page Not Found";
+                document.getElementById("postContent").innerHTML = "<p style='text-align:center;'>This Samasam is not available in our database.</p>";
             }
         })
-        .catch(() => {
+        .catch(err => {
+            console.error(err);
             document.getElementById("postTitle").innerText = "System Error";
-            document.getElementById("postContent").innerHTML = "<p style='text-align:center;'>Unable to load database.</p>";
+            document.getElementById("postContent").innerHTML = "<p style='text-align:center;'>Unable to load database. Please check connection.</p>";
         });
     }
 </script>
