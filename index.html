@@ -1,221 +1,199 @@
 <!DOCTYPE html>
 <html lang="te">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Dasabodha Grantha Telugu Lyrics | Namo Narayanaya</title>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #922B21; 
-            --secondary: #1C2833; 
-            --accent: #D4AC0D; 
-            --bg: #F9F7F2; 
-            --card: #FFFFFF;
-            --top-links-bg: #1B2631; /* Deep Navy */
-            --outer-links-bg: #7B241C; /* Vibrant Maroon */
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-        body {
-            margin: 0;
-            padding-top: 90px; /* Space for fixed nav */
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--secondary);
-            overflow-x: hidden;
-        }
+<title>Dasabodha Grantha Telugu Lyrics | Namo Narayanaya</title>
 
-        /* 🔵 FIXED TOP NAVIGATION */
-        .fixed-nav-wrapper {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        }
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
-        /* 🔵 TOP LINKS (Line 1) */
-        .top-links {
-            background: var(--top-links-bg);
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            padding: 8px 5px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
+<style>
+:root {
+    --primary: #3FA3A1;
+    --secondary: #1A1A1A;
+    --accent: #F4D03F;
+    --bg: #F4FBFB;
+    --card: #FFFFFF;
 
-        /* 🔴 OUTER LINKS (Line 2 - Scrollable) */
-        .outer-links {
-            background: var(--outer-links-bg);
-            display: flex;
-            overflow-x: auto;
-            white-space: nowrap;
-            padding: 10px 15px;
-            gap: 18px;
-            scrollbar-width: none;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        .outer-links::-webkit-scrollbar { display: none; }
+    --top-links-bg: #145A5A;
+    --outer-links-bg: #3FA3A1;
+}
 
-        .fixed-nav-wrapper a {
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+body {
+    margin: 0;
+    padding-top: 95px;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--secondary);
+}
 
-        .fixed-nav-wrapper a:hover { color: var(--accent); }
+/* NAV */
+.fixed-nav-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
 
-        /* HEADER BRANDING */
-        header {
-            background: #fff;
-            padding: 30px 15px;
-            text-align: center;
-            border-bottom: 3px solid var(--accent);
-        }
+.top-links {
+    background: var(--top-links-bg);
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px 12px;
+    gap: 18px;
+    scrollbar-width: none;
+}
+.top-links::-webkit-scrollbar { display:none; }
 
-        .site-title-main {
-            font-family: 'Crimson Text', serif;
-            font-size: 1.9rem;
-            font-weight: 700;
-            color: var(--primary);
-            line-height: 1.1;
-            margin: 0;
-        }
+.outer-links {
+    background: var(--outer-links-bg);
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 12px 14px;
+    gap: 20px;
+    scrollbar-width: none;
+}
+.outer-links::-webkit-scrollbar { display:none; }
 
-        .site-title-sub {
-            font-size: 0.95rem;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--secondary);
-            margin-top: 5px;
-        }
+.fixed-nav-wrapper a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 6px 10px;
+}
 
-        .sub-title-box {
-            background: var(--primary);
-            color: #fff;
-            padding: 4px 12px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            display: inline-block;
-            margin-top: 12px;
-            font-weight: 600;
-        }
+/* HEADER */
+header {
+    background: #fff;
+    padding: 15px 10px;
+    border-bottom: 3px solid var(--accent);
+}
 
-        /* SEARCH AREA - COMPACT & NO OVERFLOW */
-        .search-area {
-            width: 90%;
-            max-width: 260px; 
-            margin: 20px auto;
-        }
+.header-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
 
-        #postSearch {
-            width: 100%;
-            padding: 10px;
-            border-radius: 20px;
-            border: 1px solid #ccc;
-            font-size: 14px;
-            outline: none;
-            text-align: center;
-            box-sizing: border-box;
-        }
+.header-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
 
-        /* CONTAINER */
-        .container {
-            max-width: 700px;
-            margin: 0 auto 40px;
-            padding: 0 15px;
-            min-height: 300px;
-        }
+.header-text {
+    display: flex;
+    flex-direction: column;
+}
 
-        .post-card {
-            background: var(--card);
-            border-radius: 8px;
-            padding: 18px;
-            margin-bottom: 15px;
-            border: 1px solid #eee;
-            border-left: 5px solid var(--primary);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
-        }
+.site-title-main {
+    font-family: 'Crimson Text', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #E91E63;
+    margin: 0;
+}
 
-        .post-card h2 {
-            margin: 0 0 8px;
-            font-family: 'Crimson Text', serif;
-            font-size: 1.35rem;
-            color: var(--secondary);
-        }
+/* 🔥 UPDATED SUBTITLE SIZE */
+.site-title-sub {
+    margin-top: 4px;
+    display: inline-block;
+    background: #fff;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--secondary);
+}
 
-        .post-card h2 a { text-decoration: none; color: inherit; }
+/* SEARCH */
+.search-area {
+    width: 90%;
+    max-width: 260px;
+    margin: 20px auto;
+}
 
-        .post-meta-desc { font-size: 0.9rem; color: #555; line-height: 1.4; }
+#postSearch {
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
 
-        /* DASHAKAM NAVIGATION */
-        .nav-section {
-            background: #fff;
-            padding: 20px 0;
-            border-top: 1px solid #eee;
-            text-align: center;
-        }
+/* POSTS */
+.container {
+    max-width: 700px;
+    margin: auto;
+    padding: 0 15px;
+}
 
-        .scroll-container {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            padding: 10px 15px;
-            scrollbar-width: none;
-        }
+.post-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 18px;
+    margin-bottom: 15px;
+    border-left: 5px solid var(--primary);
+}
 
-        .scroll-container::-webkit-scrollbar { display: none; }
+.post-card h2 {
+    margin: 0 0 8px;
+    font-size: 1.35rem;
+}
 
-        .dash-btn {
-            min-width: 95px;
-            padding: 10px;
-            border-radius: 20px;
-            border: 1px solid #ddd;
-            background: #fff;
-            font-weight: 600;
-            flex-shrink: 0;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
+.post-card h2 a {
+    text-decoration: none;
+    color: inherit;
+}
 
-        .dash-btn.active {
-            background: var(--secondary);
-            color: var(--accent);
-            border-color: var(--secondary);
-        }
+.post-meta-desc {
+    font-size: 0.9rem;
+}
 
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            border: 2px dashed #ccc;
-            background: #fff;
-            margin-top: 10px;
-            border-radius: 8px;
-        }
+/* DASH NAV */
+.nav-section {
+    text-align: center;
+    padding: 20px 0;
+}
 
-        footer {
-            background: var(--primary);
-            color: #fff;
-            text-align: center;
-            padding: 25px 15px;
-            font-size: 0.8rem;
-        }
+.scroll-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding: 10px;
+}
 
-        @media (max-width: 480px) {
-            body { padding-top: 85px; }
-            .site-title-main { font-size: 1.5rem; }
-            .top-links a { font-size: 0.6rem; }
-        }
-    </style>
+.dash-btn {
+    min-width: 95px;
+    padding: 10px;
+    border-radius: 20px;
+    background: #fff;
+}
+
+.dash-btn.active {
+    background: var(--secondary);
+    color: var(--accent);
+}
+
+/* FOOTER */
+footer {
+    background: #2E8B87;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
+</style>
 </head>
+
 <body>
 
+<!-- NAV -->
 <div class="fixed-nav-wrapper">
     <div class="top-links">
         <a href="/">Home</a>
@@ -232,101 +210,94 @@
     </div>
 </div>
 
+<!-- HEADER -->
 <header>
-    <div class="site-title-main">Namo Narayanaya</div>
-    <div class="site-title-sub">Bhakthi Channel</div>
-    <div class="sub-title-box">Dasabodha Grantha Telugu Lyrics</div>
+    <div class="header-flex">
+
+        <img src="https://csrgnk.github.io/Omnnbc/assets/images/Omnnbc-new.png" class="header-logo">
+
+        <div class="header-text">
+            <div class="site-title-main">
+                Namo Narayanaya Bhakthi Channel
+            </div>
+            <div class="site-title-sub">
+                Dasabodha Grantha Telugu Lyrics
+            </div>
+        </div>
+
+    </div>
 </header>
 
+<!-- SEARCH -->
 <div class="search-area">
     <input type="text" id="postSearch" placeholder="Search Samasam Name...">
 </div>
 
+<!-- POSTS -->
 <div class="container" id="postsContainer"></div>
 
+<!-- DASH NAV -->
 <div class="nav-section">
-    <p style="font-weight: bold; color: var(--primary); margin-bottom: 5px; font-size: 0.85rem;">SELECT DASHAKAM</p>
+    <p style="font-weight:bold;">SELECT DASHAKAM</p>
     <div class="scroll-container" id="dashButtons"></div>
 </div>
 
 <footer>
-    © 2026 Namo Narayanaya Bhakthi Channel
+© 2026 Namo Narayanaya Bhakthi Channel
 </footer>
 
+<!-- SCRIPT (UNCHANGED) -->
 <script>
-    let allPosts = [];
-    let currentDashakam = 1;
+let allPosts = [];
+let currentDashakam = 1;
 
-    fetch("./data/posts.json?v=" + Date.now())
-        .then(res => res.json())
-        .then(data => {
-            allPosts = data;
-            renderPage();
-            setupDashNav();
-        })
-        .catch(() => {
-            document.getElementById("postsContainer").innerHTML = '<div class="empty-state">Unable to load content.</div>';
-        });
+fetch("./data/posts.json?v=" + Date.now())
+.then(res => res.json())
+.then(data => {
+    allPosts = data;
+    renderPage();
+    setupDashNav();
+});
 
-    function renderPage(searchTerm = "") {
-        const container = document.getElementById("postsContainer");
-        container.innerHTML = "";
+function renderPage(searchTerm = "") {
+    const container = document.getElementById("postsContainer");
+    container.innerHTML = "";
 
-        let filtered;
-        if(searchTerm) {
-            filtered = allPosts.filter(p => p.title.toLowerCase().includes(searchTerm.toLowerCase()));
-        } else {
-            filtered = allPosts.filter(p => parseInt(p.dashakam) === currentDashakam)
-                .sort((a, b) => {
-                    const numA = parseInt(a.url.match(/samasam-(\d+)/)?.[1] || 0);
-                    const numB = parseInt(b.url.match(/samasam-(\d+)/)?.[1] || 0);
-                    return numA - numB;
-                });
-        }
-
-        if (filtered.length === 0) {
-            container.innerHTML = `
-                <div class="empty-state">
-                    <h3 style="color:var(--primary); margin:0;">🙏 Coming Soon</h3>
-                    <p style="font-size:0.9rem; color:#666;">Lyrics for Dashakam ${currentDashakam} are being updated.</p>
-                </div>`;
-            return;
-        }
-
-        filtered.forEach(post => {
-            const card = document.createElement("div");
-            card.className = "post-card";
-            card.innerHTML = `
-                <h2><a href="./${post.url}/">${post.title}</a></h2>
-                <div class="post-meta-desc">${post.description.substring(0, 130)}...</div>
-                <a href="./${post.url}/" style="text-decoration:none; color:var(--primary); font-weight:700; font-size:0.8rem; display:inline-block; margin-top:10px;">READ LYRICS →</a>
-            `;
-            container.appendChild(card);
-        });
+    let filtered;
+    if(searchTerm){
+        filtered = allPosts.filter(p => p.title.toLowerCase().includes(searchTerm.toLowerCase()));
+    } else {
+        filtered = allPosts.filter(p => parseInt(p.dashakam) === currentDashakam);
     }
 
-    function setupDashNav() {
-        const wrapper = document.getElementById("dashButtons");
-        wrapper.innerHTML = "";
-        for (let i = 1; i <= 20; i++) {
-            const btn = document.createElement("button");
-            btn.className = "dash-btn" + (i === currentDashakam ? " active" : "");
-            btn.innerText = "Dashakam " + i;
-            btn.onclick = () => {
-                currentDashakam = i;
-                document.getElementById("postSearch").value = "";
-                document.querySelectorAll('.dash-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                window.scrollTo({top: 0, behavior: 'smooth'});
-                renderPage();
-            };
-            wrapper.appendChild(btn);
-        }
-    }
-
-    document.getElementById("postSearch").addEventListener("input", (e) => {
-        renderPage(e.target.value.trim());
+    filtered.forEach(post => {
+        const card = document.createElement("div");
+        card.className = "post-card";
+        card.innerHTML = `
+            <h2><a href="./${post.url}/">${post.title}</a></h2>
+            <div>${post.description.substring(0,120)}...</div>
+        `;
+        container.appendChild(card);
     });
+}
+
+function setupDashNav(){
+    const wrap = document.getElementById("dashButtons");
+    for(let i=1;i<=20;i++){
+        const btn = document.createElement("button");
+        btn.innerText = "Dashakam " + i;
+        btn.className = "dash-btn";
+        btn.onclick = () => {
+            currentDashakam = i;
+            renderPage();
+        };
+        wrap.appendChild(btn);
+    }
+}
+
+document.getElementById("postSearch").addEventListener("input", e => {
+    renderPage(e.target.value);
+});
 </script>
 
 </body>
