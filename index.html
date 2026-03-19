@@ -12,6 +12,7 @@
             --accent: #D4AC0D; 
             --bg: #F9F7F2; 
             --card: #FFFFFF;
+            --nav-bg: #17202A;
         }
 
         body {
@@ -22,36 +23,56 @@
             line-height: 1.6;
         }
 
-        /* TOP NAVIGATION MENU */
-        .top-nav {
-            background: var(--secondary);
-            padding: 10px 0;
-            text-align: center;
+        /* MULTI-LAYER NAVIGATION */
+        .top-nav-wrapper {
+            background: var(--nav-bg);
+            color: #fff;
+            padding: 5px 0;
+            border-bottom: 2px solid var(--accent);
         }
 
-        .top-nav a {
-            color: #fff;
+        /* Line 1: Static Links */
+        .nav-line-1 {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 8px 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Line 2: Scrollable Links */
+        .nav-line-2 {
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 10px 15px;
+            gap: 20px;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE/Edge */
+        }
+        
+        .nav-line-2::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+
+        .top-nav-wrapper a {
+            color: #ecf0f1;
             text-decoration: none;
-            margin: 0 15px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
+            transition: color 0.3s;
         }
 
-        .top-nav a:hover {
+        .top-nav-wrapper a:hover {
             color: var(--accent);
         }
 
-        /* HEADER - TWO LINE CENTERED SETUP */
+        /* HEADER - TWO LINE BRANDING */
         header {
             background: #fff;
-            padding: 35px 15px;
+            padding: 30px 15px;
             text-align: center;
             border-bottom: 3px solid var(--accent);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
         .site-title-main {
@@ -59,8 +80,8 @@
             font-size: 2.2rem;
             font-weight: 700;
             color: var(--primary);
+            margin: 0;
             line-height: 1.1;
-            width: 100%;
         }
 
         .site-title-sub {
@@ -70,7 +91,6 @@
             text-transform: uppercase;
             color: var(--secondary);
             margin-top: 5px;
-            width: 100%;
         }
 
         .sub-title-box {
@@ -78,83 +98,80 @@
             color: #fff;
             padding: 5px 18px;
             border-radius: 4px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             display: inline-block;
             margin-top: 15px;
+            text-transform: uppercase;
+            font-weight: 600;
         }
 
-        /* SEARCH AREA - DECREASED WIDTH */
+        /* SEARCH AREA - COMPACT */
         .search-area {
-            max-width: 350px; /* Decreased width as requested */
-            margin: 25px auto;
+            max-width: 320px;
+            margin: 20px auto;
             padding: 0 15px;
         }
 
         #postSearch {
             width: 100%;
-            padding: 12px 20px;
+            padding: 10px 20px;
             border-radius: 25px;
             border: 1px solid #ccc;
             font-size: 15px;
             outline: none;
             text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
-        /* CONTENT CONTAINER */
+        /* CONTAINER & CARDS */
         .container {
-            max-width: 750px;
+            max-width: 700px;
             margin: 0 auto 40px;
             padding: 0 15px;
-            min-height: 300px;
+            min-height: 350px;
         }
 
         .post-card {
             background: var(--card);
-            border-radius: 12px;
-            padding: 22px;
+            border-radius: 10px;
+            padding: 20px;
             margin-bottom: 15px;
             border: 1px solid #eee;
             border-left: 5px solid var(--primary);
-            transition: 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
         }
 
         .post-card h2 {
-            margin: 0 0 10px;
+            margin: 0 0 8px;
             font-family: 'Crimson Text', serif;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: var(--secondary);
         }
 
         .post-card h2 a { text-decoration: none; color: inherit; }
 
-        .post-meta-desc {
-            font-size: 0.95rem;
-            color: #555;
-            margin-bottom: 15px;
-        }
+        .post-meta-desc { font-size: 0.9rem; color: #666; margin-bottom: 12px; }
 
         .read-link {
             text-decoration: none;
             color: var(--primary);
             font-weight: 700;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
         /* COMING SOON BOX */
         .empty-state {
             text-align: center;
-            padding: 60px 20px;
+            padding: 50px 20px;
             background: #fff;
-            border-radius: 10px;
-            border: 2px dashed #ccc;
-            color: #777;
+            border-radius: 8px;
+            border: 2px dashed #ddd;
+            margin-top: 20px;
         }
 
-        /* DASHAKAM NAV SCROLLER */
+        /* DASHAKAM SCROLLER */
         .nav-section {
             background: #fff;
-            padding: 25px 0;
+            padding: 20px 0;
             border-top: 1px solid #eee;
             text-align: center;
         }
@@ -170,14 +187,14 @@
         .scroll-container::-webkit-scrollbar { display: none; }
 
         .dash-btn {
-            min-width: 110px;
-            padding: 12px;
-            border-radius: 30px;
+            min-width: 105px;
+            padding: 10px;
+            border-radius: 20px;
             border: 1px solid #ddd;
             background: #fff;
-            cursor: pointer;
             font-weight: 600;
             flex-shrink: 0;
+            cursor: pointer;
         }
 
         .dash-btn.active {
@@ -191,22 +208,31 @@
             color: #fff;
             text-align: center;
             padding: 30px 15px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
         @media (max-width: 480px) {
-            .site-title-main { font-size: 1.7rem; }
-            .site-title-sub { font-size: 0.9rem; letter-spacing: 2px; }
+            .site-title-main { font-size: 1.6rem; }
+            .site-title-sub { font-size: 0.85rem; letter-spacing: 2px; }
+            .nav-line-1 a { font-size: 0.7rem; margin: 0 5px; }
         }
     </style>
 </head>
 <body>
 
-<nav class="top-nav">
-    <a href="/">Home</a>
-    <a href="/about">About</a>
-    <a href="/contact">Contact</a>
-    <a href="https://omnnbc.com" target="_blank">Main Site</a>
+<nav class="top-nav-wrapper">
+    <div class="nav-line-1">
+        <a href="/">Home</a>
+        <a href="/about-us">About Us</a>
+        <a href="/contact-us">Contact Us</a>
+        <a href="/privacy-policy">Privacy Policy</a>
+    </div>
+    <div class="nav-line-2">
+        <a href="https://omnnbc.com" target="_blank">Main Site</a>
+        <a href="/upasana-chandrika">Upasana Chandrika</a>
+        <a href="/manache-shlok">Manache-Shlok</a>
+        <a href="/manache-shlok-hindi">Manache-Shlok Hindi</a>
+        </div>
 </nav>
 
 <header>
@@ -219,11 +245,10 @@
     <input type="text" id="postSearch" placeholder="Search Samasam Name...">
 </div>
 
-<div class="container" id="postsContainer">
-    </div>
+<div class="container" id="postsContainer"></div>
 
 <div class="nav-section">
-    <p style="font-weight: bold; color: var(--primary); margin-bottom: 10px;">Select Dashakam</p>
+    <p style="font-weight: bold; color: var(--primary); margin-bottom: 5px; font-size: 0.9rem;">Select Dashakam</p>
     <div class="scroll-container" id="dashButtons"></div>
 </div>
 
@@ -236,7 +261,6 @@
     let allPosts = [];
     let currentDashakam = 1;
 
-    // Fetching the posts data
     fetch("./data/posts.json?v=" + Date.now())
         .then(res => res.json())
         .then(data => {
@@ -244,8 +268,8 @@
             renderPage();
             setupDashNav();
         })
-        .catch(err => {
-            document.getElementById("postsContainer").innerHTML = '<div class="empty-state">Error loading content.</div>';
+        .catch(() => {
+            document.getElementById("postsContainer").innerHTML = '<div class="empty-state">Unable to load data.</div>';
         });
 
     function renderPage(searchTerm = "") {
@@ -264,12 +288,11 @@
                 });
         }
 
-        // COMING SOON SETUP
         if (filtered.length === 0) {
             container.innerHTML = `
                 <div class="empty-state">
                     <h3>🙏 Coming Soon</h3>
-                    <p>Lyrics for Dashakam ${currentDashakam} are being updated.<br>Please check back shortly.</p>
+                    <p>Lyrics for Dashakam ${currentDashakam} are being updated.<br>Check back soon.</p>
                 </div>`;
             return;
         }
@@ -279,7 +302,7 @@
             card.className = "post-card";
             card.innerHTML = `
                 <h2><a href="./${post.url}/">${post.title}</a></h2>
-                <div class="post-meta-desc">${post.description.substring(0, 180)}...</div>
+                <div class="post-meta-desc">${post.description.substring(0, 150)}...</div>
                 <a href="./${post.url}/" class="read-link">READ LYRICS →</a>
             `;
             container.appendChild(card);
