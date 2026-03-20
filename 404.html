@@ -8,108 +8,109 @@
 <meta name="description" id="metaDesc" content="Dasabodha Telugu Lyrics">
 
 <style>
-:root {
-    --primary:#3FA3A1;
-    --nav-bg:#145A5A;
-    --bg:#F4FBFB;
-    --accent:#F4D03F;
+:root{
+--primary:#3FA3A1;
+--nav-bg:#145A5A;
+--bg:#F4FBFB;
+--accent:#F4D03F;
 }
 
 body{
-    margin:0;
-    font-family:Arial;
-    background:var(--bg);
+margin:0;
+font-family:Arial;
+background:var(--bg);
 }
 
 /* NAV */
 .nav-scroll{
-    background:var(--nav-bg);
-    display:flex;
-    overflow-x:auto;
-    padding:10px;
+background:var(--nav-bg);
+display:flex;
+overflow-x:auto;
+padding:10px;
 }
 .nav-scroll a{
-    color:#fff;
-    text-decoration:none;
-    padding:6px 12px;
-    margin:0 4px;
-    background:rgba(255,255,255,0.1);
-    border-radius:4px;
-    white-space:nowrap;
+color:#fff;
+text-decoration:none;
+padding:6px 12px;
+margin:0 4px;
+background:rgba(255,255,255,0.1);
+border-radius:4px;
+white-space:nowrap;
 }
 
 /* HEADER */
 header{
-    background:#fff;
-    padding:15px;
-    text-align:center;
-    border-bottom:3px solid var(--accent);
+background:#fff;
+padding:15px;
+text-align:center;
+border-bottom:3px solid var(--accent);
 }
 
 /* CONTENT */
 .container{
-    max-width:800px;
-    margin:15px auto;
-    padding:10px;
+max-width:800px;
+margin:15px auto;
+padding:10px;
 }
 .post-title{
-    background:linear-gradient(135deg,#2E8B87,#3FA3A1);
-    color:#fff;
-    padding:15px;
-    text-align:center;
-    border-radius:10px;
+background:linear-gradient(135deg,#2E8B87,#3FA3A1);
+color:#fff;
+padding:15px;
+text-align:center;
+border-radius:10px;
 }
 .post-content{
-    background:#fff;
-    padding:20px;
-    margin-top:15px;
-    border-radius:10px;
-    line-height:1.8;
+background:#fff;
+padding:20px;
+margin-top:15px;
+border-radius:10px;
+line-height:1.8;
 }
 
 /* NAV BUTTONS */
 .post-nav{
-    display:grid;
-    grid-template-columns:1fr 1fr 1fr;
-    gap:10px;
-    margin-top:30px;
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:10px;
+margin-top:30px;
 }
 .btn-action{
-    background:var(--primary);
-    color:#fff;
-    padding:10px;
-    text-align:center;
-    border-radius:5px;
-    text-decoration:none;
+background:var(--primary);
+color:#fff;
+padding:10px;
+text-align:center;
+border-radius:5px;
+text-decoration:none;
 }
 .btn-home{
-    border:2px solid var(--primary);
-    color:var(--primary);
-    text-align:center;
-    padding:10px;
-    border-radius:5px;
-    text-decoration:none;
+border:2px solid var(--primary);
+color:var(--primary);
+text-align:center;
+padding:10px;
+border-radius:5px;
+text-decoration:none;
 }
 
 /* SHARE */
 .share-box{
-    margin-top:30px;
-    text-align:center;
+margin-top:30px;
+text-align:center;
 }
 .share-btn{
-    display:inline-block;
-    margin:5px;
-    padding:10px 12px;
-    background:#3FA3A1;
-    color:#fff;
-    border-radius:5px;
-    text-decoration:none;
+display:inline-block;
+margin:5px;
+padding:10px 12px;
+background:#3FA3A1;
+color:#fff;
+border-radius:5px;
+text-decoration:none;
+border:none;
 }
 
 /* STATUS */
 .status-msg{
-    text-align:center;
-    padding:40px;
+text-align:center;
+padding:40px;
 }
 </style>
 </head>
@@ -119,6 +120,8 @@ header{
 <nav class="nav-scroll">
 <a href="https://dasabodha.omnnbc.in/">Home</a>
 <a href="https://csrgnk.github.io/Omnnbc/">Main Site</a>
+<a href="https://csrgnk.github.io/Upasana-Chandrika/">Upasana Chandrika</a>
+<a href="https://csrgnk.github.io/manache-shlok/">Manache Shlok</a>
 </nav>
 
 <header>
@@ -133,11 +136,15 @@ header{
 <script>
 const repoName="Dasabodha";
 const mainHome="https://dasabodha.omnnbc.in/";
-const slug=location.pathname.split('/').pop();
+
+// ✅ SLUG FIX (WORKS EVERYWHERE)
+const pathParts=location.pathname.split('/').filter(Boolean);
+const slug=pathParts[pathParts.length-1] || "index";
+
 const isCustomDomain=location.hostname.includes("omnnbc.in");
 const fetchBase=isCustomDomain?"":`/${repoName}`;
 
-/* SHARE */
+/* 🔗 SHARE BUTTONS */
 function shareButtons(title){
 let url=location.href;
 let text=encodeURIComponent(title+" - "+url);
@@ -157,8 +164,8 @@ navigator.clipboard.writeText(location.href);
 alert("Link Copied");
 }
 
-/* NAV */
-function nav(posts,i){
+/* 🔁 NAVIGATION */
+function buildNav(posts,i){
 let prev=posts[i-1];
 let next=posts[i+1];
 
@@ -169,33 +176,33 @@ ${next?`<a href="${fetchBase}/${next.url}" class="btn-action">Next →</a>`:`<di
 </div>`;
 }
 
-/* 404 */
-function notFound(){
+/* ❌ 404 */
+function showNotFound(){
 document.getElementById("postTitle").innerText="Not Found";
 document.getElementById("postContent").innerHTML=
 `<div class="status-msg">
-<h2>404</h2>
+<h2>404 - Not Found</h2>
 <p>Page not found</p>
 <a href="${mainHome}" class="btn-home">Home</a>
 </div>`;
 }
 
-/* COMING SOON */
-function coming(posts,i,title){
+/* ⏳ COMING SOON */
+function showComing(posts,i,title){
 document.getElementById("postContent").innerHTML=
 `<div class="status-msg">
 <h2>Coming Soon</h2>
 ${shareButtons(title)}
-${nav(posts,i)}
+${buildNav(posts,i)}
 </div>`;
 }
 
-/* FETCH */
-fetch(`${fetchBase}/data/posts.json`)
+/* 🔄 FETCH POSTS */
+fetch(`${fetchBase}/data/posts.json?v=${Date.now()}`)
 .then(r=>r.json())
 .then(posts=>{
 
-/* AUTO EXTRACT */
+// 🔥 AUTO EXTRACT DASHAKAM & SAMASAM
 posts.forEach(p=>{
 let d=p.title.match(/Dashakam\s*(\d+)/i)||p.url.match(/dashakam-(\d+)/i);
 let s=p.title.match(/Samasam\s*(\d+)/i)||p.url.match(/samasam-(\d+)/i);
@@ -204,21 +211,32 @@ if(d)p.dashakam=parseInt(d[1]);
 if(s)p.samasam=parseInt(s[1]);
 });
 
-/* SORT */
+// 🔥 SORT ORDER
 posts.sort((a,b)=>{
-if(a.dashakam!=b.dashakam) return a.dashakam-b.dashakam;
+if(a.dashakam!==b.dashakam){
+return a.dashakam-b.dashakam;
+}
 return a.samasam-b.samasam;
 });
 
-let i=posts.findIndex(p=>p.url===slug);
+// 🔍 FIND POST
+let i=posts.findIndex(p=>p.url.trim()===slug.trim());
 let post=posts[i];
 
-if(!post){ notFound(); return; }
+// DEBUG (REMOVE LATER)
+console.log("Slug:",slug);
+console.log("Post:",post);
+
+if(!post){
+showNotFound();
+return;
+}
 
 document.title=post.title;
 document.getElementById("postTitle").innerText=post.title;
+document.getElementById("metaDesc").content=post.description || post.title;
 
-/* LOAD CONTENT */
+// 📄 LOAD CONTENT
 fetch(`${fetchBase}/posts/${slug}.html`)
 .then(res=>{
 if(res.ok) return res.text();
@@ -228,17 +246,22 @@ throw "missing";
 let temp=document.createElement("div");
 temp.innerHTML=html;
 
-temp.querySelectorAll("header,footer,nav,script,style").forEach(e=>e.remove());
+temp.querySelectorAll("header,footer,nav,script,style,meta,title")
+.forEach(e=>e.remove());
 
 document.getElementById("postContent").innerHTML=
 temp.innerHTML+
 shareButtons(post.title)+
-nav(posts,i);
+buildNav(posts,i);
 })
-.catch(()=>coming(posts,i,post.title));
+.catch(()=>{
+showComing(posts,i,post.title);
+});
 
 })
-.catch(()=>notFound());
+.catch(()=>{
+document.getElementById("postContent").innerHTML="Error loading posts.json";
+});
 </script>
 
 </body>
