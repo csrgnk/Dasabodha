@@ -2,12 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Namo Narayanaya</title>
     
-    <meta name="description" content="Namo Narayanaya Bhakthi Channel - Dasabodha Telugu Lyrics">
-    <meta name="keywords" content="Dasabodha, Telugu, Bhakthi, Namo Narayanaya">
-
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
@@ -19,63 +16,125 @@
             --nav-bg: #145A5A;
         }
 
-        body {
+        /* Prevent the whole page from shaking/sliding left-right */
+        html, body {
             margin: 0;
-            padding: 0; /* Removed padding-top since nav is no longer sticky */
+            padding: 0;
+            width: 100%;
+            overflow-x: hidden; 
             font-family: 'Inter', sans-serif;
             background: var(--bg);
+        }
+
+        body {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
 
-        /* SINGLE LINE SCROLLABLE NAV */
+        /* FIXED: Scrolling Nav restricted to screen width */
         .nav-container {
             background: var(--nav-bg);
             width: 100%;
             overflow-x: auto;
             white-space: nowrap;
             display: flex;
-            padding: 12px 5px;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none;  /* IE 10+ */
+            padding: 12px 0;
+            -webkit-overflow-scrolling: touch; /* Smooth scroll on iPhone */
         }
-        .nav-container::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+        .nav-container::-webkit-scrollbar { display: none; }
 
         .nav-container a {
             color: #fff;
             text-decoration: none;
-            font-size: 0.85rem;
+            font-size: 14px;
             font-weight: 600;
-            padding: 8px 15px;
-            margin: 0 5px;
+            padding: 8px 16px;
+            margin-left: 10px;
             border-radius: 4px;
             background: rgba(255,255,255,0.1);
-            flex-shrink: 0;
+            flex-shrink: 0; /* Prevents text from squishing */
         }
+        .nav-container a:last-child { margin-right: 15px; }
 
-        /* HEADER (Non-Sticky) */
+        /* HEADER */
         header { 
             background: #fff; 
             padding: 20px 10px; 
-            border-bottom: 3px solid var(--accent); 
+            border-bottom: 3px solid var(--accent);
+            text-align: center;
         }
-        .header-flex { display: flex; align-items: center; justify-content: center; gap: 15px; }
-        .header-logo { width: 65px; height: 65px; border-radius: 50%; }
-        .site-title-main { font-family: 'Crimson Text', serif; font-size: 1.5rem; font-weight: 700; color: #E91E63; margin: 0; }
-        .site-title-sub { font-size: 0.8rem; color: var(--secondary); margin-top: 4px; display: block; }
+        .header-flex { display: flex; align-items: center; justify-content: center; gap: 12px; }
+        .header-logo { width: 55px; height: 55px; border-radius: 50%; flex-shrink: 0; }
+        .site-title-main { font-family: 'Crimson Text', serif; font-size: 1.3rem; font-weight: 700; color: #E91E63; margin: 0; line-height: 1.2; }
 
-        /* CONTENT */
-        .container { max-width: 850px; margin: 20px auto; padding: 0 15px; flex: 1; width: 100%; box-sizing: border-box; }
-        .post-title { background: linear-gradient(135deg, #2E8B87, #3FA3A1); color: #fff; text-align: center; padding: 15px; font-size: 1.4rem; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .post-content { background: #fff; padding: 25px; border-radius: 12px; font-size: 19px; line-height: 1.8; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        /* CONTENT CONTAINER */
+        .container { 
+            max-width: 800px; 
+            margin: 15px auto; 
+            padding: 0 12px; 
+            width: 100%; 
+            box-sizing: border-box; 
+        }
 
-        /* NAVIGATION BUTTONS (Prev/Home/Next) */
-        .post-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 35px; padding-top: 25px; border-top: 2px solid #f0f0f0; gap: 10px; }
-        .btn-action { background: var(--primary); color: #fff !important; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; min-width: 80px; text-align: center; }
-        .btn-home-outline { border: 2px solid var(--primary); color: var(--primary); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 13px; }
+        .post-title { 
+            background: linear-gradient(135deg, #2E8B87, #3FA3A1); 
+            color: #fff; 
+            text-align: center; 
+            padding: 15px 10px; 
+            font-size: 1.2rem; 
+            border-radius: 10px; 
+            margin-bottom: 15px; 
+            word-wrap: break-word;
+        }
 
-        footer { background: #2E8B87; color: #fff; text-align: center; padding: 25px; font-size: 0.9rem; margin-top: 50px; }
+        .post-content { 
+            background: #fff; 
+            padding: 20px; 
+            border-radius: 10px; 
+            font-size: 18px; 
+            line-height: 1.7; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            overflow-wrap: break-word; /* Prevents long Telugu words from breaking layout */
+        }
+
+        /* FIXED: Navigation Buttons (Prev/Next) */
+        .post-nav { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-top: 30px; 
+            padding-top: 20px; 
+            border-top: 1px solid #ddd; 
+            gap: 8px;
+            flex-wrap: nowrap; /* Keep on one line but adjust font */
+        }
+
+        .btn-action { 
+            background: var(--primary); 
+            color: #fff !important; 
+            padding: 10px 12px; 
+            border-radius: 6px; 
+            text-decoration: none; 
+            font-weight: 600; 
+            font-size: 13px; 
+            text-align: center;
+            flex: 1; /* Make buttons equal width */
+            max-width: 120px;
+        }
+
+        .btn-home-outline { 
+            border: 2px solid var(--primary); 
+            color: var(--primary); 
+            padding: 8px 12px; 
+            border-radius: 6px; 
+            text-decoration: none; 
+            font-weight: 700; 
+            font-size: 12px;
+            text-align: center;
+        }
+
+        footer { background: #2E8B87; color: #fff; text-align: center; padding: 20px; font-size: 0.8rem; margin-top: auto; }
     </style>
 </head>
 <body>
@@ -87,8 +146,6 @@
     <a href="https://csrgnk.github.io/manache-shlok/">Manache Shlok Telugu</a>
     <a href="https://csrgnk.github.io/manache-shlok/hindi/">Manache Shlok Hindi</a>
     <a href="/about-us">About Us</a>
-    <a href="/contact-us">Contact Us</a>
-    <a href="/privacy-policy">Privacy Policy</a>
 </nav>
 
 <header>
@@ -96,7 +153,6 @@
         <img src="https://csrgnk.github.io/Omnnbc/assets/images/Omnnbc-new.png" class="header-logo" alt="Logo">
         <div>
             <div class="site-title-main">Namo Narayanaya Bhakthi Channel</div>
-            <span class="site-title-sub">Dasabodha Grantha Telugu Lyrics</span>
         </div>
     </div>
 </header>
@@ -104,7 +160,7 @@
 <div class="container">
     <div class="post-title" id="postTitle">Loading...</div>
     <div class="post-content" id="postContent">
-        <div style="text-align:center; color: #666;">Searching for content...</div>
+        <div style="text-align:center;">Loading content...</div>
     </div>
 </div>
 
@@ -119,58 +175,43 @@ const slug = segments.pop();
 const isCustomDomain = window.location.hostname.includes("omnnbc.in");
 const fetchBase = isCustomDomain ? "" : `/${repoName}`;
 
-function updateSEO(post) {
-    if(!post) return;
-    document.title = post.title;
-    document.querySelector('meta[name="description"]')?.setAttribute("content", post.description || post.title);
-    document.querySelector('meta[name="keywords"]')?.setAttribute("content", post.keywords || "Dasabodha, Telugu, Bhakthi");
-}
-
 function getNavHtml(posts, index) {
     const prev = posts[index - 1];
     const next = posts[index + 1];
     let html = `<div class="post-nav">`;
-    html += prev ? `<a href="${fetchBase}/${prev.url}" class="btn-action">← Previous</a>` : `<span></span>`;
-    html += `<a href="${mainHome}" class="btn-home-outline">Home</a>`;
-    html += next ? `<a href="${fetchBase}/${next.url}" class="btn-action">Next →</a>` : `<span></span>`;
+    html += prev ? `<a href="${fetchBase}/${prev.url}" class="btn-action">← Prev</a>` : `<div style="flex:1"></div>`;
+    html += `<a href="${mainHome}" class="btn-home-outline">HOME</a>`;
+    html += next ? `<a href="${fetchBase}/${next.url}" class="btn-action">Next →</a>` : `<div style="flex:1"></div>`;
     html += `</div>`;
     return html;
 }
 
-if (!slug || slug === "index.html") {
-    window.location.href = mainHome;
-} else {
-    fetch(`${fetchBase}/data/posts.json?v=${Date.now()}`)
-    .then(r => r.json())
-    .then(posts => {
-        const index = posts.findIndex(p => p.url === slug);
-        const post = posts[index];
+// Logic to fetch posts.json and content
+fetch(`${fetchBase}/data/posts.json?v=${Date.now()}`)
+.then(r => r.json())
+.then(posts => {
+    const index = posts.findIndex(p => p.url === slug);
+    const post = posts[index];
 
-        if (post) {
-            updateSEO(post);
-            document.getElementById("postTitle").innerText = post.title;
+    if (post) {
+        document.title = post.title;
+        document.getElementById("postTitle").innerText = post.title;
 
-            fetch(`${fetchBase}/posts/${slug}.html`)
-            .then(res => res.ok ? res.text() : Promise.reject())
-            .then(html => {
-                const temp = document.createElement("div");
-                temp.innerHTML = html;
-                temp.querySelectorAll("header,footer,nav,script,style,meta,title").forEach(e => e.remove());
-                document.getElementById("postContent").innerHTML = temp.innerHTML + getNavHtml(posts, index);
-            })
-            .catch(() => show404());
-        } else {
-            show404();
-        }
-    })
-    .catch(() => show404());
-}
+        // Auto Setup Meta Tags from JSON
+        let desc = document.querySelector('meta[name="description"]');
+        if(desc) desc.content = post.description || post.title;
 
-function show404() {
-    document.title = "404 - Not Found";
-    document.getElementById("postTitle").innerText = "Page Not Found";
-    document.getElementById("postContent").innerHTML = `<div style="text-align:center; padding:30px;"><p>Sorry, this content is not available.</p><a href="${mainHome}" class="btn-home-outline">Back Home</a></div>`;
-}
+        fetch(`${fetchBase}/posts/${slug}.html`)
+        .then(res => res.text())
+        .then(html => {
+            const temp = document.createElement("div");
+            temp.innerHTML = html;
+            temp.querySelectorAll("header,footer,nav,script,style,meta,title").forEach(e => e.remove());
+            document.getElementById("postContent").innerHTML = temp.innerHTML + getNavHtml(posts, index);
+        });
+    }
+});
 </script>
+
 </body>
 </html>
