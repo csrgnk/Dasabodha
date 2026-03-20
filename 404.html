@@ -122,6 +122,8 @@ padding:40px;
 <a href="https://csrgnk.github.io/Omnnbc/">Main Site</a>
 <a href="https://csrgnk.github.io/Upasana-Chandrika/">Upasana Chandrika</a>
 <a href="https://csrgnk.github.io/manache-shlok/">Manache Shlok</a>
+<a href="/about-us">About Us</a>
+<a href="/contact-us">Contact Us</a>
 </nav>
 
 <header>
@@ -137,14 +139,14 @@ padding:40px;
 const repoName="Dasabodha";
 const mainHome="https://dasabodha.omnnbc.in/";
 
-// ✅ SLUG FIX (WORKS EVERYWHERE)
+// ✅ SLUG FIX
 const pathParts=location.pathname.split('/').filter(Boolean);
 const slug=pathParts[pathParts.length-1] || "index";
 
 const isCustomDomain=location.hostname.includes("omnnbc.in");
 const fetchBase=isCustomDomain?"":`/${repoName}`;
 
-/* 🔗 SHARE BUTTONS */
+/* 🔗 SHARE */
 function shareButtons(title){
 let url=location.href;
 let text=encodeURIComponent(title+" - "+url);
@@ -164,7 +166,7 @@ navigator.clipboard.writeText(location.href);
 alert("Link Copied");
 }
 
-/* 🔁 NAVIGATION */
+/* 🔁 NAV */
 function buildNav(posts,i){
 let prev=posts[i-1];
 let next=posts[i+1];
@@ -187,7 +189,7 @@ document.getElementById("postContent").innerHTML=
 </div>`;
 }
 
-/* ⏳ COMING SOON */
+/* ⏳ COMING */
 function showComing(posts,i,title){
 document.getElementById("postContent").innerHTML=
 `<div class="status-msg">
@@ -197,12 +199,37 @@ ${buildNav(posts,i)}
 </div>`;
 }
 
-/* 🔄 FETCH POSTS */
-fetch(`${fetchBase}/data/posts.json?v=${Date.now()}`)
-.then(r=>r.json())
-.then(posts=>{
+/* 📄 LOAD PAGE */
+function loadPage(page){
+fetch(`${fetchBase}/pages/${page.file}.html`)
+.then(res=>{
+if(res.ok) return res.text();
+throw "missing";
+})
+.then(html=>{
+let temp=document.createElement("div");
+temp.innerHTML=html;
 
-// 🔥 AUTO EXTRACT DASHAKAM & SAMASAM
+temp.querySelectorAll("header,footer,nav,script,style,meta,title")
+.forEach(e=>e.remove());
+
+document.title=page.title;
+document.getElementById("postTitle").innerText=page.title;
+
+document.getElementById("postContent").innerHTML=
+temp.innerHTML + shareButtons(page.title);
+})
+.catch(()=>showNotFound());
+}
+
+/* 🔄 LOAD DATA */
+Promise.all([
+fetch(`${fetchBase}/data/posts.json?v=${Date.now()}`).then(r=>r.json()),
+fetch(`${fetchBase}/data/pages.json?v=${Date.now()}`).then(r=>r.json())
+])
+.then(([posts,pages])=>{
+
+// 🔥 EXTRACT DASHAKAM & SAMASAM
 posts.forEach(p=>{
 let d=p.title.match(/Dashakam\s*(\d+)/i)||p.url.match(/dashakam-(\d+)/i);
 let s=p.title.match(/Samasam\s*(\d+)/i)||p.url.match(/samasam-(\d+)/i);
@@ -211,32 +238,21 @@ if(d)p.dashakam=parseInt(d[1]);
 if(s)p.samasam=parseInt(s[1]);
 });
 
-// 🔥 SORT ORDER
+// 🔥 SORT POSTS
 posts.sort((a,b)=>{
-if(a.dashakam!==b.dashakam){
-return a.dashakam-b.dashakam;
-}
+if(a.dashakam!==b.dashakam) return a.dashakam-b.dashakam;
 return a.samasam-b.samasam;
 });
 
-// 🔍 FIND POST
+// 🔍 CHECK POST
 let i=posts.findIndex(p=>p.url.trim()===slug.trim());
 let post=posts[i];
 
-// DEBUG (REMOVE LATER)
-console.log("Slug:",slug);
-console.log("Post:",post);
-
-if(!post){
-showNotFound();
-return;
-}
-
+if(post){
 document.title=post.title;
 document.getElementById("postTitle").innerText=post.title;
-document.getElementById("metaDesc").content=post.description || post.title;
+document.getElementById("metaDesc").content=post.description||post.title;
 
-// 📄 LOAD CONTENT
 fetch(`${fetchBase}/posts/${slug}.html`)
 .then(res=>{
 if(res.ok) return res.text();
@@ -254,14 +270,24 @@ temp.innerHTML+
 shareButtons(post.title)+
 buildNav(posts,i);
 })
-.catch(()=>{
-showComing(posts,i,post.title);
-});
+.catch(()=>showComing(posts,i,post.title));
+
+return;
+}
+
+// 🔍 CHECK PAGE
+let page=pages.find(p=>p.id.trim()===slug.trim());
+
+if(page){
+loadPage(page);
+return;
+}
+
+// ❌ NOT FOUND
+showNotFound();
 
 })
-.catch(()=>{
-document.getElementById("postContent").innerHTML="Error loading posts.json";
-});
+.catch(()=>showNotFound());
 </script>
 
 </body>
