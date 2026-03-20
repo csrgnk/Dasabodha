@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Namo Narayanaya Bhakthi Channel</title>
     
-    <meta name="description" id="metaDesc" content="Dasabodha Telugu Lyrics - Namo Narayanaya">
-    <meta name="keywords" content="Dasabodha, Telugu Lyrics, Samartha Ramdas, Bhakthi">
+    <meta name="description" id="metaDesc" content="Dasabodha Telugu Lyrics - English Navigation">
+    <meta name="keywords" id="metaKeys" content="Dasabodha, Telugu, Bhakthi, Namo Narayanaya">
 
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
@@ -18,7 +18,7 @@
             --accent: #F4D03F;
         }
 
-        /* Prevent side-scrolling on mobile */
+        /* Prevent Horizontal Scroll */
         html, body {
             margin: 0;
             padding: 0;
@@ -28,8 +28,8 @@
             font-family: 'Inter', sans-serif;
         }
 
-        /* 1. SINGLE LINE SCROLLABLE NAV */
-        .nav-container {
+        /* 1. SINGLE LINE SCROLL NAV (English Links) */
+        .nav-scroll {
             background: var(--nav-bg);
             display: flex;
             overflow-x: auto;
@@ -37,13 +37,12 @@
             padding: 12px 5px;
             -webkit-overflow-scrolling: touch;
         }
-        .nav-container::-webkit-scrollbar { display: none; }
-        .nav-container a {
+        .nav-scroll::-webkit-scrollbar { display: none; }
+        .nav-scroll a {
             color: #fff;
             text-decoration: none;
             font-size: 13px;
-            font-weight: 600;
-            padding: 8px 14px;
+            padding: 8px 15px;
             margin: 0 5px;
             border-radius: 4px;
             background: rgba(255,255,255,0.1);
@@ -53,54 +52,41 @@
         /* 2. HEADER */
         header { 
             background: #fff; 
-            padding: 15px 10px; 
+            padding: 15px; 
             border-bottom: 3px solid var(--accent);
             text-align: center;
         }
-        .site-title-main { 
-            font-family: 'Crimson Text', serif; 
-            font-size: 1.3rem; 
-            font-weight: 700; 
-            color: #E91E63; 
-            margin: 0; 
-        }
+        .site-title { font-family: 'Crimson Text', serif; font-size: 1.4rem; font-weight: 700; color: #E91E63; margin: 0; }
 
         /* 3. CONTENT AREA */
-        .container { 
-            max-width: 800px; 
-            margin: 15px auto; 
-            padding: 0 12px; 
-            box-sizing: border-box; 
-        }
+        .container { max-width: 800px; margin: 15px auto; padding: 0 12px; box-sizing: border-box; }
         .post-title { 
             background: linear-gradient(135deg, #2E8B87, #3FA3A1); 
             color: #fff; 
             text-align: center; 
             padding: 15px; 
-            font-size: 1.15rem; 
+            font-size: 1.2rem; 
             border-radius: 10px; 
             margin-bottom: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         .post-content { 
             background: #fff; 
-            padding: 20px; 
+            padding: 25px; 
             border-radius: 10px; 
-            font-size: 18px; 
+            font-size: 19px; 
             line-height: 1.8; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            overflow-wrap: break-word; /* Prevents text overflow */
+            overflow-wrap: break-word;
         }
 
         /* 4. NAVIGATION BUTTONS (FIXED GRID) */
-        .post-nav-wrapper {
+        .post-nav {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr; /* 3 Equal Columns */
+            grid-template-columns: 1fr 1fr 1fr;
             gap: 10px;
-            margin-top: 30px;
-            padding-top: 20px;
+            margin-top: 35px;
+            padding-top: 25px;
             border-top: 1px solid #ddd;
-            align-items: center;
         }
         .btn-action { 
             background: var(--primary); 
@@ -109,7 +95,7 @@
             border-radius: 6px; 
             text-decoration: none; 
             font-weight: 600; 
-            font-size: 13px; 
+            font-size: 14px; 
             text-align: center; 
         }
         .btn-home { 
@@ -119,32 +105,40 @@
             border-radius: 6px; 
             text-decoration: none; 
             font-weight: 700; 
-            font-size: 11px; 
-            text-align: center; 
+            font-size: 12px; 
+            text-align: center;
             text-transform: uppercase;
         }
-        .spacer { visibility: hidden; }
+        .hidden { visibility: hidden; }
 
-        footer { background: #2E8B87; color: #fff; text-align: center; padding: 25px; margin-top: 40px; }
+        /* Coming Soon Styling */
+        .status-msg { text-align: center; padding: 40px 10px; }
+        .status-msg h2 { color: var(--primary); margin-bottom: 10px; }
+        .status-msg p { color: #666; font-size: 16px; }
+
+        footer { background: #2E8B87; color: #fff; text-align: center; padding: 30px; margin-top: 50px; }
     </style>
 </head>
 <body>
 
-<nav class="nav-container">
+<nav class="nav-scroll">
     <a href="https://dasabodha.omnnbc.in/">Home</a>
     <a href="https://csrgnk.github.io/Omnnbc/">Main Site</a>
     <a href="https://csrgnk.github.io/Upasana-Chandrika/">Upasana Chandrika</a>
-    <a href="https://csrgnk.github.io/manache-shlok/">Manache Shlok Telugu</a>
+    <a href="https://csrgnk.github.io/manache-shlok/">Manache Shlok</a>
     <a href="/about-us">About Us</a>
+    <a href="/contact-us">Contact Us</a>
 </nav>
 
 <header>
-    <div class="site-title-main">Namo Narayanaya Bhakthi Channel</div>
+    <div class="site-title">Namo Narayanaya Bhakthi Channel</div>
 </header>
 
 <div class="container">
     <div class="post-title" id="postTitle">Loading...</div>
-    <div class="post-content" id="postContent">Searching for content...</div>
+    <div id="postContent" class="post-content">
+        <div style="text-align:center;">Checking for content...</div>
+    </div>
 </div>
 
 <footer>© 2026 Namo Narayanaya Bhakthi Channel</footer>
@@ -153,79 +147,82 @@
 const repoName = "Dasabodha";
 const mainHome = "https://dasabodha.omnnbc.in/";
 const path = window.location.pathname;
-const segments = path.split('/').filter(p => p && p !== repoName);
-const slug = segments.pop();
+const slug = path.split('/').filter(p => p && p !== repoName).pop();
 const isCustomDomain = window.location.hostname.includes("omnnbc.in");
 const fetchBase = isCustomDomain ? "" : `/${repoName}`;
 
-function buildButtons(posts, currentIndex) {
-    const prev = posts[currentIndex - 1];
-    const next = posts[currentIndex + 1];
+// Build Nav Buttons strictly by JSON Array Order
+function buildNav(posts, index) {
+    const prev = posts[index - 1];
+    const next = posts[index + 1];
 
-    let html = `<div class="post-nav-wrapper">`;
-    
-    // Prev Button
-    if (prev) {
-        html += `<a href="${fetchBase}/${prev.url}" class="btn-action">← Prev</a>`;
-    } else {
-        html += `<div class="spacer"></div>`;
-    }
-
-    // Home Button
-    html += `<a href="${mainHome}" class="btn-home">Home</a>`;
-
-    // Next Button (Automatically goes to next Samasa/Dashaka in JSON order)
-    if (next) {
-        html += `<a href="${fetchBase}/${next.url}" class="btn-action">Next →</a>`;
-    } else {
-        html += `<div class="spacer"></div>`;
-    }
-
+    let html = `<div class="post-nav">`;
+    html += prev ? `<a href="${fetchBase}/${prev.url}" class="btn-action">← Prev</a>` : `<div class="hidden"></div>`;
+    html += `<a href="${mainHome}" class="btn-home">HOME</a>`;
+    html += next ? `<a href="${fetchBase}/${next.url}" class="btn-action">Next →</a>` : `<div class="hidden"></div>`;
     html += `</div>`;
     return html;
 }
 
-// Fetch Logic
+// Show Coming Soon message in English
+function showComingSoon(posts, index) {
+    document.getElementById("postContent").innerHTML = `
+    <div class="status-msg">
+        <h2>Coming Soon...</h2>
+        <p>We are currently updating the lyrics for this chapter. Please check back later.</p>
+        <div style="margin-top:20px;">
+            ${buildNav(posts, index)}
+        </div>
+    </div>`;
+}
+
+// Show Not Found message in English
+function showNotFound() {
+    document.getElementById("postTitle").innerText = "Not Found";
+    document.getElementById("postContent").innerHTML = `
+    <div class="status-msg">
+        <h2>404 - Not Found</h2>
+        <p>The requested page was not found in our database.</p>
+        <div style="margin-top:20px;">
+            <a href="${mainHome}" class="btn-home">Return to Home Page</a>
+        </div>
+    </div>`;
+}
+
 fetch(`${fetchBase}/data/posts.json?v=${Date.now()}`)
 .then(r => r.json())
 .then(posts => {
-    // We look for the post where the URL matches the current page slug
     const index = posts.findIndex(p => p.url === slug);
     const post = posts[index];
 
     if (post) {
-        // 1. Update Title and Meta Description
         document.title = post.title;
         document.getElementById("postTitle").innerText = post.title;
-        document.getElementById("metaDesc").setAttribute("content", post.description || post.title);
+        document.getElementById("metaDesc").content = post.description || post.title;
 
-        // 2. Fetch HTML content
         fetch(`${fetchBase}/posts/${slug}.html`)
         .then(res => {
-            if(!res.ok) throw new Error();
-            return res.text();
+            if (res.ok) return res.text();
+            throw new Error("Missing File");
         })
         .then(html => {
             const temp = document.createElement("div");
             temp.innerHTML = html;
-            
-            // Remove any repeating layout elements from the child file
             temp.querySelectorAll("header,footer,nav,script,style,meta,title").forEach(e => e.remove());
-            
-            // Add content + Navigation buttons
-            document.getElementById("postContent").innerHTML = temp.innerHTML + buildButtons(posts, index);
+            document.getElementById("postContent").innerHTML = temp.innerHTML + buildNav(posts, index);
         })
-        .catch(() => show404());
+        .catch(() => {
+            // Case: Post is in JSON but the .html file is not uploaded yet
+            showComingSoon(posts, index);
+        });
     } else {
-        show404();
+        // Case: URL doesn't exist in JSON
+        showNotFound();
     }
 })
-.catch(() => show404());
-
-function show404() {
-    document.getElementById("postTitle").innerText = "404 - Page Not Found";
-    document.getElementById("postContent").innerHTML = `<div style="text-align:center;"><p>క్షమించండి, ఈ సమాసం అందుబాటులో లేదు.</p><a href="${mainHome}" class="btn-home">Back to Home</a></div>`;
-}
+.catch(() => {
+    document.getElementById("postContent").innerHTML = "Error loading database. Please refresh.";
+});
 </script>
 </body>
 </html>
