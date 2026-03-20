@@ -16,13 +16,12 @@
             --secondary: #1A1A1A;
             --accent: #F4D03F;
             --bg: #F4FBFB;
-            --top-links-bg: #145A5A;
-            --outer-links-bg: #3FA3A1;
+            --nav-bg: #145A5A;
         }
 
         body {
             margin: 0;
-            padding-top: 95px;
+            padding: 0; /* Removed padding-top since nav is no longer sticky */
             font-family: 'Inter', sans-serif;
             background: var(--bg);
             display: flex;
@@ -30,54 +29,74 @@
             min-height: 100vh;
         }
 
-        /* NAV */
-        .fixed-nav-wrapper { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; }
-        .top-links { background: var(--top-links-bg); display: flex; overflow-x: auto; padding: 10px 12px; gap: 18px; scrollbar-width: none; }
-        .outer-links { background: var(--outer-links-bg); display: flex; overflow-x: auto; padding: 12px 14px; gap: 20px; scrollbar-width: none; }
-        .fixed-nav-wrapper a { color: #fff; text-decoration: none; font-size: 0.9rem; font-weight: 700; padding: 6px 10px; border-radius: 6px; }
+        /* SINGLE LINE SCROLLABLE NAV */
+        .nav-container {
+            background: var(--nav-bg);
+            width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
+            display: flex;
+            padding: 12px 5px;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;  /* IE 10+ */
+        }
+        .nav-container::-webkit-scrollbar { display: none; } /* Chrome/Safari */
 
-        /* HEADER */
-        header { background: #fff; padding: 15px 10px; border-bottom: 3px solid var(--accent); }
-        .header-flex { display: flex; align-items: center; justify-content: center; gap: 12px; }
-        .header-logo { width: 60px; height: 60px; border-radius: 50%; }
-        .site-title-main { font-family: 'Crimson Text', serif; font-size: 1.4rem; font-weight: 700; color: #E91E63; margin: 0; }
-        .site-title-sub { background: #fff; padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; color: var(--secondary); }
+        .nav-container a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 8px 15px;
+            margin: 0 5px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.1);
+            flex-shrink: 0;
+        }
+
+        /* HEADER (Non-Sticky) */
+        header { 
+            background: #fff; 
+            padding: 20px 10px; 
+            border-bottom: 3px solid var(--accent); 
+        }
+        .header-flex { display: flex; align-items: center; justify-content: center; gap: 15px; }
+        .header-logo { width: 65px; height: 65px; border-radius: 50%; }
+        .site-title-main { font-family: 'Crimson Text', serif; font-size: 1.5rem; font-weight: 700; color: #E91E63; margin: 0; }
+        .site-title-sub { font-size: 0.8rem; color: var(--secondary); margin-top: 4px; display: block; }
 
         /* CONTENT */
-        .container { max-width: 800px; margin: auto; padding: 20px; flex: 1; width: 100%; box-sizing: border-box; }
-        .post-title { background: linear-gradient(135deg, #2E8B87, #3FA3A1); color: #fff; text-align: center; padding: 12px; font-size: 1.5rem; border-radius: 10px; margin-bottom: 15px; text-transform: capitalize; }
-        .post-content { background: #fff; padding: 20px; border-radius: 10px; font-size: 19px; line-height: 1.8; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .container { max-width: 850px; margin: 20px auto; padding: 0 15px; flex: 1; width: 100%; box-sizing: border-box; }
+        .post-title { background: linear-gradient(135deg, #2E8B87, #3FA3A1); color: #fff; text-align: center; padding: 15px; font-size: 1.4rem; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .post-content { background: #fff; padding: 25px; border-radius: 12px; font-size: 19px; line-height: 1.8; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
 
-        /* NAVIGATION BUTTONS */
-        .nav-controls { display: flex; justify-content: space-between; align-items: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; gap: 10px; }
-        .btn-nav { background: var(--primary); color: #white !important; padding: 10px 18px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; color: white; }
-        .btn-home { border: 2px solid var(--primary); color: var(--primary); padding: 8px 16px; border-radius: 8px; text-decoration: none; font-weight: 700; }
+        /* NAVIGATION BUTTONS (Prev/Home/Next) */
+        .post-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 35px; padding-top: 25px; border-top: 2px solid #f0f0f0; gap: 10px; }
+        .btn-action { background: var(--primary); color: #fff !important; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; min-width: 80px; text-align: center; }
+        .btn-home-outline { border: 2px solid var(--primary); color: var(--primary); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 13px; }
 
-        footer { background: #2E8B87; color: #fff; text-align: center; padding: 20px; font-size: 0.85rem; margin-top: 40px; }
+        footer { background: #2E8B87; color: #fff; text-align: center; padding: 25px; font-size: 0.9rem; margin-top: 50px; }
     </style>
 </head>
 <body>
 
-<div class="fixed-nav-wrapper">
-    <div class="top-links">
-        <a href="https://dasabodha.omnnbc.in/">Home</a>
-        <a href="/about-us">About Us</a>
-        <a href="/contact-us">Contact Us</a>
-        <a href="/privacy-policy">Privacy Policy</a>
-    </div>
-    <div class="outer-links">
-        <a href="https://csrgnk.github.io/Omnnbc/">Main site</a>
-        <a href="https://csrgnk.github.io/Upasana-Chandrika/">Upasana Chandrika</a>
-        <a href="https://csrgnk.github.io/manache-shlok/">Manache Shlok Telugu</a>
-    </div>
-</div>
+<nav class="nav-container">
+    <a href="https://dasabodha.omnnbc.in/">Home</a>
+    <a href="https://csrgnk.github.io/Omnnbc/">Main Site</a>
+    <a href="https://csrgnk.github.io/Upasana-Chandrika/">Upasana Chandrika</a>
+    <a href="https://csrgnk.github.io/manache-shlok/">Manache Shlok Telugu</a>
+    <a href="https://csrgnk.github.io/manache-shlok/hindi/">Manache Shlok Hindi</a>
+    <a href="/about-us">About Us</a>
+    <a href="/contact-us">Contact Us</a>
+    <a href="/privacy-policy">Privacy Policy</a>
+</nav>
 
 <header>
     <div class="header-flex">
         <img src="https://csrgnk.github.io/Omnnbc/assets/images/Omnnbc-new.png" class="header-logo" alt="Logo">
-        <div class="header-text">
+        <div>
             <div class="site-title-main">Namo Narayanaya Bhakthi Channel</div>
-            <div class="site-title-sub">Dasabodha Grantha Telugu Lyrics</div>
+            <span class="site-title-sub">Dasabodha Grantha Telugu Lyrics</span>
         </div>
     </div>
 </header>
@@ -85,7 +104,7 @@
 <div class="container">
     <div class="post-title" id="postTitle">Loading...</div>
     <div class="post-content" id="postContent">
-        <div style="text-align:center;">Searching for content...</div>
+        <div style="text-align:center; color: #666;">Searching for content...</div>
     </div>
 </div>
 
@@ -95,59 +114,32 @@
 const repoName = "Dasabodha";
 const mainHome = "https://dasabodha.omnnbc.in/";
 const path = window.location.pathname;
-
-// Extract the slug correctly even on custom domains
 const segments = path.split('/').filter(p => p && p !== repoName);
 const slug = segments.pop();
-
 const isCustomDomain = window.location.hostname.includes("omnnbc.in");
 const fetchBase = isCustomDomain ? "" : `/${repoName}`;
 
-// 1. Update Meta Tags
 function updateSEO(post) {
     if(!post) return;
     document.title = post.title;
-    
-    let desc = document.querySelector('meta[name="description"]');
-    if(desc) desc.setAttribute("content", post.description || post.title);
-    
-    let keys = document.querySelector('meta[name="keywords"]');
-    if(keys) keys.setAttribute("content", post.keywords || "Dasabodha, Telugu, Bhakthi");
+    document.querySelector('meta[name="description"]')?.setAttribute("content", post.description || post.title);
+    document.querySelector('meta[name="keywords"]')?.setAttribute("content", post.keywords || "Dasabodha, Telugu, Bhakthi");
 }
 
-// 2. Build Navigation UI
 function getNavHtml(posts, index) {
     const prev = posts[index - 1];
     const next = posts[index + 1];
-
-    let html = `<div class="nav-controls">`;
-    
-    // Previous Button
-    if (prev) {
-        html += `<a href="${fetchBase}/${prev.url}" class="btn-nav">← Previous</a>`;
-    } else {
-        html += `<span></span>`; 
-    }
-
-    // Home Button
-    html += `<a href="${mainHome}" class="btn-home">HOME</a>`;
-
-    // Next Button
-    if (next) {
-        html += `<a href="${fetchBase}/${next.url}" class="btn-nav">Next →</a>`;
-    } else {
-        html += `<span></span>`;
-    }
-
+    let html = `<div class="post-nav">`;
+    html += prev ? `<a href="${fetchBase}/${prev.url}" class="btn-action">← Previous</a>` : `<span></span>`;
+    html += `<a href="${mainHome}" class="btn-home-outline">Home</a>`;
+    html += next ? `<a href="${fetchBase}/${next.url}" class="btn-action">Next →</a>` : `<span></span>`;
     html += `</div>`;
     return html;
 }
 
-// 3. Main Logic
 if (!slug || slug === "index.html") {
     window.location.href = mainHome;
 } else {
-    // Fetch the JSON first to get meta and order
     fetch(`${fetchBase}/data/posts.json?v=${Date.now()}`)
     .then(r => r.json())
     .then(posts => {
@@ -158,19 +150,13 @@ if (!slug || slug === "index.html") {
             updateSEO(post);
             document.getElementById("postTitle").innerText = post.title;
 
-            // Fetch the actual HTML content
             fetch(`${fetchBase}/posts/${slug}.html`)
-            .then(res => {
-                if(!res.ok) throw new Error();
-                return res.text();
-            })
+            .then(res => res.ok ? res.text() : Promise.reject())
             .then(html => {
                 const temp = document.createElement("div");
                 temp.innerHTML = html;
                 temp.querySelectorAll("header,footer,nav,script,style,meta,title").forEach(e => e.remove());
-                
-                const navHtml = getNavHtml(posts, index);
-                document.getElementById("postContent").innerHTML = temp.innerHTML + navHtml;
+                document.getElementById("postContent").innerHTML = temp.innerHTML + getNavHtml(posts, index);
             })
             .catch(() => show404());
         } else {
@@ -181,15 +167,10 @@ if (!slug || slug === "index.html") {
 }
 
 function show404() {
-    document.title = "Page Not Found";
-    document.getElementById("postTitle").innerText = "404 - Content Not Found";
-    document.getElementById("postContent").innerHTML = 
-    `<div style="text-align:center; padding:40px 0;">
-        <p>క్షమించండి, ఈ పేజీ అందుబాటులో లేదు.</p>
-        <a href="${mainHome}" class="btn-home">Go to Home Page</a>
-    </div>`;
+    document.title = "404 - Not Found";
+    document.getElementById("postTitle").innerText = "Page Not Found";
+    document.getElementById("postContent").innerHTML = `<div style="text-align:center; padding:30px;"><p>Sorry, this content is not available.</p><a href="${mainHome}" class="btn-home-outline">Back Home</a></div>`;
 }
 </script>
-
 </body>
 </html>
