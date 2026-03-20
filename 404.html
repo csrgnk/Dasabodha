@@ -3,138 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Namo Narayanaya</title>
+    <title>Namo Narayanaya Bhakthi Channel</title>
     
+    <meta name="description" id="metaDesc" content="Dasabodha Telugu Lyrics - Namo Narayanaya">
+    <meta name="keywords" content="Dasabodha, Telugu Lyrics, Samartha Ramdas, Bhakthi">
+
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
             --primary: #3FA3A1;
-            --secondary: #1A1A1A;
-            --accent: #F4D03F;
-            --bg: #F4FBFB;
             --nav-bg: #145A5A;
+            --bg: #F4FBFB;
+            --accent: #F4D03F;
         }
 
-        /* Prevent the whole page from shaking/sliding left-right */
+        /* Prevent side-scrolling on mobile */
         html, body {
             margin: 0;
             padding: 0;
             width: 100%;
-            overflow-x: hidden; 
-            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
             background: var(--bg);
+            font-family: 'Inter', sans-serif;
         }
 
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        /* FIXED: Scrolling Nav restricted to screen width */
+        /* 1. SINGLE LINE SCROLLABLE NAV */
         .nav-container {
             background: var(--nav-bg);
-            width: 100%;
+            display: flex;
             overflow-x: auto;
             white-space: nowrap;
-            display: flex;
-            padding: 12px 0;
-            -webkit-overflow-scrolling: touch; /* Smooth scroll on iPhone */
+            padding: 12px 5px;
+            -webkit-overflow-scrolling: touch;
         }
         .nav-container::-webkit-scrollbar { display: none; }
-
         .nav-container a {
             color: #fff;
             text-decoration: none;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
-            padding: 8px 16px;
-            margin-left: 10px;
+            padding: 8px 14px;
+            margin: 0 5px;
             border-radius: 4px;
             background: rgba(255,255,255,0.1);
-            flex-shrink: 0; /* Prevents text from squishing */
+            flex-shrink: 0;
         }
-        .nav-container a:last-child { margin-right: 15px; }
 
-        /* HEADER */
+        /* 2. HEADER */
         header { 
             background: #fff; 
-            padding: 20px 10px; 
+            padding: 15px 10px; 
             border-bottom: 3px solid var(--accent);
             text-align: center;
         }
-        .header-flex { display: flex; align-items: center; justify-content: center; gap: 12px; }
-        .header-logo { width: 55px; height: 55px; border-radius: 50%; flex-shrink: 0; }
-        .site-title-main { font-family: 'Crimson Text', serif; font-size: 1.3rem; font-weight: 700; color: #E91E63; margin: 0; line-height: 1.2; }
+        .site-title-main { 
+            font-family: 'Crimson Text', serif; 
+            font-size: 1.3rem; 
+            font-weight: 700; 
+            color: #E91E63; 
+            margin: 0; 
+        }
 
-        /* CONTENT CONTAINER */
+        /* 3. CONTENT AREA */
         .container { 
             max-width: 800px; 
             margin: 15px auto; 
             padding: 0 12px; 
-            width: 100%; 
             box-sizing: border-box; 
         }
-
         .post-title { 
             background: linear-gradient(135deg, #2E8B87, #3FA3A1); 
             color: #fff; 
             text-align: center; 
-            padding: 15px 10px; 
-            font-size: 1.2rem; 
+            padding: 15px; 
+            font-size: 1.15rem; 
             border-radius: 10px; 
-            margin-bottom: 15px; 
-            word-wrap: break-word;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-
         .post-content { 
             background: #fff; 
             padding: 20px; 
             border-radius: 10px; 
             font-size: 18px; 
-            line-height: 1.7; 
+            line-height: 1.8; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            overflow-wrap: break-word; /* Prevents long Telugu words from breaking layout */
+            overflow-wrap: break-word; /* Prevents text overflow */
         }
 
-        /* FIXED: Navigation Buttons (Prev/Next) */
-        .post-nav { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            margin-top: 30px; 
-            padding-top: 20px; 
-            border-top: 1px solid #ddd; 
-            gap: 8px;
-            flex-wrap: nowrap; /* Keep on one line but adjust font */
+        /* 4. NAVIGATION BUTTONS (FIXED GRID) */
+        .post-nav-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr; /* 3 Equal Columns */
+            gap: 10px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            align-items: center;
         }
-
         .btn-action { 
             background: var(--primary); 
             color: #fff !important; 
-            padding: 10px 12px; 
+            padding: 12px 5px; 
             border-radius: 6px; 
             text-decoration: none; 
             font-weight: 600; 
             font-size: 13px; 
-            text-align: center;
-            flex: 1; /* Make buttons equal width */
-            max-width: 120px;
+            text-align: center; 
         }
-
-        .btn-home-outline { 
+        .btn-home { 
             border: 2px solid var(--primary); 
             color: var(--primary); 
-            padding: 8px 12px; 
+            padding: 10px 5px; 
             border-radius: 6px; 
             text-decoration: none; 
             font-weight: 700; 
-            font-size: 12px;
-            text-align: center;
+            font-size: 11px; 
+            text-align: center; 
+            text-transform: uppercase;
         }
+        .spacer { visibility: hidden; }
 
-        footer { background: #2E8B87; color: #fff; text-align: center; padding: 20px; font-size: 0.8rem; margin-top: auto; }
+        footer { background: #2E8B87; color: #fff; text-align: center; padding: 25px; margin-top: 40px; }
     </style>
 </head>
 <body>
@@ -144,24 +135,16 @@
     <a href="https://csrgnk.github.io/Omnnbc/">Main Site</a>
     <a href="https://csrgnk.github.io/Upasana-Chandrika/">Upasana Chandrika</a>
     <a href="https://csrgnk.github.io/manache-shlok/">Manache Shlok Telugu</a>
-    <a href="https://csrgnk.github.io/manache-shlok/hindi/">Manache Shlok Hindi</a>
     <a href="/about-us">About Us</a>
 </nav>
 
 <header>
-    <div class="header-flex">
-        <img src="https://csrgnk.github.io/Omnnbc/assets/images/Omnnbc-new.png" class="header-logo" alt="Logo">
-        <div>
-            <div class="site-title-main">Namo Narayanaya Bhakthi Channel</div>
-        </div>
-    </div>
+    <div class="site-title-main">Namo Narayanaya Bhakthi Channel</div>
 </header>
 
 <div class="container">
     <div class="post-title" id="postTitle">Loading...</div>
-    <div class="post-content" id="postContent">
-        <div style="text-align:center;">Loading content...</div>
-    </div>
+    <div class="post-content" id="postContent">Searching for content...</div>
 </div>
 
 <footer>© 2026 Namo Narayanaya Bhakthi Channel</footer>
@@ -175,43 +158,74 @@ const slug = segments.pop();
 const isCustomDomain = window.location.hostname.includes("omnnbc.in");
 const fetchBase = isCustomDomain ? "" : `/${repoName}`;
 
-function getNavHtml(posts, index) {
-    const prev = posts[index - 1];
-    const next = posts[index + 1];
-    let html = `<div class="post-nav">`;
-    html += prev ? `<a href="${fetchBase}/${prev.url}" class="btn-action">← Prev</a>` : `<div style="flex:1"></div>`;
-    html += `<a href="${mainHome}" class="btn-home-outline">HOME</a>`;
-    html += next ? `<a href="${fetchBase}/${next.url}" class="btn-action">Next →</a>` : `<div style="flex:1"></div>`;
+function buildButtons(posts, currentIndex) {
+    const prev = posts[currentIndex - 1];
+    const next = posts[currentIndex + 1];
+
+    let html = `<div class="post-nav-wrapper">`;
+    
+    // Prev Button
+    if (prev) {
+        html += `<a href="${fetchBase}/${prev.url}" class="btn-action">← Prev</a>`;
+    } else {
+        html += `<div class="spacer"></div>`;
+    }
+
+    // Home Button
+    html += `<a href="${mainHome}" class="btn-home">Home</a>`;
+
+    // Next Button (Automatically goes to next Samasa/Dashaka in JSON order)
+    if (next) {
+        html += `<a href="${fetchBase}/${next.url}" class="btn-action">Next →</a>`;
+    } else {
+        html += `<div class="spacer"></div>`;
+    }
+
     html += `</div>`;
     return html;
 }
 
-// Logic to fetch posts.json and content
+// Fetch Logic
 fetch(`${fetchBase}/data/posts.json?v=${Date.now()}`)
 .then(r => r.json())
 .then(posts => {
+    // We look for the post where the URL matches the current page slug
     const index = posts.findIndex(p => p.url === slug);
     const post = posts[index];
 
     if (post) {
+        // 1. Update Title and Meta Description
         document.title = post.title;
         document.getElementById("postTitle").innerText = post.title;
+        document.getElementById("metaDesc").setAttribute("content", post.description || post.title);
 
-        // Auto Setup Meta Tags from JSON
-        let desc = document.querySelector('meta[name="description"]');
-        if(desc) desc.content = post.description || post.title;
-
+        // 2. Fetch HTML content
         fetch(`${fetchBase}/posts/${slug}.html`)
-        .then(res => res.text())
+        .then(res => {
+            if(!res.ok) throw new Error();
+            return res.text();
+        })
         .then(html => {
             const temp = document.createElement("div");
             temp.innerHTML = html;
+            
+            // Remove any repeating layout elements from the child file
             temp.querySelectorAll("header,footer,nav,script,style,meta,title").forEach(e => e.remove());
-            document.getElementById("postContent").innerHTML = temp.innerHTML + getNavHtml(posts, index);
-        });
+            
+            // Add content + Navigation buttons
+            document.getElementById("postContent").innerHTML = temp.innerHTML + buildButtons(posts, index);
+        })
+        .catch(() => show404());
+    } else {
+        show404();
     }
-});
-</script>
+})
+.catch(() => show404());
 
+function show404() {
+    document.getElementById("postTitle").innerText = "404 - Page Not Found";
+    document.getElementById("postContent").innerHTML = `<div style="text-align:center;"><p>క్షమించండి, ఈ సమాసం అందుబాటులో లేదు.</p><a href="${mainHome}" class="btn-home">Back to Home</a></div>`;
+}
+</script>
 </body>
 </html>
