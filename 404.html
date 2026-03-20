@@ -39,11 +39,39 @@ white-space:nowrap;
 }
 
 /* HEADER */
-header{
+.site-header{
 background:#fff;
-padding:15px;
-text-align:center;
+padding:12px;
 border-bottom:3px solid var(--accent);
+}
+.site-brand{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+}
+.logo{
+width:40px;
+height:40px;
+object-fit:contain;
+}
+.title-wrap{
+text-align:left;
+color:#E91E63;
+font-weight:700;
+font-family:'Crimson Text',serif;
+}
+.title-line1{font-size:18px;}
+.title-line2{font-size:14px;}
+
+/* Desktop single line */
+@media(min-width:768px){
+.title-wrap{
+display:flex;
+gap:6px;
+align-items:center;
+}
+.title-line1,.title-line2{font-size:20px;}
 }
 
 /* CONTENT */
@@ -112,6 +140,16 @@ border:none;
 text-align:center;
 padding:40px;
 }
+
+/* FOOTER */
+.site-footer{
+background:#2E8B87;
+color:#fff;
+text-align:center;
+padding:25px 10px;
+margin-top:40px;
+font-size:14px;
+}
 </style>
 </head>
 
@@ -120,39 +158,42 @@ padding:40px;
 <nav class="nav-scroll">
 <a href="https://dasabodha.omnnbc.in/">Home</a>
 <a href="https://csrgnk.github.io/Omnnbc/">Main Site</a>
-<a href="https://csrgnk.github.io/Upasana-Chandrika/">Upasana Chandrika</a>
-<a href="https://csrgnk.github.io/manache-shlok/">Manache Shlok</a>
 <a href="/about-us">About Us</a>
 <a href="/contact-us">Contact Us</a>
 </nav>
 
-<header>
-<h2>Namo Narayanaya Bhakthi Channel</h2>
+<!-- HEADER -->
+<header class="site-header">
+<div class="site-brand">
+<img src="https://your-logo-url.png" class="logo">
+<div class="title-wrap">
+<div class="title-line1">Namo Narayanaya</div>
+<div class="title-line2">Bhakthi Channel</div>
+</div>
+</div>
 </header>
 
 <div class="container">
 <div id="postTitle" class="post-title">Loading...</div>
-<div id="postContent" class="post-content">Loading content...</div>
+<div id="postContent" class="post-content">Loading...</div>
 </div>
 
 <script>
 const repoName="Dasabodha";
 const mainHome="https://dasabodha.omnnbc.in/";
 
-// ✅ SLUG FIX
 const pathParts=location.pathname.split('/').filter(Boolean);
 const slug=pathParts[pathParts.length-1] || "index";
 
 const isCustomDomain=location.hostname.includes("omnnbc.in");
 const fetchBase=isCustomDomain?"":`/${repoName}`;
 
-/* 🔗 SHARE */
+/* SHARE */
 function shareButtons(title){
 let url=location.href;
 let text=encodeURIComponent(title+" - "+url);
 
-return `
-<div class="share-box">
+return `<div class="share-box">
 <b>Share</b><br>
 <a class="share-btn" href="https://wa.me/?text=${text}" target="_blank">WhatsApp</a>
 <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=${url}" target="_blank">Facebook</a>
@@ -166,7 +207,7 @@ navigator.clipboard.writeText(location.href);
 alert("Link Copied");
 }
 
-/* 🔁 NAV */
+/* NAV */
 function buildNav(posts,i){
 let prev=posts[i-1];
 let next=posts[i+1];
@@ -178,117 +219,81 @@ ${next?`<a href="${fetchBase}/${next.url}" class="btn-action">Next →</a>`:`<di
 </div>`;
 }
 
-/* ❌ 404 */
+/* 404 */
 function showNotFound(){
 document.getElementById("postTitle").innerText="Not Found";
 document.getElementById("postContent").innerHTML=
 `<div class="status-msg">
 <h2>404 - Not Found</h2>
-<p>Page not found</p>
 <a href="${mainHome}" class="btn-home">Home</a>
 </div>`;
 }
 
-/* ⏳ COMING */
-function showComing(posts,i,title){
-document.getElementById("postContent").innerHTML=
-`<div class="status-msg">
-<h2>Coming Soon</h2>
-${shareButtons(title)}
-${buildNav(posts,i)}
-</div>`;
-}
-
-/* 📄 LOAD PAGE */
+/* LOAD PAGE */
 function loadPage(page){
 fetch(`${fetchBase}/pages/${page.file}.html`)
-.then(res=>{
-if(res.ok) return res.text();
-throw "missing";
-})
+.then(r=>r.text())
 .then(html=>{
 let temp=document.createElement("div");
 temp.innerHTML=html;
+temp.querySelectorAll("header,footer,nav,script,style").forEach(e=>e.remove());
 
-temp.querySelectorAll("header,footer,nav,script,style,meta,title")
-.forEach(e=>e.remove());
-
-document.title=page.title;
 document.getElementById("postTitle").innerText=page.title;
-
-document.getElementById("postContent").innerHTML=
-temp.innerHTML + shareButtons(page.title);
-})
-.catch(()=>showNotFound());
+document.getElementById("postContent").innerHTML=temp.innerHTML+shareButtons(page.title);
+});
 }
 
-/* 🔄 LOAD DATA */
+/* LOAD DATA */
 Promise.all([
-fetch(`${fetchBase}/data/posts.json?v=${Date.now()}`).then(r=>r.json()),
-fetch(`${fetchBase}/data/pages.json?v=${Date.now()}`).then(r=>r.json())
+fetch(`${fetchBase}/data/posts.json`).then(r=>r.json()),
+fetch(`${fetchBase}/data/pages.json`).then(r=>r.json())
 ])
 .then(([posts,pages])=>{
 
-// 🔥 EXTRACT DASHAKAM & SAMASAM
 posts.forEach(p=>{
 let d=p.title.match(/Dashakam\s*(\d+)/i)||p.url.match(/dashakam-(\d+)/i);
 let s=p.title.match(/Samasam\s*(\d+)/i)||p.url.match(/samasam-(\d+)/i);
-
 if(d)p.dashakam=parseInt(d[1]);
 if(s)p.samasam=parseInt(s[1]);
 });
 
-// 🔥 SORT POSTS
 posts.sort((a,b)=>{
-if(a.dashakam!==b.dashakam) return a.dashakam-b.dashakam;
+if(a.dashakam!==b.dashakam)return a.dashakam-b.dashakam;
 return a.samasam-b.samasam;
 });
 
-// 🔍 CHECK POST
-let i=posts.findIndex(p=>p.url.trim()===slug.trim());
+let i=posts.findIndex(p=>p.url===slug);
 let post=posts[i];
 
 if(post){
-document.title=post.title;
 document.getElementById("postTitle").innerText=post.title;
-document.getElementById("metaDesc").content=post.description||post.title;
 
 fetch(`${fetchBase}/posts/${slug}.html`)
-.then(res=>{
-if(res.ok) return res.text();
-throw "missing";
-})
+.then(r=>r.text())
 .then(html=>{
 let temp=document.createElement("div");
 temp.innerHTML=html;
-
-temp.querySelectorAll("header,footer,nav,script,style,meta,title")
-.forEach(e=>e.remove());
+temp.querySelectorAll("header,footer,nav,script,style").forEach(e=>e.remove());
 
 document.getElementById("postContent").innerHTML=
 temp.innerHTML+
 shareButtons(post.title)+
 buildNav(posts,i);
-})
-.catch(()=>showComing(posts,i,post.title));
-
+});
 return;
 }
 
-// 🔍 CHECK PAGE
-let page=pages.find(p=>p.id.trim()===slug.trim());
+let page=pages.find(p=>p.id===slug);
+if(page){ loadPage(page); return; }
 
-if(page){
-loadPage(page);
-return;
-}
-
-// ❌ NOT FOUND
 showNotFound();
 
-})
-.catch(()=>showNotFound());
+});
 </script>
+
+<footer class="site-footer">
+© 2026 Namo Narayanaya Bhakthi Channel
+</footer>
 
 </body>
 </html>
