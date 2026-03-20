@@ -1,137 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Namo Narayanaya Bhakthi Channel</title>
+
+<meta name="description" id="metaDesc" content="Dasabodha Telugu Lyrics">
+
+<style>
+:root {
+    --primary:#3FA3A1;
+    --nav-bg:#145A5A;
+    --bg:#F4FBFB;
+    --accent:#F4D03F;
+}
+
+body{
+    margin:0;
+    font-family:Arial;
+    background:var(--bg);
+}
+
+/* NAV */
+.nav-scroll{
+    background:var(--nav-bg);
+    display:flex;
+    overflow-x:auto;
+    padding:10px;
+}
+.nav-scroll a{
+    color:#fff;
+    text-decoration:none;
+    padding:6px 12px;
+    margin:0 4px;
+    background:rgba(255,255,255,0.1);
+    border-radius:4px;
+    white-space:nowrap;
+}
+
+/* HEADER */
+header{
+    background:#fff;
+    padding:15px;
+    text-align:center;
+    border-bottom:3px solid var(--accent);
+}
+
+/* CONTENT */
+.container{
+    max-width:800px;
+    margin:15px auto;
+    padding:10px;
+}
+.post-title{
+    background:linear-gradient(135deg,#2E8B87,#3FA3A1);
+    color:#fff;
+    padding:15px;
+    text-align:center;
+    border-radius:10px;
+}
+.post-content{
+    background:#fff;
+    padding:20px;
+    margin-top:15px;
+    border-radius:10px;
+    line-height:1.8;
+}
+
+/* NAV BUTTONS */
+.post-nav{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:10px;
+    margin-top:30px;
+}
+.btn-action{
+    background:var(--primary);
+    color:#fff;
+    padding:10px;
+    text-align:center;
+    border-radius:5px;
+    text-decoration:none;
+}
+.btn-home{
+    border:2px solid var(--primary);
+    color:var(--primary);
+    text-align:center;
+    padding:10px;
+    border-radius:5px;
+    text-decoration:none;
+}
+
+/* SHARE */
+.share-box{
+    margin-top:30px;
+    text-align:center;
+}
+.share-btn{
+    display:inline-block;
+    margin:5px;
+    padding:10px 12px;
+    background:#3FA3A1;
+    color:#fff;
+    border-radius:5px;
+    text-decoration:none;
+}
+
+/* STATUS */
+.status-msg{
+    text-align:center;
+    padding:40px;
+}
+</style>
+</head>
+
+<body>
+
+<nav class="nav-scroll">
+<a href="https://dasabodha.omnnbc.in/">Home</a>
+<a href="https://csrgnk.github.io/Omnnbc/">Main Site</a>
+</nav>
+
+<header>
+<h2>Namo Narayanaya Bhakthi Channel</h2>
+</header>
+
+<div class="container">
+<div id="postTitle" class="post-title">Loading...</div>
+<div id="postContent" class="post-content">Loading content...</div>
+</div>
+
 <script>
-const repoName = "Dasabodha";
-const mainHome = "https://dasabodha.omnnbc.in/";
-const path = window.location.pathname;
-const slug = path.split('/').filter(p => p && p !== repoName).pop();
-const isCustomDomain = window.location.hostname.includes("omnnbc.in");
-const fetchBase = isCustomDomain ? "" : `/${repoName}`;
+const repoName="Dasabodha";
+const mainHome="https://dasabodha.omnnbc.in/";
+const slug=location.pathname.split('/').pop();
+const isCustomDomain=location.hostname.includes("omnnbc.in");
+const fetchBase=isCustomDomain?"":`/${repoName}`;
 
-// 🔗 SHARE BUTTONS
-function buildShareButtons(title) {
-    const url = window.location.href;
-    const text = encodeURIComponent(title + " - " + url);
+/* SHARE */
+function shareButtons(title){
+let url=location.href;
+let text=encodeURIComponent(title+" - "+url);
 
-    return `
-    <div style="margin-top:30px; text-align:center;">
-        <h3 style="margin-bottom:10px;">Share</h3>
-        <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
-            
-            <a href="https://wa.me/?text=${text}" target="_blank" class="btn-action">WhatsApp</a>
-            
-            <a href="https://www.facebook.com/sharer/sharer.php?u=${url}" target="_blank" class="btn-action">Facebook</a>
-            
-            <a href="https://twitter.com/intent/tweet?text=${text}" target="_blank" class="btn-action">Twitter</a>
-            
-            <button onclick="copyLink()" class="btn-action">Copy Link</button>
-        </div>
-    </div>`;
+return `
+<div class="share-box">
+<b>Share</b><br>
+<a class="share-btn" href="https://wa.me/?text=${text}" target="_blank">WhatsApp</a>
+<a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=${url}" target="_blank">Facebook</a>
+<a class="share-btn" href="https://twitter.com/intent/tweet?text=${text}" target="_blank">Twitter</a>
+<button class="share-btn" onclick="copyLink()">Copy Link</button>
+</div>`;
 }
 
-// 📋 COPY LINK
-function copyLink() {
-    navigator.clipboard.writeText(window.location.href);
-    alert("Link copied!");
+function copyLink(){
+navigator.clipboard.writeText(location.href);
+alert("Link Copied");
 }
 
-// 🔁 NAV BUTTONS
-function buildNav(posts, index) {
-    const prev = posts[index - 1];
-    const next = posts[index + 1];
+/* NAV */
+function nav(posts,i){
+let prev=posts[i-1];
+let next=posts[i+1];
 
-    let html = `<div class="post-nav">`;
-    html += prev ? `<a href="${fetchBase}/${prev.url}" class="btn-action">← Prev</a>` : `<div class="hidden"></div>`;
-    html += `<a href="${mainHome}" class="btn-home">HOME</a>`;
-    html += next ? `<a href="${fetchBase}/${next.url}" class="btn-action">Next →</a>` : `<div class="hidden"></div>`;
-    html += `</div>`;
-    return html;
+return `<div class="post-nav">
+${prev?`<a href="${fetchBase}/${prev.url}" class="btn-action">← Prev</a>`:`<div></div>`}
+<a href="${mainHome}" class="btn-home">HOME</a>
+${next?`<a href="${fetchBase}/${next.url}" class="btn-action">Next →</a>`:`<div></div>`}
+</div>`;
 }
 
-// ⏳ COMING SOON
-function showComingSoon(posts, index, title="") {
-    document.getElementById("postContent").innerHTML = `
-    <div class="status-msg">
-        <h2>Coming Soon...</h2>
-        <p>We are currently updating the lyrics for this chapter.</p>
-        ${buildShareButtons(title)}
-        <div style="margin-top:20px;">
-            ${buildNav(posts, index)}
-        </div>
-    </div>`;
+/* 404 */
+function notFound(){
+document.getElementById("postTitle").innerText="Not Found";
+document.getElementById("postContent").innerHTML=
+`<div class="status-msg">
+<h2>404</h2>
+<p>Page not found</p>
+<a href="${mainHome}" class="btn-home">Home</a>
+</div>`;
 }
 
-// ❌ NOT FOUND
-function showNotFound() {
-    document.getElementById("postTitle").innerText = "Not Found";
-    document.getElementById("postContent").innerHTML = `
-    <div class="status-msg">
-        <h2>404 - Not Found</h2>
-        <p>The requested page was not found.</p>
-        <div style="margin-top:20px;">
-            <a href="${mainHome}" class="btn-home">Return Home</a>
-        </div>
-    </div>`;
+/* COMING SOON */
+function coming(posts,i,title){
+document.getElementById("postContent").innerHTML=
+`<div class="status-msg">
+<h2>Coming Soon</h2>
+${shareButtons(title)}
+${nav(posts,i)}
+</div>`;
 }
 
-// 🔄 FETCH POSTS
-fetch(`${fetchBase}/data/posts.json?v=${Date.now()}`)
-.then(r => r.json())
-.then(posts => {
+/* FETCH */
+fetch(`${fetchBase}/data/posts.json`)
+.then(r=>r.json())
+.then(posts=>{
 
-    // 🔥 AUTO EXTRACT DASHAKAM & SAMASAM
-    posts.forEach(p => {
+/* AUTO EXTRACT */
+posts.forEach(p=>{
+let d=p.title.match(/Dashakam\s*(\d+)/i)||p.url.match(/dashakam-(\d+)/i);
+let s=p.title.match(/Samasam\s*(\d+)/i)||p.url.match(/samasam-(\d+)/i);
 
-        let dMatch = p.title.match(/Dashakam\s*(\d+)/i) || p.url.match(/dashakam-(\d+)/i);
-        if (dMatch) p.dashakam = parseInt(dMatch[1]);
+if(d)p.dashakam=parseInt(d[1]);
+if(s)p.samasam=parseInt(s[1]);
+});
 
-        let sMatch = p.title.match(/Samasam\s*(\d+)/i) || p.url.match(/samasam-(\d+)/i);
-        if (sMatch) p.samasam = parseInt(sMatch[1]);
+/* SORT */
+posts.sort((a,b)=>{
+if(a.dashakam!=b.dashakam) return a.dashakam-b.dashakam;
+return a.samasam-b.samasam;
+});
 
-    });
+let i=posts.findIndex(p=>p.url===slug);
+let post=posts[i];
 
-    // 🔥 SORT ORDER
-    posts.sort((a, b) => {
-        if (a.dashakam !== b.dashakam) {
-            return a.dashakam - b.dashakam;
-        }
-        return a.samasam - b.samasam;
-    });
+if(!post){ notFound(); return; }
 
-    const index = posts.findIndex(p => p.url === slug);
-    const post = posts[index];
+document.title=post.title;
+document.getElementById("postTitle").innerText=post.title;
 
-    if (post) {
-        document.title = post.title;
-        document.getElementById("postTitle").innerText = post.title;
-        document.getElementById("metaDesc").content = post.description || post.title;
+/* LOAD CONTENT */
+fetch(`${fetchBase}/posts/${slug}.html`)
+.then(res=>{
+if(res.ok) return res.text();
+throw "missing";
+})
+.then(html=>{
+let temp=document.createElement("div");
+temp.innerHTML=html;
 
-        fetch(`${fetchBase}/posts/${slug}.html`)
-        .then(res => {
-            if (res.ok) return res.text();
-            throw new Error("Missing File");
-        })
-        .then(html => {
-            const temp = document.createElement("div");
-            temp.innerHTML = html;
+temp.querySelectorAll("header,footer,nav,script,style").forEach(e=>e.remove());
 
-            temp.querySelectorAll("header,footer,nav,script,style,meta,title")
-                .forEach(e => e.remove());
-
-            document.getElementById("postContent").innerHTML =
-                temp.innerHTML +
-                buildShareButtons(post.title) +
-                buildNav(posts, index);
-        })
-        .catch(() => {
-            showComingSoon(posts, index, post.title);
-        });
-
-    } else {
-        showNotFound();
-    }
+document.getElementById("postContent").innerHTML=
+temp.innerHTML+
+shareButtons(post.title)+
+nav(posts,i);
+})
+.catch(()=>coming(posts,i,post.title));
 
 })
-.catch(() => {
-    document.getElementById("postContent").innerHTML =
-        "Error loading data. Please refresh.";
-});
+.catch(()=>notFound());
 </script>
+
+</body>
+</html>
