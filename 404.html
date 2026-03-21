@@ -17,7 +17,7 @@
 
 body{
 margin:0;
-font-family:Arial;
+font-family:Arial, sans-serif;
 background:var(--bg);
 }
 
@@ -36,6 +36,7 @@ margin:0 4px;
 background:rgba(255,255,255,0.1);
 border-radius:4px;
 white-space:nowrap;
+font-size: 14px;
 }
 
 /* HEADER */
@@ -55,25 +56,31 @@ gap:10px;
 text-align:left;
 color:#E91E63;
 font-weight:700;
-font-family:'Crimson Text',serif;
 }
 .title-line1{font-size:18px;}
 .title-line2{font-size:14px;}
 
-/* Desktop single line */
-@media(min-width:768px){
-.title-wrap{
-display:flex;
-gap:6px;
-align-items:center;
+/* 🍞 BREADCRUMBS */
+.breadcrumbs {
+    padding: 10px 0;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 10px;
 }
-.title-line1,.title-line2{font-size:20px;}
+.breadcrumbs a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: bold;
+}
+.breadcrumbs span {
+    margin: 0 5px;
+    color: #ccc;
 }
 
 /* CONTENT */
 .container{
 max-width:800px;
-margin:15px auto;
+margin:5px auto;
 padding:10px;
 }
 .post-title{
@@ -82,6 +89,7 @@ color:#fff;
 padding:15px;
 text-align:center;
 border-radius:10px;
+font-size: 20px;
 }
 .post-content{
 background:#fff;
@@ -89,7 +97,37 @@ padding:20px;
 margin-top:15px;
 border-radius:10px;
 line-height:1.8;
+box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
+
+/* 📲 NEW SHARE SETUP (Horizontal Flex) */
+.share-box{
+margin-top:30px;
+padding:20px;
+border-top: 1px solid #eee;
+text-align:center;
+}
+.share-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+.share-btn{
+    flex: 1;
+    min-width: 80px;
+    padding: 10px 5px;
+    background: var(--primary);
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    border: none;
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.share-btn.copy { background: #555; }
 
 /* NAV BUTTONS */
 .post-nav{
@@ -98,48 +136,17 @@ grid-template-columns:1fr 1fr 1fr;
 gap:10px;
 margin-top:30px;
 }
-.btn-action{
-background:var(--primary);
-color:#fff;
-padding:10px;
-text-align:center;
-border-radius:5px;
-text-decoration:none;
+.btn-action, .btn-home {
+    padding:12px;
+    text-align:center;
+    border-radius:5px;
+    text-decoration:none;
+    font-weight: bold;
+    font-size: 14px;
 }
-.btn-home{
-border:2px solid var(--primary);
-color:var(--primary);
-text-align:center;
-padding:10px;
-border-radius:5px;
-text-decoration:none;
-font-weight: bold;
-}
+.btn-action{ background:var(--primary); color:#fff; }
+.btn-home{ border:2px solid var(--primary); color:var(--primary); }
 
-/* SHARE */
-.share-box{
-margin-top:30px;
-text-align:center;
-}
-.share-btn{
-display:inline-block;
-margin:5px;
-padding:10px 12px;
-background:#3FA3A1;
-color:#fff;
-border-radius:5px;
-text-decoration:none;
-border:none;
-cursor: pointer;
-}
-
-/* STATUS */
-.status-msg{
-text-align:center;
-padding:40px;
-}
-
-/* FOOTER */
 .site-footer{
 background:#2E8B87;
 color:#fff;
@@ -147,6 +154,11 @@ text-align:center;
 padding:25px 10px;
 margin-top:40px;
 font-size:14px;
+}
+
+@media(min-width:768px){
+    .title-wrap { display:flex; gap:6px; align-items:center; }
+    .title-line1,.title-line2{font-size:20px;}
 }
 </style>
 </head>
@@ -162,7 +174,7 @@ font-size:14px;
 
 <header class="site-header">
 <div class="site-brand">
-<img src="https://omnnbc.com/assets/images/Omnnbc-new.png" class="logo">
+<img src="https://omnnbc.com/assets/images/Omnnbc-new.png" class="logo" alt="Logo">
 <div class="title-wrap">
 <div class="title-line1">Namo Narayanaya</div>
 <div class="title-line2">Bhakthi Channel</div>
@@ -171,13 +183,14 @@ font-size:14px;
 </header>
 
 <div class="container">
-<div id="postTitle" class="post-title">Loading...</div>
-<div id="postContent" class="post-content">Loading...</div>
+    <div id="breadcrumb" class="breadcrumbs"></div>
+    
+    <div id="postTitle" class="post-title">Loading...</div>
+    <div id="postContent" class="post-content">Loading...</div>
 </div>
 
 <script>
 const repoName = "Dasabodha";
-// This ensures the HOME link always goes to the site root
 const mainHome = window.location.origin + "/";
 
 const pathParts = location.pathname.split('/').filter(Boolean);
@@ -186,28 +199,42 @@ const slug = pathParts[pathParts.length - 1] || "index";
 const isCustomDomain = location.hostname.includes("omnnbc.in");
 const fetchBase = isCustomDomain ? "" : `/${repoName}`;
 
-/* SHARE */
+/* BREADCRUMBS LOGIC */
+function buildBreadcrumbs(pageTitle, isPost = true) {
+    const breadcrumbDiv = document.getElementById("breadcrumb");
+    let html = `<a href="${mainHome}">Dasabodha</a>`;
+    if (isPost) {
+        html += `<span>&gt;</span><a href="${mainHome}">Posts</a>`;
+    }
+    html += `<span>&gt;</span> ${pageTitle}`;
+    breadcrumbDiv.innerHTML = html;
+}
+
+/* UPDATED SHARE SECTION */
 function shareButtons(title) {
     let url = location.href;
     let text = encodeURIComponent(title + " - " + url);
-    return `<div class="share-box">
-        <b>Share</b><br>
-        <a class="share-btn" href="https://wa.me/?text=${text}" target="_blank">WhatsApp</a>
-        <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=${url}" target="_blank">Facebook</a>
-        <button class="share-btn" onclick="copyLink()">Copy Link</button>
+    return `
+    <div class="share-box">
+        <b>Share this Content</b>
+        <div class="share-grid">
+            <a class="share-btn" href="https://wa.me/?text=${text}" target="_blank" style="background:#25D366;">WhatsApp</a>
+            <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=${url}" target="_blank" style="background:#1877F2;">Facebook</a>
+            <a class="share-btn" href="https://twitter.com/intent/tweet?text=${text}" target="_blank" style="background:#1DA1F2;">Twitter</a>
+            <button class="share-btn copy" onclick="copyLink()">Copy Link</button>
+        </div>
     </div>`;
 }
 
 function copyLink() {
     navigator.clipboard.writeText(location.href);
-    alert("Link Copied");
+    alert("Link Copied to Clipboard!");
 }
 
-/* NAV - UPDATED WITH CORRECT HOME LINK */
+/* NAVIGATION */
 function buildNav(posts, i) {
     let prev = posts[i - 1];
     let next = posts[i + 1];
-
     return `<div class="post-nav">
         ${prev ? `<a href="${fetchBase}/${prev.url}/" class="btn-action">← Prev</a>` : `<div></div>`}
         <a href="${mainHome}" class="btn-home">HOME</a>
@@ -215,17 +242,7 @@ function buildNav(posts, i) {
     </div>`;
 }
 
-/* 404 */
-function showNotFound() {
-    document.getElementById("postTitle").innerText = "Not Found";
-    document.getElementById("postContent").innerHTML =
-        `<div class="status-msg">
-            <h2>404 - Not Found</h2>
-            <a href="${mainHome}" class="btn-home">Home</a>
-        </div>`;
-}
-
-/* LOAD PAGE */
+/* LOAD STATIC PAGE */
 function loadPage(page) {
     fetch(`${fetchBase}/pages/${page.file}.html`)
         .then(r => r.text())
@@ -233,8 +250,10 @@ function loadPage(page) {
             let temp = document.createElement("div");
             temp.innerHTML = html;
             temp.querySelectorAll("header,footer,nav,script,style").forEach(e => e.remove());
+            
             document.getElementById("postTitle").innerText = page.title;
-            // Static pages like About Us now have a Home button too
+            buildBreadcrumbs(page.title, false);
+            
             document.getElementById("postContent").innerHTML = 
                 temp.innerHTML + 
                 shareButtons(page.title) + 
@@ -242,13 +261,12 @@ function loadPage(page) {
         });
 }
 
-/* LOAD DATA */
+/* LOAD MAIN DATA */
 Promise.all([
     fetch(`${fetchBase}/data/posts.json`).then(r => r.json()),
     fetch(`${fetchBase}/data/pages.json`).then(r => r.json())
 ])
 .then(([posts, pages]) => {
-    // Organize posts by Dashakam and Samasam
     posts.forEach(p => {
         let d = p.title.match(/Dashakam\s*(\d+)/i) || p.url.match(/dashakam-(\d+)/i);
         let s = p.title.match(/Samasam\s*(\d+)/i) || p.url.match(/samasam-(\d+)/i);
@@ -266,6 +284,8 @@ Promise.all([
 
     if (post) {
         document.getElementById("postTitle").innerText = post.title;
+        buildBreadcrumbs(post.title, true);
+
         fetch(`${fetchBase}/posts/${slug}.html`)
             .then(r => r.text())
             .then(html => {
@@ -283,7 +303,8 @@ Promise.all([
     let page = pages.find(p => p.id === slug);
     if (page) { loadPage(page); return; }
 
-    showNotFound();
+    document.getElementById("postTitle").innerText = "404 - Not Found";
+    document.getElementById("postContent").innerHTML = `<div style="text-align:center;padding:50px;"><a href="${mainHome}" class="btn-home">Return Home</a></div>`;
 });
 </script>
 
