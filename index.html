@@ -21,6 +21,7 @@
             --bg: #F4FBFB;
             --top-links-bg: #145A5A;
             --outer-links-bg: #3FA3A1;
+            --site-pink: #E91E63;
         }
 
         body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: #222; overflow-x: hidden; }
@@ -40,16 +41,64 @@
             font-weight: 700; padding: 6px 8px; flex-shrink: 0;
         }
 
-        /* 🏛️ HEADER SETUP */
-        header { background: #fff; padding: 20px 10px; border-bottom: 3px solid var(--accent); text-align: center; }
-        .header-flex { display: flex; flex-direction: column; align-items: center; gap: 10px; }
-        .header-logo { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; }
-        
-        .site-title-main { font-family: 'Crimson Text', serif; color: #E91E63; margin: 0; line-height: 1.2; }
-        .line-1 { font-size: 1.6rem; display: block; font-weight: 700; }
-        .line-2 { font-size: 1.2rem; display: block; font-weight: 600; }
+        /* 🏛️ HEADER SETUP - Logo Left, Text Right, Centered */
+        header { 
+            background: #fff; 
+            padding: 25px 10px; 
+            border-bottom: 3px solid var(--accent); 
+        }
 
-        .site-title-sub { margin-top: 8px; background: #eee; padding: 4px 15px; border-radius: 20px; font-size: 0.85rem; color: #444; display: inline-block; }
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Centers the whole block */
+            gap: 15px;
+        }
+
+        .header-logo { 
+            width: 60px; 
+            height: 60px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            flex-shrink: 0;
+        }
+        
+        .site-title-wrapper {
+            text-align: left; /* Aligns lines to the left of their box */
+        }
+
+        .site-title-main { 
+            font-family: 'Crimson Text', serif; 
+            color: var(--site-pink); 
+            margin: 0; 
+            line-height: 1.1; 
+        }
+
+        .line-1 { 
+            font-size: 1.6rem; 
+            display: block; 
+            font-weight: 700; 
+        }
+
+        .line-2 { 
+            font-size: 1.25rem; 
+            display: block; 
+            font-weight: 600;
+        }
+
+        .sub-container {
+            text-align: center;
+            margin-top: 12px;
+        }
+
+        .site-title-sub { 
+            background: #eee; 
+            padding: 4px 15px; 
+            border-radius: 20px; 
+            font-size: 0.85rem; 
+            color: #444; 
+            display: inline-block; 
+        }
 
         /* 🔍 SEARCH BOX */
         .search-area { width: 100%; display: flex; justify-content: center; margin: 25px 0; }
@@ -81,9 +130,9 @@
         footer { background: #145A5A; color: #fff; text-align: center; padding: 25px; font-size: 0.9rem; }
 
         @media (min-width: 768px) {
-            .line-1, .line-2 { display: inline; }
-            .line-1::after { content: " "; }
-            .site-title-main { font-size: 1.8rem; }
+            .line-1 { font-size: 1.9rem; }
+            .line-2 { font-size: 1.4rem; }
+            .header-logo { width: 70px; height: 70px; }
         }
     </style>
 </head>
@@ -96,7 +145,8 @@
         <a href="/about-us">About Us</a>
         <a href="/contact-us">Contact Us</a>
         <a href="/privacy-policy">Privacy Policy</a>
-    </div> <div class="outer-links">
+    </div> 
+    <div class="outer-links">
         <a href="https://omnnbc.com/" rel="noopener" target="_blank">Main Site</a>
         <a href="https://upasana-chandrika.omnnbc.in/" rel="noopener" target="_blank">Upasana Chandrika</a>
         <a href="https://manache-shlok.omnnbc.in/" rel="noopener" target="_blank">Manache Shlok Telugu</a>
@@ -105,12 +155,18 @@
 </div>
 
 <header>
-    <div class="header-flex">
-        <img src="https://omnnbc.com/assets/images/Omnnbc-new.png" class="header-logo" alt="Logo" width="55" height="55">
-        <h1 class="site-title-main">
-            <span class="line-1">Namo Narayanaya</span>
-            <span class="line-2">Bhakthi Channel</span>
-        </h1>
+    <div class="header-container">
+        <img src="https://omnnbc.com/assets/images/Omnnbc-new.png" class="header-logo" alt="Logo">
+        
+        <div class="site-title-wrapper">
+            <h1 class="site-title-main">
+                <span class="line-1">Namo Narayanaya</span>
+                <span class="line-2">Bhakthi Channel</span>
+            </h1>
+        </div>
+    </div>
+    
+    <div class="sub-container">
         <div class="site-title-sub">Dasabodha Grantha Telugu Lyrics</div>
     </div>
 </header>
@@ -138,7 +194,6 @@ let currentDashakam = 1;
 let searchTimeout = null;
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Adding timestamp to prevent cache issues
     fetch("./data/posts.json?v=" + new Date().getTime())
     .then(res => res.json())
     .then(data => {
