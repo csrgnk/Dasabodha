@@ -113,6 +113,7 @@ text-align:center;
 padding:10px;
 border-radius:5px;
 text-decoration:none;
+font-weight: bold;
 }
 
 /* SHARE */
@@ -129,6 +130,7 @@ color:#fff;
 border-radius:5px;
 text-decoration:none;
 border:none;
+cursor: pointer;
 }
 
 /* STATUS */
@@ -152,16 +154,15 @@ font-size:14px;
 <body>
 
 <nav class="nav-scroll">
-<a href="https://dasabodha.omnnbc.in/">Home</a>
+<a href="/">Home</a>
 <a href="https://omnnbc.com/">Main Site</a>
 <a href="/about-us">About Us</a>
 <a href="/contact-us">Contact Us</a>
 </nav>
 
-<!-- HEADER -->
 <header class="site-header">
 <div class="site-brand">
-<img src="https://Omnnbc.com/assets/images/Omnnbc-new.png" class="logo">
+<img src="https://omnnbc.com/assets/images/Omnnbc-new.png" class="logo">
 <div class="title-wrap">
 <div class="title-line1">Namo Narayanaya</div>
 <div class="title-line2">Bhakthi Channel</div>
@@ -175,115 +176,114 @@ font-size:14px;
 </div>
 
 <script>
-const repoName="Dasabodha";
-const mainHome="https://dasabodha.omnnbc.in/";
+const repoName = "Dasabodha";
+// This ensures the HOME link always goes to the site root
+const mainHome = window.location.origin + "/";
 
-const pathParts=location.pathname.split('/').filter(Boolean);
-const slug=pathParts[pathParts.length-1] || "index";
+const pathParts = location.pathname.split('/').filter(Boolean);
+const slug = pathParts[pathParts.length - 1] || "index";
 
-const isCustomDomain=location.hostname.includes("omnnbc.in");
-const fetchBase=isCustomDomain?"":`/${repoName}`;
+const isCustomDomain = location.hostname.includes("omnnbc.in");
+const fetchBase = isCustomDomain ? "" : `/${repoName}`;
 
 /* SHARE */
-function shareButtons(title){
-let url=location.href;
-let text=encodeURIComponent(title+" - "+url);
-
-return `<div class="share-box">
-<b>Share</b><br>
-<a class="share-btn" href="https://wa.me/?text=${text}" target="_blank">WhatsApp</a>
-<a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=${url}" target="_blank">Facebook</a>
-<a class="share-btn" href="https://twitter.com/intent/tweet?text=${text}" target="_blank">Twitter</a>
-<button class="share-btn" onclick="copyLink()">Copy Link</button>
-</div>`;
+function shareButtons(title) {
+    let url = location.href;
+    let text = encodeURIComponent(title + " - " + url);
+    return `<div class="share-box">
+        <b>Share</b><br>
+        <a class="share-btn" href="https://wa.me/?text=${text}" target="_blank">WhatsApp</a>
+        <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=${url}" target="_blank">Facebook</a>
+        <button class="share-btn" onclick="copyLink()">Copy Link</button>
+    </div>`;
 }
 
-function copyLink(){
-navigator.clipboard.writeText(location.href);
-alert("Link Copied");
+function copyLink() {
+    navigator.clipboard.writeText(location.href);
+    alert("Link Copied");
 }
 
-/* NAV */
-function buildNav(posts,i){
-let prev=posts[i-1];
-let next=posts[i+1];
+/* NAV - UPDATED WITH CORRECT HOME LINK */
+function buildNav(posts, i) {
+    let prev = posts[i - 1];
+    let next = posts[i + 1];
 
-return `<div class="post-nav">
-${prev?`<a href="${fetchBase}/${prev.url}" class="btn-action">← Prev</a>`:`<div></div>`}
-<a href="${mainHome}" class="btn-home">HOME</a>
-${next?`<a href="${fetchBase}/${next.url}" class="btn-action">Next →</a>`:`<div></div>`}
-</div>`;
+    return `<div class="post-nav">
+        ${prev ? `<a href="${fetchBase}/${prev.url}/" class="btn-action">← Prev</a>` : `<div></div>`}
+        <a href="${mainHome}" class="btn-home">HOME</a>
+        ${next ? `<a href="${fetchBase}/${next.url}/" class="btn-action">Next →</a>` : `<div></div>`}
+    </div>`;
 }
 
 /* 404 */
-function showNotFound(){
-document.getElementById("postTitle").innerText="Not Found";
-document.getElementById("postContent").innerHTML=
-`<div class="status-msg">
-<h2>404 - Not Found</h2>
-<a href="${mainHome}" class="btn-home">Home</a>
-</div>`;
+function showNotFound() {
+    document.getElementById("postTitle").innerText = "Not Found";
+    document.getElementById("postContent").innerHTML =
+        `<div class="status-msg">
+            <h2>404 - Not Found</h2>
+            <a href="${mainHome}" class="btn-home">Home</a>
+        </div>`;
 }
 
 /* LOAD PAGE */
-function loadPage(page){
-fetch(`${fetchBase}/pages/${page.file}.html`)
-.then(r=>r.text())
-.then(html=>{
-let temp=document.createElement("div");
-temp.innerHTML=html;
-temp.querySelectorAll("header,footer,nav,script,style").forEach(e=>e.remove());
-
-document.getElementById("postTitle").innerText=page.title;
-document.getElementById("postContent").innerHTML=temp.innerHTML+shareButtons(page.title);
-});
+function loadPage(page) {
+    fetch(`${fetchBase}/pages/${page.file}.html`)
+        .then(r => r.text())
+        .then(html => {
+            let temp = document.createElement("div");
+            temp.innerHTML = html;
+            temp.querySelectorAll("header,footer,nav,script,style").forEach(e => e.remove());
+            document.getElementById("postTitle").innerText = page.title;
+            // Static pages like About Us now have a Home button too
+            document.getElementById("postContent").innerHTML = 
+                temp.innerHTML + 
+                shareButtons(page.title) + 
+                `<div class="post-nav"><div></div><a href="${mainHome}" class="btn-home">HOME</a><div></div></div>`;
+        });
 }
 
 /* LOAD DATA */
 Promise.all([
-fetch(`${fetchBase}/data/posts.json`).then(r=>r.json()),
-fetch(`${fetchBase}/data/pages.json`).then(r=>r.json())
+    fetch(`${fetchBase}/data/posts.json`).then(r => r.json()),
+    fetch(`${fetchBase}/data/pages.json`).then(r => r.json())
 ])
-.then(([posts,pages])=>{
+.then(([posts, pages]) => {
+    // Organize posts by Dashakam and Samasam
+    posts.forEach(p => {
+        let d = p.title.match(/Dashakam\s*(\d+)/i) || p.url.match(/dashakam-(\d+)/i);
+        let s = p.title.match(/Samasam\s*(\d+)/i) || p.url.match(/samasam-(\d+)/i);
+        if (d) p.dashakam = parseInt(d[1]);
+        if (s) p.samasam = parseInt(s[1]);
+    });
 
-posts.forEach(p=>{
-let d=p.title.match(/Dashakam\s*(\d+)/i)||p.url.match(/dashakam-(\d+)/i);
-let s=p.title.match(/Samasam\s*(\d+)/i)||p.url.match(/samasam-(\d+)/i);
-if(d)p.dashakam=parseInt(d[1]);
-if(s)p.samasam=parseInt(s[1]);
-});
+    posts.sort((a, b) => {
+        if (a.dashakam !== b.dashakam) return a.dashakam - b.dashakam;
+        return a.samasam - b.samasam;
+    });
 
-posts.sort((a,b)=>{
-if(a.dashakam!==b.dashakam)return a.dashakam-b.dashakam;
-return a.samasam-b.samasam;
-});
+    let i = posts.findIndex(p => p.url === slug);
+    let post = posts[i];
 
-let i=posts.findIndex(p=>p.url===slug);
-let post=posts[i];
+    if (post) {
+        document.getElementById("postTitle").innerText = post.title;
+        fetch(`${fetchBase}/posts/${slug}.html`)
+            .then(r => r.text())
+            .then(html => {
+                let temp = document.createElement("div");
+                temp.innerHTML = html;
+                temp.querySelectorAll("header,footer,nav,script,style").forEach(e => e.remove());
+                document.getElementById("postContent").innerHTML =
+                    temp.innerHTML +
+                    shareButtons(post.title) +
+                    buildNav(posts, i);
+            });
+        return;
+    }
 
-if(post){
-document.getElementById("postTitle").innerText=post.title;
+    let page = pages.find(p => p.id === slug);
+    if (page) { loadPage(page); return; }
 
-fetch(`${fetchBase}/posts/${slug}.html`)
-.then(r=>r.text())
-.then(html=>{
-let temp=document.createElement("div");
-temp.innerHTML=html;
-temp.querySelectorAll("header,footer,nav,script,style").forEach(e=>e.remove());
-
-document.getElementById("postContent").innerHTML=
-temp.innerHTML+
-shareButtons(post.title)+
-buildNav(posts,i);
-});
-return;
-}
-
-let page=pages.find(p=>p.id===slug);
-if(page){ loadPage(page); return; }
-
-showNotFound();
-
+    showNotFound();
 });
 </script>
 
