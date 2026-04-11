@@ -1,0 +1,8 @@
+url: "https://dasabodha.omnnbc.in"
+include:
+  - sitemap.xml
+exclude:
+  - node_modules
+  - package.json
+  - package-lock.json
+  - generate-sitemap.js
