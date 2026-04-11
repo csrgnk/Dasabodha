@@ -1,59 +1,53 @@
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
+const { SitemapStream, streamToPromise } = require('sitemap');
 
 const DOMAIN = "https://dasabodha.omnnbc.in";
 const POSTS_DIR = path.join(__dirname, 'posts');
 const PAGES_FILE = path.join(__dirname, 'data', 'pages.json');
-const SITEMAP_PATH = path.join(__dirname, 'sitemap.xml');
 
-let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
-xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
-
-const today = new Date().toISOString().split('T')[0];
-
-// 🏠 Add Home
-xml += `  <url><loc>${DOMAIN}/</loc><lastmod>${today}</lastmod><priority>1.0</priority></url>\n`;
-
-const addedUrls = new Set(); // To prevent duplicates
-
-// 📄 Safely add Pages (About, Contact, etc.)
-if (fs.existsSync(PAGES_FILE)) {
+async function generate() {
     try {
-        const pages = JSON.parse(fs.readFileSync(PAGES_FILE, 'utf-8'));
-        pages.forEach(page => {
-            // Use 'id' or 'file' to determine the slug
-            const slug = (page.id || page.file).replace('.html', '').toLowerCase();
-            if (slug !== 'index' && !addedUrls.has(slug)) {
-                xml += `  <url><loc>${DOMAIN}/${slug}/</loc><lastmod>${today}</lastmod><priority>0.9</priority></url>\n`;
-                addedUrls.add(slug);
-            }
-        });
-    } catch (e) { console.log("Skipping pages.json due to error."); }
-}
+        const smStream = new SitemapStream({ hostname: DOMAIN });
+        
+        // 1. Add Homepage
+        smStream.write({ url: '/', changefreq: 'daily', priority: 1.0 });
 
-// ✍️ Safely add Posts (Samasams)
-if (fs.existsSync(POSTS_DIR)) {
-    try {
-        const files = fs.readdirSync(POSTS_DIR);
-        files.forEach(file => {
-            if (file.endsWith('.html') && file.toLowerCase() !== 'index.html') {
-                const slug = file.replace('.html', '').toLowerCase();
-                if (!addedUrls.has(slug)) {
-                    // Added trailing slash to match clean URL standard
-                    xml += `  <url><loc>${DOMAIN}/${slug}/</loc><lastmod>${today}</lastmod><priority>0.8</priority></url>\n`;
-                    addedUrls.add(slug);
+        // 2. Add Pages (About, Contact, etc.) from JSON
+        if (await fs.pathExists(PAGES_FILE)) {
+            const pages = await fs.readJson(PAGES_FILE);
+            pages.forEach(page => {
+                const slug = (page.id || page.file).replace('.html', '').toLowerCase();
+                if (slug !== 'index') {
+                    // Added trailing slash to match Clean URL standards
+                    smStream.write({ url: `/${slug}/`, changefreq: 'monthly', priority: 0.9 });
                 }
-            }
-        });
-    } catch (e) { console.log("Skipping posts folder due to error."); }
+            });
+        }
+
+        // 3. Add Posts (Samasams) from folder
+        if (await fs.pathExists(POSTS_DIR)) {
+            const files = await fs.readdir(POSTS_DIR);
+            files.forEach(file => {
+                if (file.endsWith('.html') && file.toLowerCase() !== 'index.html') {
+                    const slug = file.replace('.html', '').toLowerCase();
+                    smStream.write({ url: `/${slug}/`, changefreq: 'monthly', priority: 0.8 });
+                }
+            });
+        }
+
+        smStream.end();
+
+        // Convert stream to string and write to file
+        const sitemapOutput = await streamToPromise(smStream);
+        await fs.writeFile(path.join(__dirname, 'sitemap.xml'), sitemapOutput.toString());
+        
+        console.log("✅ Sitemap.xml generated successfully!");
+    } catch (error) {
+        console.error("❌ Error generating sitemap:", error);
+        process.exit(1);
+    }
 }
 
-xml += `</urlset>`;
-
-try {
-    fs.writeFileSync(SITEMAP_PATH, xml);
-    console.log("✅ Sitemap generated successfully with " + addedUrls.size + " links!");
-} catch (err) {
-    console.error("❌ Failed to write sitemap file:", err);
-    process.exit(1);
-}
+// Execute the generation
+generate();
