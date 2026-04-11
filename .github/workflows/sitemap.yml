@@ -4,8 +4,12 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'posts/**'
+      - 'data/**'
+      - 'generate-sitemap.js'
     paths-ignore:
-      - 'sitemap.xml' # Prevents infinite loops when the bot pushes the update
+      - 'sitemap.xml'
 
 permissions:
   contents: write
@@ -16,29 +20,29 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4 # Updated to v4 for better performance
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4 # Updated to v4
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
 
       - name: Install Dependencies
-        run: npm ci || npm install # npm ci is better if you have a package-lock.json
+        # This ensures sitemap and fs-extra are available
+        run: npm install
 
       - name: Run Sitemap Script
-        run: node generate-sitemap.js
+        run: npm run build
 
       - name: Commit and Push Sitemap
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          # Check if sitemap.xml actually changed to avoid empty commits
           if [ -n "$(git status --porcelain sitemap.xml)" ]; then
             git add sitemap.xml
             git commit -m "Automated sitemap update [skip ci]"
             git push
           else
-            echo "No changes to sitemap.xml"
+            echo "No changes detected in sitemap.xml"
           fi
