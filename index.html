@@ -1,201 +1,156 @@
 <!DOCTYPE html>
-
 <html lang="te">
 <head>
-    <script>
+    <script type="text/javascript">
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.addEventListener('keydown', e => {
-            if (e.ctrlKey && ['c','u','s','a','p'].includes(e.key)) e.preventDefault();
+            if (e.ctrlKey && ['c', 'u', 's', 'a', 'p'].includes(e.key)) e.preventDefault();
         });
         document.onselectstart = () => false;
     </script>
+    <style> body { -webkit-user-select: none; user-select: none; } </style>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dasabodha Telugu Lyrics | Namo Narayanaya</title>
+    <link rel="icon" type="image/png" href="https://omnnbc.com/assets/images/Omnnbc-new.png">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
 
-```
-<style>
-    body { -webkit-user-select: none; user-select: none; }
-</style>
+    <style>
+        :root { --primary: #3FA3A1; --nav-bg: #145A5A; --site-pink: #E91E63; --accent: #F4D03F; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: #F4FBFB; }
+        
+        /* ↔️ Nav Menus */
+        .fixed-nav-wrapper { position: sticky; top: 0; z-index: 1000; }
+        .top-links, .outer-links { display: flex; overflow-x: auto; gap: 15px; padding: 12px; scrollbar-width: none; }
+        .top-links::-webkit-scrollbar, .outer-links::-webkit-scrollbar { display: none; }
+        .top-links { background: var(--nav-bg); }
+        .outer-links { background: var(--primary); }
+        .fixed-nav-wrapper a { color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: 700; white-space: nowrap; }
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dasabodha Grantha Telugu Lyrics | Namo Narayanaya</title>
+        /* 🏛️ Header - Mobile: 2 Lines | Desktop: 1 Line */
+        header { background: #fff; padding: 25px 10px; border-bottom: 3px solid var(--accent); text-align: center; }
+        .header-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
+        .logo { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--site-pink); }
+        .site-title { color: var(--site-pink); font-family: 'Crimson Text', serif; margin: 0; }
+        .line-1 { font-size: 1.6rem; display: block; font-weight: 700; }
+        .line-2 { font-size: 1.2rem; display: block; font-weight: 600; }
 
-<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-
-<style>
-    :root {
-        --primary:#3FA3A1;
-        --secondary:#1A1A1A;
-        --accent:#F4D03F;
-        --bg:#F4FBFB;
-        --nav:#145A5A;
-        --pink:#E91E63;
-    }
-
-    body { margin:0;font-family:'Inter',sans-serif;background:var(--bg); }
-
-    /* NAV */
-    .top-links,.outer-links{
-        display:flex;overflow-x:auto;gap:10px;padding:10px;
-    }
-    .top-links{background:var(--nav);}
-    .outer-links{background:#3FA3A1;}
-
-    .top-links a,.outer-links a{
-        color:#fff;text-decoration:none;font-weight:700;
-    }
-
-    /* HEADER */
-    header{background:#fff;padding:20px;border-bottom:3px solid var(--accent);}
-    .header-container{display:flex;align-items:center;justify-content:center;gap:12px;}
-
-    .header-logo{width:60px;height:60px;border-radius:50%;}
-
-    .site-title-main{
-        font-family:'Crimson Text',serif;
-        color:var(--pink);
-        margin:0;
-    }
-
-    .line-1{display:block;font-size:1.5rem;}
-    .line-2{display:block;font-size:1.2rem;}
-
-    /* DESKTOP FIX */
-    @media(min-width:768px){
-        .site-title-main{
-            display:flex;
-            gap:8px;
-            white-space:nowrap;
+        @media (min-width: 768px) {
+            .header-container { flex-direction: row; gap: 20px; }
+            .line-1, .line-2 { display: inline-block; font-size: 2.2rem; }
+            .line-2 { margin-left: 15px; }
         }
-        .line-1,.line-2{
-            display:inline;
-            font-size:2rem;
-        }
-    }
 
-    /* SEARCH */
-    .search-area{display:flex;justify-content:center;margin:20px;}
-    #postSearch{padding:10px;border-radius:20px;border:1px solid #ccc;}
-
-    /* POSTS */
-    .container{max-width:700px;margin:auto;padding:10px;}
-    .post-card{
-        background:#fff;
-        padding:15px;
-        margin-bottom:10px;
-        border-left:5px solid var(--primary);
-        cursor:pointer;
-    }
-
-    /* DASH */
-    .nav-section{text-align:center;padding:20px;background:#fff;}
-    .dash-btn{
-        margin:5px;
-        padding:8px 12px;
-        border-radius:20px;
-        border:1px solid #ccc;
-        cursor:pointer;
-    }
-    .dash-btn.active{background:#000;color:#fff;}
-
-    footer{
-        background:#145A5A;
-        color:#fff;
-        text-align:center;
-        padding:20px;
-    }
-</style>
-```
-
+        .container { max-width: 800px; margin: 20px auto; padding: 0 15px; min-height: 400px; }
+        .post-card { background: #fff; border-radius: 10px; padding: 20px; margin-bottom: 15px; border-left: 6px solid var(--primary); box-shadow: 0 4px 10px rgba(0,0,0,0.05); cursor: pointer; }
+        .post-title { margin: 0; color: var(--primary); font-size: 1.4rem; }
+        
+        .dash-nav { text-align: center; margin: 30px 0; background: #fff; padding: 20px; }
+        .dash-btn { padding: 10px 20px; margin: 5px; border-radius: 25px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-weight: bold; }
+        .dash-btn.active { background: var(--nav-bg); color: #fff; }
+        
+        footer { background: var(--nav-bg); color: #fff; text-align: center; padding: 30px; margin-top: 50px; }
+    </style>
 </head>
-
 <body>
 
-<div class="top-links">
-<a href="/">Home</a>
-<a href="/about-us">About</a>
-<a href="/contact-us">Contact</a>
-</div>
-
-<div class="outer-links">
-<a href="https://omnnbc.com" target="_blank">Main Site</a>
+<div class="fixed-nav-wrapper">
+    <div class="top-links">
+        <a href="/">Home</a>
+        <a href="/about-us">About Us</a>
+        <a href="/contact-us">Contact Us</a>
+    </div>
+    <div class="outer-links">
+        <a href="https://omnnbc.com" target="_blank">Main Site</a>
+        <a href="https://upasana-chandrika.omnnbc.in/" target="_blank">Upasana Chandrika</a>
+    </div>
 </div>
 
 <header>
-<div class="header-container">
-<img src="https://omnnbc.com/assets/images/Omnnbc-new.png" class="header-logo">
-
-<h1 class="site-title-main">
-<span class="line-1">Namo Narayanaya</span>
-<span class="line-2">Bhakthi Channel</span>
-</h1>
-</div>
+    <div class="header-container">
+        <img src="https://omnnbc.com/assets/images/Omnnbc-new.png" class="logo" alt="Logo">
+        <h1 class="site-title">
+            <span class="line-1">NAMO NARAYANAYA</span>
+            <span class="line-2">BHAKTHI CHANNEL</span>
+        </h1>
+    </div>
 </header>
 
-<div class="search-area">
-<input type="text" id="postSearch" placeholder="Search Samasam...">
-</div>
-
-<main class="container" id="postsContainer">
-<div style="text-align:center;padding:40px;">Loading...</div>
+<main class="container" id="mainDisplay">
+    <div style="text-align:center; padding:50px;">🙏 Loading...</div>
 </main>
 
-<nav class="nav-section" id="dashButtons"></nav>
+<div class="dash-nav" id="dashButtons"></div>
 
-<footer>
-© 2026 Namo Narayanaya Bhakthi Channel
-</footer>
+<footer>© 2026 Namo Narayanaya Bhakthi Channel</footer>
 
 <script>
-let allPosts=[];
-let currentDashakam=1;
+    let allPosts = [];
+    let currentDashakam = 1;
+    const pathParts = window.location.pathname.split('/').filter(Boolean);
+    const slug = pathParts[pathParts.length - 1] || "index";
 
-fetch("/data/posts.json?v="+Date.now())
-.then(res=>res.json())
-.then(data=>{
-    allPosts=data;
-    renderPage();
-    setupDashNav();
-});
+    async function init() {
+        try {
+            // Absolute path "/" is mandatory for Clean URLs
+            const res = await fetch("/data/posts.json?v=" + Date.now());
+            allPosts = await res.json();
+            
+            if (slug === "index") {
+                renderHome();
+                renderDashButtons();
+            } else {
+                renderPost(slug);
+            }
+        } catch (e) { document.getElementById("mainDisplay").innerHTML = "Error loading data."; }
+    }
 
-/* ✅ FIXED LINK */
-function openPost(url){
-    window.location.href="/posts/"+url+".html";
-}
+    function renderHome() {
+        const filtered = allPosts.filter(p => parseInt(p.dashakam) === currentDashakam);
+        // Sorting Samasams numerically
+        filtered.sort((a, b) => {
+            const numA = parseInt(a.url.match(/samasam-(\d+)/)?.[1] || 0);
+            const numB = parseInt(b.url.match(/samasam-(\d+)/)?.[1] || 0);
+            return numA - numB;
+        });
 
-function renderPage(search=""){
-let filtered=search
-? allPosts.filter(p=>p.title.toLowerCase().includes(search.toLowerCase()))
-: allPosts.filter(p=>p.dashakam==currentDashakam);
+        document.getElementById("mainDisplay").innerHTML = filtered.map(p => `
+            <div class="post-card" onclick="location.href='/${p.url}/'">
+                <h2 class="post-title">${p.title}</h2>
+                <p>${p.description.substring(0, 120)}...</p>
+            </div>
+        `).join('');
+    }
 
-document.getElementById("postsContainer").innerHTML=filtered.map(p=>`
-<div class="post-card" onclick="openPost('${p.url}')">
-<h3>${p.title}</h3>
-<p>${p.description||""}</p>
-</div>
-`).join("");
-}
+    async function renderPost(slugName) {
+        const post = allPosts.find(p => p.url === slugName);
+        if (post) {
+            try {
+                const res = await fetch(`/posts/${post.url}.html`);
+                const html = await res.text();
+                document.getElementById("mainDisplay").innerHTML = `<div style="background:#fff; padding:25px; border-radius:10px;">${html}</div>`;
+                document.title = post.title + " | Namo Narayanaya";
+                document.getElementById("dashButtons").style.display = 'none';
+            } catch (e) { window.location.href = "/404"; }
+        } else {
+            window.location.href = "/404"; 
+        }
+    }
 
-function setupDashNav(){
-let wrap=document.getElementById("dashButtons");
+    function renderDashButtons() {
+        const btnContainer = document.getElementById("dashButtons");
+        btnContainer.innerHTML = "<p><b>SELECT DASHAKAM</b></p>";
+        for(let i=1; i<=20; i++) {
+            const btn = document.createElement("button");
+            btn.innerText = "D" + i;
+            btn.className = "dash-btn" + (i === currentDashakam ? " active" : "");
+            btn.onclick = () => { currentDashakam = i; renderHome(); window.scrollTo({top:0, behavior:'smooth'}); };
+            btnContainer.appendChild(btn);
+        }
+    }
 
-for(let i=1;i<=20;i++){
-let btn=document.createElement("button");
-btn.innerText="Dashakam "+i;
-btn.className="dash-btn";
-
-btn.onclick=()=>{
-currentDashakam=i;
-renderPage();
-};
-
-wrap.appendChild(btn);
-}
-}
-
-document.getElementById("postSearch").addEventListener("input",e=>{
-renderPage(e.target.value);
-});
+    init();
 </script>
-
 </body>
 </html>
