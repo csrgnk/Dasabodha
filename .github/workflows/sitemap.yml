@@ -1,34 +1,43 @@
 name: Generate Sitemap
 
+permissions:
+contents: write
+
 on:
-  push:
-    branches:
-      - main  # or 'master' depending on your branch name
+push:
+branches:
+- main
+paths-ignore:
+- 'sitemap.xml'
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+build:
+runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+```
+steps:
+  - name: Checkout Code
+    uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
+  - name: Setup Node.js
+    uses: actions/setup-node@v3
+    with:
+      node-version: '18'
 
-      - name: Install Dependencies
-        run: npm install sitemap fs-extra
+  - name: Install Dependencies
+    run: npm ci
 
-      - name: Run Sitemap Script
-        run: node generate-sitemap.js
+  - name: Run Sitemap Script
+    run: node generate-sitemap.js
 
-      - name: Commit and Push Sitemap
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add sitemap.xml
-          git commit -m "Automated sitemap update" || exit 0
-          git push
-          
+  - name: Commit and Push Sitemap
+    run: |
+      git config --global user.name "github-actions[bot]"
+      git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      if [ -f sitemap.xml ]; then
+        git add sitemap.xml
+        git commit -m "Automated sitemap update" || exit 0
+        git push
+      fi
+```
