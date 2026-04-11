@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Namo Narayanaya Bhakthi Channel</title>
-
     <link rel="icon" type="image/png" href="https://omnnbc.com/assets/images/Omnnbc-new.png">
 
     <style>
@@ -22,7 +21,7 @@
             background: var(--bg-light); 
         }
 
-        /* 🔘 NAVIGATION SETUP - TWO ROWS */
+        /* 🔘 NAVIGATION - TWO ROWS */
         .nav-section { background: var(--dark-blue); padding: 5px 0; }
         .nav-row {
             display: flex;
@@ -46,14 +45,13 @@
             text-transform: uppercase;
         }
 
-        /* 🏛️ HEADER (Non-Sticky) */
+        /* 🏛️ HEADER (NON-STICKY) */
         header { 
             background: var(--white); 
             padding: 20px 10px; 
             text-align: center;
             border-bottom: 3px solid var(--site-pink);
         }
-
         .site-logo {
             width: 55px;
             height: 55px;
@@ -61,53 +59,34 @@
             margin-bottom: 8px;
             border: 2px solid var(--site-pink);
         }
-
-        .site-title { 
-            color: var(--site-pink); 
-            font-weight: 900; 
-            margin: 0;
-            line-height: 1.2;
-        }
-
-        /* Mobile View: 2 Lines */
+        .site-title { color: var(--site-pink); font-weight: 900; margin: 0; line-height: 1.2; }
         .title-line-1 { font-size: 1.5rem; display: block; }
         .title-line-2 { font-size: 1.2rem; display: block; }
 
         /* 🔍 SEARCH BOX - COMPACT */
         .search-area { padding: 20px; text-align: center; }
         #postSearch { 
-            width: 80%; 
-            max-width: 260px; /* Reduced width */
-            padding: 10px 15px; 
-            border-radius: 25px; 
-            border: 2px solid var(--primary-blue); 
-            outline: none;
-            font-size: 14px;
+            width: 80%; max-width: 260px; 
+            padding: 10px 15px; border-radius: 25px; 
+            border: 2px solid var(--primary-blue); outline: none;
         }
 
-        /* 📄 POST CARDS - BLUE TOP, BLACK TEXT */
+        /* 📄 POST CARDS - SORTED VIEW */
         .content-wrapper { max-width: 700px; margin: auto; padding: 10px; }
         .post-card { 
-            background: var(--white); 
-            border-radius: 10px; 
-            margin-bottom: 20px; 
+            background: var(--white); border-radius: 10px; margin-bottom: 20px; 
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-            border-top: 5px solid var(--primary-blue); 
-            overflow: hidden;
+            border-top: 5px solid var(--primary-blue); overflow: hidden;
         }
         .post-body { padding: 20px; }
         .post-title-link { 
-            color: var(--primary-blue); 
-            font-size: 1.4rem; 
-            font-weight: 700;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 10px;
+            color: var(--primary-blue); font-size: 1.4rem; font-weight: 700;
+            text-decoration: none; display: block; margin-bottom: 8px;
         }
         .post-text { color: #000000; line-height: 1.6; font-size: 1.05rem; margin: 0; }
 
-        /* 🔘 DASHAKAM SELECTOR */
-        .dashakam-nav { background: #fff; padding: 25px; text-align: center; border-top: 1px solid #eee; }
+        /* 🔘 DASHAKAM BUTTONS */
+        .dash-nav { background: #fff; padding: 25px; text-align: center; border-top: 1px solid #eee; }
         .dash-circle { 
             min-width: 42px; height: 42px; border-radius: 50%; 
             border: 1px solid #ccc; background: #fff; font-weight: 700;
@@ -117,11 +96,9 @@
 
         footer { background: var(--dark-blue); color: #fff; text-align: center; padding: 40px; }
 
-        /* 💻 DESKTOP ADJUSTMENTS */
         @media (min-width: 768px) {
             .title-line-1, .title-line-2 { display: inline; font-size: 2rem; }
             .title-line-2 { margin-left: 10px; }
-            .site-logo { width: 65px; height: 65px; }
         }
     </style>
 </head>
@@ -132,7 +109,7 @@
         <a href="/" class="btn-menu">Home</a>
         <a href="/about-us" class="btn-menu">About Us</a>
         <a href="/contact-us" class="btn-menu">Contact Us</a>
-        <a href="/privacy-policy" class="btn-menu">Privacy Policy</a>
+        <a href="/privacy-policy" class="btn-menu">Privacy</a>
     </div>
     <div class="nav-row" style="padding-top: 0; border-top: 1px solid rgba(255,255,255,0.1);">
         <a href="https://omnnbc.com" target="_blank" class="btn-menu">Main Site</a>
@@ -154,17 +131,16 @@
 </div>
 
 <main class="content-wrapper" id="postsContainer">
-    <div style="text-align:center; padding:50px;">🙏 Loading...</div>
+    <div style="text-align:center; padding:50px;">🙏 Loading Lyrics...</div>
 </main>
 
-<section class="dashakam-nav">
+<section class="dash-nav">
     <div style="font-weight:800; margin-bottom:15px; color: var(--dark-blue);">SELECT DASHAKAM</div>
     <div class="nav-row" id="dashButtons"></div>
 </section>
 
 <footer>
     <p>© 2026 Namo Narayanaya Bhakthi Channel</p>
-    <p style="font-size: 0.8rem; opacity: 0.7;">Managed by Sangameshwar</p>
 </footer>
 
 <script>
@@ -178,31 +154,32 @@
             allPosts = data;
             renderPage();
             setupDashNav();
-        })
-        .catch(err => {
-            document.getElementById("postsContainer").innerHTML = "Error loading content.";
         });
     });
 
     function renderPage(query = "") {
         const container = document.getElementById("postsContainer");
-        const filtered = query 
+        
+        // Filter and Sort numerically by Samasam number
+        let filtered = query 
             ? allPosts.filter(p => p.title.toLowerCase().includes(query.toLowerCase()))
             : allPosts.filter(p => parseInt(p.dashakam) === currentDashakam);
 
-        if (filtered.length === 0) {
-            container.innerHTML = "<p style='text-align:center;'>No content found.</p>";
-            return;
-        }
+        // Sorting Logic to ensure Samasam 1 comes first
+        filtered.sort((a, b) => {
+            let numA = parseInt(a.url.match(/samasam-(\d+)/)?.[1] || 0);
+            let numB = parseInt(b.url.match(/samasam-(\d+)/)?.[1] || 0);
+            return numA - numB;
+        });
 
         container.innerHTML = filtered.map(post => `
             <article class="post-card">
                 <div class="post-body">
                     <a href="./${post.url}/" class="post-title-link">${post.title}</a>
-                    <p class="post-text">${post.description ? post.description.substring(0, 140) : "మరింత సమాచారం కోసం క్లిక్ చేయండి"}...</p>
+                    <p class="post-text">${post.description ? post.description.substring(0, 140) : ""}...</p>
                 </div>
             </article>
-        `).join('');
+        `).join('') || "<p style='text-align:center;'>No content found.</p>";
     }
 
     function setupDashNav() {
@@ -215,7 +192,6 @@
                 currentDashakam = i;
                 document.querySelectorAll(".dash-circle").forEach(b => b.classList.remove("active"));
                 btn.classList.add("active");
-                document.getElementById("postSearch").value = "";
                 renderPage();
                 window.scrollTo({top: 0, behavior: 'smooth'});
             };
@@ -223,13 +199,8 @@
         }
     }
 
-    document.getElementById("postSearch").addEventListener("input", e => {
-        renderPage(e.target.value);
-    });
-
-    // Right-Click Protection
+    document.getElementById("postSearch").addEventListener("input", e => renderPage(e.target.value));
     document.addEventListener('contextmenu', e => e.preventDefault());
 </script>
-
 </body>
 </html>
