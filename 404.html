@@ -38,13 +38,19 @@
         .breadcrumbs span { margin: 0 5px; color: #ccc; }
         .post-title { background: linear-gradient(135deg, #2E8B87, #3FA3A1); color: #fff; padding: 18px; text-align: center; border-radius: 10px; font-size: 1.3rem; font-weight: bold; }
         .post-content { background: #fff; padding: 25px; margin-top: 15px; border-radius: 10px; line-height: 1.8; box-shadow: 0 2px 10px rgba(0,0,0,0.05); color: #000; }
+        
+        /* Share Section */
         .share-box { margin-top: 30px; padding: 20px; border-top: 1px solid #eee; text-align: center; }
         .share-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 10px; }
-        .share-btn { flex: 1; min-width: 85px; padding: 10px; color: #fff; border-radius: 5px; text-decoration: none; font-size: 12px; font-weight: bold; border: none; cursor: pointer; }
+        .share-btn { flex: 1; min-width: 85px; padding: 10px; color: #fff; border-radius: 5px; text-decoration: none; font-size: 12px; font-weight: bold; border: none; cursor: pointer; transition: 0.2s; }
+        .share-btn:active { transform: scale(0.95); }
+
+        /* Prev/Next Nav */
         .post-nav { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 25px; }
         .btn-action, .btn-home { padding: 12px; text-align:center; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 14px; }
         .btn-action { background: var(--primary); color: #fff; }
         .btn-home { border: 2px solid var(--primary); color: var(--primary); }
+        
         .site-footer { background: #145A5A; color: #fff; text-align: center; padding: 30px 10px; margin-top: 50px; font-size: 14px; }
         @media(min-width: 768px) { .title-wrap { display: flex; gap: 10px; align-items: center; } .title-line1, .title-line2 { font-size: 1.8rem; } }
     </style>
@@ -80,12 +86,14 @@
 </footer>
 
 <script>
+    // --- Configuration ---
     const mainHome = window.location.origin + "/";
-    // Fix: Ensure path is correctly identified regardless of subdirectory
-    const isLocal = location.hostname === "localhost" || location.hostname === "127.0.0.1";
-    const fetchBase = (location.pathname.includes("/Dasabodha") && !location.hostname.includes("omnnbc.in")) ? "/Dasabodha" : "";
+    const fetchBase = ""; // Since you are on omnnbc.in
 
-    const pathParts = location.pathname.replace(fetchBase, "").split('/').filter(Boolean);
+    // --- Slug Detection for Clean URLs ---
+    // This removes trailing slashes and correctly identifies the samasam-name
+    const currentPath = window.location.pathname;
+    const pathParts = currentPath.split('/').filter(Boolean);
     const slug = pathParts[pathParts.length - 1] || "index";
 
     function buildBreadcrumbs(pageTitle, dashakamNum = null) {
@@ -131,50 +139,53 @@
         document.getElementById("postContent").innerHTML = `<div style="text-align:center;padding:30px;"><p>Content not found. Please check your URL.</p><a href="${mainHome}" class="btn-home">Return Home</a></div>`;
     }
 
-    // Load Pages from /pages/ directory
-    function loadPage(page) {
-        fetch(`${fetchBase}/pages/${page.file}.html`)
-            .then(r => { if(!r.ok) throw Error(); return r.text(); })
-            .then(html => {
-                document.getElementById("postTitle").innerText = page.title;
-                buildBreadcrumbs(page.title);
-                document.getElementById("postContent").innerHTML = html + shareButtons(page.title);
-            }).catch(() => show404());
-    }
-
-    // MAIN LOADER
+    // --- Loading Logic ---
     Promise.all([
         fetch(`${fetchBase}/data/posts.json?v=${Date.now()}`).then(r => r.json()),
         fetch(`${fetchBase}/data/pages.json?v=${Date.now()}`).then(r => r.json())
     ]).then(([posts, pages]) => {
-        // Normalize Sorting
-        posts.forEach(p => {
-            let d = p.url.match(/dashakam-(\d+)/i) || p.title.match(/Dashakam\s*(\d+)/i);
-            let s = p.url.match(/samasam-(\d+)/i) || p.title.match(/Samasam\s*(\d+)/i);
-            p.dashakam = d ? parseInt(d[1]) : 0;
-            p.samasam = s ? parseInt(s[1]) : 0;
-        });
-        posts.sort((a, b) => a.dashakam !== b.dashakam ? a.dashakam - b.dashakam : a.samasam - b.samasam);
-
+        
+        // Match Slug
         const cleanSlug = slug.toLowerCase().replace(/\/$/, "");
-        let i = posts.findIndex(p => p.url.toLowerCase() === cleanSlug);
-        let post = posts[i];
-
-        if (post) {
+        
+        // 1. Check if it's a Samasam (Post)
+        let postIndex = posts.findIndex(p => p.url.toLowerCase() === cleanSlug);
+        
+        if (postIndex !== -1) {
+            let post = posts[postIndex];
             document.title = `${post.title} | Namo Narayanaya`;
             document.getElementById("postTitle").innerText = post.title;
-            buildBreadcrumbs(post.title, post.dashakam);
             
-            // Try fetching from the /posts/ folder
+            // Extract Dashakam for Breadcrumb
+            let dashMatch = post.url.match(/dashakam-(\d+)/i);
+            let dNum = dashMatch ? dashMatch[1] : null;
+            buildBreadcrumbs(post.title, dNum);
+
+            // Fetch the actual HTML file from /posts/
             fetch(`${fetchBase}/posts/${post.url}.html`)
                 .then(r => { if(!r.ok) throw Error(); return r.text(); })
                 .then(html => {
-                    document.getElementById("postContent").innerHTML = html + shareButtons(post.title) + buildNav(posts, i);
+                    document.getElementById("postContent").innerHTML = html + shareButtons(post.title) + buildNav(posts, postIndex);
                 }).catch(() => show404());
-        } else {
-            let page = pages.find(p => p.id === cleanSlug);
-            if (page) loadPage(page); else show404();
+            return;
         }
+
+        // 2. Check if it's a Page
+        let page = pages.find(p => p.id === cleanSlug || p.file === cleanSlug);
+        if (page) {
+            fetch(`${fetchBase}/pages/${page.file}.html`)
+                .then(r => { if(!r.ok) throw Error(); return r.text(); })
+                .then(html => {
+                    document.getElementById("postTitle").innerText = page.title;
+                    buildBreadcrumbs(page.title);
+                    document.getElementById("postContent").innerHTML = html + shareButtons(page.title);
+                }).catch(() => show404());
+            return;
+        }
+
+        // 3. Fallback to 404
+        show404();
+
     }).catch(() => show404());
 </script>
 
