@@ -1,14 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitemap Generator - Omnnbc</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f7f6; color: #2c3e50; line-height: 1.6; padding: 20px; text-align: center; }
+        .container { max-width: 850px; margin: auto; background: #ffffff; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        h1 { color: #e67e22; margin-bottom: 10px; font-size: 26px; }
+        p { color: #7f8c8d; margin-bottom: 25px; font-size: 15px; }
+        .btn { background-color: #e67e22; color: white; border: none; padding: 15px 35px; font-size: 18px; font-weight: 600; border-radius: 8px; cursor: pointer; width: 100%; transition: 0.3s; }
+        .btn:hover { background-color: #d35400; }
+        #output-section { margin-top: 30px; display: none; text-align: left; }
+        #status-msg { font-weight: bold; margin-bottom: 10px; color: #2980b9; }
+        #sitemap-output { width: 100%; height: 400px; padding: 12px; border: 1px solid #dcdde1; border-radius: 6px; font-family: 'Consolas', monospace; font-size: 13px; background-color: #2f3640; color: #f5f6fa; overflow: auto; resize: none; white-space: pre; }
+        .copy-btn { background-color: #27ae60; color: white; border: none; padding: 12px 25px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 15px; width: 100%; font-size: 16px; }
+        #success-toast { display: none; color: #27ae60; font-weight: bold; text-align: center; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Sitemap Generator Tool</h1>
+    <p>Detecting data from <b>data/pages.json</b> and <b>data/posts.json</b></p>
+
+    <button class="btn" onclick="generateSitemap()">Generate Sitemap Now</button>
+
+    <div id="output-section">
+        <div id="status-msg"></div>
+        <textarea id="sitemap-output" readonly></textarea>
+        <button class="copy-btn" onclick="copyXml()">Copy XML to Clipboard</button>
+        <div id="success-toast">✅ XML Copied! Paste this into your sitemap.xml file.</div>
+    </div>
+</div>
+
 <script>
     async function generateSitemap() {
         const outputSection = document.getElementById('output-section');
         const outputArea = document.getElementById('sitemap-output');
         const status = document.getElementById('status-msg');
-        // Automatically detects if it's on dasabodha or main site
-        const domain = window.location.origin; 
+        
+        // Auto-detect domain (works for omnnbc.com or dasabodha.omnnbc.in)
+        const domain = window.location.origin;
         const today = new Date().toISOString().split('T')[0];
         
         outputSection.style.display = 'block';
-        status.innerText = "Scanning JSON files... please wait.";
+        status.innerText = "Analyzing JSON data... please wait.";
 
         try {
             let xmlLines = [
@@ -21,60 +58,77 @@
                 '  </url>'
             ];
 
-            // 1. PROCESS PAGES
+            // 1. Process Pages (data/pages.json)
             let pageCount = 0;
-            const pRes = await fetch('data/pages.json');
-            if (pRes.ok) {
-                const pData = await pRes.json();
-                pData.forEach(p => {
-                    // Smart Check: look for .file, .url, or .slug
-                    let rawPath = p.file || p.url || p.slug || "";
-                    if (rawPath) {
-                        let slug = rawPath.replace('.html', '').replace(/^\//, '');
-                        if (slug !== 'index' && slug !== '') {
+            try {
+                const pRes = await fetch('data/pages.json');
+                if (pRes.ok) {
+                    const pData = await pRes.json();
+                    pData.forEach(p => {
+                        let rawPath = p.file || p.url || p.slug || "";
+                        if (rawPath) {
+                            let slug = rawPath.replace('.html', '').replace(/^\//, '');
+                            if (slug !== 'index' && slug !== '') {
+                                xmlLines.push('  <url>');
+                                xmlLines.push(`    <loc>${domain}/${slug}</loc>`);
+                                xmlLines.push(`    <lastmod>${today}</lastmod>`);
+                                xmlLines.push('    <priority>0.9</priority>');
+                                xmlLines.push('  </url>');
+                                pageCount++;
+                            }
+                        }
+                    });
+                }
+            } catch (e) { console.warn("Pages JSON not found or empty."); }
+
+            // 2. Process Posts (data/posts.json)
+            let postCount = 0;
+            try {
+                const poRes = await fetch('data/posts.json');
+                if (poRes.ok) {
+                    const poData = await poRes.json();
+                    poData.forEach(post => {
+                        // Smart check for common post keys
+                        let rawPath = post.file || post.slug || post.url || post.link || "";
+                        if (rawPath) {
+                            // Extract filename and remove .html
+                            let slug = rawPath.split('/').pop().replace('.html', '');
+                            let postDate = post.date || post.publish_date || today;
+                            let cleanDate = postDate.split('T')[0];
+
                             xmlLines.push('  <url>');
                             xmlLines.push(`    <loc>${domain}/${slug}</loc>`);
-                            xmlLines.push(`    <lastmod>${today}</lastmod>`);
-                            xmlLines.push('    <priority>0.9</priority>');
+                            xmlLines.push(`    <lastmod>${cleanDate}</lastmod>`);
+                            xmlLines.push('    <priority>0.8</priority>');
                             xmlLines.push('  </url>');
-                            pageCount++;
+                            postCount++;
                         }
-                    }
-                });
-            }
-
-            // 2. PROCESS POSTS (FIXED SECTION)
-            let postCount = 0;
-            const poRes = await fetch('data/posts.json');
-            if (poRes.ok) {
-                const poData = await poRes.json();
-                poData.forEach(post => {
-                    // Smart Check: look for common JSON keys
-                    let rawPath = post.file || post.slug || post.url || post.link || "";
-                    if (rawPath) {
-                        // Clean the path: remove .html, remove leading slashes
-                        let slug = rawPath.split('/').pop().replace('.html', '');
-                        let date = post.publish_date || post.date || today;
-                        // Format date to YYYY-MM-DD
-                        date = date.split('T')[0];
-
-                        xmlLines.push('  <url>');
-                        xmlLines.push(`    <loc>${domain}/${slug}</loc>`);
-                        xmlLines.push(`    <lastmod>${date}</lastmod>`);
-                        xmlLines.push('    <priority>0.8</priority>');
-                        xmlLines.push('  </url>');
-                        postCount++;
-                    }
-                });
-            }
+                    });
+                }
+            } catch (e) { console.warn("Posts JSON not found or empty."); }
 
             xmlLines.push('</urlset>');
+
+            // Output Results
             outputArea.value = xmlLines.join('\n');
-            status.innerText = `Success! Found ${pageCount} Pages and ${postCount} Posts.`;
+            status.innerText = `Success: Found ${pageCount} Pages and ${postCount} Posts.`;
+            status.style.color = "#2980b9";
 
         } catch (error) {
-            status.innerText = "Error reading JSON: " + error.message;
-            console.error(error);
+            status.style.color = "#c0392b";
+            status.innerText = "Error: " + error.message;
         }
     }
+
+    function copyXml() {
+        const area = document.getElementById("sitemap-output");
+        area.select();
+        document.execCommand("copy");
+        const toast = document.getElementById("success-toast");
+        toast.style.display = "block";
+        setTimeout(() => { toast.style.display = "none"; }, 4000);
+    }
 </script>
+
+</body>
+</html>
