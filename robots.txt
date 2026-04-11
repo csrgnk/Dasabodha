@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 # Block direct access to folders
+Disallow: /Upasana-Chandrika/
 Disallow: /posts/
 Disallow: /pages/
 Disallow: /data/
