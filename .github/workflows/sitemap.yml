@@ -1,43 +1,44 @@
 name: Generate Sitemap
 
-permissions:
-contents: write
-
 on:
-push:
-branches:
-- main
-paths-ignore:
-- 'sitemap.xml'
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'sitemap.xml' # Prevents infinite loops when the bot pushes the update
+
+permissions:
+  contents: write
 
 jobs:
-build:
-runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest
 
-```
-steps:
-  - name: Checkout Code
-    uses: actions/checkout@v3
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4 # Updated to v4 for better performance
 
-  - name: Setup Node.js
-    uses: actions/setup-node@v3
-    with:
-      node-version: '18'
+      - name: Setup Node.js
+        uses: actions/setup-node@v4 # Updated to v4
+        with:
+          node-version: '18'
 
-  - name: Install Dependencies
-    run: npm ci
+      - name: Install Dependencies
+        run: npm ci || npm install # npm ci is better if you have a package-lock.json
 
-  - name: Run Sitemap Script
-    run: node generate-sitemap.js
+      - name: Run Sitemap Script
+        run: node generate-sitemap.js
 
-  - name: Commit and Push Sitemap
-    run: |
-      git config --global user.name "github-actions[bot]"
-      git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-      if [ -f sitemap.xml ]; then
-        git add sitemap.xml
-        git commit -m "Automated sitemap update" || exit 0
-        git push
-      fi
-```
+      - name: Commit and Push Sitemap
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Check if sitemap.xml actually changed to avoid empty commits
+          if [ -n "$(git status --porcelain sitemap.xml)" ]; then
+            git add sitemap.xml
+            git commit -m "Automated sitemap update [skip ci]"
+            git push
+          else
+            echo "No changes to sitemap.xml"
+          fi
