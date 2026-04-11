@@ -3,184 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Official Telugu Lyrics for Dasabodha Grantha by Namo Narayanaya Bhakthi Channel.">
-    <title>Namo Narayanaya Bhakthi Channel | Dasabodha Telugu Lyrics</title>
+    <title>Namo Narayanaya Bhakthi Channel</title>
 
     <style>
         :root {
             --site-pink: #E91E63;
             --primary-blue: #0D6EFD;
             --dark-blue: #001F3F;
-            --bg-light: #F4F7F6;
             --white: #ffffff;
-            --black: #000000;
+            --bg-light: #F8F9FA;
         }
 
         body { 
             margin: 0; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            font-family: 'Segoe UI', Arial, sans-serif; 
             background: var(--bg-light); 
-            color: var(--black);
-            -webkit-user-select: none;
-            user-select: none;
+            padding-top: 160px; /* Fixed Header Space for Mobile */
         }
 
-        /* 📱 NAVIGATION SETUP - PINK & WHITE STYLE */
-        .nav-section {
-            background: var(--dark-blue);
-            padding: 10px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        /* 📱 FIXED HEADER SETUP FOR MOBILE */
+        .fixed-header-top {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
+        /* 🔘 NAVIGATION ROW */
+        .nav-section { background: var(--dark-blue); padding: 5px 0; }
         .nav-row {
             display: flex;
             overflow-x: auto;
             white-space: nowrap;
-            padding: 6px 15px;
-            gap: 10px;
+            padding: 5px 10px;
+            gap: 8px;
             scrollbar-width: none;
         }
         .nav-row::-webkit-scrollbar { display: none; }
-
         .btn-menu {
             background: var(--white);
             color: var(--site-pink);
             text-decoration: none;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 800;
-            padding: 8px 18px;
-            border-radius: 25px;
-            border: 2px solid var(--site-pink);
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1.5px solid var(--site-pink);
             text-transform: uppercase;
-            transition: 0.3s ease;
-        }
-        .btn-menu:hover {
-            background: var(--site-pink);
-            color: var(--white);
         }
 
-        /* 🏛️ HEADER - PINK TEXT */
+        /* 🏛️ DYNAMIC SITE TITLE (Mobile 2 lines, Desktop 1 line) */
         header { 
             background: var(--white); 
-            padding: 35px 15px; 
+            padding: 15px 10px; 
             text-align: center;
-            border-bottom: 5px solid var(--site-pink);
+            border-bottom: 3px solid var(--site-pink);
         }
-        .header-logo { width: 75px; height: 75px; border-radius: 50%; margin-bottom: 10px; }
         .site-title { 
             color: var(--site-pink); 
-            font-size: 2rem; 
             font-weight: 900; 
             margin: 0;
-            letter-spacing: 0.5px;
+            line-height: 1.2;
         }
-        .site-url { color: #666; font-size: 0.9rem; margin-top: 5px; font-weight: 600; }
+        .title-line-1 { font-size: 1.6rem; display: block; }
+        .title-line-2 { font-size: 1.2rem; display: block; }
 
-        /* 🔍 SEARCH AREA */
-        .search-area { padding: 30px 15px; text-align: center; }
+        /* 🔍 SEARCH BOX - DECREASED LENGTH */
+        .search-area { padding: 15px; text-align: center; }
         #postSearch { 
-            width: 100%; max-width: 450px; 
-            padding: 15px 25px; 
-            border-radius: 50px; 
+            width: 80%; 
+            max-width: 280px; /* Fixed small width to avoid overflow */
+            padding: 10px 15px; 
+            border-radius: 25px; 
             border: 2px solid var(--primary-blue); 
-            font-size: 16px;
             outline: none;
-            box-shadow: 0 4px 12px rgba(13, 110, 253, 0.1);
+            font-size: 14px;
         }
 
-        /* 📄 CONTENT CARDS - BLUE TOP, BLACK TEXT */
-        .content-wrapper { max-width: 800px; margin: auto; padding: 0 15px; }
+        /* 📄 POST CARDS */
+        .content-wrapper { max-width: 700px; margin: auto; padding: 10px; }
         .post-card { 
             background: var(--white); 
-            border-radius: 12px; 
-            margin-bottom: 25px; 
+            border-radius: 10px; 
+            margin-bottom: 20px; 
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border-top: 6px solid var(--primary-blue); /* Blue Top Line */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            border-top: 5px solid var(--primary-blue); 
         }
-        .post-info-bar { 
-            background: #f8f9fa; 
-            padding: 8px 20px; 
-            font-size: 0.8rem; 
-            color: #555; 
-            border-bottom: 1px solid #eee;
-            font-weight: 700;
-        }
-        .post-body { padding: 25px; }
+        .post-body { padding: 20px; }
         .post-title-link { 
-            color: var(--primary-blue); /* Blue Title */
-            font-size: 1.6rem; 
-            margin: 0 0 12px 0; 
-            cursor: pointer;
+            color: var(--primary-blue); 
+            font-size: 1.4rem; 
             font-weight: 700;
             text-decoration: none;
             display: block;
+            margin-bottom: 8px;
         }
-        .post-text { 
-            color: var(--black); /* Black Body Text */
-            line-height: 1.8; 
-            font-size: 1.1rem;
-            margin: 0;
-        }
+        .post-text { color: #000; line-height: 1.6; font-size: 1rem; margin: 0; }
 
         /* 🔘 DASHAKAM SELECTOR */
-        .dashakam-nav { background: #fff; padding: 30px 15px; text-align: center; border-top: 1px solid #ddd; }
-        .dash-label { font-weight: 800; margin-bottom: 15px; color: var(--dark-blue); }
+        .dashakam-nav { background: #fff; padding: 20px; text-align: center; }
         .dash-circle { 
-            min-width: 45px; height: 45px; border-radius: 50%; 
+            min-width: 40px; height: 40px; border-radius: 50%; 
             border: 1px solid #ccc; background: #fff; font-weight: 700;
-            cursor: pointer; margin: 5px; transition: 0.3s;
+            cursor: pointer; margin: 4px;
         }
         .dash-circle.active { background: var(--site-pink); color: #fff; border-color: var(--site-pink); }
 
-        /* 👣 FOOTER - DARK BLUE */
-        footer { 
-            background: var(--dark-blue); 
-            color: var(--white); 
-            text-align: center; 
-            padding: 40px 20px; 
-            font-size: 0.95rem;
+        footer { background: var(--dark-blue); color: #fff; text-align: center; padding: 30px; }
+
+        /* 💻 DESKTOP ADJUSTMENTS */
+        @media (min-width: 768px) {
+            body { padding-top: 140px; }
+            .title-line-1, .title-line-2 { display: inline; font-size: 2rem; }
+            .title-line-2 { margin-left: 10px; }
+            .btn-menu { font-size: 13px; padding: 8px 16px; }
         }
     </style>
 </head>
 <body>
 
-<nav class="nav-section">
-    <div class="nav-row">
-        <a href="/" class="btn-menu">Home</a>
-        <a href="/about-us" class="btn-menu">About Us</a>
-        <a href="/contact-us" class="btn-menu">Contact Us</a>
-        <a href="/privacy-policy" class="btn-menu">Privacy Policy</a>
-    </div>
-    <div class="nav-row" style="margin-top: 5px;">
-        <a href="https://omnnbc.com" class="btn-menu">Main Site</a>
-        <a href="https://upasana-chandrika.omnnbc.in/" class="btn-menu">Upasana Chandrika</a>
-        <a href="https://manache-shlok.omnnbc.in/" class="btn-menu">Manache Shlok Telugu</a>
-    </div>
-</nav>
+<div class="fixed-header-top">
+    <nav class="nav-section">
+        <div class="nav-row">
+            <a href="/" class="btn-menu">Home</a>
+            <a href="/about-us" class="btn-menu">About Us</a>
+            <a href="/contact-us" class="btn-menu">Contact Us</a>
+            <a href="/privacy-policy" class="btn-menu">Privacy</a>
+            <a href="https://omnnbc.com" class="btn-menu">Main Site</a>
+        </div>
+    </nav>
 
-<header>
-    <img src="https://omnnbc.com/assets/images/Omnnbc-new.png" class="header-logo" alt="Namo Narayanaya">
-    <h1 class="site-title">NAMO NARAYANAYA BHAKTHI CHANNEL</h1>
-    <div class="site-url">omnnbc.com</div>
-</header>
+    <header>
+        <h1 class="site-title">
+            <span class="title-line-1">NAMO NARAYANAYA</span>
+            <span class="title-line-2">BHAKTHI CHANNEL</span>
+        </h1>
+    </header>
+</div>
 
 <div class="search-area">
-    <input type="text" id="postSearch" placeholder="Search Samasam here...">
+    <input type="text" id="postSearch" placeholder="Search Samasam...">
 </div>
 
 <main class="content-wrapper" id="postsContainer">
-    <div style="text-align:center; padding:50px;">🙏 Loading Lyrics...</div>
+    <div style="text-align:center; padding:40px;">🙏 Loading...</div>
 </main>
 
 <section class="dashakam-nav">
-    <div class="dash-label">SELECT DASHAKAM</div>
+    <div style="font-weight:800; margin-bottom:10px;">SELECT DASHAKAM</div>
     <div class="nav-row" id="dashButtons"></div>
 </section>
 
 <footer>
-    <p>© 2026 Namo Narayanaya Bhakthi Channel</p>
-    <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 10px;">Managed by Sangameshwar</p>
+    © 2026 Namo Narayanaya Bhakthi Channel
 </footer>
 
 <script>
@@ -188,7 +167,7 @@
     let currentDashakam = 1;
 
     document.addEventListener("DOMContentLoaded", () => {
-        fetch("./data/posts.json?v=" + Date.now())
+        fetch("./data/posts.json")
         .then(res => res.json())
         .then(data => {
             allPosts = data;
@@ -197,26 +176,20 @@
         });
     });
 
-    function renderPage(searchQuery = "") {
+    function renderPage(query = "") {
         const container = document.getElementById("postsContainer");
-        const filtered = searchQuery 
-            ? allPosts.filter(p => p.title.toLowerCase().includes(searchQuery.toLowerCase()))
+        const filtered = query 
+            ? allPosts.filter(p => p.title.toLowerCase().includes(query.toLowerCase()))
             : allPosts.filter(p => parseInt(p.dashakam) === currentDashakam);
-
-        if (filtered.length === 0) {
-            container.innerHTML = "<p style='text-align:center;'>No results found.</p>";
-            return;
-        }
 
         container.innerHTML = filtered.map(post => `
             <article class="post-card">
-                <div class="post-info-bar">Dashakam ${post.dashakam} | Namo Narayanaya</div>
                 <div class="post-body">
                     <a href="./${post.url}/" class="post-title-link">${post.title}</a>
-                    <p class="post-text">${post.description ? post.description.substring(0, 160) : "Click to read more"}...</p>
+                    <p class="post-text">${post.description ? post.description.substring(0, 120) : ""}...</p>
                 </div>
             </article>
-        `).join('');
+        `).join('') || "<p style='text-align:center;'>No content found.</p>";
     }
 
     function setupDashNav() {
@@ -238,12 +211,6 @@
 
     document.getElementById("postSearch").addEventListener("input", e => {
         renderPage(e.target.value);
-    });
-
-    // Security
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.addEventListener('keydown', e => {
-        if (e.ctrlKey && ['c', 'u', 's', 'a', 'p'].includes(e.key)) e.preventDefault();
     });
 </script>
 
