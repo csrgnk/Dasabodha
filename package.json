@@ -1,13 +1,46 @@
-{
-  "name": "dasabodha-sitemap-automation",
-  "version": "1.0.0",
-  "description": "Automated sitemap generator for dasabodha.omnnbc.in",
-  "main": "generate-sitemap.js",
-  "scripts": {
-    "build": "node generate-sitemap.js"
-  },
-  "dependencies": {
-    "sitemap": "^7.1.1",
-    "fs-extra": "^10.0.0"
+// Optimized generate-sitemap.js using your new dependencies
+const fs = require('fs-extra');
+const path = require('path');
+const { SitemapStream, streamToPromise } = require('sitemap');
+const { createWriteStream } = require('fs');
+
+const DOMAIN = "https://dasabodha.omnnbc.in";
+const POSTS_DIR = path.join(__dirname, 'posts');
+const PAGES_FILE = path.join(__dirname, 'data', 'pages.json');
+
+async function generate() {
+  const smStream = new SitemapStream({ hostname: DOMAIN });
+  
+  // 1. Add Home
+  smStream.write({ url: '/', changefreq: 'daily', priority: 1.0 });
+
+  // 2. Add Pages from JSON
+  if (await fs.pathExists(PAGES_FILE)) {
+    const pages = await fs.readJson(PAGES_FILE);
+    pages.forEach(page => {
+      const slug = (page.id || page.file).replace('.html', '');
+      if (slug !== 'index') {
+        smStream.write({ url: `/${slug}/`, changefreq: 'monthly', priority: 0.9 });
+      }
+    });
   }
+
+  // 3. Add Posts from Folder
+  if (await fs.pathExists(POSTS_DIR)) {
+    const files = await fs.readdir(POSTS_DIR);
+    files.forEach(file => {
+      if (file.endsWith('.html') && file !== 'index.html') {
+        const slug = file.replace('.html', '');
+        smStream.write({ url: `/${slug}/`, changefreq: 'monthly', priority: 0.8 });
+      }
+    });
+  }
+
+  smStream.end();
+
+  const sitemapOutput = await streamToPromise(smStream).then(sm => sm.toString());
+  await fs.writeFile('./sitemap.xml', sitemapOutput);
+  console.log("✅ Professional Sitemap Generated!");
 }
+
+generate().catch(console.error);
