@@ -2,69 +2,98 @@
 <html lang="te">
 <head>
     <script type="text/javascript">
-        // Disable right-click and selection for content protection
         document.addEventListener('contextmenu', e => e.preventDefault());
-        document.addEventListener('keydown', e => {
-            if (e.ctrlKey && ['c', 'u', 's', 'a', 'p'].includes(e.key)) e.preventDefault();
-        });
         document.onselectstart = () => false;
     </script>
 
     <style>
-        body { -webkit-user-select: none; user-select: none; }
+        body { -webkit-user-select: none; user-select: none; margin: 0; font-family: Arial, sans-serif; background: #F4FBFB; color: #333; }
     </style>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Namo Narayanaya Bhakthi Channel</title>
+    <title>404 - Page Not Found | Namo Narayanaya</title>
 
     <style>
         :root {
             --primary: #3FA3A1;
             --nav-bg: #145A5A;
-            --bg: #F4FBFB;
             --accent: #F4D03F;
             --site-pink: #E91E63;
         }
 
-        body { margin: 0; font-family: Arial, sans-serif; background: var(--bg); color: #333; }
-
-        /* NAV */
-        .nav-scroll { background: var(--nav-bg); display: flex; overflow-x: auto; padding: 10px; scrollbar-width: none; }
-        .nav-scroll::-webkit-scrollbar { display: none; }
-        .nav-scroll a { color: #fff; text-decoration: none; padding: 6px 14px; margin: 0 4px; background: rgba(255,255,255,0.1); border-radius: 20px; white-space: nowrap; font-size: 13px; font-weight: bold; border: 1px solid rgba(255,255,255,0.2); }
-
         /* HEADER */
-        .site-header { background: #fff; padding: 15px; border-bottom: 3px solid var(--accent); text-align: center; }
-        .site-brand { display: flex; align-items: center; justify-content: center; gap: 12px; }
-        .logo { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 2px solid var(--site-pink); }
+        .site-header {
+            background: #fff;
+            padding: 15px;
+            border-bottom: 3px solid var(--accent);
+            text-align: center;
+        }
+        .site-brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        .logo { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid var(--site-pink); }
         .title-wrap { text-align: left; color: var(--site-pink); font-weight: 800; }
         .title-line1 { font-size: 1.6rem; display: block; line-height: 1.1; }
         .title-line2 { font-size: 1.2rem; display: block; }
 
-        /* BREADCRUMBS */
-        .breadcrumbs { padding: 10px 0; font-size: 13px; color: #666; }
-        .breadcrumbs a { color: var(--primary); text-decoration: none; font-weight: bold; }
-        .breadcrumbs span { margin: 0 5px; color: #ccc; }
+        /* ERROR CONTENT */
+        .container {
+            max-width: 600px;
+            margin: 80px auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .error-code {
+            font-size: 100px;
+            font-weight: bold;
+            color: var(--nav-bg);
+            margin: 0;
+            opacity: 0.2;
+        }
+        .error-message {
+            font-size: 24px;
+            color: var(--primary);
+            margin-top: -30px;
+            font-weight: bold;
+        }
+        .description {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #666;
+            margin: 20px 0;
+        }
 
-        /* CONTENT */
-        .container { max-width: 800px; margin: 10px auto; padding: 0 15px; }
-        .post-title { background: linear-gradient(135deg, #2E8B87, #3FA3A1); color: #fff; padding: 18px; text-align: center; border-radius: 10px; font-size: 1.3rem; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .post-content { background: #fff; padding: 25px; margin-top: 15px; border-radius: 10px; line-height: 1.8; box-shadow: 0 2px 10px rgba(0,0,0,0.05); color: #000; }
+        /* HOME BUTTON */
+        .btn-home {
+            display: inline-block;
+            padding: 15px 35px;
+            background: var(--primary);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(63, 163, 161, 0.3);
+        }
+        .btn-home:hover {
+            transform: translateY(-3px);
+            background: var(--nav-bg);
+        }
 
-        /* SHARE SECTION */
-        .share-box { margin-top: 30px; padding: 20px; border-top: 1px solid #eee; text-align: center; }
-        .share-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 10px; }
-        .share-btn { flex: 1; min-width: 85px; padding: 10px; color: #fff; border-radius: 5px; text-decoration: none; font-size: 12px; font-weight: bold; border: none; cursor: pointer; transition: 0.3s; }
-        .share-btn:active { transform: scale(0.95); }
-
-        /* NAVIGATION BUTTONS */
-        .post-nav { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 25px; }
-        .btn-action, .btn-home { padding: 12px; text-align: center; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 14px; }
-        .btn-action { background: var(--primary); color: #fff; }
-        .btn-home { border: 2px solid var(--primary); color: var(--primary); }
-
-        .site-footer { background: #145A5A; color: #fff; text-align: center; padding: 30px 10px; margin-top: 50px; font-size: 14px; }
+        .site-footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: #145A5A;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 14px;
+        }
 
         @media(min-width: 768px) {
             .title-wrap { display: flex; gap: 10px; align-items: center; }
@@ -74,14 +103,6 @@
 </head>
 
 <body>
-
-<nav class="nav-scroll">
-    <a href="/">Home</a>
-    <a href="https://omnnbc.com/">Main Site</a>
-    <a href="/about-us">About Us</a>
-    <a href="/contact-us">Contact Us</a>
-    <a href="/privacy-policy">Privacy Policy</a>
-</nav>
 
 <header class="site-header">
     <div class="site-brand">
@@ -94,123 +115,18 @@
 </header>
 
 <div class="container">
-    <div id="breadcrumb" class="breadcrumbs"></div>
-    <div id="postTitle" class="post-title">Loading...</div>
-    <div id="postContent" class="post-content">Connecting...</div>
+    <h1 class="error-code">404</h1>
+    <div class="error-message">పేజీ కనబడలేదు (Not Found)</div>
+    <p class="description">
+        క్షమించండి! మీరు వెతుకుతున్న సమాచారం లేదా పేజీ ఇక్కడ అందుబాటులో లేదు. <br>
+        లింక్ తప్పుగా ఉండవచ్చు లేదా ఆ సమాచారం తొలగించబడి ఉండవచ్చు.
+    </p>
+    <a href="/" class="btn-home">మళ్ళీ హోమ్ పేజీకి వెళ్ళండి</a>
 </div>
 
 <footer class="site-footer">
     © 2026 Namo Narayanaya Bhakthi Channel
 </footer>
-
-<script>
-    const repoName = "Dasabodha";
-    const mainHome = window.location.origin + "/";
-    const pathParts = location.pathname.split('/').filter(Boolean);
-    const slug = pathParts[pathParts.length - 1] || "index";
-    const isCustomDomain = location.hostname.includes("omnnbc.in");
-    const fetchBase = isCustomDomain ? "" : `/${repoName}`;
-
-    function buildBreadcrumbs(pageTitle, dashakamNum = null) {
-        const breadcrumbDiv = document.getElementById("breadcrumb");
-        let html = `<a href="${mainHome}">Home</a>`;
-        if (dashakamNum) html += `<span>&gt;</span> Dashakam ${dashakamNum}`;
-        html += `<span>&gt;</span> ${pageTitle}`;
-        breadcrumbDiv.innerHTML = html;
-    }
-
-    function shareButtons(title) {
-        const url = encodeURIComponent(window.location.href);
-        const text = encodeURIComponent(title + " - ");
-        return `
-        <div class="share-box">
-            <b>Share Content</b>
-            <div class="share-grid">
-                <a class="share-btn" href="https://api.whatsapp.com/send?text=${text}${url}" target="_blank" style="background:#25D366;">WhatsApp</a>
-                <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=${url}" target="_blank" style="background:#1877F2;">Facebook</a>
-                <a class="share-btn" href="https://twitter.com/intent/tweet?url=${url}&text=${text}" target="_blank" style="background:#000000;">Twitter</a>
-                <button class="share-btn" id="copyBtn" onclick="copyLink()" style="background:#555;">Copy Link</button>
-            </div>
-        </div>`;
-    }
-
-    function copyLink() {
-        const dummy = document.createElement('input');
-        document.body.appendChild(dummy);
-        dummy.value = window.location.href;
-        dummy.select();
-        document.execCommand('copy');
-        document.body.removeChild(dummy);
-        const btn = document.getElementById('copyBtn');
-        btn.innerText = "Copied! ✅";
-        setTimeout(() => { btn.innerText = "Copy Link"; }, 2000);
-    }
-
-    function buildNav(posts, i) {
-        let prev = posts[i - 1], next = posts[i + 1];
-        return `<div class="post-nav">
-            ${prev ? `<a href="${mainHome}${prev.url}/" class="btn-action">← Prev</a>` : `<div></div>`}
-            <a href="${mainHome}" class="btn-home">HOME</a>
-            ${next ? `<a href="${mainHome}${next.url}/" class="btn-action">Next →</a>` : `<div></div>`}
-        </div>`;
-    }
-
-    function show404() {
-        document.getElementById("postTitle").innerText = "404 - Not Found";
-        document.getElementById("postContent").innerHTML = `
-            <div style="text-align:center; padding:30px;">
-                <p>Sorry, the page you are looking for does not exist.</p>
-                <a href="${mainHome}" class="btn-home" style="display:inline-block; margin-top:20px;">Return Home</a>
-            </div>`;
-    }
-
-    Promise.all([
-        fetch(`${fetchBase}/data/posts.json?v=${Date.now()}`).then(r => r.json()),
-        fetch(`${fetchBase}/data/pages.json?v=${Date.now()}`).then(r => r.json())
-    ]).then(([posts, pages]) => {
-        // Normalize Sorting
-        posts.forEach(p => {
-            let d = p.url.match(/dashakam-(\d+)/i) || p.title.match(/Dashakam\s*(\d+)/i);
-            let s = p.url.match(/samasam-(\d+)/i) || p.title.match(/Samasam\s*(\d+)/i);
-            p.dashakam = d ? parseInt(d[1]) : 0;
-            p.samasam = s ? parseInt(s[1]) : 0;
-        });
-
-        posts.sort((a, b) => {
-            if (a.dashakam !== b.dashakam) return a.dashakam - b.dashakam;
-            return a.samasam - b.samasam;
-        });
-
-        const cleanSlug = slug.toLowerCase().replace(/\/$/, "");
-        let i = posts.findIndex(p => p.url.toLowerCase() === cleanSlug);
-        let post = posts[i];
-
-        if (post) {
-            document.title = `${post.title} | Namo Narayanaya`;
-            document.getElementById("postTitle").innerText = post.title;
-            buildBreadcrumbs(post.title, post.dashakam);
-            
-            fetch(`${fetchBase}/posts/${post.url}.html`)
-                .then(r => { if(!r.ok) throw Error(); return r.text(); })
-                .then(html => {
-                    document.getElementById("postContent").innerHTML = html + shareButtons(post.title) + buildNav(posts, i);
-                }).catch(() => show404());
-        } else {
-            let page = pages.find(p => (p.id || p.file) === cleanSlug);
-            if (page) {
-                fetch(`${fetchBase}/pages/${page.file}.html`)
-                    .then(r => r.text())
-                    .then(html => {
-                        document.getElementById("postTitle").innerText = page.title;
-                        buildBreadcrumbs(page.title);
-                        document.getElementById("postContent").innerHTML = html + shareButtons(page.title);
-                    });
-            } else {
-                show404();
-            }
-        }
-    }).catch(() => show404());
-</script>
 
 </body>
 </html>
