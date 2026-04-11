@@ -5,11 +5,11 @@ on:
     branches:
       - main
     paths:
+      # Trigger only when these files change
       - 'posts/**'
       - 'data/**'
       - 'generate-sitemap.js'
-    paths-ignore:
-      - 'sitemap.xml'
+      # sitemap.xml is NOT listed here, so it won't trigger a loop
 
 permissions:
   contents: write
@@ -28,7 +28,6 @@ jobs:
           node-version: '18'
 
       - name: Install Dependencies
-        # This ensures sitemap and fs-extra are available
         run: npm install
 
       - name: Run Sitemap Script
