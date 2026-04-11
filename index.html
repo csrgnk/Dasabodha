@@ -1,287 +1,229 @@
 <!DOCTYPE html>
-
 <html lang="te">
 <head>
+    <script type="text/javascript">
+        // Protection: Disable right-click and selection
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.ctrlKey && ['c', 'u', 's', 'a', 'p'].includes(e.key)) e.preventDefault();
+        });
+        document.onselectstart = () => false;
+    </script>
 
-```
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dasabodha Telugu Lyrics | Namo Narayanaya</title>
+    <style>
+        body { -webkit-user-select: none; user-select: none; }
+    </style>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Official Telugu Lyrics for Dasabodha Grantha by Namo Narayanaya Bhakthi Channel.">
+    <title>Dasabodha Grantha Telugu Lyrics | Namo Narayanaya</title>
 
-<!-- Protection -->
-<script>
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.addEventListener('keydown', e => {
-        if (e.ctrlKey && ['c','u','s','a','p'].includes(e.key)) e.preventDefault();
-    });
-    document.onselectstart = () => false;
-</script>
+    <link rel="icon" type="image/png" href="https://omnnbc.com/assets/images/Omnnbc-new.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
-
-<style>
-    :root {
-        --primary: #3FA3A1;
-        --secondary: #1A1A1A;
-        --accent: #F4D03F;
-        --bg: #F4FBFB;
-        --nav-bg: #145A5A;
-        --site-pink: #E91E63;
-    }
-
-    body {
-        margin: 0;
-        font-family: 'Inter', sans-serif;
-        background: var(--bg);
-        color: #222;
-    }
-
-    /* 🚫 Disable selection */
-    body { user-select: none; }
-
-    /* 📱 NAV */
-    .nav-wrapper { background: var(--nav-bg); }
-    .nav-row {
-        display: flex;
-        overflow-x: auto;
-        gap: 10px;
-        padding: 8px 12px;
-    }
-    .nav-row a {
-        background: #fff;
-        color: var(--site-pink);
-        text-decoration: none;
-        font-size: 0.85rem;
-        font-weight: 800;
-        padding: 6px 12px;
-        border-radius: 20px;
-        border: 1.5px solid var(--site-pink);
-        white-space: nowrap;
-    }
-
-    /* 🏛️ HEADER */
-    header {
-        background: #fff;
-        padding: 18px 14px;
-        border-bottom: 3px solid var(--accent);
-    }
-
-    .header-container {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 12px;
-        max-width: 900px;
-        margin: auto;
-    }
-
-    .logo {
-        width: 55px;
-        height: 55px;
-        border-radius: 50%;
-        border: 2px solid var(--site-pink);
-    }
-
-    .site-title-main {
-        font-family: 'Crimson Text', serif;
-        color: var(--site-pink);
-        margin: 0;
-        line-height: 1.2;
-    }
-
-    /* Mobile */
-    .line-1 { display: block; font-size: 1.4rem; font-weight: 700; }
-    .line-2 { display: block; font-size: 1.1rem; font-weight: 600; }
-
-    .site-title-sub {
-        background: #eee;
-        padding: 5px 16px;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        margin: 10px auto 0;
-        text-align: center;
-        width: fit-content;
-    }
-
-    /* Desktop */
-    @media (min-width: 768px) {
-        .logo { width: 75px; height: 75px; }
-
-        .site-title-main {
-            display: flex;
-            gap: 8px;
-            align-items: center;
+    <style>
+        :root {
+            --primary: #3FA3A1;
+            --secondary: #1A1A1A;
+            --accent: #F4D03F;
+            --bg: #F4FBFB;
+            --top-links-bg: #145A5A;
+            --outer-links-bg: #3FA3A1;
+            --site-pink: #E91E63;
         }
 
-        .line-1, .line-2 {
-            display: inline;
-            font-size: 2rem;
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: #222; overflow-x: hidden; }
+
+        /* ↔️ HORIZONTAL SCROLL MENUS */
+        .fixed-nav-wrapper { position: sticky; top: 0; z-index: 1000; }
+        .top-links, .outer-links {
+            display: flex; overflow-x: auto; white-space: nowrap;
+            gap: 15px; padding: 12px; scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
         }
-    }
+        .top-links::-webkit-scrollbar, .outer-links::-webkit-scrollbar { display: none; }
+        .top-links { background: var(--top-links-bg); }
+        .outer-links { background: var(--outer-links-bg); border-bottom: 2px solid rgba(0,0,0,0.1); }
 
-    /* 🔍 SEARCH */
-    .search-area {
-        padding: 20px;
-        text-align: center;
-    }
+        .fixed-nav-wrapper a {
+            color: #fff; text-decoration: none; font-size: 0.85rem;
+            font-weight: 700; padding: 6px 10px; flex-shrink: 0;
+            background: rgba(255,255,255,0.1); border-radius: 15px;
+        }
 
-    #postSearch {
-        width: 90%;
-        max-width: 320px;
-        padding: 10px 16px;
-        border-radius: 25px;
-        border: 2px solid var(--primary);
-        text-align: center;
-    }
+        /* 🏛️ HEADER - Mobile: 2 Lines | Desktop: 1 Line */
+        header { background: #fff; padding: 25px 10px; border-bottom: 3px solid var(--accent); }
+        .header-container { display: flex; align-items: center; justify-content: center; gap: 15px; }
+        .header-logo { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid var(--site-pink); }
+        
+        .site-title-main { font-family: 'Crimson Text', serif; color: var(--site-pink); margin: 0; line-height: 1.1; text-align: left; }
+        .line-1 { font-size: 1.6rem; display: block; font-weight: 700; }
+        .line-2 { font-size: 1.2rem; display: block; font-weight: 600; }
 
-    /* 📄 POSTS */
-    .container {
-        max-width: 800px;
-        margin: auto;
-        padding: 0 12px;
-    }
+        /* Responsive Title Logic */
+        @media (min-width: 768px) {
+            .line-1, .line-2 { display: inline-block; font-size: 2.1rem; }
+            .line-2 { margin-left: 12px; }
+            .site-title-main { text-align: center; }
+            .header-logo { width: 75px; height: 75px; }
+        }
 
-    .post-card {
-        background: #fff;
-        border-radius: 12px;
-        padding: 18px;
-        margin-bottom: 16px;
-        border-left: 5px solid var(--primary);
-    }
+        .sub-container { text-align: center; margin-top: 15px; }
+        .site-title-sub { background: #eee; padding: 5px 18px; border-radius: 20px; font-size: 0.85rem; color: #444; display: inline-block; font-weight: 600; }
 
-    .post-title {
-        margin: 0 0 8px;
-        font-size: 1.3rem;
-        color: var(--primary);
-    }
+        /* 🔍 SEARCH BOX */
+        .search-area { width: 100%; display: flex; justify-content: center; margin: 25px 0; }
+        #postSearch { 
+            width: 85%; max-width: 300px; 
+            padding: 12px; border-radius: 25px; border: 2px solid var(--primary); 
+            text-align: center; font-size: 16px; outline: none;
+        }
 
-    .post-desc {
-        font-size: 0.95rem;
-        color: #333;
-    }
+        /* 📄 CONTENT */
+        .container { max-width: 750px; margin: auto; padding: 0 15px; min-height: 350px; }
+        .post-card { 
+            background: #fff; border-radius: 12px; padding: 20px; margin-bottom: 15px; 
+            border-left: 6px solid var(--primary); box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            cursor: pointer; transition: transform 0.2s;
+        }
+        .post-card:hover { transform: translateY(-3px); }
+        .post-title-click { margin: 0 0 8px; font-size: 1.35rem; color: var(--primary); font-weight: 700; }
+        .post-desc { margin: 0; font-size: 1rem; color: #333; line-height: 1.6; }
 
-    /* 🔘 DASH BUTTONS */
-    .nav-section {
-        text-align: center;
-        padding: 25px 10px;
-        background: #fff;
-    }
+        /* 🔘 DASHAKAM NAV */
+        .nav-section { text-align: center; padding: 30px 0; background: #fff; margin-top: 40px; border-top: 1px solid #ddd; }
+        .scroll-container { display: flex; overflow-x: auto; gap: 10px; padding: 10px 20px; scrollbar-width: none; }
+        .scroll-container::-webkit-scrollbar { display: none; }
+        .dash-btn { 
+            min-width: 110px; padding: 10px; border-radius: 25px; background: #fff; 
+            cursor: pointer; border: 2px solid #ddd; font-weight: 700; flex-shrink: 0; transition: 0.3s;
+        }
+        .dash-btn.active { background: var(--secondary); color: var(--accent); border-color: var(--secondary); }
 
-    .dash-circle {
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        border: 2px solid #ddd;
-        margin: 5px;
-        cursor: pointer;
-    }
-
-    .dash-circle.active {
-        background: var(--site-pink);
-        color: #fff;
-        border-color: var(--site-pink);
-    }
-
-    footer {
-        background: var(--nav-bg);
-        color: #fff;
-        text-align: center;
-        padding: 30px;
-    }
-</style>
-```
-
+        footer { background: #145A5A; color: #fff; text-align: center; padding: 35px 20px; font-size: 0.95rem; }
+    </style>
 </head>
 
 <body>
 
-<nav class="nav-wrapper">
-    <div class="nav-row">
-        <a href="/">HOME</a>
-        <a href="/about-us">ABOUT</a>
-        <a href="/contact-us">CONTACT</a>
-        <a href="https://omnnbc.com" target="_blank">MAIN SITE</a>
+<div class="fixed-nav-wrapper">
+    <div class="top-links">
+        <a href="/">Home</a>
+        <a href="/about-us">About Us</a>
+        <a href="/contact-us">Contact Us</a>
+        <a href="/privacy-policy">Privacy Policy</a>
+    </div> 
+    <div class="outer-links">
+        <a href="https://omnnbc.com/" target="_blank">Main Site</a>
+        <a href="https://upasana-chandrika.omnnbc.in/" target="_blank">Upasana Chandrika</a>
+        <a href="https://manache-shlok.omnnbc.in/" target="_blank">Manache Shlok</a>
     </div>
-</nav>
+</div>
 
 <header>
     <div class="header-container">
-        <img src="https://omnnbc.com/assets/images/Omnnbc-new.png" class="logo">
+        <img src="https://omnnbc.com/assets/images/Omnnbc-new.png" class="header-logo" alt="Logo">
         <h1 class="site-title-main">
             <span class="line-1">NAMO NARAYANAYA</span>
             <span class="line-2">BHAKTHI CHANNEL</span>
         </h1>
     </div>
-    <div class="site-title-sub">Dasabodha Grantha Telugu Lyrics</div>
+    <div class="sub-container">
+        <div class="site-title-sub">Dasabodha Grantha Telugu Lyrics</div>
+    </div>
 </header>
 
 <div class="search-area">
-    <input type="text" id="postSearch" placeholder="Search Samasam...">
+    <input type="text" id="postSearch" placeholder="Search Samasam here..." aria-label="Search">
 </div>
 
 <main class="container" id="postsContainer">
-    <div style="text-align:center;padding:40px;">Loading...</div>
+    <div style="text-align:center;padding:50px; font-weight:700;">🙏 Loading Posts...</div>
 </main>
 
 <nav class="nav-section">
-    <div id="dashButtons"></div>
+    <p style="font-weight: 800; color: var(--top-links-bg);">SELECT DASHAKAM</p>
+    <div class="scroll-container" id="dashButtons"></div>
 </nav>
 
 <footer>
     © 2026 Namo Narayanaya Bhakthi Channel
+    <br><small style="opacity:0.7">Optimized for Clean URLs</small>
 </footer>
 
 <script>
 let allPosts = [];
 let currentDashakam = 1;
 
-fetch("/data/posts.json?v=" + Date.now())
-.then(res => res.json())
-.then(data => {
-    allPosts = data;
-    renderPage();
-    setupDashNav();
+document.addEventListener("DOMContentLoaded", () => {
+    // CRITICAL: Absolute path /data/ ensures no 404 on Samasam pages
+    fetch("/data/posts.json?v=" + Date.now())
+    .then(res => res.json())
+    .then(data => {
+        allPosts = data;
+        renderPage();
+        setupDashNav();
+    })
+    .catch(err => {
+        document.getElementById("postsContainer").innerHTML = "Error loading content. Please refresh.";
+    });
 });
 
-function renderPage(search=""){
-    const c = document.getElementById("postsContainer");
+function openPost(url){
+    // CRITICAL: Leading slash / ensures clean URL routing
+    window.location.href = "/" + url + "/";
+}
 
-    let f = search
-        ? allPosts.filter(p => p.title.toLowerCase().includes(search.toLowerCase()))
+function renderPage(searchTerm = "") {
+    const container = document.getElementById("postsContainer");
+    
+    let filtered = searchTerm 
+        ? allPosts.filter(p => p.title.toLowerCase().includes(searchTerm.toLowerCase()))
         : allPosts.filter(p => parseInt(p.dashakam) === currentDashakam);
 
-    if(!f.length){
-        c.innerHTML = "No results";
+    // D1 S1, D1 S2 Sorting
+    filtered.sort((a, b) => {
+        const numA = parseInt(a.url.match(/samasam-(\d+)/)?.[1] || 0);
+        const numB = parseInt(b.url.match(/samasam-(\d+)/)?.[1] || 0);
+        return numA - numB;
+    });
+
+    if (filtered.length === 0) {
+        container.innerHTML = `<div style="text-align:center;padding:40px;">No results found.</div>`;
         return;
     }
 
-    c.innerHTML = f.map(p => `
-        <div class="post-card">
-            <a href="/${p.url}/">
-                <h2 class="post-title">${p.title}</h2>
-                <p class="post-desc">${p.description || ""}</p>
-            </a>
-        </div>
-    `).join("");
+    container.innerHTML = filtered.map(post => `
+        <article class="post-card" onclick="openPost('${post.url}')">
+            <h2 class="post-title-click">${post.title}</h2>
+            <p class="post-desc">${post.description ? post.description.substring(0,140) : "మరింత సమాచారం కోసం క్లిక్ చేయండి"}...</p>
+        </article>
+    `).join('');
 }
 
 function setupDashNav(){
     const wrap = document.getElementById("dashButtons");
-
-    for(let i=1;i<=20;i++){
-        const b = document.createElement("button");
-        b.innerText = i;
-        b.className = "dash-circle";
-        b.onclick = () => {
+    wrap.innerHTML = "";
+    for(let i=1; i<=20; i++){
+        const btn = document.createElement("button");
+        btn.innerText = "Dashakam " + i;
+        btn.className = "dash-btn" + (i === currentDashakam ? " active" : "");
+        btn.onclick = () => {
             currentDashakam = i;
+            document.querySelectorAll(".dash-btn").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            document.getElementById("postSearch").value = "";
             renderPage();
+            window.scrollTo({top: 0, behavior: 'smooth'});
         };
-        wrap.appendChild(b);
+        wrap.appendChild(btn);
     }
 }
 
-document.getElementById("postSearch").addEventListener("input", e=>{
+document.getElementById("postSearch").addEventListener("input", e => {
     renderPage(e.target.value);
 });
 </script>
