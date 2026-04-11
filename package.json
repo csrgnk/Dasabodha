@@ -1,7 +1,7 @@
 {
-  "name": "dasabodha-automation",
+  "name": "dasabodha-sitemap-automation",
   "version": "1.0.0",
-  "description": "Sitemap and Clean URL automation for dasabodha.omnnbc.in",
+  "description": "Automated sitemap generator for dasabodha.omnnbc.in",
   "main": "generate-sitemap.js",
   "scripts": {
     "build": "node generate-sitemap.js"
