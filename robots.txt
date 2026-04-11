@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+# Block direct access to folders
+Disallow: /posts/
+Disallow: /pages/
+Disallow: /data/
+Disallow: /assets/
+# Block specific tool files
+Disallow: /generate-sitemap.js
+Disallow: /package.json
+Disallow: /tool.html
+
+# Sitemap Location
+Sitemap: https://dasabodha.omnnbc.in/sitemap.xml
