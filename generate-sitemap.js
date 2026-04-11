@@ -1,5 +1,5 @@
 const { SitemapStream, streamToPromise } = require('sitemap');
-const { createWriteStream, readdirSync } = require('fs');
+const { createWriteStream, readdirSync, existsSync } = require('fs');
 const { resolve } = require('path');
 
 async function generate() {
@@ -8,27 +8,38 @@ async function generate() {
 
   sitemap.pipe(writeStream);
 
-  // Home Page
+  // 1. ADD HOMEPAGE
   sitemap.write({ url: '/', changefreq: 'daily', priority: 1.0 });
 
-  // Scan Posts Folder for Clean URLs
-  try {
-    const postsDir = resolve(__dirname, 'posts');
-    const files = readdirSync(postsDir);
-
-    files.forEach(file => {
+  // 2. SCAN PAGES FOLDER (Prioritized First)
+  const pagesDir = resolve(__dirname, 'pages');
+  if (existsSync(pagesDir)) {
+    const pageFiles = readdirSync(pagesDir);
+    pageFiles.forEach(file => {
       if (file.endsWith('.html') && file !== 'index.html') {
-        const cleanURL = `/${file.replace('.html', '')}`;
-        sitemap.write({ url: cleanURL, changefreq: 'weekly', priority: 0.8 });
+        const cleanPath = `/${file.replace('.html', '')}`;
+        sitemap.write({ url: cleanPath, changefreq: 'monthly', priority: 0.9 });
       }
     });
-  } catch (err) {
-    console.log("Posts folder not found, skipping specific posts.");
+    console.log('Successfully added Pages to sitemap.');
+  }
+
+  // 3. SCAN POSTS FOLDER (Added Second)
+  const postsDir = resolve(__dirname, 'posts');
+  if (existsSync(postsDir)) {
+    const postFiles = readdirSync(postsDir);
+    postFiles.forEach(file => {
+      if (file.endsWith('.html') && file !== 'index.html') {
+        const cleanPath = `/${file.replace('.html', '')}`;
+        sitemap.write({ url: cleanPath, changefreq: 'weekly', priority: 0.8 });
+      }
+    });
+    console.log('Successfully added Posts to sitemap.');
   }
 
   sitemap.end();
   await streamToPromise(sitemap);
-  console.log('✅ sitemap.xml created successfully at the root!');
+  console.log('✅ sitemap.xml has been generated at the root directory.');
 }
 
-generate();
+generate().catch(console.error);
