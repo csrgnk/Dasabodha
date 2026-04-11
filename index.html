@@ -6,7 +6,6 @@
     <title>Namo Narayanaya Bhakthi Channel</title>
 
     <link rel="icon" type="image/png" href="https://omnnbc.com/assets/images/Omnnbc-new.png">
-    <link rel="apple-touch-icon" href="https://omnnbc.com/assets/images/Omnnbc-new.png">
 
     <style>
         :root {
@@ -21,28 +20,15 @@
             margin: 0; 
             font-family: 'Segoe UI', Arial, sans-serif; 
             background: var(--bg-light); 
-            /* Spacing for Fixed Header - Adjusted for two rows of links + logo */
-            padding-top: 230px; 
         }
 
-        /* 📱 FIXED HEADER SETUP */
-        .fixed-header-top {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            background: var(--white);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        /* 🔘 NAVIGATION ROWS (TWO LINES) */
+        /* 🔘 NAVIGATION SETUP - TWO ROWS */
         .nav-section { background: var(--dark-blue); padding: 5px 0; }
         .nav-row {
             display: flex;
             overflow-x: auto;
             white-space: nowrap;
-            padding: 4px 10px;
+            padding: 5px 10px;
             gap: 8px;
             scrollbar-width: none;
         }
@@ -58,22 +44,21 @@
             border-radius: 20px;
             border: 1.5px solid var(--site-pink);
             text-transform: uppercase;
-            display: inline-block;
         }
 
-        /* 🏛️ HEADER, LOGO & TITLE */
+        /* 🏛️ HEADER (Non-Sticky) */
         header { 
             background: var(--white); 
-            padding: 10px 10px; 
+            padding: 20px 10px; 
             text-align: center;
             border-bottom: 3px solid var(--site-pink);
         }
 
         .site-logo {
-            width: 45px;
-            height: 45px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             border: 2px solid var(--site-pink);
         }
 
@@ -83,15 +68,16 @@
             margin: 0;
             line-height: 1.2;
         }
-        /* Mobile: 2 lines */
-        .title-line-1 { font-size: 1.4rem; display: block; }
-        .title-line-2 { font-size: 1.1rem; display: block; }
 
-        /* 🔍 SEARCH BOX */
-        .search-area { padding: 15px; text-align: center; }
+        /* Mobile View: 2 Lines */
+        .title-line-1 { font-size: 1.5rem; display: block; }
+        .title-line-2 { font-size: 1.2rem; display: block; }
+
+        /* 🔍 SEARCH BOX - COMPACT */
+        .search-area { padding: 20px; text-align: center; }
         #postSearch { 
-            width: 85%; 
-            max-width: 280px; 
+            width: 80%; 
+            max-width: 260px; /* Reduced width */
             padding: 10px 15px; 
             border-radius: 25px; 
             border: 2px solid var(--primary-blue); 
@@ -99,7 +85,7 @@
             font-size: 14px;
         }
 
-        /* 📄 POST CARDS */
+        /* 📄 POST CARDS - BLUE TOP, BLACK TEXT */
         .content-wrapper { max-width: 700px; margin: auto; padding: 10px; }
         .post-card { 
             background: var(--white); 
@@ -116,12 +102,12 @@
             font-weight: 700;
             text-decoration: none;
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
-        .post-text { color: #000; line-height: 1.6; font-size: 1rem; margin: 0; }
+        .post-text { color: #000000; line-height: 1.6; font-size: 1.05rem; margin: 0; }
 
         /* 🔘 DASHAKAM SELECTOR */
-        .dashakam-nav { background: #fff; padding: 20px; text-align: center; border-top: 1px solid #eee; }
+        .dashakam-nav { background: #fff; padding: 25px; text-align: center; border-top: 1px solid #eee; }
         .dash-circle { 
             min-width: 42px; height: 42px; border-radius: 50%; 
             border: 1px solid #ccc; background: #fff; font-weight: 700;
@@ -129,53 +115,50 @@
         }
         .dash-circle.active { background: var(--site-pink); color: #fff; border-color: var(--site-pink); }
 
-        footer { background: var(--dark-blue); color: #fff; text-align: center; padding: 30px; font-size: 0.9rem; }
+        footer { background: var(--dark-blue); color: #fff; text-align: center; padding: 40px; }
 
         /* 💻 DESKTOP ADJUSTMENTS */
         @media (min-width: 768px) {
-            body { padding-top: 180px; }
-            .title-line-1, .title-line-2 { display: inline; font-size: 1.8rem; }
+            .title-line-1, .title-line-2 { display: inline; font-size: 2rem; }
             .title-line-2 { margin-left: 10px; }
-            .site-logo { width: 55px; height: 55px; }
+            .site-logo { width: 65px; height: 65px; }
         }
     </style>
 </head>
 <body>
 
-<div class="fixed-header-top">
-    <nav class="nav-section">
-        <div class="nav-row">
-            <a href="/" class="btn-menu">Home</a>
-            <a href="/about-us" class="btn-menu">About Us</a>
-            <a href="/contact-us" class="btn-menu">Contact Us</a>
-            <a href="/privacy-policy" class="btn-menu">Privacy Policy</a>
-        </div>
-        <div class="nav-row" style="padding-top: 0; border-top: 1px solid rgba(255,255,255,0.1);">
-            <a href="https://omnnbc.com" target="_blank" class="btn-menu">Main Site</a>
-            <a href="https://upasana-chandrika.omnnbc.in/" target="_blank" class="btn-menu">Upasana Chandrika</a>
-            <a href="https://manache-shlok.omnnbc.in/" target="_blank" class="btn-menu">Manache Shlok</a>
-        </div>
-    </nav>
+<nav class="nav-section">
+    <div class="nav-row">
+        <a href="/" class="btn-menu">Home</a>
+        <a href="/about-us" class="btn-menu">About Us</a>
+        <a href="/contact-us" class="btn-menu">Contact Us</a>
+        <a href="/privacy-policy" class="btn-menu">Privacy Policy</a>
+    </div>
+    <div class="nav-row" style="padding-top: 0; border-top: 1px solid rgba(255,255,255,0.1);">
+        <a href="https://omnnbc.com" target="_blank" class="btn-menu">Main Site</a>
+        <a href="https://upasana-chandrika.omnnbc.in/" target="_blank" class="btn-menu">Upasana Chandrika</a>
+        <a href="https://manache-shlok.omnnbc.in/" target="_blank" class="btn-menu">Manache Shlok</a>
+    </div>
+</nav>
 
-    <header>
-        <img src="https://omnnbc.com/assets/images/Omnnbc-new.png" alt="Logo" class="site-logo">
-        <h1 class="site-title">
-            <span class="title-line-1">NAMO NARAYANAYA</span>
-            <span class="title-line-2">BHAKTHI CHANNEL</span>
-        </h1>
-    </header>
-</div>
+<header>
+    <img src="https://omnnbc.com/assets/images/Omnnbc-new.png" alt="Logo" class="site-logo">
+    <h1 class="site-title">
+        <span class="title-line-1">NAMO NARAYANAYA</span>
+        <span class="title-line-2">BHAKTHI CHANNEL</span>
+    </h1>
+</header>
 
 <div class="search-area">
     <input type="text" id="postSearch" placeholder="Search Samasam here...">
 </div>
 
 <main class="content-wrapper" id="postsContainer">
-    <div style="text-align:center; padding:50px;">🙏 లోడ్ అవుతోంది...</div>
+    <div style="text-align:center; padding:50px;">🙏 Loading...</div>
 </main>
 
 <section class="dashakam-nav">
-    <div style="font-weight:800; margin-bottom:12px; color: var(--dark-blue);">SELECT DASHAKAM</div>
+    <div style="font-weight:800; margin-bottom:15px; color: var(--dark-blue);">SELECT DASHAKAM</div>
     <div class="nav-row" id="dashButtons"></div>
 </section>
 
@@ -188,7 +171,6 @@
     let allPosts = [];
     let currentDashakam = 1;
 
-    // Data Load
     document.addEventListener("DOMContentLoaded", () => {
         fetch("./data/posts.json?v=" + Date.now())
         .then(res => res.json())
@@ -209,7 +191,7 @@
             : allPosts.filter(p => parseInt(p.dashakam) === currentDashakam);
 
         if (filtered.length === 0) {
-            container.innerHTML = "<p style='text-align:center;'>సమాచారం దొరకలేదు.</p>";
+            container.innerHTML = "<p style='text-align:center;'>No content found.</p>";
             return;
         }
 
@@ -217,7 +199,7 @@
             <article class="post-card">
                 <div class="post-body">
                     <a href="./${post.url}/" class="post-title-link">${post.title}</a>
-                    <p class="post-text">${post.description ? post.description.substring(0, 130) : "మరింత చదవండి"}...</p>
+                    <p class="post-text">${post.description ? post.description.substring(0, 140) : "మరింత సమాచారం కోసం క్లిక్ చేయండి"}...</p>
                 </div>
             </article>
         `).join('');
@@ -245,7 +227,7 @@
         renderPage(e.target.value);
     });
 
-    // Simple Copy Protection
+    // Right-Click Protection
     document.addEventListener('contextmenu', e => e.preventDefault());
 </script>
 
