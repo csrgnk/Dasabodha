@@ -1,132 +1,184 @@
 <!DOCTYPE html>
 <html lang="te">
 <head>
-    <script type="text/javascript">
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.onselectstart = () => false;
-    </script>
 
-    <style>
-        body { -webkit-user-select: none; user-select: none; margin: 0; font-family: Arial, sans-serif; background: #F4FBFB; color: #333; }
-    </style>
+<script>
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.onselectstart = () => false;
+</script>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - Page Not Found | Namo Narayanaya</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 - Page Not Found | Namo Narayanaya</title>
 
-    <style>
-        :root {
-            --primary: #3FA3A1;
-            --nav-bg: #145A5A;
-            --accent: #F4D03F;
-            --site-pink: #E91E63;
-        }
+<style>
+:root{
+--primary:#3FA3A1;
+--nav:#145A5A;
+--accent:#F4D03F;
+--pink:#E91E63;
+}
 
-        /* HEADER */
-        .site-header {
-            background: #fff;
-            padding: 15px;
-            border-bottom: 3px solid var(--accent);
-            text-align: center;
-        }
-        .site-brand {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-        }
-        .logo { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid var(--site-pink); }
-        .title-wrap { text-align: left; color: var(--site-pink); font-weight: 800; }
-        .title-line1 { font-size: 1.6rem; display: block; line-height: 1.1; }
-        .title-line2 { font-size: 1.2rem; display: block; }
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#F4FBFB;
+color:#333;
+}
 
-        /* ERROR CONTENT */
-        .container {
-            max-width: 600px;
-            margin: 80px auto;
-            padding: 20px;
-            text-align: center;
-        }
-        .error-code {
-            font-size: 100px;
-            font-weight: bold;
-            color: var(--nav-bg);
-            margin: 0;
-            opacity: 0.2;
-        }
-        .error-message {
-            font-size: 24px;
-            color: var(--primary);
-            margin-top: -30px;
-            font-weight: bold;
-        }
-        .description {
-            font-size: 16px;
-            line-height: 1.6;
-            color: #666;
-            margin: 20px 0;
-        }
+/* HEADER */
+.site-header{
+background:#fff;
+padding:15px;
+border-bottom:3px solid var(--accent);
+}
 
-        /* HOME BUTTON */
-        .btn-home {
-            display: inline-block;
-            padding: 15px 35px;
-            background: var(--primary);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: bold;
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(63, 163, 161, 0.3);
-        }
-        .btn-home:hover {
-            transform: translateY(-3px);
-            background: var(--nav-bg);
-        }
+.site-brand{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:12px;
+}
 
-        .site-footer {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background: #145A5A;
-            color: #fff;
-            text-align: center;
-            padding: 20px 0;
-            font-size: 14px;
-        }
+.logo{
+width:60px;
+height:60px;
+border-radius:50%;
+border:2px solid var(--pink);
+}
 
-        @media(min-width: 768px) {
-            .title-wrap { display: flex; gap: 10px; align-items: center; }
-            .title-line1, .title-line2 { font-size: 1.8rem; }
-        }
-    </style>
+.title-wrap{
+color:var(--pink);
+}
+
+.title-line1{
+display:block;
+font-size:1.5rem;
+font-weight:700;
+}
+
+.title-line2{
+display:block;
+font-size:1.2rem;
+font-weight:600;
+}
+
+/* DESKTOP */
+@media(min-width:768px){
+.title-wrap{
+display:flex;
+gap:10px;
+align-items:center;
+}
+.title-line1,
+.title-line2{
+display:inline;
+font-size:1.8rem;
+}
+}
+
+/* CONTENT */
+.container{
+max-width:600px;
+margin:80px auto;
+text-align:center;
+padding:20px;
+}
+
+.error-code{
+font-size:90px;
+opacity:0.2;
+margin:0;
+color:var(--nav);
+}
+
+.error-message{
+font-size:22px;
+color:var(--primary);
+font-weight:bold;
+margin-top:-20px;
+}
+
+.description{
+margin:20px 0;
+color:#666;
+}
+
+/* BUTTON */
+.btn-home{
+display:inline-block;
+padding:12px 30px;
+background:var(--primary);
+color:#fff;
+text-decoration:none;
+border-radius:25px;
+}
+
+/* FOOTER */
+footer{
+position:fixed;
+bottom:0;
+width:100%;
+background:var(--nav);
+color:#fff;
+text-align:center;
+padding:15px;
+}
+</style>
+
 </head>
 
 <body>
 
 <header class="site-header">
-    <div class="site-brand">
-        <img src="https://omnnbc.com/assets/images/Omnnbc-new.png" class="logo" alt="Logo">
-        <div class="title-wrap">
-            <span class="title-line1">Namo Narayanaya</span>
-            <span class="title-line2">Bhakthi Channel</span>
-        </div>
-    </div>
+<div class="site-brand">
+
+<img src="https://omnnbc.com/assets/images/Omnnbc-new.png" class="logo">
+
+<div class="title-wrap">
+<span class="title-line1">Namo Narayanaya</span>
+<span class="title-line2">Bhakthi Channel</span>
+</div>
+
+</div>
 </header>
 
 <div class="container">
-    <h1 class="error-code">404</h1>
-    <div class="error-message">పేజీ కనబడలేదు (Not Found)</div>
-    <p class="description">
-        క్షమించండి! మీరు వెతుకుతున్న సమాచారం లేదా పేజీ ఇక్కడ అందుబాటులో లేదు. <br>
-        లింక్ తప్పుగా ఉండవచ్చు లేదా ఆ సమాచారం తొలగించబడి ఉండవచ్చు.
-    </p>
-    <a href="/" class="btn-home">మళ్ళీ హోమ్ పేజీకి వెళ్ళండి</a>
+<h1 class="error-code">404</h1>
+<div class="error-message">పేజీ కనబడలేదు</div>
+
+<p class="description">
+క్షమించండి! మీరు వెతుకుతున్న పేజీ అందుబాటులో లేదు.
+</p>
+
+<a href="/" class="btn-home">హోమ్ పేజీకి వెళ్ళండి</a>
 </div>
 
-<footer class="site-footer">
-    © 2026 Namo Narayanaya Bhakthi Channel
+<footer>
+© 2026 Namo Narayanaya Bhakthi Channel
 </footer>
+
+<script>
+(async function(){
+
+const path = window.location.pathname.replace(/^\/|\/$/g, "");
+
+try{
+const res = await fetch("/data/posts.json");
+const posts = await res.json();
+
+const match = posts.find(p => p.url === path);
+
+if(match){
+window.location.href = "/posts/" + match.url + ".html";
+}
+
+}catch(e){
+console.log("redirect error");
+}
+
+})();
+</script>
 
 </body>
 </html>
