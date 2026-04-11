@@ -1,48 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sitemap Tool - Dasabodha</title>
-    <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f7f6; color: #2c3e50; line-height: 1.6; padding: 20px; text-align: center; }
-        .container { max-width: 850px; margin: auto; background: #ffffff; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1 { color: #e67e22; margin-bottom: 10px; font-size: 24px; }
-        p { color: #7f8c8d; margin-bottom: 20px; font-size: 14px; }
-        .btn { background-color: #e67e22; color: white; border: none; padding: 14px 30px; font-size: 16px; font-weight: 600; border-radius: 8px; cursor: pointer; width: 100%; }
-        #output-section { margin-top: 25px; display: none; text-align: left; }
-        #status-msg { font-weight: bold; margin-bottom: 10px; color: #2980b9; font-size: 14px; }
-        #sitemap-output { width: 100%; height: 350px; padding: 10px; border: 1px solid #dcdde1; border-radius: 6px; font-family: 'Consolas', monospace; font-size: 12px; background-color: #2f3640; color: #f5f6fa; white-space: pre; }
-        .copy-btn { background-color: #27ae60; color: white; border: none; padding: 12px 25px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 15px; width: 100%; }
-        #success-toast { display: none; color: #27ae60; font-weight: bold; display: block; margin-top: 10px; }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <h1>Dasabodha Sitemap Tool</h1>
-    <p>Generating sitemap for <b>dasabodha.omnnbc.in</b></p>
-
-    <button class="btn" onclick="generateSitemap()">Generate Sitemap</button>
-
-    <div id="output-section">
-        <div id="status-msg"></div>
-        <textarea id="sitemap-output" readonly></textarea>
-        <button class="copy-btn" onclick="copyXml()">Copy XML Data</button>
-        <span id="success-toast">Copied to clipboard!</span>
-    </div>
-</div>
-
 <script>
     async function generateSitemap() {
         const outputSection = document.getElementById('output-section');
         const outputArea = document.getElementById('sitemap-output');
         const status = document.getElementById('status-msg');
-        const domain = "https://dasabodha.omnnbc.in";
+        // Automatically detects if it's on dasabodha or main site
+        const domain = window.location.origin; 
         const today = new Date().toISOString().split('T')[0];
         
         outputSection.style.display = 'block';
-        status.innerText = "Fetching data... please wait.";
+        status.innerText = "Scanning JSON files... please wait.";
 
         try {
             let xmlLines = [
@@ -55,15 +21,17 @@
                 '  </url>'
             ];
 
-            // 1. Pages from data/pages.json
+            // 1. PROCESS PAGES
             let pageCount = 0;
-            try {
-                const pRes = await fetch('data/pages.json');
-                if (pRes.ok) {
-                    const pData = await pRes.json();
-                    pData.forEach(p => {
-                        let slug = (p.file || p.url).replace('.html', '');
-                        if(slug !== 'index') {
+            const pRes = await fetch('data/pages.json');
+            if (pRes.ok) {
+                const pData = await pRes.json();
+                pData.forEach(p => {
+                    // Smart Check: look for .file, .url, or .slug
+                    let rawPath = p.file || p.url || p.slug || "";
+                    if (rawPath) {
+                        let slug = rawPath.replace('.html', '').replace(/^\//, '');
+                        if (slug !== 'index' && slug !== '') {
                             xmlLines.push('  <url>');
                             xmlLines.push(`    <loc>${domain}/${slug}</loc>`);
                             xmlLines.push(`    <lastmod>${today}</lastmod>`);
@@ -71,46 +39,42 @@
                             xmlLines.push('  </url>');
                             pageCount++;
                         }
-                    });
-                }
-            } catch (e) { console.log("Pages JSON not found"); }
+                    }
+                });
+            }
 
-            // 2. Posts from data/posts.json
+            // 2. PROCESS POSTS (FIXED SECTION)
             let postCount = 0;
-            try {
-                const poRes = await fetch('data/posts.json');
-                if (poRes.ok) {
-                    const poData = await poRes.json();
-                    poData.forEach(post => {
-                        let slug = (post.file || post.slug).replace('.html', '');
-                        let date = post.date || today;
+            const poRes = await fetch('data/posts.json');
+            if (poRes.ok) {
+                const poData = await poRes.json();
+                poData.forEach(post => {
+                    // Smart Check: look for common JSON keys
+                    let rawPath = post.file || post.slug || post.url || post.link || "";
+                    if (rawPath) {
+                        // Clean the path: remove .html, remove leading slashes
+                        let slug = rawPath.split('/').pop().replace('.html', '');
+                        let date = post.publish_date || post.date || today;
+                        // Format date to YYYY-MM-DD
+                        date = date.split('T')[0];
+
                         xmlLines.push('  <url>');
                         xmlLines.push(`    <loc>${domain}/${slug}</loc>`);
                         xmlLines.push(`    <lastmod>${date}</lastmod>`);
                         xmlLines.push('    <priority>0.8</priority>');
                         xmlLines.push('  </url>');
                         postCount++;
-                    });
-                }
-            } catch (e) { console.log("Posts JSON not found"); }
+                    }
+                });
+            }
 
             xmlLines.push('</urlset>');
             outputArea.value = xmlLines.join('\n');
-            status.innerText = `Success: Found ${pageCount} Pages and ${postCount} Posts.`;
+            status.innerText = `Success! Found ${pageCount} Pages and ${postCount} Posts.`;
+
         } catch (error) {
-            status.innerText = "Error: " + error.message;
+            status.innerText = "Error reading JSON: " + error.message;
+            console.error(error);
         }
     }
-
-    function copyXml() {
-        const area = document.getElementById("sitemap-output");
-        area.select();
-        document.execCommand("copy");
-        const toast = document.getElementById("success-toast");
-        toast.style.display = "block";
-        setTimeout(() => { toast.style.display = "none"; }, 3000);
-    }
 </script>
-</body>
-  </html>
-  
