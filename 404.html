@@ -1,184 +1,21 @@
 <!DOCTYPE html>
 <html lang="te">
 <head>
-
-<script>
-document.addEventListener('contextmenu', e => e.preventDefault());
-document.onselectstart = () => false;
-</script>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>404 - Page Not Found | Namo Narayanaya</title>
-
-<style>
-:root{
---primary:#3FA3A1;
---nav:#145A5A;
---accent:#F4D03F;
---pink:#E91E63;
-}
-
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#F4FBFB;
-color:#333;
-}
-
-/* HEADER */
-.site-header{
-background:#fff;
-padding:15px;
-border-bottom:3px solid var(--accent);
-}
-
-.site-brand{
-display:flex;
-align-items:center;
-justify-content:center;
-gap:12px;
-}
-
-.logo{
-width:60px;
-height:60px;
-border-radius:50%;
-border:2px solid var(--pink);
-}
-
-.title-wrap{
-color:var(--pink);
-}
-
-.title-line1{
-display:block;
-font-size:1.5rem;
-font-weight:700;
-}
-
-.title-line2{
-display:block;
-font-size:1.2rem;
-font-weight:600;
-}
-
-/* DESKTOP */
-@media(min-width:768px){
-.title-wrap{
-display:flex;
-gap:10px;
-align-items:center;
-}
-.title-line1,
-.title-line2{
-display:inline;
-font-size:1.8rem;
-}
-}
-
-/* CONTENT */
-.container{
-max-width:600px;
-margin:80px auto;
-text-align:center;
-padding:20px;
-}
-
-.error-code{
-font-size:90px;
-opacity:0.2;
-margin:0;
-color:var(--nav);
-}
-
-.error-message{
-font-size:22px;
-color:var(--primary);
-font-weight:bold;
-margin-top:-20px;
-}
-
-.description{
-margin:20px 0;
-color:#666;
-}
-
-/* BUTTON */
-.btn-home{
-display:inline-block;
-padding:12px 30px;
-background:var(--primary);
-color:#fff;
-text-decoration:none;
-border-radius:25px;
-}
-
-/* FOOTER */
-footer{
-position:fixed;
-bottom:0;
-width:100%;
-background:var(--nav);
-color:#fff;
-text-align:center;
-padding:15px;
-}
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Not Found | Namo Narayanaya</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 80px 20px; background: #F4FBFB; }
+        .logo { width: 80px; margin-bottom: 20px; }
+        h1 { color: #E91E63; font-size: 60px; margin: 0; }
+        p { color: #666; font-size: 18px; }
+        .btn { display: inline-block; margin-top: 30px; padding: 12px 30px; background: #3FA3A1; color: #fff; text-decoration: none; border-radius: 25px; font-weight: bold; }
+    </style>
 </head>
-
 <body>
-
-<header class="site-header">
-<div class="site-brand">
-
-<img src="https://omnnbc.com/assets/images/Omnnbc-new.png" class="logo">
-
-<div class="title-wrap">
-<span class="title-line1">Namo Narayanaya</span>
-<span class="title-line2">Bhakthi Channel</span>
-</div>
-
-</div>
-</header>
-
-<div class="container">
-<h1 class="error-code">404</h1>
-<div class="error-message">పేజీ కనబడలేదు</div>
-
-<p class="description">
-క్షమించండి! మీరు వెతుకుతున్న పేజీ అందుబాటులో లేదు.
-</p>
-
-<a href="/" class="btn-home">హోమ్ పేజీకి వెళ్ళండి</a>
-</div>
-
-<footer>
-© 2026 Namo Narayanaya Bhakthi Channel
-</footer>
-
-<script>
-(async function(){
-
-const path = window.location.pathname.replace(/^\/|\/$/g, "");
-
-try{
-const res = await fetch("/data/posts.json");
-const posts = await res.json();
-
-const match = posts.find(p => p.url === path);
-
-if(match){
-window.location.href = "/posts/" + match.url + ".html";
-}
-
-}catch(e){
-console.log("redirect error");
-}
-
-})();
-</script>
-
+    <img src="https://omnnbc.com/assets/images/Omnnbc-new.png" class="logo">
+    <h1>404</h1>
+    <p>క్షమించండి! ఈ పేజీ అందుబాటులో లేదు.</p>
+    <a href="/" class="btn">తిరిగి హోమ్ పేజీకి వెళ్ళండి</a>
 </body>
 </html>
