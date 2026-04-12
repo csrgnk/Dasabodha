@@ -1,341 +1,77 @@
 <!DOCTYPE html>
 <html lang="te">
 <head>
-    <script type="text/javascript">
-    // Disable right-click context menu
-    document.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-    }, false);
-
-    // Disable keyboard shortcuts (Ctrl+C, Ctrl+U, Ctrl+S, etc.)
-    document.addEventListener('keydown', function(e) {
-        if (e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 's' || e.key === 'a' || e.key === 'p')) {
-            e.preventDefault();
-        }
-    }, false);
-
-    // Disable text selection via CSS and JS
-    document.onselectstart = function() { return false; };
-</script>
-
-<style>
-    /* CSS to disable text selection */
-    body {
-        -webkit-user-select: none; /* Safari */
-        -ms-user-select: none;     /* IE 10 and IE 11 */
-        user-select: none;         /* Standard syntax */
-    }
-</style>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Namo Narayanaya Bhakthi Channel</title>
-<meta name="description" id="metaDesc" content="Dasabodha Telugu Lyrics">
-
-<style>
-:root{
---primary:#3FA3A1;
---nav-bg:#145A5A;
---bg:#F4FBFB;
---accent:#F4D03F;
-}
-
-body{
-margin:0;
-font-family:Arial, sans-serif;
-background:var(--bg);
-}
-
-/* NAV */
-.nav-scroll{
-background:var(--nav-bg);
-display:flex;
-overflow-x:auto;
-padding:10px;
-}
-.nav-scroll a{
-color:#fff;
-text-decoration:none;
-padding:6px 12px;
-margin:0 4px;
-background:rgba(255,255,255,0.1);
-border-radius:4px;
-white-space:nowrap;
-font-size: 14px;
-}
-
-/* HEADER */
-.site-header{
-background:#fff;
-padding:12px;
-border-bottom:3px solid var(--accent);
-}
-.site-brand{
-display:flex;
-align-items:center;
-justify-content:center;
-gap:10px;
-}
-.logo { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; }
-.title-wrap{
-text-align:left;
-color:#E91E63;
-font-weight:700;
-}
-.title-line1{font-size:18px;}
-.title-line2{font-size:14px;}
-
-/* 🍞 BREADCRUMBS */
-.breadcrumbs {
-    padding: 10px 0;
-    font-size: 13px;
-    color: #666;
-    margin-bottom: 10px;
-}
-.breadcrumbs a {
-    color: var(--primary);
-    text-decoration: none;
-    font-weight: bold;
-}
-.breadcrumbs span {
-    margin: 0 5px;
-    color: #ccc;
-}
-
-/* CONTENT */
-.container{
-max-width:800px;
-margin:5px auto;
-padding:10px;
-}
-.post-title{
-background:linear-gradient(135deg,#2E8B87,#3FA3A1);
-color:#fff;
-padding:15px;
-text-align:center;
-border-radius:10px;
-font-size: 20px;
-}
-.post-content{
-background:#fff;
-padding:20px;
-margin-top:15px;
-border-radius:10px;
-line-height:1.8;
-box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-
-/* 📲 SHARE SETUP */
-.share-box{
-margin-top:30px;
-padding:20px;
-border-top: 1px solid #eee;
-text-align:center;
-}
-.share-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 10px;
-}
-.share-btn{
-    flex: 1;
-    min-width: 80px;
-    padding: 10px 5px;
-    color: #fff;
-    border-radius: 5px;
-    text-decoration: none;
-    border: none;
-    font-size: 13px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-/* NAV BUTTONS */
-.post-nav{
-display:grid;
-grid-template-columns:1fr 1fr 1fr;
-gap:10px;
-margin-top:30px;
-}
-.btn-action, .btn-home {
-    padding:12px;
-    text-align:center;
-    border-radius:5px;
-    text-decoration:none;
-    font-weight: bold;
-    font-size: 14px;
-}
-.btn-action{ background:var(--primary); color:#fff; }
-.btn-home{ border:2px solid var(--primary); color:var(--primary); }
-
-.site-footer{
-background:#2E8B87;
-color:#fff;
-text-align:center;
-padding:25px 10px;
-margin-top:40px;
-font-size:14px;
-}
-
-@media(min-width:768px){
-    .title-wrap { display:flex; gap:6px; align-items:center; }
-    .title-line1,.title-line2{font-size:20px;}
-}
-</style>
-</head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Namo Narayanaya Bhakthi Channel</title>
+    </head>
 <body>
 
-<nav class="nav-scroll">
-<a href="/">Home</a>
-<a href="https://omnnbc.com/">Main Site</a>
-<a href="/about-us">About Us</a>
-<a href="/contact-us">Contact Us</a>
-</nav>
-
-<header class="site-header">
-<div class="site-brand">
-<img src="https://omnnbc.com/assets/images/Omnnbc-new.png" class="logo" alt="Logo">
-<div class="title-wrap">
-<div class="title-line1">Namo Narayanaya</div>
-<div class="title-line2">Bhakthi Channel</div>
-</div>
-</div>
+<header style="padding:15px; background:#fff; border-bottom:3px solid #F4D03F; text-align:center;">
+    <img src="https://omnnbc.com/assets/images/Omnnbc-new.png" style="width:50px; border-radius:50%;">
+    <div style="color:#E91E63; font-weight:bold;">Namo Narayanaya Bhakthi Channel</div>
 </header>
 
-<div class="container">
-    <div id="breadcrumb" class="breadcrumbs"></div>
-    <div id="postTitle" class="post-title">Loading...</div>
-    <div id="postContent" class="post-content">Loading...</div>
+<div class="container" style="max-width:800px; margin:auto; padding:15px;">
+    <div id="breadcrumb" style="font-size:13px; color:#666; margin-bottom:10px;"></div>
+    <h1 id="postTitle" style="background:#3FA3A1; color:#fff; padding:15px; border-radius:10px; text-align:center;">Loading...</h1>
+    <div id="postContent" style="background:#fff; padding:20px; border-radius:10px; line-height:1.8;">Loading...</div>
 </div>
 
 <script>
-const repoName = "Dasabodha";
+// For subdomain Dasabodha.omnnbc.in, fetchBase is empty
 const mainHome = window.location.origin + "/";
+const path = window.location.pathname.replace(/\/$/, ""); 
+const pathParts = path.split('/').filter(Boolean);
+let slug = pathParts[pathParts.length - 1] || "index";
 
-const pathParts = location.pathname.split('/').filter(Boolean);
-const slug = pathParts[pathParts.length - 1] || "index";
-
-const isCustomDomain = location.hostname.includes("omnnbc.in");
-const fetchBase = isCustomDomain ? "" : `/${repoName}`;
-
-/* 🍞 BREADCRUMBS WITH DASHAKAM */
-function buildBreadcrumbs(pageTitle, dashakamNum = null) {
-    const breadcrumbDiv = document.getElementById("breadcrumb");
-    let html = `<a href="${mainHome}">Dasabodha</a>`;
-    
-    if (dashakamNum) {
-        html += `<span>&gt;</span> Dashakam ${dashakamNum}`;
-    }
-    
-    html += `<span>&gt;</span> ${pageTitle}`;
-    breadcrumbDiv.innerHTML = html;
-}
-
-/* 📲 SHARE BUTTONS */
-function shareButtons(title) {
-    let url = location.href;
-    let text = encodeURIComponent(title + " - " + url);
-    return `
-    <div class="share-box">
-        <b>Share this Content</b>
-        <div class="share-grid">
-            <a class="share-btn" href="https://wa.me/?text=${text}" target="_blank" style="background:#25D366;">WhatsApp</a>
-            <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=${url}" target="_blank" style="background:#1877F2;">Facebook</a>
-            <a class="share-btn" href="https://twitter.com/intent/tweet?text=${text}" target="_blank" style="background:#1DA1F2;">Twitter</a>
-            <button class="share-btn" onclick="copyLink()" style="background:#555;">Copy Link</button>
-        </div>
-    </div>`;
-}
-
-function copyLink() {
-    navigator.clipboard.writeText(location.href);
-    alert("Link Copied to Clipboard!");
-}
-
-/* ↔️ NAVIGATION */
-function buildNav(posts, i) {
-    let prev = posts[i - 1];
-    let next = posts[i + 1];
-    return `<div class="post-nav">
-        ${prev ? `<a href="${fetchBase}/${prev.url}/" class="btn-action">← Prev</a>` : `<div></div>`}
-        <a href="${mainHome}" class="btn-home">HOME</a>
-        ${next ? `<a href="${fetchBase}/${next.url}/" class="btn-action">Next →</a>` : `<div></div>`}
-    </div>`;
-}
-
-/* 📄 LOAD PAGES */
-function loadPage(page) {
-    fetch(`${fetchBase}/pages/${page.file}.html`)
-        .then(r => r.text())
-        .then(html => {
-            let temp = document.createElement("div");
-            temp.innerHTML = html;
-            temp.querySelectorAll("header,footer,nav,script,style").forEach(e => e.remove());
-            
-            document.getElementById("postTitle").innerText = page.title;
-            buildBreadcrumbs(page.title);
-            
-            document.getElementById("postContent").innerHTML = 
-                temp.innerHTML + 
-                shareButtons(page.title) + 
-                `<div class="post-nav"><div></div><a href="${mainHome}" class="btn-home">HOME</a><div></div></div>`;
-        });
-}
-
-/* 📊 LOAD DATA */
+// Data sources
 Promise.all([
-    fetch(`${fetchBase}/data/posts.json`).then(r => r.json()),
-    fetch(`${fetchBase}/data/pages.json`).then(r => r.json())
-])
-.then(([posts, pages]) => {
-    posts.forEach(p => {
-        let d = p.title.match(/Dashakam\s*(\d+)/i) || p.url.match(/dashakam-(\d+)/i);
-        let s = p.title.match(/Samasam\s*(\d+)/i) || p.url.match(/samasam-(\d+)/i);
-        if (d) p.dashakam = parseInt(d[1]);
-        if (s) p.samasam = parseInt(s[1]);
-    });
-
-    posts.sort((a, b) => {
-        if (a.dashakam !== b.dashakam) return a.dashakam - b.dashakam;
-        return a.samasam - b.samasam;
-    });
-
+    fetch(`${mainHome}data/posts.json`).then(r => r.json()),
+    fetch(`${mainHome}data/pages.json`).then(r => r.json())
+]).then(([posts, pages]) => {
+    
+    // Find the current post
     let i = posts.findIndex(p => p.url === slug);
     let post = posts[i];
 
     if (post) {
+        document.title = post.title + " | Namo Narayanaya";
         document.getElementById("postTitle").innerText = post.title;
-        // Breadcrumb now uses the Dashakam number from posts.json
-        buildBreadcrumbs(post.title, post.dashakam);
+        
+        // Build Breadcrumb
+        let d = post.url.match(/dashakam-(\d+)/i);
+        let dashNum = d ? d[1] : "";
+        document.getElementById("breadcrumb").innerHTML = `<a href="${mainHome}">Home</a> > Dashakam ${dashNum} > ${post.title}`;
 
-        fetch(`${fetchBase}/posts/${slug}.html`)
+        // Fetch the actual HTML content from /posts/ folder
+        fetch(`${mainHome}posts/${slug}.html`)
             .then(r => r.text())
             .then(html => {
                 let temp = document.createElement("div");
                 temp.innerHTML = html;
+                // Remove existing headers/footers from the stored post file
                 temp.querySelectorAll("header,footer,nav,script,style").forEach(e => e.remove());
-                document.getElementById("postContent").innerHTML =
-                    temp.innerHTML +
-                    shareButtons(post.title) +
-                    buildNav(posts, i);
+                
+                // Add Navigation (Prev/Next)
+                let prev = posts[i-1];
+                let next = posts[i+1];
+                let navHtml = `
+                    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-top:30px;">
+                        ${prev ? `<a href="${mainHome}${prev.url}/" style="background:#3FA3A1; color:#fff; padding:10px; text-align:center; text-decoration:none; border-radius:5px;">← Prev</a>` : `<div></div>`}
+                        <a href="${mainHome}" style="border:1px solid #3FA3A1; color:#3FA3A1; padding:10px; text-align:center; text-decoration:none; border-radius:5px;">HOME</a>
+                        ${next ? `<a href="${mainHome}${next.url}/" style="background:#3FA3A1; color:#fff; padding:10px; text-align:center; text-decoration:none; border-radius:5px;">Next →</a>` : `<div></div>`}
+                    </div>`;
+
+                document.getElementById("postContent").innerHTML = temp.innerHTML + navHtml;
             });
-        return;
+    } else {
+        // Handle 404 Error
+        document.getElementById("postTitle").innerText = "Post Not Found";
+        document.getElementById("postContent").innerHTML = `<div style="text-align:center;"><a href="${mainHome}">Return to Home</a></div>`;
     }
-
-    let page = pages.find(p => p.id === slug);
-    if (page) { loadPage(page); return; }
-
-    document.getElementById("postTitle").innerText = "404 - Not Found";
-    document.getElementById("postContent").innerHTML = `<div style="text-align:center;padding:50px;"><a href="${mainHome}" class="btn-home">Return Home</a></div>`;
 });
 </script>
-
-<footer class="site-footer">
-© 2026 Namo Narayanaya Bhakthi Channel
-</footer>
 
 </body>
 </html>
