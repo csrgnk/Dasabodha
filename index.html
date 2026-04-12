@@ -108,7 +108,7 @@
         // Fetch posts.json from the data folder
         fetch("./data/posts.json?v=" + new Date().getTime())
         .then(res => {
-            if (!res.ok) throw new Error("JSON not found");
+            if (!res.ok) throw new Error("JSON file not found");
             return res.json();
         })
         .then(data => {
@@ -117,15 +117,22 @@
             setupDashNav();
         })
         .catch(err => {
-            console.error("Fetch error:", err);
-            document.getElementById("postsContainer").innerHTML = "<div style='text-align:center;'>Error loading data. Please check data/posts.json file.</div>";
+            console.error("Error:", err);
+            document.getElementById("postsContainer").innerHTML = "<div style='text-align:center;'>Error: Posts could not be loaded.</div>";
         });
     });
 
-    // Clean URL Redirect
+    /**
+     * FIXED: Handles Clean URL Redirection perfectly
+     * This prevents the "/.html" error shown in your screenshot
+     */
     function openPost(url) {
-        const cleanUrl = url.replace(".html", "");
-        window.location.href = window.location.origin + "/" + cleanUrl + "/";
+        // 1. Remove any existing .html extension
+        // 2. Remove any extra slashes at the end
+        let cleanSlug = url.replace(".html", "").replace(/\/$/, "");
+        
+        // 3. Redirect to clean structure: domain.com/slug/
+        window.location.href = window.location.origin + "/" + cleanSlug + "/";
     }
 
     // Display Posts
@@ -136,13 +143,14 @@
             ? allPosts.filter(p => p.title.toLowerCase().includes(searchTerm.toLowerCase()))
             : allPosts.filter(p => parseInt(p.dashakam) === currentDashakam)
                       .sort((a, b) => {
+                          // Sorts numerically based on samasam number in the URL
                           const numA = parseInt(a.url.match(/samasam-(\d+)/)?.[1] || 0);
                           const numB = parseInt(b.url.match(/samasam-(\d+)/)?.[1] || 0);
                           return numA - numB;
                       });
 
         if (filtered.length === 0) {
-            container.innerHTML = `<div style="text-align:center; padding:50px;">ఈ దశకంలో పోస్ట్లు ఇంకా అప్‌లోడ్ కాలేదు.</div>`;
+            container.innerHTML = `<div style="text-align:center; padding:50px;">🙏 No Samasams found in this Dashakam yet.</div>`;
             return;
         }
 
@@ -150,11 +158,12 @@
         filtered.forEach(post => {
             const card = document.createElement("article");
             card.className = "post-card";
+            card.style.cursor = "pointer";
             card.onclick = () => openPost(post.url);
             card.innerHTML = `
                 <h2 class="post-title-click">${post.title}</h2>
-                <p style="color:#666; font-size:0.95rem; line-height:1.5;">
-                    ${post.description ? post.description.substring(0, 130) : "దాసబోధ తెలుగు వివరణ మరియు సాహిత్యం..."}...
+                <p style="font-size:0.9rem; color:#666; line-height:1.5;">
+                    ${post.description ? post.description.substring(0, 130) : "Dasabodha Telugu Lyrics..."}...
                 </p>
             `;
             container.appendChild(card);
@@ -181,7 +190,7 @@
         }
     }
 
-    // Search Logic
+    // Search Functionality
     document.getElementById("postSearch").addEventListener("input", e => {
         clearTimeout(searchTimeout);
         searchTimeout = setTimeout(() => renderPage(e.target.value), 300);
