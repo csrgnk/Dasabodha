@@ -26,18 +26,17 @@
 
         body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); -webkit-user-select: none; user-select: none; }
 
-        /* NAV */
+        /* NAV SCROLL */
         .nav-scroll { background: var(--nav-bg); display: flex; overflow-x: auto; padding: 10px; scrollbar-width: none; }
         .nav-scroll::-webkit-scrollbar { display: none; }
-        .nav-scroll a { color: #fff; text-decoration: none; padding: 6px 12px; margin: 0 4px; background: rgba(255,255,255,0.1); border-radius: 4px; white-space: nowrap; font-size: 14px; font-weight: bold; }
+        .nav-scroll a { color: #fff; text-decoration: none; padding: 8px 12px; margin: 0 4px; background: rgba(255,255,255,0.1); border-radius: 4px; white-space: nowrap; font-size: 14px; font-weight: bold; }
 
-        /* HEADER - Responsive Title Setup */
+        /* HEADER - Responsive Title */
         .site-header { background: #fff; padding: 15px; border-bottom: 3px solid var(--accent); }
         .site-brand { display: flex; align-items: center; justify-content: center; gap: 12px; }
         .logo { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; }
         .title-wrap { color: var(--site-pink); font-weight: 700; line-height: 1.2; text-align: left; }
         
-        /* Mobile: 2 Lines */
         .title-line1 { font-size: 1.45rem; display: block; white-space: nowrap; }
         .title-line2 { font-size: 1.2rem; display: block; white-space: nowrap; }
 
@@ -47,7 +46,7 @@
             .logo { width: 70px; height: 70px; }
         }
 
-        /* 🍞 BREADCRUMBS */
+        /* BREADCRUMBS */
         .breadcrumbs { padding: 10px 15px; font-size: 13px; color: #666; max-width: 800px; margin: auto; }
         .breadcrumbs a { color: var(--primary); text-decoration: none; font-weight: bold; }
 
@@ -56,10 +55,10 @@
         .post-title { background: linear-gradient(135deg,#2E8B87,#3FA3A1); color: #fff; padding: 18px; text-align: center; border-radius: 10px; font-size: 22px; margin-bottom: 15px; font-weight: bold; }
         .post-content { background: #fff; padding: 25px; border-radius: 10px; line-height: 1.8; box-shadow: 0 2px 10px rgba(0,0,0,0.05); font-size: 17px; }
 
-        /* 📲 SHARE BOX */
+        /* SHARE BOX */
         .share-box { margin-top: 30px; padding: 20px; border-top: 1px solid #eee; text-align: center; }
         .share-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 10px; }
-        .share-btn { flex: 1; min-width: 85px; padding: 10px 5px; color: #fff; border-radius: 5px; text-decoration: none; font-size: 13px; font-weight: bold; cursor: pointer; border: none; }
+        .share-btn { flex: 1; min-width: 85px; padding: 10px 5px; color: #fff; border-radius: 5px; text-decoration: none; font-size: 13px; font-weight: bold; border: none; cursor: pointer; }
 
         /* NAV BUTTONS */
         .post-nav { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 30px; }
@@ -67,7 +66,7 @@
         .btn-action { background: var(--primary); color: #fff; }
         .btn-home { border: 2px solid var(--primary); color: var(--primary); }
 
-        .site-footer { background: #2E8B87; color: #fff; text-align: center; padding: 25px; margin-top: 40px; font-size: 14px; }
+        footer { background: #2E8B87; color: #fff; text-align: center; padding: 25px; margin-top: 40px; font-size: 14px; }
     </style>
 </head>
 
@@ -102,15 +101,15 @@
     const pathParts = path.split('/').filter(Boolean);
     let slug = pathParts[pathParts.length - 1] || "index";
 
-    /* BREADCRUMBS */
+    /* 🍞 BREADCRUMBS */
     function buildBreadcrumbs(pageTitle, dashakamNum = null) {
         let html = `<a href="${mainHome}">Home</a>`;
-        if (dashakamNum) html += ` <span>&gt;</span> Dashakam ${dashNum}`;
+        if (dashakamNum) html += ` <span>&gt;</span> Dashakam ${dashakamNum}`;
         html += ` <span>&gt;</span> ${pageTitle}`;
         document.getElementById("breadcrumb").innerHTML = html;
     }
 
-    /* SHARE BUTTONS */
+    /* 📲 SHARE BUTTONS */
     function shareButtons(title) {
         let url = location.href;
         let text = encodeURIComponent(title + " - " + url);
@@ -130,7 +129,7 @@
         alert("Link Copied!");
     }
 
-    /* NAVIGATION */
+    /* ↔️ NAVIGATION */
     function buildNav(posts, i) {
         let prev = posts[i - 1];
         let next = posts[i + 1];
@@ -141,7 +140,7 @@
         </div>`;
     }
 
-    /* LOAD PAGES */
+    /* 📄 LOAD PAGES (About, Contact etc) */
     function loadPage(page) {
         fetch(`${mainHome}pages/${page.file}.html`)
             .then(r => r.text())
@@ -155,7 +154,7 @@
             });
     }
 
-    /* LOAD DATA */
+    /* 📊 LOAD DATA */
     Promise.all([
         fetch(`${mainHome}data/posts.json?v=${new Date().getTime()}`).then(r => r.json()),
         fetch(`${mainHome}data/pages.json?v=${new Date().getTime()}`).then(r => r.json()).catch(() => [])
@@ -169,9 +168,10 @@
             document.getElementById("postTitle").innerText = post.title;
             buildBreadcrumbs(post.title, post.dashakam);
 
+            // Fetch Samasam content from /posts/ folder
             fetch(`${mainHome}posts/${slug}.html`)
                 .then(r => {
-                    if(!r.ok) throw new Error();
+                    if (!r.ok) throw new Error();
                     return r.text();
                 })
                 .then(html => {
@@ -181,7 +181,7 @@
                     document.getElementById("postContent").innerHTML = temp.innerHTML + shareButtons(post.title) + buildNav(posts, i);
                 })
                 .catch(() => {
-                    document.getElementById("postContent").innerHTML = "<div style='text-align:center; padding:50px;'>సాహిత్యం త్వరలో అప్‌లోడ్ చేయబడుతుంది.</div>";
+                    document.getElementById("postContent").innerHTML = "<div style='text-align:center; padding:50px;'>సాహిత్యం ఇంకా అప్‌లోడ్ కాలేదు. <br> (Check if posts/" + slug + ".html exists)</div>";
                 });
             return;
         }
@@ -194,8 +194,8 @@
     });
 </script>
 
-<footer class="site-footer">
-© 2026 Namo Narayanaya Bhakthi Channel
+<footer>
+    © 2026 Namo Narayanaya Bhakthi Channel
 </footer>
 
 </body>
