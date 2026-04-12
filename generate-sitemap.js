@@ -1,53 +1,41 @@
-const fs = require('fs-extra');
-const path = require('path');
-const { SitemapStream, streamToPromise } = require('sitemap');
-
-const DOMAIN = "https://dasabodha.omnnbc.in";
-const POSTS_DIR = path.join(__dirname, 'posts');
-const PAGES_FILE = path.join(__dirname, 'data', 'pages.json');
+const fs = require('fs');
+const globby = require('globby');
 
 async function generate() {
-    try {
-        const smStream = new SitemapStream({ hostname: DOMAIN });
-        
-        // 1. Add Homepage
-        smStream.write({ url: '/', changefreq: 'daily', priority: 1.0 });
+    // Define your domain
+    const baseUrl = 'https://dasabodha.omnnbc.in';
 
-        // 2. Add Pages (About, Contact, etc.) from JSON
-        if (await fs.pathExists(PAGES_FILE)) {
-            const pages = await fs.readJson(PAGES_FILE);
-            pages.forEach(page => {
-                const slug = (page.id || page.file).replace('.html', '').toLowerCase();
-                if (slug !== 'index') {
-                    // Added trailing slash to match Clean URL standards
-                    smStream.write({ url: `/${slug}/`, changefreq: 'monthly', priority: 0.9 });
-                }
-            });
-        }
+    // Find all HTML files in root and posts folder
+    const pages = await globby([
+        'index.html',
+        'posts/*.html',
+        'pages/*.html',
+        '!404.html' // Exclude 404 page
+    ]);
 
-        // 3. Add Posts (Samasams) from folder
-        if (await fs.pathExists(POSTS_DIR)) {
-            const files = await fs.readdir(POSTS_DIR);
-            files.forEach(file => {
-                if (file.endsWith('.html') && file.toLowerCase() !== 'index.html') {
-                    const slug = file.replace('.html', '').toLowerCase();
-                    smStream.write({ url: `/${slug}/`, changefreq: 'monthly', priority: 0.8 });
-                }
-            });
-        }
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    ${pages
+        .map(page => {
+            // Clean the path: remove .html and index.html
+            const path = page
+                .replace('index.html', '')
+                .replace('.html', '/')
+                .replace(/\/$/, '/'); // Ensure trailing slash
+            
+            return `
+    <url>
+        <loc>${baseUrl}/${path}</loc>
+        <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>${path === '' ? '1.0' : '0.8'}</priority>
+    </url>`;
+        })
+        .join('')}
+</urlset>`;
 
-        smStream.end();
-
-        // Convert stream to string and write to file
-        const sitemapOutput = await streamToPromise(smStream);
-        await fs.writeFile(path.join(__dirname, 'sitemap.xml'), sitemapOutput.toString());
-        
-        console.log("✅ Sitemap.xml generated successfully!");
-    } catch (error) {
-        console.error("❌ Error generating sitemap:", error);
-        process.exit(1);
-    }
+    fs.writeFileSync('sitemap.xml', sitemap);
+    console.log('Sitemap generated successfully!');
 }
 
-// Execute the generation
 generate();
