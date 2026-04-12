@@ -1,56 +1,96 @@
 <!DOCTYPE html>
 <html lang="te">
 <head>
-    <script type="text/javascript">
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.addEventListener('keydown', e => {
-            if (e.ctrlKey && ['c', 'u', 's', 'a', 'p'].includes(e.key)) e.preventDefault();
-        });
-        document.onselectstart = () => false;
-    </script>
-    <style> body { -webkit-user-select: none; user-select: none; } </style>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dasabodha Telugu Lyrics | Namo Narayanaya</title>
-    <link rel="icon" type="image/png" href="https://omnnbc.com/assets/images/Omnnbc-new.png">
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Official Telugu Lyrics for Dasabodha Grantha by Namo Narayanaya Bhakthi Channel.">
+    <title>Dasabodha Grantha Telugu Lyrics | Namo Narayanaya</title>
+
+    <script type="text/javascript">
+        document.addEventListener('contextmenu', e => e.preventDefault(), false);
+        document.addEventListener('keydown', e => {
+            if (e.ctrlKey && ['c', 'u', 's', 'a', 'p'].includes(e.key)) e.preventDefault();
+        }, false);
+        document.onselectstart = () => false;
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
-        :root { --primary: #3FA3A1; --nav-bg: #145A5A; --site-pink: #E91E63; --accent: #F4D03F; }
-        body { margin: 0; font-family: 'Inter', sans-serif; background: #F4FBFB; }
-        
-        /* ↔️ Nav Menus */
-        .fixed-nav-wrapper { position: sticky; top: 0; z-index: 1000; }
-        .top-links, .outer-links { display: flex; overflow-x: auto; gap: 15px; padding: 12px; scrollbar-width: none; }
-        .top-links::-webkit-scrollbar, .outer-links::-webkit-scrollbar { display: none; }
-        .top-links { background: var(--nav-bg); }
-        .outer-links { background: var(--primary); }
-        .fixed-nav-wrapper a { color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: 700; white-space: nowrap; }
-
-        /* 🏛️ Header - Mobile: 2 Lines | Desktop: 1 Line */
-        header { background: #fff; padding: 25px 10px; border-bottom: 3px solid var(--accent); text-align: center; }
-        .header-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
-        .logo { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--site-pink); }
-        .site-title { color: var(--site-pink); font-family: 'Crimson Text', serif; margin: 0; }
-        .line-1 { font-size: 1.6rem; display: block; font-weight: 700; }
-        .line-2 { font-size: 1.2rem; display: block; font-weight: 600; }
-
-        @media (min-width: 768px) {
-            .header-container { flex-direction: row; gap: 20px; }
-            .line-1, .line-2 { display: inline-block; font-size: 2.2rem; }
-            .line-2 { margin-left: 15px; }
+        :root {
+            --primary: #3FA3A1;
+            --secondary: #1A1A1A;
+            --accent: #F4D03F;
+            --bg: #F4FBFB;
+            --top-links-bg: #145A5A;
+            --outer-links-bg: #3FA3A1;
+            --site-pink: #E91E63;
         }
 
-        .container { max-width: 800px; margin: 20px auto; padding: 0 15px; min-height: 400px; }
-        .post-card { background: #fff; border-radius: 10px; padding: 20px; margin-bottom: 15px; border-left: 6px solid var(--primary); box-shadow: 0 4px 10px rgba(0,0,0,0.05); cursor: pointer; }
-        .post-title { margin: 0; color: var(--primary); font-size: 1.4rem; }
-        
-        .dash-nav { text-align: center; margin: 30px 0; background: #fff; padding: 20px; }
-        .dash-btn { padding: 10px 20px; margin: 5px; border-radius: 25px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-weight: bold; }
-        .dash-btn.active { background: var(--nav-bg); color: #fff; }
-        
-        footer { background: var(--nav-bg); color: #fff; text-align: center; padding: 30px; margin-top: 50px; }
+        body { 
+            margin: 0; 
+            font-family: 'Inter', sans-serif; 
+            background: var(--bg); 
+            color: #222; 
+            overflow-x: hidden;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        /* ↔️ HORIZONTAL SCROLL MENUS */
+        .top-links, .outer-links {
+            display: flex; overflow-x: auto; white-space: nowrap;
+            gap: 15px; padding: 10px; scrollbar-width: none;
+        }
+        .top-links { background: var(--top-links-bg); }
+        .outer-links { background: var(--outer-links-bg); }
+        .fixed-nav-wrapper a {
+            color: #fff; text-decoration: none; font-size: 0.85rem;
+            font-weight: 700; padding: 6px 8px; flex-shrink: 0;
+        }
+
+        /* 🏛️ HEADER */
+        header { background: #fff; padding: 25px 10px; border-bottom: 3px solid var(--accent); text-align: center; }
+        .header-container { display: flex; align-items: center; justify-content: center; gap: 15px; }
+        .header-logo { width: 65px; height: 65px; border-radius: 50%; object-fit: cover; }
+        .site-title-main { font-family: 'Crimson Text', serif; color: var(--site-pink); margin: 0; }
+        .line-1 { font-size: 1.7rem; display: block; font-weight: 700; }
+        .line-2 { font-size: 1.3rem; display: block; font-weight: 600; }
+        .site-title-sub { 
+            background: #eee; padding: 5px 15px; border-radius: 20px; 
+            font-size: 0.85rem; color: #444; display: inline-block; margin-top: 10px;
+        }
+
+        /* 🔍 SEARCH */
+        .search-area { width: 100%; display: flex; justify-content: center; margin: 25px 0; }
+        #postSearch { 
+            width: 80%; max-width: 300px; padding: 12px 20px; 
+            border-radius: 25px; border: 1px solid #ccc; outline: none; text-align: center;
+        }
+
+        /* 📄 CONTENT */
+        .container { max-width: 700px; margin: auto; padding: 0 15px; min-height: 400px; }
+        .post-card { 
+            background: #fff; border-radius: 8px; padding: 20px; margin-bottom: 15px; 
+            border-left: 5px solid var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: transform 0.2s; cursor: pointer;
+        }
+        .post-card:active { transform: scale(0.98); }
+        .post-title-click { margin: 0 0 8px; font-size: 1.25rem; color: var(--secondary); }
+        .post-desc { font-size: 0.95rem; color: #666; line-height: 1.5; }
+
+        /* 🔘 DASHAKAM NAV */
+        .nav-section { text-align: center; padding: 30px 10px; background: #fff; margin-top: 40px; }
+        .scroll-container { display: flex; overflow-x: auto; gap: 10px; padding: 15px 5px; }
+        .dash-btn { 
+            min-width: 110px; padding: 10px; border-radius: 25px; background: #fff; 
+            border: 1px solid #ddd; font-weight: 700; cursor: pointer; flex-shrink: 0;
+        }
+        .dash-btn.active { background: var(--secondary); color: var(--accent); border-color: var(--secondary); }
+
+        footer { background: #145A5A; color: #fff; text-align: center; padding: 30px; margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -60,97 +100,120 @@
         <a href="/">Home</a>
         <a href="/about-us">About Us</a>
         <a href="/contact-us">Contact Us</a>
-    </div>
+        <a href="/privacy-policy">Privacy Policy</a>
+    </div> 
     <div class="outer-links">
-        <a href="https://omnnbc.com" target="_blank">Main Site</a>
+        <a href="https://omnnbc.com/" target="_blank">Main Site</a>
         <a href="https://upasana-chandrika.omnnbc.in/" target="_blank">Upasana Chandrika</a>
+        <a href="https://manache-shlok.omnnbc.in/" target="_blank">Manache Shlok</a>
     </div>
 </div>
 
 <header>
     <div class="header-container">
-        <img src="https://omnnbc.com/assets/images/Omnnbc-new.png" class="logo" alt="Logo">
-        <h1 class="site-title">
-            <span class="line-1">NAMO NARAYANAYA</span>
-            <span class="line-2">BHAKTHI CHANNEL</span>
-        </h1>
+        <img src="https://omnnbc.com/assets/images/Omnnbc-new.png" class="header-logo" alt="Logo">
+        <div class="site-title-wrapper">
+            <h1 class="site-title-main">
+                <span class="line-1">Namo Narayanaya</span>
+                <span class="line-2">Bhakthi Channel</span>
+            </h1>
+        </div>
     </div>
+    <div class="site-title-sub">Dasabodha Grantha Telugu Lyrics</div>
 </header>
 
-<main class="container" id="mainDisplay">
-    <div style="text-align:center; padding:50px;">🙏 Loading...</div>
+<div class="search-area">
+    <input type="text" id="postSearch" placeholder="Search Samasam (e.g. Samasam 1)...">
+</div>
+
+<main class="container" id="postsContainer">
+    <div style="text-align:center;padding:50px;">🙏 Loading Dasabodha...</div>
 </main>
 
-<div class="dash-nav" id="dashButtons"></div>
+<nav class="nav-section">
+    <p><b>SELECT DASHAKAM</b></p>
+    <div class="scroll-container" id="dashButtons"></div>
+</nav>
 
 <footer>© 2026 Namo Narayanaya Bhakthi Channel</footer>
 
 <script>
-    let allPosts = [];
-    let currentDashakam = 1;
-    const pathParts = window.location.pathname.split('/').filter(Boolean);
-    const slug = pathParts[pathParts.length - 1] || "index";
+let allPosts = [];
+let currentDashakam = 1;
 
-    async function init() {
-        try {
-            // Absolute path "/" is mandatory for Clean URLs
-            const res = await fetch("/data/posts.json?v=" + Date.now());
-            allPosts = await res.json();
-            
-            if (slug === "index") {
-                renderHome();
-                renderDashButtons();
-            } else {
-                renderPost(slug);
-            }
-        } catch (e) { document.getElementById("mainDisplay").innerHTML = "Error loading data."; }
-    }
-
-    function renderHome() {
-        const filtered = allPosts.filter(p => parseInt(p.dashakam) === currentDashakam);
-        // Sorting Samasams numerically
-        filtered.sort((a, b) => {
-            const numA = parseInt(a.url.match(/samasam-(\d+)/)?.[1] || 0);
-            const numB = parseInt(b.url.match(/samasam-(\d+)/)?.[1] || 0);
-            return numA - numB;
+// Fetch Data
+document.addEventListener("DOMContentLoaded", () => {
+    fetch("./data/posts.json?v=" + Date.now())
+    .then(res => res.json())
+    .then(data => {
+        allPosts = data.map(p => {
+            // Ensure dashakam and samasam numbers are available for sorting
+            const dMatch = p.url.match(/dashakam-(\d+)/);
+            const sMatch = p.url.match(/samasam-(\d+)/);
+            return {
+                ...p,
+                dNum: dMatch ? parseInt(dMatch[1]) : 0,
+                sNum: sMatch ? parseInt(sMatch[1]) : 0
+            };
         });
+        renderPage();
+        setupDashNav();
+    })
+    .catch(err => {
+        document.getElementById("postsContainer").innerHTML = "Error loading content.";
+    });
+});
 
-        document.getElementById("mainDisplay").innerHTML = filtered.map(p => `
-            <div class="post-card" onclick="location.href='/${p.url}/'">
-                <h2 class="post-title">${p.title}</h2>
-                <p>${p.description.substring(0, 120)}...</p>
-            </div>
-        `).join('');
+function renderPage(searchTerm = "") {
+    const container = document.getElementById("postsContainer");
+    
+    let filtered = searchTerm 
+        ? allPosts.filter(p => p.title.toLowerCase().includes(searchTerm.toLowerCase()))
+        : allPosts.filter(p => p.dNum === currentDashakam)
+                  .sort((a, b) => a.sNum - b.sNum);
+
+    if (filtered.length === 0) {
+        container.innerHTML = `<div style="text-align:center;padding:50px;">No results found.</div>`;
+        return;
     }
 
-    async function renderPost(slugName) {
-        const post = allPosts.find(p => p.url === slugName);
-        if (post) {
-            try {
-                const res = await fetch(`/posts/${post.url}.html`);
-                const html = await res.text();
-                document.getElementById("mainDisplay").innerHTML = `<div style="background:#fff; padding:25px; border-radius:10px;">${html}</div>`;
-                document.title = post.title + " | Namo Narayanaya";
-                document.getElementById("dashButtons").style.display = 'none';
-            } catch (e) { window.location.href = "/404"; }
-        } else {
-            window.location.href = "/404"; 
-        }
-    }
+    container.innerHTML = "";
+    filtered.forEach(post => {
+        const card = document.createElement("div");
+        card.className = "post-card";
+        // Clean URL Navigation: Redirects to /slug/
+        card.onclick = () => window.location.href = `./${post.url}/`;
+        card.innerHTML = `
+            <h2 class="post-title-click">${post.title}</h2>
+            <div class="post-desc">${post.description || "Click to read the full Telugu lyrics for this samasam."}</div>
+        `;
+        container.appendChild(card);
+    });
+}
 
-    function renderDashButtons() {
-        const btnContainer = document.getElementById("dashButtons");
-        btnContainer.innerHTML = "<p><b>SELECT DASHAKAM</b></p>";
-        for(let i=1; i<=20; i++) {
-            const btn = document.createElement("button");
-            btn.innerText = "D" + i;
-            btn.className = "dash-btn" + (i === currentDashakam ? " active" : "");
-            btn.onclick = () => { currentDashakam = i; renderHome(); window.scrollTo({top:0, behavior:'smooth'}); };
-            btnContainer.appendChild(btn);
-        }
+function setupDashNav() {
+    const wrap = document.getElementById("dashButtons");
+    for(let i=1; i<=20; i++) {
+        const btn = document.createElement("button");
+        btn.innerText = "Dashakam " + i;
+        btn.className = "dash-btn" + (i === currentDashakam ? " active" : "");
+        btn.onclick = () => {
+            currentDashakam = i;
+            document.querySelectorAll(".dash-btn").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            document.getElementById("postSearch").value = "";
+            renderPage();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        };
+        wrap.appendChild(btn);
     }
+}
 
-    init();
+// Search Logic
+document.getElementById("postSearch").addEventListener("input", e => {
+    renderPage(e.target.value);
+});
 </script>
+
 </body>
 </html>
