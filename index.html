@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" id="metaDesc" content="Official Telugu Lyrics for Dasabodha Grantha by Namo Narayanaya Bhakthi Channel.">
     
-    <meta name="description" id="metaDesc" content="Official Telugu Lyrics for Dasabodha Grantha by Namo Narayanaya Bhakthi Channel. Read all Samasams here.">
-    
-    <title id="siteTitle">Dasabodha Grantha Telugu Lyrics | Namo Narayanaya</title>
+    <title>Dasabodha Grantha Telugu Lyrics | Namo Narayanaya</title>
 
     <script type="text/javascript">
         document.addEventListener('contextmenu', e => e.preventDefault(), false);
@@ -30,19 +29,11 @@
             --outer-links-bg: #3FA3A1;
             --site-pink: #E91E63;
         }
-
-        body { 
-            margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: #222; 
-            overflow-x: hidden; -webkit-user-select: none; user-select: none;
-        }
-
-        /* Full Menu Links Setup */
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: #222; overflow-x: hidden; -webkit-user-select: none; user-select: none; }
         .top-links, .outer-links { display: flex; overflow-x: auto; white-space: nowrap; gap: 15px; padding: 10px; scrollbar-width: none; }
         .top-links { background: var(--top-links-bg); }
         .outer-links { background: var(--outer-links-bg); }
         .nav-link { color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: 700; padding: 6px 8px; flex-shrink: 0; }
-
-        /* Header UI */
         header { background: #fff; padding: 25px 10px; border-bottom: 3px solid var(--accent); text-align: center; }
         .header-container { display: flex; align-items: center; justify-content: center; gap: 15px; }
         .header-logo { width: 65px; height: 65px; border-radius: 50%; object-fit: cover; }
@@ -50,27 +41,15 @@
         .line-1 { font-size: 1.7rem; display: block; font-weight: 700; }
         .line-2 { font-size: 1.3rem; display: block; font-weight: 600; }
         .site-title-sub { background: #eee; padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; color: #444; display: inline-block; margin-top: 10px; }
-
-        /* Search Box */
         .search-area { width: 100%; display: flex; justify-content: center; margin: 25px 0; }
         #postSearch { width: 85%; max-width: 350px; padding: 12px 20px; border-radius: 25px; border: 1px solid #ccc; outline: none; text-align: center; font-size: 16px; }
-
-        /* Posts Container */
         .container { max-width: 700px; margin: auto; padding: 0 15px; min-height: 450px; }
-        .post-card { 
-            background: #fff; border-radius: 8px; padding: 20px; margin-bottom: 12px; 
-            border-left: 5px solid var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            transition: transform 0.1s; cursor: pointer;
-        }
-        .post-card:active { transform: scale(0.98); }
+        .post-card { background: #fff; border-radius: 8px; padding: 20px; margin-bottom: 12px; border-left: 5px solid var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.06); cursor: pointer; }
         .post-title-click { margin: 0; font-size: 1.2rem; color: var(--secondary); font-weight: 600; }
-
-        /* Dashakam Navigation */
         .nav-section { text-align: center; padding: 30px 10px; background: #fff; margin-top: 40px; border-top: 1px solid #eee; }
-        .scroll-container { display: flex; overflow-x: auto; gap: 10px; padding: 15px 5px; scrollbar-width: thin; }
+        .scroll-container { display: flex; overflow-x: auto; gap: 10px; padding: 15px 5px; }
         .dash-btn { min-width: 115px; padding: 12px; border-radius: 25px; background: #fff; border: 1px solid #ddd; font-weight: 700; cursor: pointer; flex-shrink: 0; }
         .dash-btn.active { background: var(--secondary); color: var(--accent); border-color: var(--secondary); }
-
         footer { background: #145A5A; color: #fff; text-align: center; padding: 30px; margin-top: 20px; font-size: 0.9rem; }
     </style>
 </head>
@@ -105,11 +84,11 @@
 </header>
 
 <div class="search-area">
-    <input type="text" id="postSearch" placeholder="Search Samasam (Ex: Samasam 1)...">
+    <input type="text" id="postSearch" placeholder="Search Samasam...">
 </div>
 
 <main class="container" id="postsContainer">
-    <div style="text-align:center;padding:50px;">🙏 Loading Dasabodha Content...</div>
+    <div style="text-align:center;padding:50px;">🙏 Loading...</div>
 </main>
 
 <nav class="nav-section">
@@ -117,53 +96,35 @@
     <div class="scroll-container" id="dashButtons"></div>
 </nav>
 
-<footer>
-    © 2026 Namo Narayanaya Bhakthi Channel
-</footer>
+<footer>© 2026 Namo Narayanaya Bhakthi Channel</footer>
 
 <script>
 let allPosts = [];
 let currentDashakam = 1;
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Fetch data from your posts.json
     fetch("./data/posts.json?v=" + Date.now())
     .then(res => res.json())
     .then(data => {
         allPosts = data.map(p => {
             const dMatch = p.url.match(/dashakam-(\d+)/);
             const sMatch = p.url.match(/samasam-(\d+)/);
-            return {
-                ...p,
-                dNum: dMatch ? parseInt(dMatch[1]) : 0,
-                sNum: sMatch ? parseInt(sMatch[1]) : 0
-            };
+            return { ...p, dNum: dMatch ? parseInt(dMatch[1]) : 0, sNum: sMatch ? parseInt(sMatch[1]) : 0 };
         });
         renderPage();
         setupDashNav();
-    })
-    .catch(err => {
-        document.getElementById("postsContainer").innerHTML = "Error loading content. Please refresh.";
     });
 });
 
 function renderPage(searchTerm = "") {
     const container = document.getElementById("postsContainer");
-    const mDesc = document.getElementById("metaDesc");
-    
     let filtered = searchTerm 
         ? allPosts.filter(p => p.title.toLowerCase().includes(searchTerm.toLowerCase()))
-        : allPosts.filter(p => p.dNum === currentDashakam)
-                  .sort((a, b) => a.sNum - b.sNum);
+        : allPosts.filter(p => p.dNum === currentDashakam).sort((a, b) => a.sNum - b.sNum);
 
     if (filtered.length === 0) {
-        container.innerHTML = `<div style="text-align:center;padding:50px;">No Samasams found.</div>`;
+        container.innerHTML = `<div style="text-align:center;padding:50px;">No results found.</div>`;
         return;
-    }
-
-    // Update Meta description based on current Dashakam context
-    if(!searchTerm) {
-        mDesc.setAttribute("content", `Read Dashakam ${currentDashakam} Telugu lyrics from Dasabodha Grantha.`);
     }
 
     container.innerHTML = "";
@@ -171,25 +132,20 @@ function renderPage(searchTerm = "") {
         const card = document.createElement("div");
         card.className = "post-card";
         
-        /** * Pathing Logic: 
-         * Navigates to the /posts/ folder and adds .html 
-         * This matches your dasabodha.omnnbc.in/posts/slug.html structure
-         */
-        card.onclick = () => window.location.href = `./posts/${post.url}.html`; 
+        // CRITICAL FIX: Direct pathing to match your server structure
+        // This creates: https://dasabodha.omnnbc.in/posts/dashakam-1-samasam-5-lyrics.html
+        card.onclick = () => {
+            window.location.href = window.location.origin + "/posts/" + post.url + ".html";
+        };
         
-        card.innerHTML = `
-            <h2 class="post-title-click">${post.title}</h2>
-            <div style="color:#666; font-size:0.9rem; margin-top:5px;">
-                ${post.description || "Click to read the complete Telugu lyrics for this Samasam."}
-            </div>
-        `;
+        card.innerHTML = `<h2 class="post-title-click">${post.title}</h2><p style="color:#666;font-size:0.9rem;">${post.description || "Click to read lyrics"}</p>`;
         container.appendChild(card);
     });
 }
 
 function setupDashNav() {
     const wrap = document.getElementById("dashButtons");
-    wrap.innerHTML = ""; // Clear existing
+    wrap.innerHTML = "";
     for(let i=1; i<=20; i++) {
         const btn = document.createElement("button");
         btn.innerText = "Dashakam " + i;
@@ -198,7 +154,6 @@ function setupDashNav() {
             currentDashakam = i;
             document.querySelectorAll(".dash-btn").forEach(b => b.classList.remove("active"));
             btn.classList.add("active");
-            document.getElementById("postSearch").value = "";
             renderPage();
             window.scrollTo({top: 0, behavior: 'smooth'});
         };
@@ -206,10 +161,7 @@ function setupDashNav() {
     }
 }
 
-document.getElementById("postSearch").addEventListener("input", e => {
-    renderPage(e.target.value);
-});
+document.getElementById("postSearch").addEventListener("input", e => renderPage(e.target.value));
 </script>
-
 </body>
 </html>
