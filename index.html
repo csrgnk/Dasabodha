@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Official Telugu Lyrics for Dasabodha Grantha by Namo Narayanaya Bhakthi Channel.">
-    <title>Dasabodha Grantha Telugu Lyrics | Namo Narayanaya</title>
+    
+    <meta name="description" id="metaDesc" content="Official Telugu Lyrics for Dasabodha Grantha by Namo Narayanaya Bhakthi Channel. Read all Samasams here.">
+    
+    <title id="siteTitle">Dasabodha Grantha Telugu Lyrics | Namo Narayanaya</title>
 
     <script type="text/javascript">
         document.addEventListener('contextmenu', e => e.preventDefault(), false);
@@ -34,13 +36,13 @@
             overflow-x: hidden; -webkit-user-select: none; user-select: none;
         }
 
-        /* Navigation Menus */
+        /* Full Menu Links Setup */
         .top-links, .outer-links { display: flex; overflow-x: auto; white-space: nowrap; gap: 15px; padding: 10px; scrollbar-width: none; }
         .top-links { background: var(--top-links-bg); }
         .outer-links { background: var(--outer-links-bg); }
         .nav-link { color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: 700; padding: 6px 8px; flex-shrink: 0; }
 
-        /* Header */
+        /* Header UI */
         header { background: #fff; padding: 25px 10px; border-bottom: 3px solid var(--accent); text-align: center; }
         .header-container { display: flex; align-items: center; justify-content: center; gap: 15px; }
         .header-logo { width: 65px; height: 65px; border-radius: 50%; object-fit: cover; }
@@ -49,11 +51,11 @@
         .line-2 { font-size: 1.3rem; display: block; font-weight: 600; }
         .site-title-sub { background: #eee; padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; color: #444; display: inline-block; margin-top: 10px; }
 
-        /* Search Area */
+        /* Search Box */
         .search-area { width: 100%; display: flex; justify-content: center; margin: 25px 0; }
         #postSearch { width: 85%; max-width: 350px; padding: 12px 20px; border-radius: 25px; border: 1px solid #ccc; outline: none; text-align: center; font-size: 16px; }
 
-        /* Posts List */
+        /* Posts Container */
         .container { max-width: 700px; margin: auto; padding: 0 15px; min-height: 450px; }
         .post-card { 
             background: #fff; border-radius: 8px; padding: 20px; margin-bottom: 12px; 
@@ -79,10 +81,13 @@
         <a href="/" class="nav-link">Home</a>
         <a href="/about-us" class="nav-link">About Us</a>
         <a href="/contact-us" class="nav-link">Contact Us</a>
+        <a href="/privacy-policy" class="nav-link">Privacy Policy</a>
     </div> 
     <div class="outer-links">
         <a href="https://omnnbc.com/" class="nav-link" target="_blank">Main Site</a>
         <a href="https://upasana-chandrika.omnnbc.in/" class="nav-link" target="_blank">Upasana Chandrika</a>
+        <a href="https://manache-shlok.omnnbc.in/" class="nav-link" target="_blank">Manache Shlok Telugu</a>
+        <a href="https://manache-shlok.omnnbc.in/hindi/" class="nav-link" target="_blank">Manache Shlok Hindi</a>
     </div>
 </div>
 
@@ -100,11 +105,11 @@
 </header>
 
 <div class="search-area">
-    <input type="text" id="postSearch" placeholder="Search for a Samasam...">
+    <input type="text" id="postSearch" placeholder="Search Samasam (Ex: Samasam 1)...">
 </div>
 
 <main class="container" id="postsContainer">
-    <div style="text-align:center;padding:50px;">🙏 Loading content...</div>
+    <div style="text-align:center;padding:50px;">🙏 Loading Dasabodha Content...</div>
 </main>
 
 <nav class="nav-section">
@@ -112,14 +117,16 @@
     <div class="scroll-container" id="dashButtons"></div>
 </nav>
 
-<footer>© 2026 Namo Narayanaya Bhakthi Channel</footer>
+<footer>
+    © 2026 Namo Narayanaya Bhakthi Channel
+</footer>
 
 <script>
 let allPosts = [];
 let currentDashakam = 1;
 
-// 1. Fetch JSON Data
 document.addEventListener("DOMContentLoaded", () => {
+    // Fetch data from your posts.json
     fetch("./data/posts.json?v=" + Date.now())
     .then(res => res.json())
     .then(data => {
@@ -136,13 +143,13 @@ document.addEventListener("DOMContentLoaded", () => {
         setupDashNav();
     })
     .catch(err => {
-        document.getElementById("postsContainer").innerHTML = "Error loading content. Please try again later.";
+        document.getElementById("postsContainer").innerHTML = "Error loading content. Please refresh.";
     });
 });
 
-// 2. Render the list of samasams
 function renderPage(searchTerm = "") {
     const container = document.getElementById("postsContainer");
+    const mDesc = document.getElementById("metaDesc");
     
     let filtered = searchTerm 
         ? allPosts.filter(p => p.title.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -150,8 +157,13 @@ function renderPage(searchTerm = "") {
                   .sort((a, b) => a.sNum - b.sNum);
 
     if (filtered.length === 0) {
-        container.innerHTML = `<div style="text-align:center;padding:50px;">No results found.</div>`;
+        container.innerHTML = `<div style="text-align:center;padding:50px;">No Samasams found.</div>`;
         return;
+    }
+
+    // Update Meta description based on current Dashakam context
+    if(!searchTerm) {
+        mDesc.setAttribute("content", `Read Dashakam ${currentDashakam} Telugu lyrics from Dasabodha Grantha.`);
     }
 
     container.innerHTML = "";
@@ -159,20 +171,25 @@ function renderPage(searchTerm = "") {
         const card = document.createElement("div");
         card.className = "post-card";
         
-        /** * TARGET FOLDER: /posts/
-         * TARGET EXTENSION: .html
-         * Example Result: dasabodha.omnnbc.in/posts/dashakam-1-samasam-1-lyrics.html
+        /** * Pathing Logic: 
+         * Navigates to the /posts/ folder and adds .html 
+         * This matches your dasabodha.omnnbc.in/posts/slug.html structure
          */
         card.onclick = () => window.location.href = `./posts/${post.url}.html`; 
         
-        card.innerHTML = `<h2 class="post-title-click">${post.title}</h2>`;
+        card.innerHTML = `
+            <h2 class="post-title-click">${post.title}</h2>
+            <div style="color:#666; font-size:0.9rem; margin-top:5px;">
+                ${post.description || "Click to read the complete Telugu lyrics for this Samasam."}
+            </div>
+        `;
         container.appendChild(card);
     });
 }
 
-// 3. Create Dashakam 1-20 buttons
 function setupDashNav() {
     const wrap = document.getElementById("dashButtons");
+    wrap.innerHTML = ""; // Clear existing
     for(let i=1; i<=20; i++) {
         const btn = document.createElement("button");
         btn.innerText = "Dashakam " + i;
@@ -189,7 +206,6 @@ function setupDashNav() {
     }
 }
 
-// 4. Search input event
 document.getElementById("postSearch").addEventListener("input", e => {
     renderPage(e.target.value);
 });
