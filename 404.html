@@ -1,55 +1,137 @@
-const mainHome = window.location.origin + "/";
-const path = window.location.pathname.replace(/\/$/, ""); 
-const pathParts = path.split('/').filter(Boolean);
-let slug = pathParts[pathParts.length - 1] || "index";
-
-// Loading Data
-Promise.all([
-    fetch(`${mainHome}data/posts.json?v=${new Date().getTime()}`).then(r => r.json()),
-    fetch(`${mainHome}data/pages.json?v=${new Date().getTime()}`).then(r => r.json()).catch(() => [])
-]).then(([posts, pages]) => {
+<!DOCTYPE html>
+<html lang="te">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Namo Narayanaya Bhakthi Channel</title>
     
-    let i = posts.findIndex(p => p.url === slug);
-    let post = posts[i];
+    <script type="text/javascript">
+        // Security: Disable right-click and copy
+        document.addEventListener('contextmenu', e => e.preventDefault(), false);
+        document.addEventListener('keydown', e => {
+            if (e.ctrlKey && ['c', 'u', 's', 'a', 'p'].includes(e.key)) e.preventDefault();
+        }, false);
+        document.onselectstart = () => false;
+    </script>
 
-    if (post) {
-        document.title = post.title;
-        document.getElementById("postTitle").innerText = post.title;
+    <style>
+        :root {
+            --primary: #3FA3A1;
+            --nav-bg: #145A5A;
+            --bg: #F4FBFB;
+            --accent: #F4D03F;
+        }
+
+        body { margin: 0; font-family: Arial, sans-serif; background: var(--bg); -webkit-user-select: none; user-select: none; }
+
+        /* Navigation Bar */
+        .nav-scroll { background: var(--nav-bg); display: flex; overflow-x: auto; padding: 10px; }
+        .nav-scroll a { color: #fff; text-decoration: none; padding: 6px 12px; margin: 0 4px; background: rgba(255,255,255,0.1); border-radius: 4px; white-space: nowrap; font-size: 14px; font-weight: bold; }
+
+        /* Header */
+        .site-header { background: #fff; padding: 15px; border-bottom: 3px solid var(--accent); text-align: center; }
+        .logo { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; }
+        .title-wrap { color: #E91E63; font-weight: 700; margin-top: 5px; }
+
+        /* Breadcrumbs */
+        .breadcrumbs { padding: 10px 15px; font-size: 13px; color: #666; max-width: 800px; margin: auto; }
+        .breadcrumbs a { color: var(--primary); text-decoration: none; font-weight: bold; }
+
+        /* Content Area */
+        .container { max-width: 800px; margin: 10px auto; padding: 0 15px; }
+        .post-title { background: linear-gradient(135deg,#2E8B87,#3FA3A1); color: #fff; padding: 18px; text-align: center; border-radius: 10px; font-size: 22px; margin-bottom: 15px; }
+        .post-content { background: #fff; padding: 25px; border-radius: 10px; line-height: 1.8; box-shadow: 0 2px 10px rgba(0,0,0,0.05); font-size: 17px; }
+
+        /* Navigation Buttons (Prev/Home/Next) */
+        .post-nav { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 30px; }
+        .btn-action, .btn-home { padding: 12px; text-align: center; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 14px; }
+        .btn-action { background: var(--primary); color: #fff; }
+        .btn-home { border: 2px solid var(--primary); color: var(--primary); }
+
+        footer { background: #2E8B87; color: #fff; text-align: center; padding: 25px; margin-top: 40px; font-size: 14px; }
+    </style>
+</head>
+
+<body>
+
+<nav class="nav-scroll">
+    <a href="/">Home</a>
+    <a href="https://omnnbc.com/">Main Site</a>
+</nav>
+
+<header class="site-header">
+    <img src="https://omnnbc.com/assets/images/Omnnbc-new.png" class="logo" alt="Logo">
+    <div class="title-wrap">Namo Narayanaya Bhakthi Channel</div>
+</header>
+
+<div class="container">
+    <div id="breadcrumb" class="breadcrumbs"></div>
+    <div id="postTitle" class="post-title">Loading...</div>
+    <div id="postContent" class="post-content">Loading content, please wait...</div>
+</div>
+
+<script>
+    const mainHome = window.location.origin + "/";
+    const path = window.location.pathname.replace(/\/$/, ""); 
+    const pathParts = path.split('/').filter(Boolean);
+    let slug = pathParts[pathParts.length - 1] || "index";
+
+    // Start Data Loading
+    Promise.all([
+        fetch(`${mainHome}data/posts.json?v=${new Date().getTime()}`).then(r => r.json()),
+        fetch(`${mainHome}data/pages.json?v=${new Date().getTime()}`).then(r => r.json()).catch(() => [])
+    ]).then(([posts, pages]) => {
         
-        // Dynamic Breadcrumb
-        let dashNum = post.dashakam || "1";
-        document.getElementById("breadcrumb").innerHTML = `<a href="${mainHome}">Home</a> > Dashakam ${dashNum} > ${post.title}`;
+        let i = posts.findIndex(p => p.url === slug);
+        let post = posts[i];
 
-        // Fetching the actual Samasam file from /posts/ folder
-        fetch(`${mainHome}posts/${slug}.html`)
-            .then(r => {
-                if(!r.ok) throw new Error("File Missing");
-                return r.text();
-            })
-            .then(html => {
-                let temp = document.createElement("div");
-                temp.innerHTML = html;
-                // Clean up injected header/footers from original file
-                temp.querySelectorAll("header,footer,nav,script,style").forEach(e => e.remove());
-                
-                // Prev/Next Navigation Logic
-                let prev = posts[i-1];
-                let next = posts[i+1];
-                let navHtml = `
-                    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-top:30px;">
-                        ${prev ? `<a href="${mainHome}${prev.url}/" class="btn-action">← Prev</a>` : `<div></div>`}
-                        <a href="${mainHome}" class="btn-home">HOME</a>
-                        ${next ? `<a href="${mainHome}${next.url}/" class="btn-action">Next →</a>` : `<div></div>`}
-                    </div>`;
+        if (post) {
+            document.title = post.title + " | Namo Narayanaya";
+            document.getElementById("postTitle").innerText = post.title;
+            
+            // Breadcrumb Logic
+            let dashNum = post.dashakam || "1";
+            document.getElementById("breadcrumb").innerHTML = `<a href="${mainHome}">Home</a> > Dashakam ${dashNum} > ${post.title}`;
 
-                document.getElementById("postContent").innerHTML = temp.innerHTML + navHtml;
-            })
-            .catch(() => {
-                document.getElementById("postContent").innerHTML = "<div style='text-align:center;'>Content coming soon...</div>";
-            });
-    } else {
-        // 404 Fallback
-        document.getElementById("postTitle").innerText = "404 - Page Not Found";
-        document.getElementById("postContent").innerHTML = `<div style="text-align:center;"><a href="${mainHome}">Back to Home</a></div>`;
-    }
-});
+            // Fetch the Samasam HTML from /posts/ folder
+            fetch(`${mainHome}posts/${slug}.html`)
+                .then(r => {
+                    if(!r.ok) throw new Error("File Missing");
+                    return r.text();
+                })
+                .then(html => {
+                    let temp = document.createElement("div");
+                    temp.innerHTML = html;
+                    
+                    // Cleanup extra tags
+                    temp.querySelectorAll("header,footer,nav,script,style").forEach(e => e.remove());
+                    
+                    // Navigation Buttons Logic
+                    let prev = posts[i-1];
+                    let next = posts[i+1];
+                    let navHtml = `
+                        <div class="post-nav">
+                            ${prev ? `<a href="${mainHome}${prev.url}/" class="btn-action">← Prev</a>` : `<div></div>`}
+                            <a href="${mainHome}" class="btn-home">HOME</a>
+                            ${next ? `<a href="${mainHome}${next.url}/" class="btn-action">Next →</a>` : `<div></div>`}
+                        </div>`;
+
+                    document.getElementById("postContent").innerHTML = temp.innerHTML + navHtml;
+                })
+                .catch(() => {
+                    document.getElementById("postContent").innerHTML = "<div style='text-align:center; padding:50px;'>ఈ సమాసం యొక్క సాహిత్యం త్వరలో అప్‌లోడ్ చేయబడుతుంది.</div>";
+                });
+        } else {
+            // 404 Fallback
+            document.getElementById("postTitle").innerText = "404 - Page Not Found";
+            document.getElementById("postContent").innerHTML = `<div style="text-align:center; padding:50px;"><a href="${mainHome}" class="btn-home">Back to Home</a></div>`;
+        }
+    });
+</script>
+
+<footer>
+    © 2026 Namo Narayanaya Bhakthi Channel
+</footer>
+
+</body>
+</html>
