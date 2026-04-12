@@ -1,83 +1,192 @@
-let allPosts = [];
-let currentDashakam = 1;
-let searchTimeout = null;
-
-document.addEventListener("DOMContentLoaded", () => {
-    // Fetches the post list. Added timestamp to avoid cache issues.
-    fetch("./data/posts.json?v=" + new Date().getTime())
-    .then(res => res.json())
-    .then(data => {
-        allPosts = data;
-        renderPage();
-        setupDashNav();
-    })
-    .catch(err => {
-        console.error("Error loading posts:", err);
-        document.getElementById("postsContainer").innerHTML = "Error loading content.";
-    });
-});
-
-/**
- * Handles Clean URL Redirection
- * Instead of .html, it opens the URL like a folder/slug
- */
-function openPost(url){
-    const cleanUrl = url.replace(".html", "");
-    window.location.href = window.location.origin + "/" + cleanUrl + "/";
-}
-
-/**
- * Renders the list of Samasams based on the selected Dashakam
- */
-function renderPage(searchTerm = "") {
-    const container = document.getElementById("postsContainer");
+<!DOCTYPE html>
+<html lang="te">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dasabodha Grantha Telugu Lyrics | Namo Narayanaya</title>
     
-    let filtered = searchTerm 
-        ? allPosts.filter(p => p.title.toLowerCase().includes(searchTerm.toLowerCase()))
-        : allPosts.filter(p => p.dashakam === currentDashakam)
-                  .sort((a, b) => {
-                      // Sorts by samasam number extracted from the URL
-                      const numA = parseInt(a.url.match(/samasam-(\d+)/)?.[1] || 0);
-                      const numB = parseInt(b.url.match(/samasam-(\d+)/)?.[1] || 0);
-                      return numA - numB;
-                  });
+    <script type="text/javascript">
+        // Security: Disable right-click and copy
+        document.addEventListener('contextmenu', e => e.preventDefault(), false);
+        document.addEventListener('keydown', e => {
+            if (e.ctrlKey && ['c', 'u', 's', 'a', 'p'].includes(e.key)) e.preventDefault();
+        }, false);
+        document.onselectstart = () => false;
+    </script>
 
-    if (filtered.length === 0) {
-        container.innerHTML = `<div style="text-align:center;padding:40px;">🙏 No Samasams found in this Dashakam yet.</div>`;
-        return;
-    }
+    <style>
+        :root {
+            --primary: #3FA3A1;
+            --secondary: #1A1A1A;
+            --accent: #F4D03F;
+            --bg: #F4FBFB;
+        }
 
-    container.innerHTML = "";
-    filtered.forEach(post => {
-        const card = document.createElement("article");
-        card.className = "post-card";
-        card.onclick = () => openPost(post.url);
-        card.innerHTML = `
-            <h2 class="post-title-click" style="cursor:pointer; margin:0 0 8px;">${post.title}</h2>
-            <p style="font-size:0.9rem; color:#555;">${post.description ? post.description.substring(0,120) : "Dasabodha Telugu Lyrics..."}...</p>
-        `;
-        container.appendChild(card);
-    });
-}
+        body { 
+            margin: 0; 
+            font-family: 'Inter', sans-serif; 
+            background: var(--bg); 
+            -webkit-user-select: none; 
+            user-select: none; 
+        }
 
-/**
- * Creates 20 Dashakam selection buttons
- */
-function setupDashNav(){
-    const wrap = document.getElementById("dashButtons");
-    wrap.innerHTML = "";
-    for(let i=1; i<=20; i++){
-        const btn = document.createElement("button");
-        btn.innerText = "Dashakam " + i;
-        btn.className = "dash-btn" + (i === currentDashakam ? " active" : "");
-        btn.onclick = () => {
-            currentDashakam = i;
-            document.querySelectorAll(".dash-btn").forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
-            document.getElementById("postSearch").value = "";
+        header { 
+            background: #fff; 
+            padding: 20px; 
+            text-align: center; 
+            border-bottom: 3px solid var(--accent); 
+        }
+
+        .header-logo { width: 60px; height: 60px; border-radius: 50%; }
+
+        .container { max-width: 700px; margin: auto; padding: 20px; min-height: 400px; }
+
+        /* Search Box */
+        .search-area { text-align: center; margin-bottom: 25px; }
+        #postSearch { 
+            width: 80%; max-width: 300px; padding: 12px; 
+            border-radius: 25px; border: 1px solid #ccc; outline: none; 
+        }
+
+        /* Post Cards */
+        .post-card { 
+            background: #fff; border-radius: 10px; padding: 20px; 
+            margin-bottom: 15px; border-left: 5px solid var(--primary); 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .post-card:hover { transform: translateY(-3px); }
+        .post-title-click { margin: 0 0 10px; color: var(--secondary); font-size: 1.25rem; }
+
+        /* Pagination Buttons */
+        .nav-section { text-align: center; background: #fff; padding: 20px; border-top: 1px solid #eee; }
+        .scroll-container { display: flex; overflow-x: auto; gap: 10px; padding: 10px; scrollbar-width: none; }
+        .scroll-container::-webkit-scrollbar { display: none; }
+        .dash-btn { 
+            min-width: 110px; padding: 10px; border-radius: 20px; 
+            background: #fff; border: 1px solid #ddd; cursor: pointer; font-weight: bold; 
+        }
+        .dash-btn.active { background: var(--secondary); color: var(--accent); border-color: var(--secondary); }
+
+        footer { background: #145A5A; color: #fff; text-align: center; padding: 20px; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="https://omnnbc.com/assets/images/Omnnbc-new.png" class="header-logo" alt="Logo">
+    <h1 style="color:#E91E63; margin:10px 0 5px;">Namo Narayanaya</h1>
+    <div style="background:#eee; display:inline-block; padding:5px 15px; border-radius:20px; font-size:0.8rem;">Dasabodha Grantha Telugu Lyrics</div>
+</header>
+
+<div class="container">
+    <div class="search-area">
+        <input type="text" id="postSearch" placeholder="సమాసం కోసం వెతకండి...">
+    </div>
+
+    <main id="postsContainer">
+        <div style="text-align:center; padding:50px;">🙏 Loading Posts...</div>
+    </main>
+</div>
+
+<nav class="nav-section">
+    <p><b>దశకమును ఎంచుకోండి (Select Dashakam)</b></p>
+    <div class="scroll-container" id="dashButtons"></div>
+</nav>
+
+<footer>
+    © 2026 Namo Narayanaya Bhakthi Channel
+</footer>
+
+<script>
+    let allPosts = [];
+    let currentDashakam = 1;
+    let searchTimeout = null;
+
+    // Load Data
+    document.addEventListener("DOMContentLoaded", () => {
+        // Fetch posts.json from the data folder
+        fetch("./data/posts.json?v=" + new Date().getTime())
+        .then(res => {
+            if (!res.ok) throw new Error("JSON not found");
+            return res.json();
+        })
+        .then(data => {
+            allPosts = data;
             renderPage();
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        };
-        wrap.appendChild(btn);
+            setupDashNav();
+        })
+        .catch(err => {
+            console.error("Fetch error:", err);
+            document.getElementById("postsContainer").innerHTML = "<div style='text-align:center;'>Error loading data. Please check data/posts.json file.</div>";
+        });
+    });
+
+    // Clean URL Redirect
+    function openPost(url) {
+        const cleanUrl = url.replace(".html", "");
+        window.location.href = window.location.origin + "/" + cleanUrl + "/";
     }
-}
+
+    // Display Posts
+    function renderPage(searchTerm = "") {
+        const container = document.getElementById("postsContainer");
+        
+        let filtered = searchTerm 
+            ? allPosts.filter(p => p.title.toLowerCase().includes(searchTerm.toLowerCase()))
+            : allPosts.filter(p => parseInt(p.dashakam) === currentDashakam)
+                      .sort((a, b) => {
+                          const numA = parseInt(a.url.match(/samasam-(\d+)/)?.[1] || 0);
+                          const numB = parseInt(b.url.match(/samasam-(\d+)/)?.[1] || 0);
+                          return numA - numB;
+                      });
+
+        if (filtered.length === 0) {
+            container.innerHTML = `<div style="text-align:center; padding:50px;">ఈ దశకంలో పోస్ట్లు ఇంకా అప్‌లోడ్ కాలేదు.</div>`;
+            return;
+        }
+
+        container.innerHTML = "";
+        filtered.forEach(post => {
+            const card = document.createElement("article");
+            card.className = "post-card";
+            card.onclick = () => openPost(post.url);
+            card.innerHTML = `
+                <h2 class="post-title-click">${post.title}</h2>
+                <p style="color:#666; font-size:0.95rem; line-height:1.5;">
+                    ${post.description ? post.description.substring(0, 130) : "దాసబోధ తెలుగు వివరణ మరియు సాహిత్యం..."}...
+                </p>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    // Build Navigation
+    function setupDashNav() {
+        const wrap = document.getElementById("dashButtons");
+        wrap.innerHTML = "";
+        for (let i = 1; i <= 20; i++) {
+            const btn = document.createElement("button");
+            btn.innerText = "Dashakam " + i;
+            btn.className = "dash-btn" + (i === currentDashakam ? " active" : "");
+            btn.onclick = () => {
+                currentDashakam = i;
+                document.querySelectorAll(".dash-btn").forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                document.getElementById("postSearch").value = "";
+                renderPage();
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            };
+            wrap.appendChild(btn);
+        }
+    }
+
+    // Search Logic
+    document.getElementById("postSearch").addEventListener("input", e => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => renderPage(e.target.value), 300);
+    });
+</script>
+
+</body>
+</html>
