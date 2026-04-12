@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="metaDesc" content="Official Telugu Lyrics for Dasabodha Grantha by Namo Narayanaya Bhakthi Channel.">
     <title>Dasabodha Grantha Telugu Lyrics | Namo Narayanaya</title>
+    <meta name="description" id="metaDesc" content="Official Telugu Lyrics for Dasabodha Grantha by Namo Narayanaya Bhakthi Channel.">
 
     <script type="text/javascript">
         document.addEventListener('contextmenu', e => e.preventDefault(), false);
@@ -68,19 +68,25 @@
 </header>
 
 <div class="search-area"><input type="text" id="postSearch" placeholder="Search Samasam..."></div>
+
 <main class="container" id="postsContainer"><div style="text-align:center;padding:50px;">🙏 Loading...</div></main>
+
 <nav class="nav-section"><p><b>SELECT DASHAKAM</b></p><div class="scroll-container" id="dashButtons"></div></nav>
+
 <footer>© 2026 Namo Narayanaya Bhakthi Channel</footer>
 
 <script>
-let allPosts = [];
+let allData = [];
 let currentDashakam = 1;
 
 document.addEventListener("DOMContentLoaded", () => {
-    fetch("/data/posts.json?v=" + Date.now())
-    .then(res => res.json())
-    .then(data => {
-        allPosts = data;
+    // Fetching both posts and pages
+    Promise.all([
+        fetch("/data/posts.json?v=" + Date.now()).then(res => res.json()),
+        fetch("/data/pages.json?v=" + Date.now()).then(res => res.json())
+    ]).then(([posts, pages]) => {
+        // Merge them but only use pages for nav or direct access
+        allData = posts; 
         renderPage();
         setupDashNav();
     });
@@ -89,24 +95,28 @@ document.addEventListener("DOMContentLoaded", () => {
 function renderPage(searchTerm = "") {
     const container = document.getElementById("postsContainer");
     let filtered = searchTerm 
-        ? allPosts.filter(p => p.title.toLowerCase().includes(searchTerm.toLowerCase()))
-        : allPosts.filter(p => parseInt(p.dashakam) === currentDashakam);
+        ? allData.filter(p => p.title.toLowerCase().includes(searchTerm.toLowerCase()))
+        : allData.filter(p => parseInt(p.dashakam) === currentDashakam);
 
     container.innerHTML = "";
-    filtered.forEach(post => {
+    filtered.forEach(item => {
         const card = document.createElement("div");
         card.className = "post-card";
         
-        // ULTRA CLEAN URL: Directly points to slug (No /posts/ folder in URL)
-        card.onclick = () => { window.location.href = "/" + post.url; };
+        // URL SETUP: domain.in/post-url (No folder name)
+        card.onclick = () => { window.location.href = "/" + (item.url || item.id); };
         
-        card.innerHTML = `<h2 class="post-title-click">${post.title}</h2><p style="color:#666;font-size:0.9rem;">${post.description.substring(0,100)}...</p>`;
+        card.innerHTML = `
+            <h2 class="post-title-click">${item.title}</h2>
+            <p style="color:#666;font-size:0.9rem;">${item.description ? item.description.substring(0,120) : "Read more"}...</p>
+        `;
         container.appendChild(card);
     });
 }
 
 function setupDashNav() {
     const wrap = document.getElementById("dashButtons");
+    wrap.innerHTML = "";
     for(let i=1; i<=20; i++) {
         const btn = document.createElement("button");
         btn.innerText = "Dashakam " + i;
