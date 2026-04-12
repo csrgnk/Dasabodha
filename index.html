@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" id="metaDesc" content="Official Telugu Lyrics for Dasabodha Grantha by Namo Narayanaya Bhakthi Channel.">
     
-    <title>Dasabodha Grantha Telugu Lyrics | Namo Narayanaya</title>
+    <title id="pageTitle">Dasabodha Grantha Telugu Lyrics | Namo Narayanaya</title>
+    <meta name="description" id="metaDesc" content="Official Telugu Lyrics for Dasabodha Grantha by Namo Narayanaya Bhakthi Channel.">
 
     <script type="text/javascript">
         document.addEventListener('contextmenu', e => e.preventDefault(), false);
@@ -113,6 +113,13 @@ let allPosts = [];
 let currentDashakam = 1;
 const siteBase = "https://dasabodha.omnnbc.in";
 
+// Function to update SEO Meta Description dynamically
+function updateMeta(title, description) {
+    if (description) {
+        document.getElementById("metaDesc").setAttribute("content", description);
+    }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     fetch(siteBase + "/data/posts.json?v=" + Date.now())
     .then(res => res.json())
@@ -147,19 +154,23 @@ function renderPage(searchTerm = "") {
         return;
     }
 
+    // Update Meta for the first item in view or search result
+    updateMeta(filtered[0].title, filtered[0].description);
+
     container.innerHTML = "";
     filtered.forEach(post => {
         const card = document.createElement("div");
         card.className = "post-card";
         
-        // Final Path Fix: Always points to domain/posts/url.html
         card.onclick = () => {
             window.location.href = siteBase + "/posts/" + post.url + ".html";
         };
         
         card.innerHTML = `
             <h2 class="post-title-click">${post.title}</h2>
-            <div style="color:#666; font-size:0.9rem; margin-top:5px;">Click to read full Telugu lyrics.</div>
+            <div style="color:#666; font-size:0.9rem; margin-top:5px;">
+                ${post.description ? post.description.substring(0, 100) + "..." : "Click to read full Telugu lyrics."}
+            </div>
         `;
         container.appendChild(card);
     });
