@@ -46,23 +46,23 @@
         /* 🏛️ HEADER SETUP */
         header { background: #fff; padding: 25px 10px; border-bottom: 3px solid var(--accent); }
         .header-container { display: flex; align-items: center; justify-content: center; gap: 15px; width: 100%; }
-        .header-logo { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+        .header-logo { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
         
         .site-title-main { font-family: 'Crimson Text', serif; color: var(--site-pink); margin: 0; line-height: 1.2; text-align: left; }
         
-        /* Mobile View: Specifically 2 Lines as requested */
-        .line-1 { font-size: 1.6rem; display: block; font-weight: 700; white-space: nowrap; }
-        .line-2 { font-size: 1.4rem; display: block; font-weight: 600; white-space: nowrap; }
+        /* Mobile View: Size decreased as requested (1.4rem and 1.2rem) */
+        .line-1 { font-size: 1.45rem; display: block; font-weight: 700; white-space: nowrap; }
+        .line-2 { font-size: 1.2rem; display: block; font-weight: 600; white-space: nowrap; }
 
-        /* Desktop View: Single Line */
+        /* Desktop View: Adjusted for larger screens */
         @media (min-width: 768px) {
-            .line-1, .line-2 { display: inline; font-size: 2rem; }
+            .line-1, .line-2 { display: inline; font-size: 1.9rem; }
             .line-2 { margin-left: 10px; }
-            .header-logo { width: 75px; height: 75px; }
+            .header-logo { width: 70px; height: 70px; }
         }
 
         .sub-container { text-align: center; margin-top: 12px; }
-        .site-title-sub { background: #eee; padding: 6px 15px; border-radius: 20px; font-size: 0.85rem; color: #444; display: inline-block; font-weight: 600; }
+        .site-title-sub { background: #eee; padding: 6px 15px; border-radius: 20px; font-size: 0.82rem; color: #444; display: inline-block; font-weight: 600; }
 
         /* 🔍 SEARCH BOX */
         .search-area { width: 100%; display: flex; justify-content: center; margin: 25px 0; }
@@ -71,7 +71,7 @@
         /* 📄 CONTENT */
         .container { max-width: 700px; margin: auto; padding: 0 15px; min-height: 300px; }
         .post-card { background: #fff; border-radius: 8px; padding: 18px; margin-bottom: 15px; border-left: 5px solid var(--primary); box-shadow: 0 2px 5px rgba(0,0,0,0.05); cursor: pointer; }
-        .post-title-click { margin: 0 0 8px; font-size: 1.3rem; color: var(--secondary); font-weight: 700; }
+        .post-title-click { margin: 0 0 8px; font-size: 1.25rem; color: var(--secondary); font-weight: 700; }
 
         /* 🔘 DASHAKAM NAV */
         .nav-section { text-align: center; padding: 30px 0; background: #fff; margin-top: 30px; }
