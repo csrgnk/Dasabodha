@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dasabodha Dashakams - Namo Narayanaya</title>
+    <style>
+        :root { --primary: #3FA3A1; --bg: #F4FBFB; --accent: #E91E63; --text: #333; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); margin: 0; padding: 20px; color: var(--text); }
+        .container { max-width: 900px; margin: auto; }
+        
+        /* Header Section */
+        .header { background: #fff; padding: 30px; border-radius: 15px; border-bottom: 5px solid var(--primary); text-align: center; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .header h1 { color: var(--accent); margin: 0; font-size: 2rem; }
+        .header p { color: #666; margin-top: 10px; }
+
+        /* Grid for Categories */
+        .dash-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; margin-top: 20px; }
+        .dash-card { background: #fff; padding: 25px; text-align: center; border-radius: 12px; border: 1px solid #e0e0e0; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .dash-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+        .dash-card h2 { margin: 0; color: var(--primary); font-size: 1.3rem; }
+        .dash-card span { font-size: 0.85rem; color: #888; display: block; margin-top: 8px; }
+
+        /* List for Samasams (Posts) */
+        .samasam-list { margin-top: 20px; }
+        .samasam-item { background: #fff; padding: 18px; border-radius: 10px; margin-bottom: 12px; border-left: 6px solid var(--primary); cursor: pointer; transition: 0.2s; box-shadow: 0 2px 6px rgba(0,0,0,0.03); }
+        .samasam-item:hover { background: #faffff; transform: translateX(8px); }
+        .samasam-item h3 { margin: 0 0 8px; font-size: 1.2rem; color: #2c3e50; }
+        .samasam-item p { margin: 0; font-size: 0.95rem; color: #555; line-height: 1.6; }
+
+        .back-link { display: inline-block; margin-bottom: 20px; color: var(--primary); text-decoration: none; font-weight: 600; cursor: pointer; font-size: 1.1rem; }
+        .back-link:hover { text-decoration: underline; }
+        .loader { text-align: center; padding: 60px; font-size: 1.2rem; color: #aaa; }
+    </style>
+</head>
+<body>
+
+<div class="container" id="main-container">
+    <div id="content-view">
+        <div class="loader">Loading content...</div>
+    </div>
+</div>
+
+<script>
+    const baseUrl = window.location.origin + "/";
+    const contentView = document.getElementById("content-view");
+
+    // Logic to determine if we are looking at a specific dashakam or the main list
+    const currentPath = window.location.pathname;
+    const isCategoryView = currentPath.includes("dashakam-");
+    
+    let targetDashakam = null;
+    if (isCategoryView) {
+        const regexMatch = currentPath.match(/dashakam-(\d+)/);
+        if (regexMatch) targetDashakam = parseInt(regexMatch[1]);
+    }
+
+    // Fetch the JSON data
+    fetch(baseUrl + "data/posts.json?cache=" + new Date().getTime())
+        .then(response => response.json())
+        .then(postsData => {
+            if (targetDashakam) {
+                renderSamasamList(postsData, targetDashakam);
+            } else {
+                renderDashakamGrid(postsData);
+            }
+        })
+        .catch(err => {
+            contentView.innerHTML = `<div class="loader">Error loading data. Please check posts.json</div>`;
+            console.error(err);
+        });
+
+    // Function 1: Display All Dashakam Categories
+    function renderDashakamGrid(data) {
+        // Extract unique dashakam numbers from JSON
+        const uniqueDashakams = [...new Set(data.map(item => item.dashakam))].sort((a, b) => a - b);
+        
+        let htmlContent = `
+            <div class="header">
+                <h1>Sri Dasabodha Dashakams</h1>
+                <p>Select a Dashakam to view all associated Samasams</p>
+            </div>
+            <div class="dash-grid">`;
+        
+        uniqueDashakams.forEach(num => {
+            if(num) {
+                htmlContent += `
+                    <div class="dash-card" onclick="window.location.href='${baseUrl}dashakam-${num}/'">
+                        <h2>Dashakam ${num}</h2>
+                        <span>View Samasams</span>
+                    </div>`;
+            }
+        });
+        
+        htmlContent += `</div>`;
+        contentView.innerHTML = htmlContent;
+    }
+
+    // Function 2: Display Samasams for a Selected Dashakam
+    function renderSamasamList(data, dashNum) {
+        const samasams = data.filter(post => parseInt(post.dashakam) === dashNum)
+                             .sort((a, b) => a.url.localeCompare(b.url, undefined, {numeric: true}));
+
+        let htmlContent = `
+            <a class="back-link" onclick="window.location.href='${baseUrl}dashakam.html'">← Back to All Dashakams</a>
+            <div class="header">
+                <h1>Dashakam ${dashNum}</h1>
+                <p>List of Samasams available in this section</p>
+            </div>
+            <div class="samasam-list">`;
+
+        if (samasams.length === 0) {
+            htmlContent += `<div class="loader">No Samasams found for Dashakam ${dashNum} yet.</div>`;
+        } else {
+            samasams.forEach(post => {
+                htmlContent += `
+                    <div class="samasam-item" onclick="window.location.href='${baseUrl}${post.url}/'">
+                        <h3>${post.title}</h3>
+                        <p>${post.description ? post.description.substring(0, 160) + '...' : ''}</p>
+                    </div>`;
+            });
+        }
+        
+        htmlContent += `</div>`;
+        contentView.innerHTML = htmlContent;
+    }
+</script>
+
+</body>
+</html>
