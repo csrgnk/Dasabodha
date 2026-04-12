@@ -30,47 +30,26 @@
         }
 
         body { 
-            margin: 0; 
-            font-family: 'Inter', sans-serif; 
-            background: var(--bg); 
-            color: #222; 
-            overflow-x: hidden;
-            -webkit-user-select: none;
-            user-select: none;
+            margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: #222; 
+            overflow-x: hidden; -webkit-user-select: none; user-select: none;
         }
 
-        /* ↔️ HORIZONTAL SCROLL MENUS */
-        .top-links, .outer-links {
-            display: flex; overflow-x: auto; white-space: nowrap;
-            gap: 15px; padding: 10px; scrollbar-width: none;
-        }
+        .top-links, .outer-links { display: flex; overflow-x: auto; white-space: nowrap; gap: 15px; padding: 10px; scrollbar-width: none; }
         .top-links { background: var(--top-links-bg); }
         .outer-links { background: var(--outer-links-bg); }
-        .fixed-nav-wrapper a {
-            color: #fff; text-decoration: none; font-size: 0.85rem;
-            font-weight: 700; padding: 6px 8px; flex-shrink: 0;
-        }
+        .fixed-nav-wrapper a { color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: 700; padding: 6px 8px; flex-shrink: 0; }
 
-        /* 🏛️ HEADER */
         header { background: #fff; padding: 25px 10px; border-bottom: 3px solid var(--accent); text-align: center; }
         .header-container { display: flex; align-items: center; justify-content: center; gap: 15px; }
         .header-logo { width: 65px; height: 65px; border-radius: 50%; object-fit: cover; }
         .site-title-main { font-family: 'Crimson Text', serif; color: var(--site-pink); margin: 0; }
         .line-1 { font-size: 1.7rem; display: block; font-weight: 700; }
         .line-2 { font-size: 1.3rem; display: block; font-weight: 600; }
-        .site-title-sub { 
-            background: #eee; padding: 5px 15px; border-radius: 20px; 
-            font-size: 0.85rem; color: #444; display: inline-block; margin-top: 10px;
-        }
+        .site-title-sub { background: #eee; padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; color: #444; display: inline-block; margin-top: 10px; }
 
-        /* 🔍 SEARCH */
         .search-area { width: 100%; display: flex; justify-content: center; margin: 25px 0; }
-        #postSearch { 
-            width: 80%; max-width: 300px; padding: 12px 20px; 
-            border-radius: 25px; border: 1px solid #ccc; outline: none; text-align: center;
-        }
+        #postSearch { width: 80%; max-width: 300px; padding: 12px 20px; border-radius: 25px; border: 1px solid #ccc; outline: none; text-align: center; }
 
-        /* 📄 CONTENT */
         .container { max-width: 700px; margin: auto; padding: 0 15px; min-height: 400px; }
         .post-card { 
             background: #fff; border-radius: 8px; padding: 20px; margin-bottom: 15px; 
@@ -79,15 +58,10 @@
         }
         .post-card:active { transform: scale(0.98); }
         .post-title-click { margin: 0 0 8px; font-size: 1.25rem; color: var(--secondary); }
-        .post-desc { font-size: 0.95rem; color: #666; line-height: 1.5; }
 
-        /* 🔘 DASHAKAM NAV */
         .nav-section { text-align: center; padding: 30px 10px; background: #fff; margin-top: 40px; }
         .scroll-container { display: flex; overflow-x: auto; gap: 10px; padding: 15px 5px; }
-        .dash-btn { 
-            min-width: 110px; padding: 10px; border-radius: 25px; background: #fff; 
-            border: 1px solid #ddd; font-weight: 700; cursor: pointer; flex-shrink: 0;
-        }
+        .dash-btn { min-width: 110px; padding: 10px; border-radius: 25px; background: #fff; border: 1px solid #ddd; font-weight: 700; cursor: pointer; flex-shrink: 0; }
         .dash-btn.active { background: var(--secondary); color: var(--accent); border-color: var(--secondary); }
 
         footer { background: #145A5A; color: #fff; text-align: center; padding: 30px; margin-top: 20px; }
@@ -100,12 +74,9 @@
         <a href="/">Home</a>
         <a href="/about-us">About Us</a>
         <a href="/contact-us">Contact Us</a>
-        <a href="/privacy-policy">Privacy Policy</a>
     </div> 
     <div class="outer-links">
         <a href="https://omnnbc.com/" target="_blank">Main Site</a>
-        <a href="https://upasana-chandrika.omnnbc.in/" target="_blank">Upasana Chandrika</a>
-        <a href="https://manache-shlok.omnnbc.in/" target="_blank">Manache Shlok</a>
     </div>
 </div>
 
@@ -123,11 +94,11 @@
 </header>
 
 <div class="search-area">
-    <input type="text" id="postSearch" placeholder="Search Samasam (e.g. Samasam 1)...">
+    <input type="text" id="postSearch" placeholder="Search Samasam...">
 </div>
 
 <main class="container" id="postsContainer">
-    <div style="text-align:center;padding:50px;">🙏 Loading Dasabodha...</div>
+    <div style="text-align:center;padding:50px;">🙏 Loading...</div>
 </main>
 
 <nav class="nav-section">
@@ -141,13 +112,11 @@
 let allPosts = [];
 let currentDashakam = 1;
 
-// Fetch Data
 document.addEventListener("DOMContentLoaded", () => {
     fetch("./data/posts.json?v=" + Date.now())
     .then(res => res.json())
     .then(data => {
         allPosts = data.map(p => {
-            // Ensure dashakam and samasam numbers are available for sorting
             const dMatch = p.url.match(/dashakam-(\d+)/);
             const sMatch = p.url.match(/samasam-(\d+)/);
             return {
@@ -181,11 +150,14 @@ function renderPage(searchTerm = "") {
     filtered.forEach(post => {
         const card = document.createElement("div");
         card.className = "post-card";
-        // Clean URL Navigation: Redirects to /slug/
-        card.onclick = () => window.location.href = `./${post.url}/`;
+        
+        // FIXED URL LOGIC: 
+        // Points to the /posts/ folder and appends .html correctly
+        card.onclick = () => window.location.href = `./posts/${post.url}.html`; 
+        
         card.innerHTML = `
             <h2 class="post-title-click">${post.title}</h2>
-            <div class="post-desc">${post.description || "Click to read the full Telugu lyrics for this samasam."}</div>
+            <div style="color:#666;font-size:0.9rem;">${post.description || "Read full lyrics..."}</div>
         `;
         container.appendChild(card);
     });
@@ -209,7 +181,6 @@ function setupDashNav() {
     }
 }
 
-// Search Logic
 document.getElementById("postSearch").addEventListener("input", e => {
     renderPage(e.target.value);
 });
