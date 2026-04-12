@@ -1,0 +1,12 @@
+{
+  "name": "dasabodha-sitemap-generator",
+  "version": "1.0.0",
+  "description": "Sitemap generator for Namo Narayanaya",
+  "main": "generate-sitemap.js",
+  "scripts": {
+    "sitemap": "node generate-sitemap.js"
+  },
+  "dependencies": {
+    "globby": "^11.0.1"
+  }
+}
