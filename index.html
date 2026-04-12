@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title id="pageTitle">Dasabodha Grantha Telugu Lyrics | Namo Narayanaya</title>
+    <title id="siteTitle">Dasabodha Grantha Telugu Lyrics | Namo Narayanaya</title>
     <meta name="description" id="metaDesc" content="Official Telugu Lyrics for Dasabodha Grantha by Namo Narayanaya Bhakthi Channel.">
 
     <script type="text/javascript">
@@ -113,63 +113,58 @@ let allPosts = [];
 let currentDashakam = 1;
 const siteBase = "https://dasabodha.omnnbc.in";
 
-// Function to update SEO Meta Description dynamically
-function updateMeta(title, description) {
-    if (description) {
-        document.getElementById("metaDesc").setAttribute("content", description);
-    }
-}
-
 document.addEventListener("DOMContentLoaded", () => {
+    // Fetch JSON data
     fetch(siteBase + "/data/posts.json?v=" + Date.now())
     .then(res => res.json())
     .then(data => {
-        allPosts = data.map(p => {
-            const dMatch = p.url.match(/dashakam-(\d+)/);
-            const sMatch = p.url.match(/samasam-(\d+)/);
-            return {
-                ...p,
-                dNum: dMatch ? parseInt(dMatch[1]) : 0,
-                sNum: sMatch ? parseInt(sMatch[1]) : 0
-            };
-        });
+        allPosts = data;
         renderPage();
         setupDashNav();
     })
     .catch(err => {
-        document.getElementById("postsContainer").innerHTML = "Error loading posts.";
+        document.getElementById("postsContainer").innerHTML = "Error loading content.";
     });
 });
 
 function renderPage(searchTerm = "") {
     const container = document.getElementById("postsContainer");
+    const mDesc = document.getElementById("metaDesc");
     
+    // Filtering logic
     let filtered = searchTerm 
         ? allPosts.filter(p => p.title.toLowerCase().includes(searchTerm.toLowerCase()))
-        : allPosts.filter(p => p.dNum === currentDashakam)
-                  .sort((a, b) => a.sNum - b.sNum);
+        : allPosts.filter(p => parseInt(p.dashakam) === currentDashakam)
+                  .sort((a, b) => {
+                      const numA = parseInt(a.url.match(/samasam-(\d+)/)?.[1] || 0);
+                      const numB = parseInt(b.url.match(/samasam-(\d+)/)?.[1] || 0);
+                      return numA - numB;
+                  });
 
     if (filtered.length === 0) {
         container.innerHTML = `<div style="text-align:center;padding:50px;">No results found.</div>`;
         return;
     }
 
-    // Update Meta for the first item in view or search result
-    updateMeta(filtered[0].title, filtered[0].description);
+    // Update Meta Description dynamically from JSON
+    if (filtered[0].description) {
+        mDesc.setAttribute("content", filtered[0].description.substring(0, 160));
+    }
 
     container.innerHTML = "";
     filtered.forEach(post => {
         const card = document.createElement("div");
         card.className = "post-card";
         
+        // Navigation: Point to the /posts/ folder with .html extension
         card.onclick = () => {
             window.location.href = siteBase + "/posts/" + post.url + ".html";
         };
         
         card.innerHTML = `
             <h2 class="post-title-click">${post.title}</h2>
-            <div style="color:#666; font-size:0.9rem; margin-top:5px;">
-                ${post.description ? post.description.substring(0, 100) + "..." : "Click to read full Telugu lyrics."}
+            <div style="color:#666; font-size:0.95rem; margin-top:5px; line-height:1.4;">
+                ${post.description ? post.description.substring(0, 150) + "..." : "Click to read lyrics."}
             </div>
         `;
         container.appendChild(card);
