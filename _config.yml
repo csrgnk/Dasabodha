@@ -1,0 +1,8 @@
+remote_theme: jekyll-theme-minimal
+title: Namo Narayanaya Dasabodha
+description: Official Telugu Lyrics for Dasabodha Grantha
+google_analytics: # మీ దగ్గర ID ఉంటే ఇక్కడ ఇవ్వండి
+
+# To allow files starting with underscore and treat as static site
+include: [".well-known"]
+exclude: ["package.json", "package-lock.json", "node_modules", "generate-sitemap.js"]
