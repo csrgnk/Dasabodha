@@ -1,82 +1,49 @@
-<!DOCTYPE html>
-<html lang="te">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dasabodha Grantha Telugu Lyrics | Namo Narayanaya</title>
-    <style>
-        /* [Insert your existing CSS here from previous messages] */
-        :root { --primary: #3FA3A1; --bg: #F4FBFB; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; }
-        .container { max-width: 700px; margin: auto; padding: 15px; }
-        .post-card { background: #fff; border-radius: 8px; padding: 18px; margin-bottom: 15px; border-left: 5px solid var(--primary); cursor: pointer; }
-        .dash-btn { padding: 10px; margin: 5px; border-radius: 20px; border: 1px solid #ddd; background: #fff; cursor: pointer; font-weight: bold; }
-        .dash-btn.active { background: #1A1A1A; color: #F4D03F; }
-        .scroll-container { display: flex; overflow-x: auto; gap: 10px; padding: 10px; }
-    </style>
-</head>
-<body>
-
-<header style="text-align:center; padding:20px; background:#fff; border-bottom:3px solid #F4D03F;">
-    <h1>Namo Narayanaya</h1>
-    <p>Dasabodha Grantha Telugu Lyrics</p>
-</header>
-
-<div class="container">
-    <div style="text-align:center; margin: 20px 0;">
-        <input type="text" id="postSearch" placeholder="Search Samasam..." style="width:80%; padding:10px; border-radius:25px; border:1px solid #ccc;">
-    </div>
-
-    <main id="postsContainer">
-        <div style="text-align:center;padding:40px;">🙏 Loading...</div>
-    </main>
-</div>
-
-<nav style="text-align:center; padding: 20px; background:#fff;">
-    <p><b>SELECT DASHAKAM</b></p>
-    <div class="scroll-container" id="dashButtons"></div>
-</nav>
-
-<script>
 let allPosts = [];
 let currentDashakam = 1;
 let searchTimeout = null;
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Fetching data from the same domain
+    // Fetches the post list. Added timestamp to avoid cache issues.
     fetch("./data/posts.json?v=" + new Date().getTime())
     .then(res => res.json())
     .then(data => {
         allPosts = data;
-        // Logic to extract Dashakam and Samasam numbers from URL
-        allPosts.forEach(p => {
-            let d = p.url.match(/dashakam-(\d+)/i);
-            let s = p.url.match(/samasam-(\d+)/i);
-            if (d) p.dashakam = parseInt(d[1]);
-            if (s) p.samasam = parseInt(s[1]);
-        });
         renderPage();
         setupDashNav();
     })
     .catch(err => {
-        console.error("Error:", err);
+        console.error("Error loading posts:", err);
         document.getElementById("postsContainer").innerHTML = "Error loading content.";
     });
 });
 
+/**
+ * Handles Clean URL Redirection
+ * Instead of .html, it opens the URL like a folder/slug
+ */
 function openPost(url){
-    // CLEAN URL: Redirects to /dashakam-1-samasam-1/ instead of .html
-    window.location.href = window.location.origin + "/" + url + "/";
+    const cleanUrl = url.replace(".html", "");
+    window.location.href = window.location.origin + "/" + cleanUrl + "/";
 }
 
+/**
+ * Renders the list of Samasams based on the selected Dashakam
+ */
 function renderPage(searchTerm = "") {
     const container = document.getElementById("postsContainer");
+    
     let filtered = searchTerm 
         ? allPosts.filter(p => p.title.toLowerCase().includes(searchTerm.toLowerCase()))
-        : allPosts.filter(p => p.dashakam === currentDashakam).sort((a, b) => a.samasam - b.samasam);
+        : allPosts.filter(p => p.dashakam === currentDashakam)
+                  .sort((a, b) => {
+                      // Sorts by samasam number extracted from the URL
+                      const numA = parseInt(a.url.match(/samasam-(\d+)/)?.[1] || 0);
+                      const numB = parseInt(b.url.match(/samasam-(\d+)/)?.[1] || 0);
+                      return numA - numB;
+                  });
 
     if (filtered.length === 0) {
-        container.innerHTML = `<div style="text-align:center;padding:40px;">ఈ దశకంలో సమాసాలు త్వరలో వస్తాయి...</div>`;
+        container.innerHTML = `<div style="text-align:center;padding:40px;">🙏 No Samasams found in this Dashakam yet.</div>`;
         return;
     }
 
@@ -86,18 +53,22 @@ function renderPage(searchTerm = "") {
         card.className = "post-card";
         card.onclick = () => openPost(post.url);
         card.innerHTML = `
-            <h2 style="margin:0; font-size:1.2rem;">${post.title}</h2>
-            <p style="color:#666; font-size:0.9rem;">${post.description || "దాసబోధ తెలుగు వివరణ..."}</p>
+            <h2 class="post-title-click" style="cursor:pointer; margin:0 0 8px;">${post.title}</h2>
+            <p style="font-size:0.9rem; color:#555;">${post.description ? post.description.substring(0,120) : "Dasabodha Telugu Lyrics..."}...</p>
         `;
         container.appendChild(card);
     });
 }
 
+/**
+ * Creates 20 Dashakam selection buttons
+ */
 function setupDashNav(){
     const wrap = document.getElementById("dashButtons");
+    wrap.innerHTML = "";
     for(let i=1; i<=20; i++){
         const btn = document.createElement("button");
-        btn.innerText = "దశకం " + i;
+        btn.innerText = "Dashakam " + i;
         btn.className = "dash-btn" + (i === currentDashakam ? " active" : "");
         btn.onclick = () => {
             currentDashakam = i;
@@ -110,12 +81,3 @@ function setupDashNav(){
         wrap.appendChild(btn);
     }
 }
-
-document.getElementById("postSearch").addEventListener("input", e => {
-    clearTimeout(searchTimeout);
-    searchTimeout = setTimeout(() => renderPage(e.target.value), 300);
-});
-</script>
-</body>
-</html>
-
