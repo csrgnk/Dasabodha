@@ -1,77 +1,55 @@
-<!DOCTYPE html>
-<html lang="te">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Namo Narayanaya Bhakthi Channel</title>
-    </head>
-<body>
-
-<header style="padding:15px; background:#fff; border-bottom:3px solid #F4D03F; text-align:center;">
-    <img src="https://omnnbc.com/assets/images/Omnnbc-new.png" style="width:50px; border-radius:50%;">
-    <div style="color:#E91E63; font-weight:bold;">Namo Narayanaya Bhakthi Channel</div>
-</header>
-
-<div class="container" style="max-width:800px; margin:auto; padding:15px;">
-    <div id="breadcrumb" style="font-size:13px; color:#666; margin-bottom:10px;"></div>
-    <h1 id="postTitle" style="background:#3FA3A1; color:#fff; padding:15px; border-radius:10px; text-align:center;">Loading...</h1>
-    <div id="postContent" style="background:#fff; padding:20px; border-radius:10px; line-height:1.8;">Loading...</div>
-</div>
-
-<script>
-// For subdomain Dasabodha.omnnbc.in, fetchBase is empty
 const mainHome = window.location.origin + "/";
 const path = window.location.pathname.replace(/\/$/, ""); 
 const pathParts = path.split('/').filter(Boolean);
 let slug = pathParts[pathParts.length - 1] || "index";
 
-// Data sources
+// Loading Data
 Promise.all([
-    fetch(`${mainHome}data/posts.json`).then(r => r.json()),
-    fetch(`${mainHome}data/pages.json`).then(r => r.json())
+    fetch(`${mainHome}data/posts.json?v=${new Date().getTime()}`).then(r => r.json()),
+    fetch(`${mainHome}data/pages.json?v=${new Date().getTime()}`).then(r => r.json()).catch(() => [])
 ]).then(([posts, pages]) => {
     
-    // Find the current post
     let i = posts.findIndex(p => p.url === slug);
     let post = posts[i];
 
     if (post) {
-        document.title = post.title + " | Namo Narayanaya";
+        document.title = post.title;
         document.getElementById("postTitle").innerText = post.title;
         
-        // Build Breadcrumb
-        let d = post.url.match(/dashakam-(\d+)/i);
-        let dashNum = d ? d[1] : "";
+        // Dynamic Breadcrumb
+        let dashNum = post.dashakam || "1";
         document.getElementById("breadcrumb").innerHTML = `<a href="${mainHome}">Home</a> > Dashakam ${dashNum} > ${post.title}`;
 
-        // Fetch the actual HTML content from /posts/ folder
+        // Fetching the actual Samasam file from /posts/ folder
         fetch(`${mainHome}posts/${slug}.html`)
-            .then(r => r.text())
+            .then(r => {
+                if(!r.ok) throw new Error("File Missing");
+                return r.text();
+            })
             .then(html => {
                 let temp = document.createElement("div");
                 temp.innerHTML = html;
-                // Remove existing headers/footers from the stored post file
+                // Clean up injected header/footers from original file
                 temp.querySelectorAll("header,footer,nav,script,style").forEach(e => e.remove());
                 
-                // Add Navigation (Prev/Next)
+                // Prev/Next Navigation Logic
                 let prev = posts[i-1];
                 let next = posts[i+1];
                 let navHtml = `
                     <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-top:30px;">
-                        ${prev ? `<a href="${mainHome}${prev.url}/" style="background:#3FA3A1; color:#fff; padding:10px; text-align:center; text-decoration:none; border-radius:5px;">← Prev</a>` : `<div></div>`}
-                        <a href="${mainHome}" style="border:1px solid #3FA3A1; color:#3FA3A1; padding:10px; text-align:center; text-decoration:none; border-radius:5px;">HOME</a>
-                        ${next ? `<a href="${mainHome}${next.url}/" style="background:#3FA3A1; color:#fff; padding:10px; text-align:center; text-decoration:none; border-radius:5px;">Next →</a>` : `<div></div>`}
+                        ${prev ? `<a href="${mainHome}${prev.url}/" class="btn-action">← Prev</a>` : `<div></div>`}
+                        <a href="${mainHome}" class="btn-home">HOME</a>
+                        ${next ? `<a href="${mainHome}${next.url}/" class="btn-action">Next →</a>` : `<div></div>`}
                     </div>`;
 
                 document.getElementById("postContent").innerHTML = temp.innerHTML + navHtml;
+            })
+            .catch(() => {
+                document.getElementById("postContent").innerHTML = "<div style='text-align:center;'>Content coming soon...</div>";
             });
     } else {
-        // Handle 404 Error
-        document.getElementById("postTitle").innerText = "Post Not Found";
-        document.getElementById("postContent").innerHTML = `<div style="text-align:center;"><a href="${mainHome}">Return to Home</a></div>`;
+        // 404 Fallback
+        document.getElementById("postTitle").innerText = "404 - Page Not Found";
+        document.getElementById("postContent").innerHTML = `<div style="text-align:center;"><a href="${mainHome}">Back to Home</a></div>`;
     }
 });
-</script>
-
-</body>
-</html>
