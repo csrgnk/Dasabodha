@@ -3,87 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dasabodha Dashakams - Namo Narayanaya</title>
+    <title>Dashakam Wise Posts - Namo Narayanaya</title>
     <style>
-        :root { --primary: #3FA3A1; --bg: #F4FBFB; --accent: #E91E63; --text: #333; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 20px; color: var(--text); }
-        .container { max-width: 900px; margin: auto; }
-        .header { background: #fff; padding: 30px; border-radius: 15px; border-bottom: 5px solid var(--primary); text-align: center; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .header h1 { color: var(--accent); margin: 0; font-size: 2rem; }
-        .dash-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
-        .dash-card { background: #fff; padding: 25px; text-align: center; border-radius: 12px; border: 1px solid #e0e0e0; cursor: pointer; transition: 0.3s; }
-        .dash-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
-        .samasam-item { background: #fff; padding: 18px; border-radius: 10px; margin-bottom: 12px; border-left: 6px solid var(--primary); cursor: pointer; transition: 0.2s; box-shadow: 0 2px 6px rgba(0,0,0,0.03); }
-        .samasam-item:hover { transform: translateX(8px); background: #faffff; }
-        .back-link { display: inline-block; margin-bottom: 20px; color: var(--primary); text-decoration: none; font-weight: 600; cursor: pointer; }
-        .loader { text-align: center; padding: 60px; font-size: 1.2rem; color: #aaa; }
+        :root { --primary: #3FA3A1; --bg: #F4FBFB; --text: #333; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); margin: 0; padding: 20px; color: var(--text); }
+        .container { max-width: 800px; margin: auto; }
+        
+        .header { background: #fff; padding: 20px; border-radius: 12px; border-bottom: 4px solid var(--primary); text-align: center; margin-bottom: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .header h1 { color: #E91E63; margin: 0; font-size: 1.6rem; }
+        
+        /* Posts List Style */
+        .posts-container { display: flex; flex-direction: column; gap: 10px; }
+        .post-link { 
+            background: #fff; 
+            padding: 15px; 
+            border-radius: 8px; 
+            text-decoration: none; 
+            color: var(--text); 
+            font-weight: 500; 
+            border-left: 5px solid var(--primary); 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03); 
+            transition: 0.2s; 
+            display: block;
+        }
+        .post-link:hover { transform: translateX(5px); background: #f0fdfa; }
+        
+        .back-btn { margin-bottom: 15px; display: inline-block; color: var(--primary); font-weight: bold; cursor: pointer; text-decoration: none; }
+        .loader { text-align: center; padding: 50px; color: #888; }
     </style>
 </head>
 <body>
 
-<div class="container" id="main-container">
+<div class="container">
     <div id="content-view">
-        <div class="loader">Loading content...</div>
+        <div class="loader">Loading Samasams...</div>
     </div>
 </div>
 
 <script>
-    const baseUrl = window.location.origin + "/";
-    const contentView = document.getElementById("content-view");
+    const jsonPath = "/data/posts.json";
+    const view = document.getElementById("content-view");
 
-    // Improved logic to extract Dashakam number from URL
-    const currentPath = window.location.pathname;
-    let targetDashakam = null;
+    async function loadDashakam() {
+        // 1. Get Dashakam Number from URL (e.g., dashakam-1 -> 1)
+        const path = window.location.pathname;
+        const match = path.match(/dashakam-(\d+)/);
+        const currentDashakam = match ? parseInt(match[1]) : null;
 
-    if (currentPath.includes("dashakam-")) {
-        // Extracts digits after 'dashakam-'
-        const parts = currentPath.split('/');
-        const dashPart = parts.find(p => p.includes("dashakam-"));
-        if (dashPart) {
-            const numMatch = dashPart.match(/\d+/);
-            if (numMatch) targetDashakam = parseInt(numMatch[0]);
+        try {
+            const response = await fetch(jsonPath + "?v=" + Date.now());
+            const allPosts = await response.json();
+
+            if (currentDashakam) {
+                // 2. Filter posts where dashakam number matches
+                const filteredPosts = allPosts.filter(p => parseInt(p.dashakam) === currentDashakam);
+                
+                // 3. Sort by URL to keep Samasams in order
+                filteredPosts.sort((a, b) => a.url.localeCompare(b.url, undefined, {numeric: true}));
+
+                renderPosts(filteredPosts, currentDashakam);
+            } else {
+                renderCategories(allPosts);
+            }
+        } catch (error) {
+            view.innerHTML = "<div class='loader'>Error loading data posts json.</div>";
         }
     }
 
-    fetch(baseUrl + "data/posts.json?v=" + new Date().getTime())
-        .then(res => res.json())
-        .then(data => {
-            if (targetDashakam) {
-                renderSamasams(data, targetDashakam);
-            } else {
-                renderGrid(data);
-            }
-        })
-        .catch(err => {
-            contentView.innerHTML = `<div class="loader">Error loading data.</div>`;
-        });
+    function renderPosts(posts, num) {
+        let html = `
+            <a href="/dashakam.html" class="back-btn">← View All Dashakams</a>
+            <div class="header">
+                <h1>Dashakam ${num} - Samasams</h1>
+            </div>
+            <div class="posts-container">`;
 
-    function renderGrid(data) {
-        const uniqueDash = [...new Set(data.map(item => parseInt(item.dashakam)))].filter(n => !isNaN(n)).sort((a, b) => a - b);
-        let html = `<div class="header"><h1>Sri Dasabodha Dashakams</h1><p>Select a Dashakam</p></div><div class="dash-grid">`;
-        uniqueDash.forEach(num => {
-            html += `<div class="dash-card" onclick="window.location.href='${baseUrl}dashakam-${num}/'"><h2>Dashakam ${num}</h2><span>View Samasams</span></div>`;
-        });
-        html += `</div>`;
-        contentView.innerHTML = html;
-    }
-
-    function renderSamasams(data, num) {
-        // Strict filtering based on Dashakam number
-        const samasams = data.filter(p => parseInt(p.dashakam) === num)
-                             .sort((a, b) => a.url.localeCompare(b.url, undefined, {numeric: true}));
-
-        let html = `<a class="back-link" onclick="window.location.href='${baseUrl}dashakam.html'">← Back</a><div class="header"><h1>Dashakam ${num}</h1><p>List of Samasams</p></div>`;
-
-        if (samasams.length === 0) {
-            html += `<div class="loader">No Samasams found for Dashakam ${num}.</div>`;
+        if (posts.length === 0) {
+            html += `<div class="loader">No posts found for Dashakam ${num} in JSON.</div>`;
         } else {
-            samasams.forEach(post => {
-                html += `<div class="samasam-item" onclick="window.location.href='${baseUrl}${post.url}/'"><h3>${post.title}</h3><p>${post.publish_date}</p></div>`;
+            posts.forEach(post => {
+                // Link setup based on JSON 'url' field
+                html += `
+                    <a href="/${post.url}/" class="post-link">
+                        ${post.title}
+                    </a>`;
             });
         }
-        contentView.innerHTML = html;
+        
+        html += `</div>`;
+        view.innerHTML = html;
     }
+
+    function renderCategories(data) {
+        const uniqueDash = [...new Set(data.map(p => parseInt(p.dashakam)))].filter(n => !isNaN(n)).sort((a,b) => a - b);
+        let html = `<div class="header"><h1>Sri Dasabodha Dashakams</h1></div><div class="posts-container">`;
+        uniqueDash.forEach(n => {
+            html += `<a href="/dashakam-${n}/" class="post-link">Dashakam ${n}</a>`;
+        });
+        html += `</div>`;
+        view.innerHTML = html;
+    }
+
+    loadDashakam();
 </script>
 
 </body>
