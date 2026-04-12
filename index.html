@@ -34,11 +34,13 @@
             overflow-x: hidden; -webkit-user-select: none; user-select: none;
         }
 
+        /* Navigation Menus */
         .top-links, .outer-links { display: flex; overflow-x: auto; white-space: nowrap; gap: 15px; padding: 10px; scrollbar-width: none; }
         .top-links { background: var(--top-links-bg); }
         .outer-links { background: var(--outer-links-bg); }
-        .fixed-nav-wrapper a { color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: 700; padding: 6px 8px; flex-shrink: 0; }
+        .nav-link { color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: 700; padding: 6px 8px; flex-shrink: 0; }
 
+        /* Header */
         header { background: #fff; padding: 25px 10px; border-bottom: 3px solid var(--accent); text-align: center; }
         .header-container { display: flex; align-items: center; justify-content: center; gap: 15px; }
         .header-logo { width: 65px; height: 65px; border-radius: 50%; object-fit: cover; }
@@ -47,36 +49,40 @@
         .line-2 { font-size: 1.3rem; display: block; font-weight: 600; }
         .site-title-sub { background: #eee; padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; color: #444; display: inline-block; margin-top: 10px; }
 
+        /* Search Area */
         .search-area { width: 100%; display: flex; justify-content: center; margin: 25px 0; }
-        #postSearch { width: 80%; max-width: 300px; padding: 12px 20px; border-radius: 25px; border: 1px solid #ccc; outline: none; text-align: center; }
+        #postSearch { width: 85%; max-width: 350px; padding: 12px 20px; border-radius: 25px; border: 1px solid #ccc; outline: none; text-align: center; font-size: 16px; }
 
-        .container { max-width: 700px; margin: auto; padding: 0 15px; min-height: 400px; }
+        /* Posts List */
+        .container { max-width: 700px; margin: auto; padding: 0 15px; min-height: 450px; }
         .post-card { 
-            background: #fff; border-radius: 8px; padding: 20px; margin-bottom: 15px; 
+            background: #fff; border-radius: 8px; padding: 20px; margin-bottom: 12px; 
             border-left: 5px solid var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            transition: transform 0.2s; cursor: pointer;
+            transition: transform 0.1s; cursor: pointer;
         }
         .post-card:active { transform: scale(0.98); }
-        .post-title-click { margin: 0 0 8px; font-size: 1.25rem; color: var(--secondary); }
+        .post-title-click { margin: 0; font-size: 1.2rem; color: var(--secondary); font-weight: 600; }
 
-        .nav-section { text-align: center; padding: 30px 10px; background: #fff; margin-top: 40px; }
-        .scroll-container { display: flex; overflow-x: auto; gap: 10px; padding: 15px 5px; }
-        .dash-btn { min-width: 110px; padding: 10px; border-radius: 25px; background: #fff; border: 1px solid #ddd; font-weight: 700; cursor: pointer; flex-shrink: 0; }
+        /* Dashakam Navigation */
+        .nav-section { text-align: center; padding: 30px 10px; background: #fff; margin-top: 40px; border-top: 1px solid #eee; }
+        .scroll-container { display: flex; overflow-x: auto; gap: 10px; padding: 15px 5px; scrollbar-width: thin; }
+        .dash-btn { min-width: 115px; padding: 12px; border-radius: 25px; background: #fff; border: 1px solid #ddd; font-weight: 700; cursor: pointer; flex-shrink: 0; }
         .dash-btn.active { background: var(--secondary); color: var(--accent); border-color: var(--secondary); }
 
-        footer { background: #145A5A; color: #fff; text-align: center; padding: 30px; margin-top: 20px; }
+        footer { background: #145A5A; color: #fff; text-align: center; padding: 30px; margin-top: 20px; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
 <div class="fixed-nav-wrapper">
     <div class="top-links">
-        <a href="/">Home</a>
-        <a href="/about-us">About Us</a>
-        <a href="/contact-us">Contact Us</a>
+        <a href="/" class="nav-link">Home</a>
+        <a href="/about-us" class="nav-link">About Us</a>
+        <a href="/contact-us" class="nav-link">Contact Us</a>
     </div> 
     <div class="outer-links">
-        <a href="https://omnnbc.com/" target="_blank">Main Site</a>
+        <a href="https://omnnbc.com/" class="nav-link" target="_blank">Main Site</a>
+        <a href="https://upasana-chandrika.omnnbc.in/" class="nav-link" target="_blank">Upasana Chandrika</a>
     </div>
 </div>
 
@@ -94,11 +100,11 @@
 </header>
 
 <div class="search-area">
-    <input type="text" id="postSearch" placeholder="Search Samasam...">
+    <input type="text" id="postSearch" placeholder="Search for a Samasam...">
 </div>
 
 <main class="container" id="postsContainer">
-    <div style="text-align:center;padding:50px;">🙏 Loading...</div>
+    <div style="text-align:center;padding:50px;">🙏 Loading content...</div>
 </main>
 
 <nav class="nav-section">
@@ -112,6 +118,7 @@
 let allPosts = [];
 let currentDashakam = 1;
 
+// 1. Fetch JSON Data
 document.addEventListener("DOMContentLoaded", () => {
     fetch("./data/posts.json?v=" + Date.now())
     .then(res => res.json())
@@ -129,10 +136,11 @@ document.addEventListener("DOMContentLoaded", () => {
         setupDashNav();
     })
     .catch(err => {
-        document.getElementById("postsContainer").innerHTML = "Error loading content.";
+        document.getElementById("postsContainer").innerHTML = "Error loading content. Please try again later.";
     });
 });
 
+// 2. Render the list of samasams
 function renderPage(searchTerm = "") {
     const container = document.getElementById("postsContainer");
     
@@ -151,18 +159,18 @@ function renderPage(searchTerm = "") {
         const card = document.createElement("div");
         card.className = "post-card";
         
-        // FIXED URL LOGIC: 
-        // Points to the /posts/ folder and appends .html correctly
+        /** * TARGET FOLDER: /posts/
+         * TARGET EXTENSION: .html
+         * Example Result: dasabodha.omnnbc.in/posts/dashakam-1-samasam-1-lyrics.html
+         */
         card.onclick = () => window.location.href = `./posts/${post.url}.html`; 
         
-        card.innerHTML = `
-            <h2 class="post-title-click">${post.title}</h2>
-            <div style="color:#666;font-size:0.9rem;">${post.description || "Read full lyrics..."}</div>
-        `;
+        card.innerHTML = `<h2 class="post-title-click">${post.title}</h2>`;
         container.appendChild(card);
     });
 }
 
+// 3. Create Dashakam 1-20 buttons
 function setupDashNav() {
     const wrap = document.getElementById("dashButtons");
     for(let i=1; i<=20; i++) {
@@ -181,6 +189,7 @@ function setupDashNav() {
     }
 }
 
+// 4. Search input event
 document.getElementById("postSearch").addEventListener("input", e => {
     renderPage(e.target.value);
 });
