@@ -4,39 +4,50 @@ const globby = require('globby');
 async function generate() {
     const baseUrl = 'https://dasabodha.omnnbc.in';
 
-    // Find all HTML files
-    const pages = await globby([
+    // 1. First, find main index and static pages
+    const mainPages = await globby([
         'index.html',
-        'posts/*.html',
         'pages/*.html',
         '!404.html'
     ]);
 
+    // 2. Then, find all posts
+    const postPages = await globby([
+        'posts/*.html'
+    ]);
+
+    // Combine them: Pages first, then Posts
+    const allFiles = [...mainPages, ...postPages];
+
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    ${pages
-        .map(page => {
+    ${allFiles
+        .map(file => {
             // Remove 'posts/', 'pages/', and '.html' to make it a Clean URL
-            const path = page
+            const path = file
                 .replace('index.html', '')
-                .replace('posts/', '')   // Removes the posts folder name from URL
-                .replace('pages/', '')   // Removes the pages folder name from URL
+                .replace('posts/', '')   
+                .replace('pages/', '')   
                 .replace('.html', '/')
-                .replace(/\/$/, '/');    // Ensures trailing slash
+                .replace(/\/$/, '/');    
+
+            // Set higher priority for main pages (1.0 or 0.9) and lower for posts (0.8)
+            const isPost = file.startsWith('posts/');
+            const priority = (path === '' || !isPost) ? (path === '' ? '1.0' : '0.9') : '0.8';
 
             return `
     <url>
         <loc>${baseUrl}/${path}</loc>
         <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>${path === '' ? '1.0' : '0.8'}</priority>
+        <changefreq>${isPost ? 'weekly' : 'monthly'}</changefreq>
+        <priority>${priority}</priority>
     </url>`;
         })
         .join('')}
 </urlset>`;
 
     fs.writeFileSync('sitemap.xml', sitemap);
-    console.log('Sitemap generated successfully with Clean URLs!');
+    console.log('Sitemap generated: Pages listed first!');
 }
 
 generate();
