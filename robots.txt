@@ -1,15 +1,18 @@
 User-agent: *
 Allow: /
-# Block direct access to folders
-Disallow: /Upasana-Chandrika/
-Disallow: /posts/
-Disallow: /pages/
-Disallow: /data/
-Disallow: /assets/
-# Block specific tool files
+# Allow Google to read your content and data
+Allow: /posts/
+Allow: /pages/
+Allow: /data/
+Allow: /assets/
+
+# Block only internal tools and system files
 Disallow: /generate-sitemap.js
 Disallow: /package.json
 Disallow: /tool.html
+Disallow: /_data/
+Disallow: /_includes/
+Disallow: /_layouts/
 
-# Sitemap Location
+# Sitemap Location (Updated to your main domain)
 Sitemap: https://dasabodha.omnnbc.in/sitemap.xml
