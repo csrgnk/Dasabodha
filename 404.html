@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Namo Narayanaya Bhakthi Channel</title>
-    <meta name="description" id="metaDesc" content="Dasabodha Telugu Lyrics">
-
+    
     <script type="text/javascript">
-        // Security: Disable right-click and copy
         document.addEventListener('contextmenu', e => e.preventDefault(), false);
         document.addEventListener('keydown', e => {
             if (e.ctrlKey && ['c', 'u', 's', 'a', 'p'].includes(e.key)) e.preventDefault();
@@ -17,57 +15,44 @@
 
     <style>
         :root {
-            --primary: #D35400;      /* Orange Buttons */
-            --nav-bg: #5D4037;       /* Brown Top Menu */
-            --bg: #FFF9E1;           /* Light Yellow Background */
-            --accent: #FFD700;       /* Gold Accent */
-            --site-pink: #E91E63;    /* Pink Site Name */
-            --text-main: #212121;
+            --primary: #D35400;      /* Orange */
+            --nav-bg: #5D4037;       /* Brown */
+            --bg: #FFF9E1;           /* Light Yellow */
+            --accent: #FFD700;       /* Gold */
+            --site-pink: #E91E63;    /* Pink */
         }
 
-        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); -webkit-user-select: none; user-select: none; color: var(--text-main); }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); -webkit-user-select: none; user-select: none; }
 
-        /* NAV SCROLL - BROWN */
+        /* TOP NAV */
         .nav-scroll { background: var(--nav-bg); display: flex; overflow-x: auto; padding: 10px; scrollbar-width: none; }
-        .nav-scroll::-webkit-scrollbar { display: none; }
         .nav-scroll a { color: #fff; text-decoration: none; padding: 8px 12px; margin: 0 4px; background: rgba(255,255,255,0.1); border-radius: 4px; white-space: nowrap; font-size: 14px; font-weight: bold; }
 
-        /* HEADER - SITE NAME PINK */
+        /* HEADER */
         .site-header { background: #fff; padding: 15px; border-bottom: 4px solid var(--accent); }
         .site-brand { display: flex; align-items: center; justify-content: center; gap: 12px; }
         .logo { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid var(--site-pink); }
-        .title-wrap { color: var(--site-pink); font-weight: 700; line-height: 1.2; text-align: left; }
-        
-        .title-line1 { font-size: 1.5rem; display: block; white-space: nowrap; }
-        .title-line2 { font-size: 1.25rem; display: block; white-space: nowrap; }
-
-        @media(min-width: 768px) {
-            .title-line1, .title-line2 { display: inline; font-size: 2rem; }
-            .title-line2 { margin-left: 8px; }
-            .logo { width: 75px; height: 75px; }
-        }
-
-        /* BREADCRUMBS */
-        .breadcrumbs { padding: 10px 15px; font-size: 14px; color: #5D4037; max-width: 800px; margin: auto; }
-        .breadcrumbs a { color: var(--primary); text-decoration: none; font-weight: bold; }
+        .title-wrap { color: var(--site-pink); font-weight: 700; line-height: 1.2; }
+        .title-line1 { font-size: 1.5rem; display: block; }
+        .title-line2 { font-size: 1.25rem; display: block; }
 
         /* CONTENT - LARGE TEXT */
-        .container { max-width: 850px; margin: 10px auto; padding: 0 15px; min-height: 450px; }
-        .post-title { background: linear-gradient(135deg, #D35400, #E67E22); color: #fff; padding: 20px; text-align: center; border-radius: 12px; font-size: 26px; margin-bottom: 15px; font-weight: bold; }
-        .post-content { background: #ffffff; padding: 30px; border-radius: 12px; line-height: 2.1; box-shadow: 0 2px 12px rgba(0,0,0,0.08); font-size: 20px; border: 1px solid #FFE082; }
+        .container { max-width: 800px; margin: 10px auto; padding: 0 15px; }
+        .post-title { background: linear-gradient(135deg, #D35400, #E67E22); color: #fff; padding: 18px; text-align: center; border-radius: 10px; font-size: 24px; font-weight: bold; }
+        .post-content { background: #fff; padding: 25px; border-radius: 10px; line-height: 1.8; font-size: 22px; color: #222; border: 1px solid #FFE082; }
 
-        /* SHARE BOX */
-        .share-box { margin-top: 35px; padding: 20px; border-top: 2px solid #FFE082; text-align: center; }
-        .share-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 10px; }
-        .share-btn { flex: 1; min-width: 100px; padding: 12px 5px; color: #fff; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: bold; border: none; cursor: pointer; }
+        /* SMALL SHARE BUTTONS */
+        .share-box { margin-top: 25px; padding: 15px; border-top: 1px solid #eee; text-align: center; font-size: 14px; }
+        .share-grid { display: flex; justify-content: center; gap: 8px; margin-top: 8px; }
+        .share-btn { padding: 8px 12px; color: #fff; border-radius: 4px; text-decoration: none; font-size: 12px; font-weight: bold; border: none; cursor: pointer; }
 
-        /* NAV BUTTONS */
-        .post-nav { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 35px; }
-        .btn-action, .btn-home { padding: 14px; text-align: center; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 15px; }
+        /* SMALL NAVIGATION BUTTONS */
+        .post-nav { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 25px; }
+        .btn-action, .btn-home { padding: 10px; text-align: center; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 13px; }
         .btn-action { background: var(--primary); color: #fff; }
         .btn-home { border: 2px solid var(--primary); color: var(--primary); background: #fff; }
 
-        footer { background: var(--nav-bg); color: #fff; text-align: center; padding: 30px; margin-top: 50px; font-size: 15px; border-top: 4px solid var(--accent); }
+        footer { background: var(--nav-bg); color: #fff; text-align: center; padding: 20px; margin-top: 40px; font-size: 14px; }
     </style>
 </head>
 
@@ -76,8 +61,6 @@
 <nav class="nav-scroll">
     <a href="/">Home</a>
     <a href="https://omnnbc.com/">Main Site</a>
-    <a href="/about-us">About Us</a>
-    <a href="/contact-us">Contact Us</a>
 </nav>
 
 <header class="site-header">
@@ -91,9 +74,9 @@
 </header>
 
 <div class="container">
-    <div id="breadcrumb" class="breadcrumbs"></div>
+    <div id="breadcrumb" style="padding:10px 0; font-size:12px; color:#666;"></div>
     <h1 id="postTitle" class="post-title">Loading...</h1>
-    <div id="postContent" class="post-content">Loading content, please wait...</div>
+    <div id="postContent" class="post-content">Loading...</div>
 </div>
 
 <script>
@@ -102,11 +85,17 @@
     const pathParts = path.split('/').filter(Boolean);
     let slug = pathParts[pathParts.length - 1] || "index";
 
-    function buildBreadcrumbs(pageTitle, dashakamNum = null) {
-        let html = `<a href="${mainHome}">Home</a>`;
-        if (dashakamNum) html += ` <span>&gt;</span> Dashakam ${dashakamNum}`;
-        html += ` <span>&gt;</span> ${pageTitle}`;
-        document.getElementById("breadcrumb").innerHTML = html;
+    function buildNav(posts, i) {
+        // Strict 1-post logic
+        // Left Button links to i+1, Right Button links to i-1
+        let prevPost = posts[i + 1]; 
+        let nextPost = posts[i - 1]; 
+
+        return `<div class="post-nav">
+            ${prevPost ? `<a href="${mainHome}${prevPost.url}/" class="btn-action">← Prev</a>` : `<div></div>`}
+            <a href="${mainHome}" class="btn-home">HOME</a>
+            ${nextPost ? `<a href="${mainHome}${nextPost.url}/" class="btn-action">Next →</a>` : `<div></div>`}
+        </div>`;
     }
 
     function shareButtons(title) {
@@ -118,42 +107,9 @@
             <div class="share-grid">
                 <a class="share-btn" href="https://wa.me/?text=${text}" target="_blank" style="background:#25D366;">WhatsApp</a>
                 <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=${url}" target="_blank" style="background:#1877F2;">Facebook</a>
-                <button class="share-btn" onclick="copyLink()" style="background:#5D4037;">Copy Link</button>
+                <button class="share-btn" onclick="navigator.clipboard.writeText(window.location.href);alert('Copied!')" style="background:#555;">Copy</button>
             </div>
         </div>`;
-    }
-
-    function copyLink() {
-        navigator.clipboard.writeText(location.href);
-        alert("Link Copied!");
-    }
-
-    /* ↔️ NAVIGATION - SWAPPED INTERNAL LINKS */
-    function buildNav(posts, i) {
-        // Logic: 
-        // Left button (Label Prev) links to NEXT post (i + 1)
-        // Right button (Label Next) links to PREVIOUS post (i - 1)
-        let linkToNext = posts[i + 1]; 
-        let linkToPrev = posts[i - 1]; 
-
-        return `<div class="post-nav">
-            ${linkToNext ? `<a href="${mainHome}${linkToNext.url}/" class="btn-action">← Prev</a>` : `<div></div>`}
-            <a href="${mainHome}" class="btn-home">HOME</a>
-            ${linkToPrev ? `<a href="${mainHome}${linkToPrev.url}/" class="btn-action">Next →</a>` : `<div></div>`}
-        </div>`;
-    }
-
-    function loadPage(page) {
-        fetch(`${mainHome}pages/${page.file}.html`)
-            .then(r => r.text())
-            .then(html => {
-                let temp = document.createElement("div");
-                temp.innerHTML = html;
-                temp.querySelectorAll("header,footer,nav,script,style").forEach(e => e.remove());
-                document.getElementById("postTitle").innerText = page.title;
-                buildBreadcrumbs(page.title);
-                document.getElementById("postContent").innerHTML = temp.innerHTML + shareButtons(page.title) + `<div class="post-nav"><div></div><a href="${mainHome}" class="btn-home">HOME</a><div></div></div>`;
-            });
     }
 
     Promise.all([
@@ -165,38 +121,21 @@
         let post = posts[i];
 
         if (post) {
-            document.title = post.title + " | Namo Narayanaya";
+            document.title = post.title;
             document.getElementById("postTitle").innerText = post.title;
-            buildBreadcrumbs(post.title, post.dashakam);
 
             fetch(`${mainHome}posts/${slug}.html`)
-                .then(r => {
-                    if (!r.ok) throw new Error();
-                    return r.text();
-                })
+                .then(r => r.text())
                 .then(html => {
                     let temp = document.createElement("div");
                     temp.innerHTML = html;
                     temp.querySelectorAll("header,footer,nav,script,style").forEach(e => e.remove());
                     document.getElementById("postContent").innerHTML = temp.innerHTML + shareButtons(post.title) + buildNav(posts, i);
-                })
-                .catch(() => {
-                    document.getElementById("postContent").innerHTML = "<div style='text-align:center; padding:50px;'>Content loading...</div>";
                 });
-            return;
         }
-
-        let page = pages.find(p => p.id === slug);
-        if (page) { loadPage(page); return; }
-
-        document.getElementById("postTitle").innerText = "404 - Page Not Found";
-        document.getElementById("postContent").innerHTML = `<div style="text-align:center;padding:50px;"><a href="${mainHome}" class="btn-home">Return Home</a></div>`;
     });
 </script>
 
-<footer>
-    © 2026 Namo Narayanaya Bhakthi Channel
-</footer>
-
+<footer>© 2026 Namo Narayanaya Bhakthi Channel</footer>
 </body>
 </html>
