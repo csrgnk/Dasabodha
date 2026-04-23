@@ -17,56 +17,57 @@
 
     <style>
         :root {
-            --primary: #3FA3A1;
-            --nav-bg: #145A5A;
-            --bg: #F4FBFB;
-            --accent: #F4D03F;
-            --site-pink: #E91E63;
+            --primary: #D35400;      /* Orange Buttons */
+            --nav-bg: #5D4037;       /* Brown Top Menu */
+            --bg: #FFF9E1;           /* Light Yellow Background */
+            --accent: #FFD700;       /* Gold Accent */
+            --site-pink: #E91E63;    /* Pink Site Name */
+            --text-main: #212121;
         }
 
-        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); -webkit-user-select: none; user-select: none; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); -webkit-user-select: none; user-select: none; color: var(--text-main); }
 
-        /* NAV SCROLL */
+        /* NAV SCROLL - BROWN */
         .nav-scroll { background: var(--nav-bg); display: flex; overflow-x: auto; padding: 10px; scrollbar-width: none; }
         .nav-scroll::-webkit-scrollbar { display: none; }
         .nav-scroll a { color: #fff; text-decoration: none; padding: 8px 12px; margin: 0 4px; background: rgba(255,255,255,0.1); border-radius: 4px; white-space: nowrap; font-size: 14px; font-weight: bold; }
 
-        /* HEADER - Responsive Title */
-        .site-header { background: #fff; padding: 15px; border-bottom: 3px solid var(--accent); }
+        /* HEADER - SITE NAME PINK */
+        .site-header { background: #fff; padding: 15px; border-bottom: 4px solid var(--accent); }
         .site-brand { display: flex; align-items: center; justify-content: center; gap: 12px; }
-        .logo { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; }
+        .logo { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid var(--site-pink); }
         .title-wrap { color: var(--site-pink); font-weight: 700; line-height: 1.2; text-align: left; }
         
-        .title-line1 { font-size: 1.45rem; display: block; white-space: nowrap; }
-        .title-line2 { font-size: 1.2rem; display: block; white-space: nowrap; }
+        .title-line1 { font-size: 1.5rem; display: block; white-space: nowrap; }
+        .title-line2 { font-size: 1.25rem; display: block; white-space: nowrap; }
 
         @media(min-width: 768px) {
-            .title-line1, .title-line2 { display: inline; font-size: 1.9rem; }
+            .title-line1, .title-line2 { display: inline; font-size: 2rem; }
             .title-line2 { margin-left: 8px; }
-            .logo { width: 70px; height: 70px; }
+            .logo { width: 75px; height: 75px; }
         }
 
         /* BREADCRUMBS */
-        .breadcrumbs { padding: 10px 15px; font-size: 13px; color: #666; max-width: 800px; margin: auto; }
+        .breadcrumbs { padding: 10px 15px; font-size: 14px; color: #5D4037; max-width: 800px; margin: auto; }
         .breadcrumbs a { color: var(--primary); text-decoration: none; font-weight: bold; }
 
-        /* CONTENT */
-        .container { max-width: 800px; margin: 10px auto; padding: 0 15px; min-height: 400px; }
-        .post-title { background: linear-gradient(135deg,#2E8B87,#3FA3A1); color: #fff; padding: 18px; text-align: center; border-radius: 10px; font-size: 22px; margin-bottom: 15px; font-weight: bold; }
-        .post-content { background: #fff; padding: 25px; border-radius: 10px; line-height: 1.8; box-shadow: 0 2px 10px rgba(0,0,0,0.05); font-size: 17px; }
+        /* CONTENT - LARGE TEXT */
+        .container { max-width: 850px; margin: 10px auto; padding: 0 15px; min-height: 450px; }
+        .post-title { background: linear-gradient(135deg, #D35400, #E67E22); color: #fff; padding: 20px; text-align: center; border-radius: 12px; font-size: 26px; margin-bottom: 15px; font-weight: bold; }
+        .post-content { background: #ffffff; padding: 30px; border-radius: 12px; line-height: 2.1; box-shadow: 0 2px 12px rgba(0,0,0,0.08); font-size: 20px; border: 1px solid #FFE082; }
 
         /* SHARE BOX */
-        .share-box { margin-top: 30px; padding: 20px; border-top: 1px solid #eee; text-align: center; }
-        .share-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 10px; }
-        .share-btn { flex: 1; min-width: 85px; padding: 10px 5px; color: #fff; border-radius: 5px; text-decoration: none; font-size: 13px; font-weight: bold; border: none; cursor: pointer; }
+        .share-box { margin-top: 35px; padding: 20px; border-top: 2px solid #FFE082; text-align: center; }
+        .share-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 10px; }
+        .share-btn { flex: 1; min-width: 100px; padding: 12px 5px; color: #fff; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: bold; border: none; cursor: pointer; }
 
         /* NAV BUTTONS */
-        .post-nav { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 30px; }
-        .btn-action, .btn-home { padding: 12px; text-align: center; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 14px; }
+        .post-nav { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 35px; }
+        .btn-action, .btn-home { padding: 14px; text-align: center; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 15px; }
         .btn-action { background: var(--primary); color: #fff; }
-        .btn-home { border: 2px solid var(--primary); color: var(--primary); }
+        .btn-home { border: 2px solid var(--primary); color: var(--primary); background: #fff; }
 
-        footer { background: #2E8B87; color: #fff; text-align: center; padding: 25px; margin-top: 40px; font-size: 14px; }
+        footer { background: var(--nav-bg); color: #fff; text-align: center; padding: 30px; margin-top: 50px; font-size: 15px; border-top: 4px solid var(--accent); }
     </style>
 </head>
 
@@ -101,7 +102,6 @@
     const pathParts = path.split('/').filter(Boolean);
     let slug = pathParts[pathParts.length - 1] || "index";
 
-    /* 🍞 BREADCRUMBS */
     function buildBreadcrumbs(pageTitle, dashakamNum = null) {
         let html = `<a href="${mainHome}">Home</a>`;
         if (dashakamNum) html += ` <span>&gt;</span> Dashakam ${dashakamNum}`;
@@ -109,7 +109,6 @@
         document.getElementById("breadcrumb").innerHTML = html;
     }
 
-    /* 📲 SHARE BUTTONS */
     function shareButtons(title) {
         let url = location.href;
         let text = encodeURIComponent(title + " - " + url);
@@ -119,7 +118,7 @@
             <div class="share-grid">
                 <a class="share-btn" href="https://wa.me/?text=${text}" target="_blank" style="background:#25D366;">WhatsApp</a>
                 <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=${url}" target="_blank" style="background:#1877F2;">Facebook</a>
-                <button class="share-btn" onclick="copyLink()" style="background:#555;">Copy Link</button>
+                <button class="share-btn" onclick="copyLink()" style="background:#5D4037;">Copy Link</button>
             </div>
         </div>`;
     }
@@ -129,21 +128,21 @@
         alert("Link Copied!");
     }
 
-    /* ↔️ NAVIGATION - FIXED PREV/NEXT LOGIC */
+    /* ↔️ NAVIGATION - SWAPPED INTERNAL LINKS */
     function buildNav(posts, i) {
-        // Find the index of the current post
-        let currentIndex = parseInt(i);
-        let prev = posts[currentIndex - 1]; // Previous item in the array
-        let next = posts[currentIndex + 1]; // Next item in the array
+        // Logic: 
+        // Left button (Label Prev) links to NEXT post (i + 1)
+        // Right button (Label Next) links to PREVIOUS post (i - 1)
+        let linkToNext = posts[i + 1]; 
+        let linkToPrev = posts[i - 1]; 
 
         return `<div class="post-nav">
-            ${prev ? `<a href="${mainHome}${prev.url}/" class="btn-action">← Prev</a>` : `<div></div>`}
+            ${linkToNext ? `<a href="${mainHome}${linkToNext.url}/" class="btn-action">← Prev</a>` : `<div></div>`}
             <a href="${mainHome}" class="btn-home">HOME</a>
-            ${next ? `<a href="${mainHome}${next.url}/" class="btn-action">Next →</a>` : `<div></div>`}
+            ${linkToPrev ? `<a href="${mainHome}${linkToPrev.url}/" class="btn-action">Next →</a>` : `<div></div>`}
         </div>`;
     }
 
-    /* 📄 LOAD PAGES (About, Contact etc) */
     function loadPage(page) {
         fetch(`${mainHome}pages/${page.file}.html`)
             .then(r => r.text())
@@ -157,7 +156,6 @@
             });
     }
 
-    /* 📊 LOAD DATA */
     Promise.all([
         fetch(`${mainHome}data/posts.json?v=${new Date().getTime()}`).then(r => r.json()),
         fetch(`${mainHome}data/pages.json?v=${new Date().getTime()}`).then(r => r.json()).catch(() => [])
@@ -171,7 +169,6 @@
             document.getElementById("postTitle").innerText = post.title;
             buildBreadcrumbs(post.title, post.dashakam);
 
-            // Fetch Samasam content from /posts/ folder
             fetch(`${mainHome}posts/${slug}.html`)
                 .then(r => {
                     if (!r.ok) throw new Error();
@@ -184,7 +181,7 @@
                     document.getElementById("postContent").innerHTML = temp.innerHTML + shareButtons(post.title) + buildNav(posts, i);
                 })
                 .catch(() => {
-                    document.getElementById("postContent").innerHTML = "<div style='text-align:center; padding:50px;'>సాహిత్యం ఇంకా అప్‌లోడ్ కాలేదు. <br> (Check if posts/" + slug + ".html exists)</div>";
+                    document.getElementById("postContent").innerHTML = "<div style='text-align:center; padding:50px;'>Content loading...</div>";
                 });
             return;
         }
