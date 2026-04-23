@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="te">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,13 +17,13 @@
 
     <style>
         :root {
-            --primary: #3FA3A1;
-            --secondary: #1A1A1A;
-            --accent: #F4D03F;
-            --bg: #F4FBFB;
-            --top-links-bg: #145A5A;
-            --outer-links-bg: #3FA3A1;
-            --site-pink: #E91E63;
+            --primary: #D35400;      /* Orange */
+            --secondary: #5D4037;    /* Brown */
+            --accent: #FFD700;       /* Gold */
+            --bg: #FFF9E1;           /* Light Yellow */
+            --top-links-bg: #5D4037; /* Brown */
+            --outer-links-bg: #D35400; /* Orange */
+            --site-pink: #E91E63;    /* Pink */
         }
 
         body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: #222; overflow-x: hidden; -webkit-user-select: none; user-select: none; }
@@ -44,17 +44,15 @@
         }
 
         /* 🏛️ HEADER SETUP */
-        header { background: #fff; padding: 25px 10px; border-bottom: 3px solid var(--accent); }
+        header { background: #fff; padding: 25px 10px; border-bottom: 4px solid var(--accent); }
         .header-container { display: flex; align-items: center; justify-content: center; gap: 15px; width: 100%; }
-        .header-logo { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+        .header-logo { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 2px solid var(--site-pink); }
         
-        .site-title-main { font-family: 'Crimson Text', serif; color: var(--site-pink); margin: 0; line-height: 1.2; text-align: left; }
+        .site-title-main { color: var(--site-pink); margin: 0; line-height: 1.2; text-align: left; }
         
-        /* Mobile View: Size decreased as requested (1.4rem and 1.2rem) */
         .line-1 { font-size: 1.45rem; display: block; font-weight: 700; white-space: nowrap; }
         .line-2 { font-size: 1.2rem; display: block; font-weight: 600; white-space: nowrap; }
 
-        /* Desktop View: Adjusted for larger screens */
         @media (min-width: 768px) {
             .line-1, .line-2 { display: inline; font-size: 1.9rem; }
             .line-2 { margin-left: 10px; }
@@ -62,24 +60,25 @@
         }
 
         .sub-container { text-align: center; margin-top: 12px; }
-        .site-title-sub { background: #eee; padding: 6px 15px; border-radius: 20px; font-size: 0.82rem; color: #444; display: inline-block; font-weight: 600; }
+        .site-title-sub { background: #FFF3E0; padding: 6px 15px; border-radius: 20px; font-size: 0.82rem; color: #5D4037; display: inline-block; font-weight: 600; border: 1px solid var(--accent); }
 
         /* 🔍 SEARCH BOX */
         .search-area { width: 100%; display: flex; justify-content: center; margin: 25px 0; }
-        #postSearch { width: 70%; max-width: 250px; padding: 12px; border-radius: 25px; border: 1px solid #ccc; text-align: center; font-size: 15px; outline: none; }
+        #postSearch { width: 70%; max-width: 250px; padding: 12px; border-radius: 25px; border: 2px solid var(--accent); text-align: center; font-size: 15px; outline: none; background: #fff; }
 
         /* 📄 CONTENT */
         .container { max-width: 700px; margin: auto; padding: 0 15px; min-height: 300px; }
-        .post-card { background: #fff; border-radius: 8px; padding: 18px; margin-bottom: 15px; border-left: 5px solid var(--primary); box-shadow: 0 2px 5px rgba(0,0,0,0.05); cursor: pointer; }
+        .post-card { background: #fff; border-radius: 8px; padding: 18px; margin-bottom: 15px; border-left: 5px solid var(--primary); box-shadow: 0 2px 5px rgba(0,0,0,0.05); cursor: pointer; transition: 0.3s; }
+        .post-card:hover { border-left-color: var(--secondary); transform: translateY(-2px); }
         .post-title-click { margin: 0 0 8px; font-size: 1.25rem; color: var(--secondary); font-weight: 700; }
 
         /* 🔘 DASHAKAM NAV */
-        .nav-section { text-align: center; padding: 30px 0; background: #fff; margin-top: 30px; }
-        .scroll-container { display: flex; overflow-x: auto; gap: 10px; padding: 10px; white-space: nowrap; scrollbar-width: none; }
-        .dash-btn { min-width: 100px; padding: 10px; border-radius: 20px; background: #fff; cursor: pointer; border: 1px solid #ddd; font-weight: 700; flex-shrink: 0; }
-        .dash-btn.active { background: var(--secondary); color: var(--accent); border-color: var(--secondary); }
+        .nav-section { text-align: center; padding: 30px 0; background: #FFFDE7; margin-top: 30px; border-top: 2px solid var(--accent); }
+        .scroll-container { display: flex; overflow-x: auto; gap: 10px; padding: 15px; white-space: nowrap; scrollbar-width: none; }
+        .dash-btn { min-width: 100px; padding: 10px; border-radius: 20px; background: #fff; cursor: pointer; border: 1px solid #ddd; font-weight: 700; flex-shrink: 0; transition: 0.2s; }
+        .dash-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
 
-        footer { background: #145A5A; color: #fff; text-align: center; padding: 25px; font-size: 0.9rem; }
+        footer { background: var(--secondary); color: #fff; text-align: center; padding: 25px; font-size: 0.9rem; border-top: 4px solid var(--accent); }
     </style>
 </head>
 
@@ -120,11 +119,11 @@
 </div>
 
 <main class="container" id="postsContainer">
-    <div style="text-align:center;padding:40px;">🙏 Loading Posts...</div>
+    <div style="text-align:center;padding:40px;">🙏 Loading Samasams...</div>
 </main>
 
 <nav class="nav-section">
-    <p><b>SELECT DASHAKAM</b></p>
+    <p><b style="color:var(--secondary);">SELECT DASHAKAM</b></p>
     <div class="scroll-container" id="dashButtons"></div>
 </nav>
 
@@ -169,7 +168,7 @@
                 });
 
         if (filtered.length === 0) {
-            container.innerHTML = `<div style="text-align:center;padding:40px;">No posts found.</div>`;
+            container.innerHTML = `<div style="text-align:center;padding:40px;">No Samasams found.</div>`;
             return;
         }
 
